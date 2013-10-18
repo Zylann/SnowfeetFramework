@@ -1,0 +1,52 @@
+{
+	"textures":
+	{
+		"root":"assets/textures",
+		"list":[]
+	},
+
+	"fonts":
+	{
+		"root":"assets/fonts",
+		"list":
+		[
+			{ "name":"default", "src":"Grand9K Pixel.ttf" }
+		]
+	},
+
+	"atlases":
+	{
+		"root":"assets/textures",
+		"list":
+		[
+			{ "name":"room", "src":"room_atlas.json" },
+			{ "name":"avatar", "src":"avatar_atlas.json" },
+			{ "name":"cat", "src":"cat_atlas.json" }
+		]
+	},
+
+	"sounds":
+	{
+		"root":"assets/sounds",
+		"list":
+		[
+			{ "name":"cat_meow1", "src":"cat_meow1.wav" },
+			{ "name":"cat_meow2", "src":"cat_meow2.wav" },
+			{ "name":"cat_meow3", "src":"cat_meow3.wav" },
+			{ "name":"cat_meow4", "src":"cat_meow4.wav" },
+			{ "name":"gate_close", "src":"gate_close.wav" },
+			{ "name":"gate_open", "src":"gate_open.wav" },
+			{ "name":"step", "src":"step.wav" }
+		]
+	},
+
+	"maps":
+	{
+		"root":"assets/maps",
+		"list":
+		[
+			{ "name":"test", "src":"test_map.json" }
+		]
+	}
+}
+
