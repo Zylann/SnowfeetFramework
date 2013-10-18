@@ -105,6 +105,7 @@ void Scene::update(sf::Time deltaTime)
 	if(!m_nextEntities.empty())
 	{
 		m_entities.splice(m_entities.end(), m_nextEntities);
+		m_nextEntities.clear();
 	}
 
 	// Late destructions
