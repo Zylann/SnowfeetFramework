@@ -1,5 +1,5 @@
 Proto2D (temp title)
---------
+--------------------
 
 This is an experimental, cross-platform game engine specialized for 2D desktop
 game making. Currently, it is built on top of SFML2
@@ -28,6 +28,16 @@ Planned/suggested :
 - Full-featured editor made using the engine
 - Customizable rendering pipeline
 - GUI (for both game and editor?)
+- Entity parenting
+- Scene transitions
+- Serialization
+- ...
+
+Dependencies
+------------
+
+- SFML 2.1 http://www.sfml-dev.org/
+- RapidJSON (included in source) https://code.google.com/p/rapidjson/
 
 Folder structure
 ----------------
@@ -52,6 +62,9 @@ necessary.
 | | |-game2d/  : the actual game engine (window, components, scene...).
 | | |            it uses all the other source files under fm/.
 | | |
+| | |-rapidjson/ : the JSON API used by the engine.
+| | |              more at https://code.google.com/p/rapidjson/
+| | |
 | | |-sfml/    : sfml utility that doesn't depends on the engine. It may also
 | | |            contain drawable classes that are not component-based.
 | | |
@@ -60,5 +73,9 @@ necessary.
 | |  
 | |-ssm/       : contains the game's code (namespace is ssm::)
 
+Notes
+-----
 
+I'm also involved into the NinjaSDK, an open-source 2D game engine.
+Take a look ! http://ninjasdk.freeforall.fr/
 
