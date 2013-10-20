@@ -275,6 +275,21 @@ void Scene::draw(sf::RenderTarget& target, sf::RenderStates states) const
 			// Draw renderer
 			target.draw(renderer);
 		}
+
+#ifdef ZN_DEBUG
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::F3))
+		{
+			// Draw collider boundaries
+			for(auto it = drawList.cbegin(); it != drawList.cend(); ++it)
+			{
+				const ACollider * collider = it->second->entity().collider();
+				if(collider != nullptr)
+				{
+					collider->debug_draw(target);
+				}
+			}
+		}
+#endif
 	}
 
 	m_iterating = false;

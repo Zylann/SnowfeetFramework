@@ -8,7 +8,7 @@
 namespace zn
 {
 
-// PriorityQueue having a non-template compare function.
+// PriorityQueue with a non-template compare function.
 // Warning: this was translated from C#. The comparer has been made public,
 // but you may not assign it after construction (or data will become inconsistent).
 // I leaved it this way in order to ease the use of lambdas, instead of a compile-time comparison.
