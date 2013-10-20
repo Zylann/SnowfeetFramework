@@ -19,6 +19,7 @@ Features
 - Easily versionnable meta-file system using JSON
 - Template asset pipeline
 - Source access for both gameplay and engine modifications
+- TilEd import http://www.mapeditor.org/
 
 Planned/suggested :
 
@@ -38,6 +39,7 @@ Dependencies
 
 - SFML 2.1 http://www.sfml-dev.org/
 - RapidJSON (included in source) https://code.google.com/p/rapidjson/
+- C++11
 
 Folder structure
 ----------------
