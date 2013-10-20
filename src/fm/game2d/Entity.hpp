@@ -87,6 +87,8 @@ public:
 		}
 	}
 
+	// TODO eraseComponent(cmp)
+
 	// Finds the first behaviour matching the given type.
 	// Warning: this operation is very slow. You may use it only if it's the only way.
 	template <class Cmp_T>
