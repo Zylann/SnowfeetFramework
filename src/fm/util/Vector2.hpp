@@ -353,6 +353,7 @@ namespace std
 	template <>
 	struct hash<zn::Vector2i>
 	{
+		// 32-bit integer (x,y) hash
 		inline size_t operator()(const zn::Vector2i & v) const
 		{
 			return v.x | (v.y << 16);
