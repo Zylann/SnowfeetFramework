@@ -18,7 +18,7 @@ public:
 
 protected:
 
-	ARenderer() : AComponent() {}
+	ARenderer() : AComponent(), drawOrder(0) {}
 
 public:
 
@@ -26,7 +26,10 @@ public:
 	virtual void setAtlas(const TextureAtlas * atlas) {}
 	virtual void setTextureRect(const sf::IntRect & rect) {}
 
-	// TODO draw order
+	// Defines the draw order of the renderer.
+	// A high value means later (front), a lower value means earlier (back).
+	// Renderers are sorted on each frame, so this value can be adjusted anytime you want.
+	s32 drawOrder;
 
 };
 

@@ -25,6 +25,7 @@ void Game::onInit()
 	const TiledMap * mapAsset = m_assets.maps.get("test");
 	MapRenderer * mr = map->addComponent<MapRenderer>();
 	mr->setMap(mapAsset, m_assets.atlases.get("room"), "background");
+	mr->drawOrder = -1; // The map is drawn first
 	MapCollider * mc = map->addComponent<MapCollider>();
 	mc->setColliderType(1, sf::FloatRect(0, 0, ts, ts));
 	mc->setColliderType(2, sf::FloatRect(0, 0, ts/2, ts));
@@ -51,12 +52,12 @@ void Game::onInit()
 
 	// Avatar
 
-	Entity * avatar = m_scene.createEntity("the_bum", sf::Vector2f(16*ts,8*ts));
+	Entity * avatar = m_scene.createEntity("the_bum", sf::Vector2f(64*ts,31*ts));
 	avatar->addComponent<Avatar>();
 
 	// Cats
 
-	Entity * cat = m_scene.createEntity("snowfeet", sf::Vector2f(16*ts, 10*ts));
+	Entity * cat = m_scene.createEntity("snowfeet", sf::Vector2f(62*ts, 31*ts));
 	cat->addComponent<Cat>();
 
 }

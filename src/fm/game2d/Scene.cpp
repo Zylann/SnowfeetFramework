@@ -7,6 +7,7 @@ This file is part of the zCraft-Framework project.
 #include <iostream>
 #include <sstream>
 #include <cassert>
+#include <map>
 #include "Scene.hpp"
 #include "components/Renderer.hpp"
 #include "components/Collider.hpp"
@@ -243,23 +244,36 @@ void Scene::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
 		const Camera & camera = **cameraIt;
 
+		// Set view transform
 		target.setView(camera.internalView());
+
 		u32 layerMask = camera.entity().layerMask();
 
-		// Draw visible entities
+		// TODO optimize renderer sorting
+
+		// Filter and sort renderers by draw order
+		std::multimap<s32, const ARenderer*> drawList;
 		for(auto it = renderers.cbegin(); it != renderers.cend(); ++it)
 		{
-			const ARenderer & renderer = **it;
-			const Entity & entity = renderer.entity();
+			const ARenderer * renderer = *it;
+			const Entity & entity = renderer->entity();
 
 			if(entity.active() && (entity.layerMask() & layerMask))
 			{
-				// Apply entity's transform
-				states.transform.combine(entity.m_transform.getTransform());
-
-				// Draw
-				target.draw(renderer);
+				drawList.insert(std::make_pair(renderer->drawOrder, renderer));
 			}
+		}
+
+		// Draw filtered renderers in the right order
+		for(auto it = drawList.cbegin(); it != drawList.cend(); ++it)
+		{
+			const ARenderer & renderer = *it->second;
+
+			// Apply entity's transform
+			states.transform.combine(renderer.entity().m_transform.getTransform());
+
+			// Draw renderer
+			target.draw(renderer);
 		}
 	}
 
