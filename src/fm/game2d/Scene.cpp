@@ -19,8 +19,7 @@ namespace zn
 {
 
 Scene::Scene() :
-	r_mainCamera(nullptr),
-	m_iterating(false)
+	r_mainCamera(nullptr)
 {
 	layers.setLayer(0, "default");
 }
@@ -40,14 +39,14 @@ Entity * Scene::createEntity(std::string name, sf::Vector2f pos)
 	if(name.empty())
 	{
 		std::stringstream ss;
-		ss << "entity" << m_entities.size() + m_nextEntities.size();
+		ss << "entity" << m_entities.size();
 		name = ss.str();
 	}
 	e->setName(name);
 
 	e->setScene(this);
 
-	m_nextEntities.push_back(e);
+	m_entities.push_back(e);
 
 #ifdef ZN_DEBUG
 	std::cout << "D: Scene::addEntity: " << name
@@ -78,7 +77,8 @@ void Scene::unregisterBehaviour(ABehaviour * behaviour)
 }
 
 //------------------------------------------------------------------------------
-// Predicate
+// Deletes the given entity if its DESTROY_LATE flag is true,
+// and returns the flag value
 bool isLateDestroyThenDelete(Entity * e)
 {
 	if(e->flag(Entity::DESTROY_LATE))
@@ -90,118 +90,42 @@ bool isLateDestroyThenDelete(Entity * e)
 		return false;
 }
 
+//------------------------------------------------------------------------------
 void Scene::update(sf::Time deltaTime)
 {
 	m_deltaTime = deltaTime;
 
-	m_iterating = true;
-
-	// Update behaviours
+	// Update behaviours in their update order
 	for(u32 i = 0; i < m_behaviours.size(); ++i)
 	{
 		m_behaviours[i].update();
 	}
 
-	// Spawns
-	if(!m_nextEntities.empty())
-	{
-		m_entities.splice(m_entities.end(), m_nextEntities);
-		m_nextEntities.clear();
-	}
+	// Destroy entities with DESTROY_LATE
+	m_entities.remove_if(isLateDestroyThenDelete);
 
-	// Late destructions
-	std::list<Entity*> lateDestroyEntities;
-	for(auto it = m_entities.begin(); it != m_entities.end(); ++it)
-	{
-		Entity * e = *it;
-		if(e->flag(Entity::DESTROY_LATE))
-		{
-			lateDestroyEntities.push_back(e);
-		}
-	}
-	if(!lateDestroyEntities.empty())
-	{
-		m_entities.remove_if(isLateDestroyThenDelete);
-	}
-
-	// Update engine component systems
+	// Update physics
 	bodies.update();
+
+	// Update cameras
 	cameras.update();
+
+	// Update animations
 	animators.update();
+
+	// Update renderers
 	renderers.update();
-
-	m_iterating = false;
-
-	// OLD CODE
-//	m_iterating = true;
-
-//	std::list<Entity*> lateDestroyEntities;
-//
-//	auto it = m_entities.begin();
-
-//	while(it != m_entities.end())
-//	{
-//		Entity * e = (*it);
-//
-//		if(e->active())
-//		{
-//			e->update();
-//		}
-//
-//		if(e->flag(Entity::DESTROY_NOW))
-//		{
-//			delete e;
-//			it = m_entities.erase(it);
-//		}
-//		else
-//		{
-//			if(e->flag(Entity::DESTROY_LATE))
-//			{
-//				lateDestroyEntities.push_back(e);
-//			}
-//
-//			++it;
-//		}
-//	}
-
-	// Late destructions
-//	if(!lateDestroyEntities.empty())
-//	{
-//		m_entities.remove_if(isLateDestroyThenDelete);
-//	}
-
-	// Spawns
-//	if(!m_nextEntities.empty())
-//	{
-//		m_entities.splice(m_entities.end(), m_nextEntities);
-//	}
 }
 
 //------------------------------------------------------------------------------
 void Scene::clear()
 {
-	if(m_iterating)
-	{
-#ifdef ZN_DEBUG
-		std::cout << "E: Scene::clear: called during iteration, abort." << std::endl;
-#endif
-		return;
-	}
-
-	m_iterating = true;
-
 	for(Entity *& e : m_entities)
 	{
+		// Note: the destruction of an entity triggers the destruction of its
+		// components too
 		delete e;
 	}
-
-	// Note : should be empty already after update()
-	for(Entity *& e : m_nextEntities)
-	{
-		delete e;
-	}
-
-	m_iterating = false;
 	m_entities.clear();
 }
 
@@ -224,6 +148,7 @@ void Scene::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	sf::Clock profileClock;
 #endif
 
+	// If there is no camera to render the scene, there is nothing to draw
 	if(cameras.empty())
 	{
 #ifdef ZN_DEBUG
@@ -236,8 +161,6 @@ void Scene::draw(sf::RenderTarget& target, sf::RenderStates states) const
 #endif
 		return;
 	}
-
-	m_iterating = true;
 
 	// For each camera
 	for(auto cameraIt = cameras.cbegin(); cameraIt != cameras.cend(); ++cameraIt)
@@ -291,8 +214,6 @@ void Scene::draw(sf::RenderTarget& target, sf::RenderStates states) const
 		}
 #endif
 	}
-
-	m_iterating = false;
 
 #if defined(ZN_DEBUG) && defined(ZN_PROFILE_SCENE)
 	float renderTimeMs = profileClock.getElapsedTime().asMilliseconds();

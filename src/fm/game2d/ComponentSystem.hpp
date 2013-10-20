@@ -51,16 +51,17 @@ public:
 
 		if(m_all.erase(cmp) == 0)
 		{
-			std::cout << "W: Scene::unregisterComponent: "
+			std::cout << "E: Scene::unregisterComponent: "
 				<< cmp->componentType().name << " was not registered." << std::endl;
 		}
-
-//		onUnregister(cmp);
 	}
 
 	void update()
 	{
-		for(auto it = m_all.begin(); it != m_all.end(); ++it)
+		// Iterate over a copy to avoid
+		auto updateList = m_all;
+
+		for(auto it = updateList.begin(); it != updateList.end(); ++it)
 		{
 			Cmp_T & cmp = **it;
 			if(cmp.entity().active())
@@ -69,9 +70,6 @@ public:
 			}
 		}
 	}
-
-//	virtual void onRegister(Cmp_T * cmp) {}
-//	virtual void onUnregister(Cmp_T * cmp) {}
 
 	inline u32 count() const { return m_all.size(); }
 	inline bool empty() const { return m_all.empty(); }

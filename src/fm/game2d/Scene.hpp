@@ -90,14 +90,12 @@ protected:
 
 private:
 
-	std::list<Entity*>              m_nextEntities; // Entities added during scene iteration
 	std::list<Entity*>              m_entities; // Entities in play
 
 	// References to behaviours [updateOrder][index]
 	std::vector< ComponentSystem<AComponent> > m_behaviours;
 
 	Camera *                        r_mainCamera;
-	mutable bool                    m_iterating;
 	sf::Clock                       m_time;
 	sf::Time                        m_deltaTime;
 
