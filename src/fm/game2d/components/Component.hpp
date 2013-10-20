@@ -13,6 +13,8 @@ namespace zn
 class Entity;
 
 // A piece that composes an entity.
+// Note: components that derive directly from Component are specific to the engine.
+// if you want to implement gameplay, please derive from Behaviour instead.
 class AComponent : public Object
 {
 public:
@@ -24,7 +26,7 @@ public:
 	virtual void update();
 	virtual void onDestroy();
 
-	Entity & owner() const;
+	Entity & entity() const;
 
 	// Returns the meta-class of the component
 	virtual const ComponentType & componentType() const = 0;

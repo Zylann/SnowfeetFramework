@@ -7,12 +7,12 @@ namespace zn
 void ACollider::onAdd(Entity * e)
 {
 	AComponent::onAdd(e);
-	owner().scene().colliders.registerComponent(this);
+	entity().scene().colliders.registerComponent(this);
 }
 
 void ACollider::onDestroy()
 {
-	owner().scene().colliders.unregisterComponent(this);
+	entity().scene().colliders.unregisterComponent(this);
 }
 
 } // namespace zn

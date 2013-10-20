@@ -34,11 +34,11 @@ void AComponent::onDestroy()
 {
 }
 
-Entity & AComponent::owner() const
+Entity & AComponent::entity() const
 {
 #ifdef ZN_DEBUG
 	if(r_owner == nullptr)
-		std::cout << "E: AComponent::owner: _owner is null !" << std::endl;
+		std::cout << "E: AComponent::entity: _owner is null !" << std::endl;
 #endif
 	return *r_owner;
 }

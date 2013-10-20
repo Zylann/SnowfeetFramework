@@ -106,7 +106,7 @@ void ParticleSystem::init()
 //------------------------------------------------------------------------------
 void ParticleSystem::update()
 {
-	//sf::Vector2f ownerPos = owner().position();
+	//sf::Vector2f ownerPos = entity().position();
 
 	for(u32 i = 0; i < _particles.size(); ++i)
 	{
@@ -128,7 +128,7 @@ void ParticleSystem::update()
 		else
 		{
 			// TODO
-			p.remainingTime -= owner().scene().deltaTime().asSeconds();
+			p.remainingTime -= entity().scene().deltaTime().asSeconds();
 			p.pos += p.velocity;
 		}
 

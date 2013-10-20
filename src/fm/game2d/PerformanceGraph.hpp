@@ -13,6 +13,7 @@ This file is part of the zCraft-Framework project.
 namespace zn
 {
 
+// A simple histogram showing the evolution of a value over time.
 class PerformanceGraph : public sf::Drawable
 {
 public:

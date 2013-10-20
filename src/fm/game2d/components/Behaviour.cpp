@@ -7,12 +7,12 @@ namespace zn
 void ABehaviour::onAdd(Entity * e)
 {
 	AComponent::onAdd(e);
-	owner().scene().registerBehaviour(this);
+	entity().scene().registerBehaviour(this);
 }
 
 void ABehaviour::onDestroy()
 {
-	owner().scene().unregisterBehaviour(this);
+	entity().scene().unregisterBehaviour(this);
 }
 
 } // namespace zn

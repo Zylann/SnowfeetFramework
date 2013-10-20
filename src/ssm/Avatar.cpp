@@ -29,7 +29,7 @@ void Avatar::init()
 {
 	Character::init();
 
-	Entity & e = owner();
+	Entity & e = entity();
 
 	r_sprite->setAtlas(AssetBank::current()->atlases.get("avatar"));
 	r_sprite->setFrame("idle.down");
@@ -37,7 +37,7 @@ void Avatar::init()
 
 	r_mover->setMaxSpeed(2.5f);
 
-	owner().addComponent<BoxCollider>()->setRect(sf::FloatRect(4, 7, 24, 24));
+	entity().addComponent<BoxCollider>()->setRect(sf::FloatRect(4, 7, 24, 24));
 
 	e.addComponent<SpriteAnimator>();
 }
@@ -80,9 +80,9 @@ void Avatar::update()
 
 	// Make the camera follow
 
-	Entity & cam = owner().scene().mainCamera()->owner();
-	cam.setPosition(owner().position() + sf::Vector2f(16,16));
-	cam.setRotation(sin(0.5f*owner().scene().time().asSeconds()));
+	Entity & cam = entity().scene().mainCamera()->entity();
+	cam.setPosition(entity().position() + sf::Vector2f(16,16));
+	cam.setRotation(sin(0.5f*entity().scene().time().asSeconds()));
 
 	// Character-specific stuff (sprite orientation...)
 

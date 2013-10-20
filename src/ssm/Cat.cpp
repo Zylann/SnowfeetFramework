@@ -29,9 +29,9 @@ void Cat::init()
 
 	r_mover->setMaxSpeed(1.0f);
 
-	owner().addComponent<BoxCollider>()->setRect(sf::FloatRect(0, 0, 16, 16));
+	entity().addComponent<BoxCollider>()->setRect(sf::FloatRect(0, 0, 16, 16));
 
-	owner().addComponent<SpriteAnimator>();
+	entity().addComponent<SpriteAnimator>();
 
 	m_timeBeforeAction = 5.f;
 	m_motorDir = Direction::NONE;
@@ -39,7 +39,7 @@ void Cat::init()
 
 void Cat::update()
 {
-	f32 dt = owner().scene().deltaTime().asSeconds();
+	f32 dt = entity().scene().deltaTime().asSeconds();
 	m_timeBeforeAction -= dt;
 
 	if(m_timeBeforeAction < 0)

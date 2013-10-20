@@ -8,8 +8,10 @@
 namespace zn
 {
 
-// Container gathering a specific type of component.
+// Generic container gathering a specific type of component.
 // It can be used to interact with a more complex subsystem (physics engine, scene graph library...)
+// Note: some systems may need more than one type of component (like the audio system),
+// and then will not be based on this generic one.
 template <class Cmp_T>
 class ComponentSystem
 {
@@ -61,7 +63,7 @@ public:
 		for(auto it = m_all.begin(); it != m_all.end(); ++it)
 		{
 			Cmp_T & cmp = **it;
-			if(cmp.owner().active())
+			if(cmp.entity().active())
 			{
 				cmp.update();
 			}

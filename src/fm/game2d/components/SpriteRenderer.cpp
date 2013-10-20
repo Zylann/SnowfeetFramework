@@ -28,8 +28,8 @@ void SpriteRenderer::setTextureRect(const sf::IntRect& rect)
 
 void SpriteRenderer::setAtlas(const TextureAtlas * atlas)
 {
-	if(owner().animator() != nullptr)
-		owner().animator()->stop();
+	if(entity().animator() != nullptr)
+		entity().animator()->stop();
 	r_atlas = atlas;
 	m_sprite.setTexture(r_atlas->texture());
 }
@@ -43,9 +43,9 @@ void SpriteRenderer::setFrame(const std::string& id)
 		{
 			m_sprite.setTextureRect(f->rect);
 
-			if(owner().animator() != nullptr)
+			if(entity().animator() != nullptr)
 			{
-				owner().animator()->stop();
+				entity().animator()->stop();
 			}
 		}
 #ifdef ZN_DEBUG

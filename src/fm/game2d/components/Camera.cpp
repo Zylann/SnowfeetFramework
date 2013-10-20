@@ -17,12 +17,12 @@ Camera::~Camera()
 void Camera::onAdd(Entity * e)
 {
 	AComponent::onAdd(e);
-	owner().scene().cameras.registerComponent(this);
+	entity().scene().cameras.registerComponent(this);
 }
 
 void Camera::onDestroy()
 {
-	owner().scene().cameras.unregisterComponent(this);
+	entity().scene().cameras.unregisterComponent(this);
 }
 
 void Camera::init()
@@ -41,8 +41,8 @@ void Camera::setViewport(const sf::FloatRect & r)
 
 void Camera::update()
 {
-	m_view.setCenter(owner().position());
-	m_view.setRotation(owner().rotation());
+	m_view.setCenter(entity().position());
+	m_view.setRotation(entity().rotation());
 }
 
 void Camera::setScaleMode(u8 mode)

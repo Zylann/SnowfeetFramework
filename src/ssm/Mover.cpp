@@ -87,9 +87,9 @@ void Mover::update()
 	if(speed > 0.01f)
 	{
 		sf::Vector2f motion = m_velocity;
-		const ACollider * collider = owner().collider();
+		const ACollider * collider = entity().collider();
 		sf::FloatRect rect = collider->bounds();
-		sf::Vector2f pos = owner().position();
+		sf::Vector2f pos = entity().position();
 		sf::Vector2f boxOffset(rect.left, rect.top);
 		rect.left += pos.x;
 		rect.top += pos.y;
@@ -104,11 +104,11 @@ void Mover::update()
 			if(!math::isZero(motion.x))
 			{
 				rect.left += u.x;
-				otherCollider = owner().scene().colliderAt(rect, collider);
+				otherCollider = entity().scene().colliderAt(rect, collider);
 				if(otherCollider != nullptr)
 				{
 					// Horizontal collision
-					owner().onCollisionEnter(CollisionInfo(otherCollider));
+					entity().onCollisionEnter(CollisionInfo(otherCollider));
 					rect.left -= u.x;
 					motion.x = 0;
 					u.x = 0;
@@ -127,11 +127,11 @@ void Mover::update()
 			if(!math::isZero(motion.y))
 			{
 				rect.top += u.y;
-				otherCollider = owner().scene().colliderAt(rect, collider);
+				otherCollider = entity().scene().colliderAt(rect, collider);
 				if(otherCollider != nullptr)
 				{
 					// Vertical collision
-					owner().onCollisionEnter(CollisionInfo(otherCollider));
+					entity().onCollisionEnter(CollisionInfo(otherCollider));
 					rect.top -= u.y;
 					motion.y = 0;
 					u.y = 0;
@@ -150,7 +150,7 @@ void Mover::update()
 
 		pos.x = rect.left - boxOffset.x;
 		pos.y = rect.top - boxOffset.y;
-		owner().setPosition(pos);
+		entity().setPosition(pos);
 	}
 }
 

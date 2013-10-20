@@ -7,12 +7,12 @@ namespace zn
 void Body::onAdd(Entity * e)
 {
 	AComponent::onAdd(e);
-	owner().scene().bodies.registerComponent(this);
+	entity().scene().bodies.registerComponent(this);
 }
 
 void Body::onDestroy()
 {
-	owner().scene().bodies.unregisterComponent(this);
+	entity().scene().bodies.unregisterComponent(this);
 }
 
 } // namespace zn

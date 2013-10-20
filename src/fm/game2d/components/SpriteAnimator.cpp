@@ -12,7 +12,7 @@ namespace zn
 
 void SpriteAnimator::setFrame(const std::string& id)
 {
-	ARenderer * r = owner().renderer();
+	ARenderer * r = entity().renderer();
 	if(r != nullptr && r->atlas() != nullptr)
 	{
 		const TextureAtlas::Frame * f = r->atlas()->frame(id);
@@ -23,7 +23,7 @@ void SpriteAnimator::setFrame(const std::string& id)
 
 void SpriteAnimator::play(const std::string& id, s32 loops)
 {
-	ARenderer * r = owner().renderer();
+	ARenderer * r = entity().renderer();
 	if(r == nullptr)
 		return;
 
@@ -42,7 +42,7 @@ void SpriteAnimator::play(const std::string& id, s32 loops)
 		}
 #ifdef ZN_DEBUG
 		else
-			cout << "E: SpriteAnimator::play: not found (" << id << ") on entity \"" << owner().name() << '"' << endl;
+			cout << "E: SpriteAnimator::play: not found (" << id << ") on entity \"" << entity().name() << '"' << endl;
 #endif
 	}
 #ifdef ZN_DEBUG
@@ -62,7 +62,7 @@ void SpriteAnimator::init()
 
 void SpriteAnimator::update()
 {
-	ARenderer * r = owner().renderer();
+	ARenderer * r = entity().renderer();
 	if(r == nullptr)
 		return;
 

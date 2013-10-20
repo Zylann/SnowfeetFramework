@@ -140,7 +140,6 @@ void PerformanceGraph::draw(sf::RenderTarget& target, sf::RenderStates states) c
 	target.draw(m_vertices, states);
 }
 
-
 } // namespace zn
 
 

@@ -104,6 +104,7 @@ void SlicedTilemap::draw(sf::RenderTarget& target, sf::RenderStates states) cons
 	// apply the tileset texture
 	states.texture = r_atlas;
 
+	// TODO only draw chunks that intersect target.view
 	for(auto it = m_chunks.begin(); it != m_chunks.end(); ++it)
 	{
 		target.draw(it->second.vertices, states);

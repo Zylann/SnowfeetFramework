@@ -22,9 +22,9 @@ void Character::init()
 {
 	m_spriteDir = Direction::EAST;
 	m_spriteDirLastFrame = Direction::EAST;
-	r_sprite = owner().addComponent<SpriteRenderer>();
+	r_sprite = entity().addComponent<SpriteRenderer>();
 
-	r_mover = owner().addComponent<Mover>();
+	r_mover = entity().addComponent<Mover>();
 
 	m_movingLastFrame = false;
 }
@@ -37,7 +37,7 @@ void Character::setSpriteDirection(u8 dir)
 void Character::update()
 {
 	// TODO update transform in renderer
-	r_sprite->setPosition(owner().position());
+	r_sprite->setPosition(entity().position());
 
 	bool moving = r_mover->moving();
 
@@ -46,7 +46,7 @@ void Character::update()
 		m_spriteDirLastFrame = m_spriteDir;
 		m_movingLastFrame = moving;
 
-		AAnimator * anim = owner().animator();
+		AAnimator * anim = entity().animator();
 
 		if(anim != nullptr)
 		{

@@ -243,14 +243,14 @@ void Scene::draw(sf::RenderTarget& target, sf::RenderStates states) const
 		const Camera & camera = **cameraIt;
 
 		target.setView(camera.internalView());
-		u32 layerMask = camera.owner().layerMask();
+		u32 layerMask = camera.entity().layerMask();
 
 		// Draw visible entities
 		for(auto it = renderers.cbegin(); it != renderers.cend(); ++it)
 		{
 			const ARenderer & r = **it;
 
-			if(r.owner().active() && (r.owner().layerMask() & layerMask))
+			if(r.entity().active() && (r.entity().layerMask() & layerMask))
 			{
 				target.draw(r);
 				//r.draw(target, states);
