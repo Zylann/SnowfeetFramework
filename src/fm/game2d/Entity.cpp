@@ -57,52 +57,6 @@ void Entity::setRotation(float angleDeg)
 }
 
 //------------------------------------------------------------------------------
-/*
-void Entity::init()
-{
-	// Initialize components
-	for(AComponent *& cmp : m_components)
-		cmp->init();
-}
-*/
-//------------------------------------------------------------------------------
-/*
-void Entity::flushComponents()
-{
-	if(!m_nextBehaviours.empty())
-	{
-		// Initialize components that have been added before
-		for(u32 i = 0; i < m_nextBehaviours.size(); ++i)
-		{
-			m_nextBehaviours[i]->init();
-			m_behaviours.push_back(m_nextBehaviours[i]); // And add them to the main list
-		}
-		m_nextBehaviours.clear();
-		//_behaviours.splice(_behaviours.end(), _nextBehaviours);
-	}
-}
-*/
-//------------------------------------------------------------------------------
-//void Entity::update()
-//{
-//	flushComponents();
-
-	// Update components
-//	for(u32 i = 0; i < m_behaviours.size(); ++i)
-//	{
-//		m_components[i]->update();
-//	}
-
-//	flushComponents();
-
-//	if(m_body != nullptr)
-//		m_body->update();
-//
-//	if(m_renderer != nullptr)
-//		m_renderer->update();
-//}
-
-//------------------------------------------------------------------------------
 void Entity::destroyLater()
 {
 	setFlag(DESTROY_LATE, true);
@@ -166,6 +120,24 @@ AComponent * Entity::addComponent(AComponent * newCmp)
 	newCmp->init();
 
 	return newCmp;
+}
+
+//------------------------------------------------------------------------------
+void Entity::removeComponent(AComponent * cmp)
+{
+	for(auto it = m_components.begin(); it != m_components.end(); ++it)
+	{
+		if(*it == cmp)
+		{
+			delete cmp;
+			m_components.erase(it);
+			return;
+		}
+	}
+
+#ifdef ZN_DEBUG
+	std::cout << "E: Entity::removeComponnet: not found" << std::endl;
+#endif
 }
 
 //------------------------------------------------------------------------------

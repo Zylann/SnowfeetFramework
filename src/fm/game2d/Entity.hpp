@@ -39,16 +39,12 @@ public:
 	~Entity();
 
 	//--------------------------------------
-	// Transform wrapped getters
+	// Wrapped transform
 	//--------------------------------------
 
 	inline const sf::Vector2f & position() const { return m_transform.getPosition(); }
 	inline const sf::Vector2f & scale() const { return m_transform.getScale(); }
 	inline f32 rotation() const { return m_transform.getRotation(); }
-
-	//--------------------------------------
-	// Transform wrapped setters
-	//--------------------------------------
 
 	void setPosition(const sf::Vector2f & pos);
 	void setScale(const sf::Vector2f & s);
@@ -57,9 +53,6 @@ public:
 	//--------------------------------------
 	// Lifecycle
 	//--------------------------------------
-
-//	void init();
-//	void update();
 
 	bool active() const;
 	void setActive(bool active);
@@ -87,7 +80,7 @@ public:
 		}
 	}
 
-	// TODO eraseComponent(cmp)
+	void removeComponent(AComponent * cmp);
 
 	// Finds the first behaviour matching the given type.
 	// Warning: this operation is very slow. You may use it only if it's the only way.
@@ -119,11 +112,8 @@ public:
 	void onCollisionExit(const CollisionInfo & info);
 
 	//--------------------------------------
-	// Rendering & filtering
+	// Layers
 	//--------------------------------------
-
-	// Draws the entity. Has no effect if it is inactive or without a renderer.
-//	void draw(sf::RenderTarget & target, sf::RenderStates states) const;
 
 	inline void setLayerMask(u32 mask) { m_layerMask = mask; }
 	inline u32 layerMask() const { return m_layerMask; }
