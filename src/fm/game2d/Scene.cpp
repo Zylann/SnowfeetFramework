@@ -131,6 +131,7 @@ void Scene::update(sf::Time deltaTime)
 
 	m_iterating = false;
 
+	// OLD CODE
 //	m_iterating = true;
 
 //	std::list<Entity*> lateDestroyEntities;
@@ -248,12 +249,16 @@ void Scene::draw(sf::RenderTarget& target, sf::RenderStates states) const
 		// Draw visible entities
 		for(auto it = renderers.cbegin(); it != renderers.cend(); ++it)
 		{
-			const ARenderer & r = **it;
+			const ARenderer & renderer = **it;
+			const Entity & entity = renderer.entity();
 
-			if(r.entity().active() && (r.entity().layerMask() & layerMask))
+			if(entity.active() && (entity.layerMask() & layerMask))
 			{
-				target.draw(r);
-				//r.draw(target, states);
+				// Apply entity's transform
+				states.transform.combine(entity.m_transform.getTransform());
+
+				// Draw
+				target.draw(renderer);
 			}
 		}
 	}
