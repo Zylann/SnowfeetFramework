@@ -18,7 +18,7 @@ Features
 - Component-subsystems instead of Container-entities
 - Easily versionnable meta-file system using JSON
 - Template asset pipeline
-- Source access for both gameplay impl. and engine modifications
+- Source access for both gameplay and engine modifications
 
 Planned/suggested :
 
@@ -27,7 +27,7 @@ Planned/suggested :
 - Script-based export pipeline
 - Full-featured editor made using the engine
 - Customizable rendering pipeline
-- GUI
+- GUI (for both game and editor?)
 
 Folder structure
 ----------------
