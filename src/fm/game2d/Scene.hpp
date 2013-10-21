@@ -13,6 +13,7 @@ This file is part of the zCraft-Framework project.
 #include "LayerMap.hpp"
 #include "ComponentSystem.hpp"
 #include "components/Behaviour.hpp"
+#include "AudioSystem.hpp"
 
 namespace zn
 {
@@ -83,6 +84,7 @@ public:
 	ComponentSystem<ARenderer>      renderers;
 	ComponentSystem<Body>           bodies;
 	ComponentSystem<AAnimator>      animators;
+	AudioSystem                     audioSystem;
 
 protected:
 

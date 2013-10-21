@@ -45,12 +45,13 @@ namespace zn
 // are updated after behaviours but before rendering...)
 enum ComponentGroup
 {
-	CG_BEHAVIOUR = 0,
-	CG_RENDERER  = 1,
-	CG_COLLIDER  = 2,
-	CG_BODY      = 3,
-	CG_ANIMATOR  = 4,
-	CG_CAMERA    = 5
+	CG_BEHAVIOUR     = 0,
+	CG_RENDERER      = 1,
+	CG_COLLIDER      = 2,
+	CG_BODY          = 3,
+	CG_ANIMATOR      = 4,
+	CG_CAMERA        = 5,
+	CG_AUDIO_EMITTER = 7
 };
 
 enum ComponentTypeFlags
