@@ -38,6 +38,35 @@ void AudioEmitter::update()
 }
 
 //------------------------------------------------------------------------------
+void AudioEmitter::setAttenuation(f32 attenuation)
+{
+	if(attenuation < 0.01f)
+		attenuation = 0.01f;
+	m_attenuation = attenuation;
+
+	// Update current sounds
+	for(auto it = m_sourceRefs.begin(); it != m_sourceRefs.end(); ++it)
+	{
+		(*it)->setAttenuation(m_attenuation);
+	}
+}
+
+//------------------------------------------------------------------------------
+void AudioEmitter::setRadii(f32 minRadius, f32 maxRadius)
+{
+	if(minRadius < 0.01f)
+		minRadius = 0.01f;
+	if(maxRadius < minRadius)
+		maxRadius = minRadius;
+
+	// Update current sounds
+	for(auto it = m_sourceRefs.begin(); it != m_sourceRefs.end(); ++it)
+	{
+		(*it)->setMinDistance(m_minRadius);
+	}
+}
+
+//------------------------------------------------------------------------------
 void AudioEmitter::play(std::string soundName, f32 volume, f32 pitch, bool loop)
 {
 #ifdef ZN_DEBUG
@@ -74,6 +103,8 @@ void AudioEmitter::play(std::string soundName, f32 volume, f32 pitch, bool loop)
 		sound->setPitch(pitch);
 		sound->setPosition(position.x, position.y, 0);
 		sound->setLoop(loop);
+		sound->setMinDistance(m_minRadius);
+		sound->setAttenuation(m_attenuation);
 		sound->play();
 	}
 }
