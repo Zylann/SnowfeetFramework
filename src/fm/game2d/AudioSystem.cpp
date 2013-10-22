@@ -111,6 +111,11 @@ void AudioSystem::detachEmitterSources(AudioEmitter & emitter)
 	}
 }
 
+//------------------------------------------------------------------------------
+void AudioSystem::setGlobalVolume(float volume)
+{
+	sf::Listener::setGlobalVolume(volume / 100.f);
+}
 
 } // namespace zn
 

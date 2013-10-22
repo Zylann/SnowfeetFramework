@@ -14,7 +14,9 @@ public:
 	AudioSystem();
 	~AudioSystem();
 
-	static const u32 DEFAULT_HARD_SOURCES_COUNT = 32;
+	// Most soundcards support up to 32 sources.
+	// 4 are assumed to be used by music.
+	static const u32 DEFAULT_HARD_SOURCES_COUNT = 28;
 
 	void registerSource(AudioEmitter * source);
 	void unregisterSource(AudioEmitter * source);
@@ -35,9 +37,8 @@ public:
 
 	void update();
 
-//	void playStream(const std::string musicName);
-//	void stopStream();
-//	void setVolume(float volume);
+	// Set global volume in [0..1]
+	void setGlobalVolume(float volume);
 
 private:
 
