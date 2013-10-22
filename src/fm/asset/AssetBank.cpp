@@ -93,6 +93,12 @@ bool AssetBank::loadFromJSON(const std::string & filePath)
 			return false;
 	}
 
+	if(doc.HasMember("soundstreams"))
+	{
+		if(!soundStreams.loadList(doc["soundstreams"]))
+			return false;
+	}
+
 	fclose(cfile);
 
 	std::cout << "Done" << std::endl;

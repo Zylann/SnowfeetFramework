@@ -150,6 +150,16 @@ private:
 	std::unordered_map<std::string,T*> m_map;
 };
 
+#include <SFML/Audio.hpp>
+
+// Specialization for sf::Music
+template <>
+inline bool AssetMap<sf::Music>::loadAsset(sf::Music * asset, const std::string & filePath)
+{
+	// Music is not really loaded, it is streamed
+	return asset->openFromFile(filePath);
+}
+
 } // namespace zn
 
 #endif // HEADER_ZN_ASSETMAP_HPP_INCLUDED

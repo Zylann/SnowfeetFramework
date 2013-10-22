@@ -27,6 +27,7 @@ public:
 	AssetMap<TextureAtlas>     atlases;
 	AssetMap<TiledMap>         maps;
 	AssetMap<sf::SoundBuffer>  sounds;
+	AssetMap<sf::Music>        soundStreams;
 
 	AssetBank();
 	~AssetBank();

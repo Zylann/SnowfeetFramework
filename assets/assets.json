@@ -40,6 +40,15 @@
 		]
 	},
 
+	"soundstreams":
+	{
+		"root":"assets/music",
+		"list":
+		[
+			{ "name":"theme", "src":"ssm_theme.ogg" }
+		]
+	},
+
 	"maps":
 	{
 		"root":"assets/maps",
