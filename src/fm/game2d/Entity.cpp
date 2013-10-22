@@ -107,11 +107,12 @@ AComponent * Entity::addComponent(AComponent * newCmp)
 	// Assign quick lookup pointer
 	switch(ct.group)
 	{
-	case CG_RENDERER:  r_renderer = checked_cast<ARenderer*>(newCmp); break;
-	case CG_COLLIDER:  r_collider = checked_cast<ACollider*>(newCmp); break;
-	case CG_CAMERA:    r_camera   = checked_cast<Camera*>(newCmp); break;
-	case CG_BODY:      r_body     = checked_cast<Body*>(newCmp); break;
-	case CG_ANIMATOR:  r_animator = checked_cast<AAnimator*>(newCmp); break;
+	case CG_RENDERER:       r_renderer     = checked_cast<ARenderer*>(newCmp); break;
+	case CG_COLLIDER:       r_collider     = checked_cast<ACollider*>(newCmp); break;
+	case CG_CAMERA:         r_camera       = checked_cast<Camera*>(newCmp); break;
+	case CG_BODY:           r_body         = checked_cast<Body*>(newCmp); break;
+	case CG_ANIMATOR:       r_animator     = checked_cast<AAnimator*>(newCmp); break;
+	case CG_AUDIO_EMITTER:  r_audioEmitter = checked_cast<AudioEmitter*>(newCmp); break;
 	default: break;
 	}
 
@@ -140,28 +141,6 @@ void Entity::removeComponent(AComponent * cmp)
 #endif
 }
 
-//------------------------------------------------------------------------------
-/*
-void Entity::draw(sf::RenderTarget & target, sf::RenderStates states) const
-{
-	if(m_renderer != nullptr)
-	{
-		states.transform.combine(m_transform.getTransform());
-		target.draw(*m_renderer, states);
-
-#ifdef ZN_DEBUG
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::F3))
-		{
-			const ACollider * c = collider();
-			if(c != nullptr)
-			{
-				c->debug_draw(target);
-			}
-		}
-#endif
-	}
-}
-*/
 //------------------------------------------------------------------------------
 void Entity::sendMessage(const std::string & msg)
 {

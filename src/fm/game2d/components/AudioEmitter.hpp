@@ -8,6 +8,7 @@
 namespace zn
 {
 
+// Adds the ability of emitting sounds to an entity.
 class AudioEmitter : public AComponent
 {
 public:
@@ -15,16 +16,25 @@ public:
 	ZN_COMPONENT(zn::AudioEmitter, CG_AUDIO_EMITTER)
 
 	AudioEmitter() : AComponent(),
-		m_minRadius(4),
-		m_maxRadius(16)
+		m_minRadius(1000.f),
+		m_maxRadius(2000.f)
 	{}
 
 	void onAdd(Entity * e) override;
 	void onDestroy() override;
 	void update() override;
 
+	// Sets attenuation radii :
+	// minRadius defines a circle where sound is not attenuated,
+	// maxRadius defines the limit in wich the sound is played.
+	// The space between these radii is attenuated by a linear factor.
 	void setRadii(f32 minRadius, f32 maxRadius);
+
+	// Plays a sound. It will stack with previously played ones if possible.
+	// Volume and pitch are in [0,1].
 	void play(std::string soundName, f32 volume=1, f32 pitch=1, bool loop=false);
+
+	// Stops all the sounds the emitter is playing.
 	void stop();
 
 private:

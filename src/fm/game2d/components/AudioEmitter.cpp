@@ -40,6 +40,10 @@ void AudioEmitter::update()
 //------------------------------------------------------------------------------
 void AudioEmitter::play(std::string soundName, f32 volume, f32 pitch, bool loop)
 {
+#ifdef ZN_DEBUG
+	std::cout << "D: AudioEmitter: play " << soundName << std::endl;
+#endif
+
 	AudioSystem & system = entity().scene().audioSystem;
 	sf::Vector2f position = entity().position();
 

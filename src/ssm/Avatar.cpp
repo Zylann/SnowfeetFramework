@@ -37,9 +37,11 @@ void Avatar::init()
 
 	r_mover->setMaxSpeed(2.5f);
 
-	entity().addComponent<BoxCollider>()->setRect(sf::FloatRect(4, 7, 24, 24));
-
+	e.addComponent<BoxCollider>()->setRect(sf::FloatRect(4, 7, 24, 24));
 	e.addComponent<SpriteAnimator>();
+	e.addComponent<AudioEmitter>();
+
+	m_pressedLastFrame = false;
 }
 
 void Avatar::update()
@@ -71,6 +73,19 @@ void Avatar::update()
 	{
 		v.y = 1;
 		setSpriteDirection(Direction::SOUTH);
+	}
+
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
+	{
+		if(!m_pressedLastFrame)
+		{
+			m_pressedLastFrame = true;
+			entity().audio()->play("cat_meow1");
+		}
+	}
+	else
+	{
+		m_pressedLastFrame = false;
 	}
 
 	// Move

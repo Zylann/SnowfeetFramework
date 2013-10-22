@@ -22,6 +22,7 @@ class ARenderer;
 class ACollider;
 class Body;
 class Scene;
+class AudioEmitter;
 
 // An entity can be anything in the scene.
 // It is composed of components that define its behavior.
@@ -101,6 +102,7 @@ public:
 	inline Camera * camera() const       { return r_camera; }
 	inline ACollider * collider() const  { return r_collider; }
 	inline Body * body() const           { return r_body; }
+	inline AudioEmitter * audio() const  { return r_audioEmitter; }
 
 	// Returns the scene the entity belongs to.
 	Scene & scene() const;
@@ -141,8 +143,6 @@ private:
 	// Internal method for adding a component
 	AComponent * addComponent(AComponent * newCmp);
 
-//	void flushComponents();
-
 	//--------------------------------------
 	// Attributes
 	//--------------------------------------
@@ -155,6 +155,7 @@ private:
 	Body *                    r_body;
 	Camera *                  r_camera;
 	AAnimator *               r_animator;
+	AudioEmitter *            r_audioEmitter;
 
 	sf::Transformable         m_transform;
 	u8                        m_flags;

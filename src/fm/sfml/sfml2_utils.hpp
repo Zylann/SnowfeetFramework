@@ -2,6 +2,7 @@
 #define HEADER_ZN_SFML2_UTILS_HPP_INCLUDED
 
 #include <SFML/Graphics.hpp>
+#include <sstream>
 #include "../util/math.hpp"
 
 // Utility functions that extend SFML functionnality,
@@ -69,6 +70,22 @@ inline bool intersects(const sf::Rect<T> & a, const sf::Rect<T> & b)
 inline bool isZero(const sf::Vector2f & v)
 {
 	return math::isZero(v.x) && math::isZero(v.y);
+}
+
+template <typename T>
+std::string toString(const sf::Vector2<T> & v)
+{
+	std::stringstream ss;
+	ss << '(' << v.x << ", " << v.y << ')';
+	return ss.str();
+}
+
+template <typename T>
+std::string toString(const sf::Vector3<T> & v)
+{
+	std::stringstream ss;
+	ss << '(' << v.x << ", " << v.y << ", " << v.z << ')';
+	return ss.str();
 }
 
 };

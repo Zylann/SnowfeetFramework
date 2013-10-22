@@ -48,7 +48,7 @@ void Game::onInit()
 	camera->setInternalView(m_window.getDefaultView());
 	camera->setScaleMode(Camera::ADAPTED);
 	m_scene.setMainCamera(camera);
-	//cameraObj->setRotation(-1.f);
+	m_scene.audioSystem.setListener(cameraObj);
 
 	// Avatar
 

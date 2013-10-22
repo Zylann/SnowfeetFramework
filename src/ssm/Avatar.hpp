@@ -30,6 +30,10 @@ public:
 
 	void onCollisionEnter(const CollisionInfo & info) override;
 
+private:
+
+	bool m_pressedLastFrame;
+
 };
 
 } // namespace ssm
