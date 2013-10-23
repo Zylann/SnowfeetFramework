@@ -105,6 +105,7 @@ void AudioEmitter::play(std::string soundName, f32 volume, f32 pitch, bool loop)
 		sound->setLoop(loop);
 		sound->setMinDistance(m_minRadius);
 		sound->setAttenuation(m_attenuation);
+		sound->setRelativeToListener(!m_spatialize);
 		sound->play();
 	}
 }
@@ -117,6 +118,17 @@ void AudioEmitter::stop()
 		(*it)->stop();
 	}
 	m_sourceRefs.clear();
+}
+
+//------------------------------------------------------------------------------
+void AudioEmitter::setSpatialized(bool spatialize)
+{
+	m_spatialize = spatialize;
+
+	for(auto it = m_sourceRefs.begin(); it != m_sourceRefs.end(); ++it)
+	{
+		(*it)->setRelativeToListener(!m_spatialize);
+	}
 }
 
 //------------------------------------------------------------------------------

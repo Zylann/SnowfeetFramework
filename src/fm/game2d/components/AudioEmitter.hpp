@@ -16,6 +16,7 @@ public:
 	ZN_COMPONENT(zn::AudioEmitter, CG_AUDIO_EMITTER)
 
 	AudioEmitter() : AComponent(),
+		m_spatialize(true),
 		m_minRadius(1000.f),
 		m_maxRadius(2000.f)
 	{}
@@ -41,6 +42,14 @@ public:
 	// Stops all the sounds the emitter is playing.
 	void stop();
 
+	// Sets wether the emitter should play spatialized sounds or not
+	void setSpatialized(bool spatialize);
+
+	inline bool spatialized() const { return m_spatialize; }
+	inline f32 minRadius() const { return m_minRadius; }
+	inline f32 maxRadius() const { return m_maxRadius; }
+	inline f32 attenuation() const { return m_attenuation; }
+
 	// TODO support mix streams and non-stream sounds
 
 private:
@@ -50,6 +59,7 @@ private:
 	void detachSource(sf::Sound *s);
 	sf::Sound * getFreeSource();
 
+	bool                            m_spatialize;
 	f32                             m_minRadius;
 	f32                             m_maxRadius;
 	f32                             m_attenuation;
