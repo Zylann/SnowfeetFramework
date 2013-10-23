@@ -7,6 +7,27 @@
 namespace zn
 {
 
+class MusicSystem
+{
+public:
+
+	MusicSystem() :
+		r_currentMusic(nullptr)
+	{}
+
+	void update(sf::Time delta);
+
+	void play(std::string name);
+	void stop();
+
+	inline bool playing() const { return r_currentMusic != nullptr; }
+
+private:
+
+	sf::Music * r_currentMusic;
+
+};
+
 class AudioSystem
 {
 public:
@@ -16,7 +37,7 @@ public:
 
 	// Most soundcards support up to 32 sources.
 	// 4 are assumed to be used by music.
-	static const u32 DEFAULT_HARD_SOURCES_COUNT = 28;
+	static const u32 DEFAULT_SOURCES_COUNT = 28;
 
 	void registerSource(AudioEmitter * source);
 	void unregisterSource(AudioEmitter * source);
@@ -35,10 +56,12 @@ public:
 		);
 	}
 
-	void update();
+	void update(sf::Time delta);
 
 	// Set global volume in [0..1]
 	void setGlobalVolume(float volume);
+
+	MusicSystem music;
 
 private:
 

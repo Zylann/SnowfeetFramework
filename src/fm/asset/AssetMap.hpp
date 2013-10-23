@@ -122,6 +122,7 @@ public:
 
 		for(rapidjson::SizeType i = 0; i < jlist.Size(); ++i)
 		{
+			// TODO AssetMap: if name is not specified, use the filename without extension
 			name = jlist[i]["name"].GetString();
 			src = jlist[i]["src"].GetString();
 

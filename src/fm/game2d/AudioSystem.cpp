@@ -1,6 +1,7 @@
 #include <cassert>
 #include "AudioSystem.hpp"
 #include "Entity.hpp"
+#include "../asset/AssetBank.hpp"
 
 namespace zn
 {
@@ -9,7 +10,7 @@ AudioSystem::AudioSystem()
 {
     setListenerPosition(sf::Vector2f(0,0));
     setListenerDepth(1);
-    m_sources.resize(DEFAULT_HARD_SOURCES_COUNT);
+    m_sources.resize(DEFAULT_SOURCES_COUNT);
 }
 
 AudioSystem::~AudioSystem()
@@ -51,7 +52,7 @@ void AudioSystem::unregisterSource(AudioEmitter* source)
 }
 
 //------------------------------------------------------------------------------
-void AudioSystem::update()
+void AudioSystem::update(sf::Time delta)
 {
 	if(r_listenerEntity != nullptr)
 	{
@@ -69,6 +70,8 @@ void AudioSystem::update()
 			cmp.update();
 		}
 	}
+
+	music.update(delta);
 }
 
 //------------------------------------------------------------------------------
@@ -117,6 +120,44 @@ void AudioSystem::setGlobalVolume(float volume)
 	sf::Listener::setGlobalVolume(volume / 100.f);
 }
 
+//------------------------------------------------------------------------------
+void MusicSystem::play(std::string name)
+{
+	sf::Music * music = AssetBank::current()->soundStreams.get(name);
+	assert(music != nullptr);
+
+	if(r_currentMusic != nullptr)
+	{
+#ifdef ZN_DEBUG
+		if(r_currentMusic == music)
+		{
+			std::cout << "D: MusicSystem::play: already playing \"" << name << "\", restart from 0" << std::endl;
+		}
+#endif
+		r_currentMusic->stop();
+	}
+
+	r_currentMusic = music;
+	r_currentMusic->play();
+}
+
+//------------------------------------------------------------------------------
+void MusicSystem::stop()
+{
+	if(r_currentMusic != nullptr)
+	{
+		r_currentMusic->stop();
+		r_currentMusic = nullptr;
+	}
+}
+
+//------------------------------------------------------------------------------
+void MusicSystem::update(sf::Time delta)
+{
+	// TODO MusicSystem: handle cross-fade
+}
+
 } // namespace zn
+
 
 

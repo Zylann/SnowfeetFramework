@@ -114,7 +114,7 @@ void Scene::update(sf::Time deltaTime)
 	animators.update();
 
 	// Update sound
-	audioSystem.update();
+	audioSystem.update(deltaTime);
 
 	// Update renderers
 	renderers.update();
