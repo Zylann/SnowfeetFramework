@@ -152,6 +152,35 @@ void MusicSystem::stop()
 }
 
 //------------------------------------------------------------------------------
+void MusicSystem::setVolume(f32 volume)
+{
+	m_volume = volume;
+
+	if(r_currentMusic != nullptr)
+	{
+		r_currentMusic->setVolume(volume);
+	}
+}
+
+//------------------------------------------------------------------------------
+void MusicSystem::pause()
+{
+	if(r_currentMusic != nullptr)
+	{
+		r_currentMusic->pause();
+	}
+}
+
+//------------------------------------------------------------------------------
+void MusicSystem::resume()
+{
+	if(r_currentMusic != nullptr && r_currentMusic->getStatus() == sf::SoundSource::Paused)
+	{
+		r_currentMusic->play();
+	}
+}
+
+//------------------------------------------------------------------------------
 void MusicSystem::update(sf::Time delta)
 {
 	// TODO MusicSystem: handle cross-fade

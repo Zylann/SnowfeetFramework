@@ -19,12 +19,17 @@ public:
 
 	void play(std::string name);
 	void stop();
+	void pause();
+	void resume();
+	void setVolume(f32 volume);
 
 	inline bool playing() const { return r_currentMusic != nullptr; }
+	inline f32 volume() const { return m_volume; }
 
 private:
 
 	sf::Music * r_currentMusic;
+	f32         m_volume;
 
 };
 
