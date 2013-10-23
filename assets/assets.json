@@ -30,7 +30,7 @@
 		"root":"assets/sounds",
 		"list":
 		[
-			{ "name":"cat_meow1", "src":"cat_meow1.wav" },
+			{ "src":"cat_meow1.wav" },
 			{ "name":"cat_meow2", "src":"cat_meow2.wav" },
 			{ "name":"cat_meow3", "src":"cat_meow3.wav" },
 			{ "name":"cat_meow4", "src":"cat_meow4.wav" },

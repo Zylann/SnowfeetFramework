@@ -4,12 +4,6 @@ Copyright (C) 2010-2013 Marc GILLERON
 This file is part of the zCraftFramework project.
 */
 
-/*
-AssetMap.hpp
-Copyright (C) 2010-2013 Marc GILLERON
-This file is part of the zCraftFramework project.
-*/
-
 #ifndef HEADER_ZN_ASSETMAP_HPP_INCLUDED
 #define HEADER_ZN_ASSETMAP_HPP_INCLUDED
 
@@ -17,6 +11,7 @@ This file is part of the zCraftFramework project.
 #include <unordered_map>
 #include <iostream>
 
+#include "../util/stringutils.hpp"
 #include "../config.hpp"
 #include "../rapidjson/document.h"
 #include "../rapidjson/filestream.h"
@@ -122,9 +117,16 @@ public:
 
 		for(rapidjson::SizeType i = 0; i < jlist.Size(); ++i)
 		{
-			// TODO AssetMap: if name is not specified, use the filename without extension
-			name = jlist[i]["name"].GetString();
 			src = jlist[i]["src"].GetString();
+
+			if(jlist[i].HasMember("name"))
+			{
+				name = jlist[i]["name"].GetString();
+			}
+			else
+			{
+				name = fileNameWithoutExtension(src);
+			}
 
 			if(!load(src, name))
 			{

@@ -82,15 +82,16 @@ void Avatar::update()
 			m_pressedLastFrame = true;
 			entity().audio()->play("cat_meow1");
 
-			MusicSystem & music = entity().scene().audioSystem.music;
-			if(music.playing())
-			{
-				music.stop();
-			}
-			else
-			{
-				music.play("theme");
-			}
+			// TEST
+//			MusicSystem & music = entity().scene().audioSystem.music;
+//			if(music.playing())
+//			{
+//				music.stop();
+//			}
+//			else
+//			{
+//				music.play("theme");
+//			}
 		}
 	}
 	else

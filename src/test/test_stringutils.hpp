@@ -1,0 +1,6 @@
+#ifndef TEST_STRINGUTILS_HPP_INCLUDED
+#define TEST_STRINGUTILS_HPP_INCLUDED
+
+void test_stringutils();
+
+#endif // TEST_STRINGUTILS_HPP_INCLUDED

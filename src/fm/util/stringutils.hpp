@@ -12,7 +12,7 @@ This file is part of the zCraftFramework project.
 namespace zn
 {
 // TODO stringutils: use std::to_string and make standard functions
-// But MinGW doesn't seems to include it for now...
+// But MinGW doesn't seems to include it yet...
 
 std::string toString(float x);
 std::string toString(double x);
@@ -33,6 +33,12 @@ bool isPrintableChar(char c);
 
 std::string cropStr(std::string str, char c);
 
+inline std::string fileNameWithoutExtension(std::string path)
+{
+	path = path.substr(0, path.find_first_of("."));
+	path = path.substr(path.find_last_of("/\\")+1);
+	return path;
+}
 
 } // namespace zn
 
