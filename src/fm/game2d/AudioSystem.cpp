@@ -75,7 +75,7 @@ void AudioSystem::update(sf::Time delta)
 }
 
 //------------------------------------------------------------------------------
-sf::Sound * AudioSystem::requestSource(AudioEmitter & newOwner)
+AudioSource * AudioSystem::requestSource(AudioEmitter & newOwner)
 {
 	std::vector<AttachedSource>::iterator it;
 	for(it = m_sources.begin(); it != m_sources.end(); ++it)
@@ -184,7 +184,7 @@ void MusicSystem::resume()
 //------------------------------------------------------------------------------
 void MusicSystem::update(sf::Time delta)
 {
-	if(r_currentMusic->getStatus() == sf::SoundSource::Status::Stopped)
+	if(r_currentMusic && r_currentMusic->getStatus() == sf::SoundSource::Status::Stopped)
 	{
 		r_currentMusic = nullptr;
 	}

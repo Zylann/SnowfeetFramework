@@ -1,13 +1,15 @@
 #ifndef HEADER_ZN_AUDIOSYSTEM_HPP_INCLUDED
 #define HEADER_ZN_AUDIOSYSTEM_HPP_INCLUDED
 
-#include <SFML/Audio.hpp>
+#include "../sfml/AudioSource.hpp"
 #include "components/AudioEmitter.hpp"
 
 namespace zn
 {
 
 // Subsystem dedicated to music
+// TODO remove it, because everything will rely on AudioEmitters as we can now
+// play buffers and streams with them
 class MusicSystem
 {
 public:
@@ -24,7 +26,6 @@ public:
 	void pause();
 	void resume();
 	void setVolume(f32 volume);
-
 
 	inline bool playing() const { return r_currentMusic != nullptr; }
 	inline f32 volume() const { return m_volume; }
@@ -82,10 +83,10 @@ private:
 	struct AttachedSource
 	{
 		AudioEmitter * emitterRef;
-		sf::Sound source;
+		AudioSource source;
 	};
 
-	sf::Sound * requestSource(AudioEmitter & newOwner);
+	AudioSource * requestSource(AudioEmitter & newOwner);
 	void detachEmitterSources(AudioEmitter & emitter);
 
 	std::unordered_set<AudioEmitter*>   m_emitters;

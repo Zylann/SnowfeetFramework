@@ -1,8 +1,8 @@
-#ifndef HEADER_ZN_AUDIOSOURCE_HPP_INCLUDED
-#define HEADER_ZN_AUDIOSOURCE_HPP_INCLUDED
+#ifndef HEADER_ZN_AUDIOEMITTER_HPP_INCLUDED
+#define HEADER_ZN_AUDIOEMITTER_HPP_INCLUDED
 
 #include <unordered_set>
-#include <SFML/Audio.hpp>
+#include "../../sfml/AudioSource.hpp"
 #include "Component.hpp"
 
 namespace zn
@@ -56,19 +56,19 @@ private:
 
 	friend class AudioSystem;
 
-	void detachSource(sf::Sound *s);
-	sf::Sound * getFreeSource();
+	void detachSource(AudioSource *s);
+	AudioSource * getFreeSource();
 
-	bool                            m_spatialize;
-	f32                             m_minRadius;
-	f32                             m_maxRadius;
-	f32                             m_attenuation;
-	std::unordered_set<sf::Sound*>  m_sourceRefs;
+	bool                              m_spatialize;
+	f32                               m_minRadius;
+	f32                               m_maxRadius;
+	f32                               m_attenuation;
+	std::unordered_set<AudioSource*>  m_sourceRefs;
 
 };
 
 } // namespace zn
 
-#endif // HEADER_ZN_AUDIOSOURCE_HPP_INCLUDED
+#endif // HEADER_ZN_AUDIOEMITTER_HPP_INCLUDED
 
 

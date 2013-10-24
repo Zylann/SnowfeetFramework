@@ -30,7 +30,7 @@ void AudioEmitter::onDestroy()
 void AudioEmitter::update()
 {
 	sf::Vector2f pos = entity().position();
-	std::unordered_set<sf::Sound*>::iterator it;
+	std::unordered_set<AudioSource*>::iterator it;
 	for(it = m_sourceRefs.begin(); it != m_sourceRefs.end(); it++)
 	{
 		(*it)->setPosition(pos.x, pos.y, 0);
@@ -73,6 +73,8 @@ void AudioEmitter::play(std::string soundName, f32 volume, f32 pitch, bool loop)
 	std::cout << "D: AudioEmitter: play " << soundName << std::endl;
 #endif
 
+	// TODO AudioEmitter: search for a streamed sound if no sound is found
+
 	AudioSystem & system = entity().scene().audioSystem;
 	sf::Vector2f position = entity().position();
 
@@ -93,7 +95,7 @@ void AudioEmitter::play(std::string soundName, f32 volume, f32 pitch, bool loop)
 #endif
 	assert(soundBuffer != nullptr);
 
-	sf::Sound * sound = getFreeSource();
+	AudioSource * sound = getFreeSource();
 	// If the sound can be played
 	if(sound)
 	{
@@ -132,17 +134,17 @@ void AudioEmitter::setSpatialized(bool spatialize)
 }
 
 //------------------------------------------------------------------------------
-void AudioEmitter::detachSource(sf::Sound* s)
+void AudioEmitter::detachSource(AudioSource* s)
 {
 	s->stop();
 	m_sourceRefs.erase(s);
 }
 
 //------------------------------------------------------------------------------
-sf::Sound * AudioEmitter::getFreeSource()
+AudioSource * AudioEmitter::getFreeSource()
 {
 	// Search for a source already referenced
-	std::unordered_set<sf::Sound*>::iterator it;
+	std::unordered_set<AudioSource*>::iterator it;
 	for(it = m_sourceRefs.begin(); it != m_sourceRefs.end(); it++)
 	{
 		if((*it)->getStatus() == sf::SoundSource::Stopped)
@@ -152,7 +154,7 @@ sf::Sound * AudioEmitter::getFreeSource()
 	}
 
 	// Otherwise, get a new source from the audio system
-	sf::Sound * s = entity().scene().audioSystem.requestSource(*this);
+	AudioSource * s = entity().scene().audioSystem.requestSource(*this);
 	if(s != 0)
 	{
 		sf::Vector2f pos = entity().position();
