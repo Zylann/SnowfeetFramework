@@ -184,6 +184,11 @@ void MusicSystem::resume()
 //------------------------------------------------------------------------------
 void MusicSystem::update(sf::Time delta)
 {
+	if(r_currentMusic->getStatus() == sf::SoundSource::Status::Stopped)
+	{
+		r_currentMusic = nullptr;
+	}
+
 	// TODO MusicSystem: handle cross-fade
 }
 

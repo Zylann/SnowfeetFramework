@@ -13,7 +13,8 @@ class MusicSystem
 public:
 
 	MusicSystem() :
-		r_currentMusic(nullptr)
+		r_currentMusic(nullptr),
+		m_volume(1)
 	{}
 
 	void update(sf::Time delta);
@@ -23,6 +24,7 @@ public:
 	void pause();
 	void resume();
 	void setVolume(f32 volume);
+
 
 	inline bool playing() const { return r_currentMusic != nullptr; }
 	inline f32 volume() const { return m_volume; }
