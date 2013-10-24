@@ -121,7 +121,7 @@ void AudioSystem::setGlobalVolume(float volume)
 }
 
 //------------------------------------------------------------------------------
-void MusicSystem::play(std::string name)
+void MusicSystem::play(std::string name, bool loop)
 {
 	sf::Music * music = AssetBank::current()->soundStreams.get(name);
 	assert(music != nullptr);
@@ -139,6 +139,7 @@ void MusicSystem::play(std::string name)
 
 	r_currentMusic = music;
 	r_currentMusic->play();
+	r_currentMusic->setLoop(loop);
 }
 
 //------------------------------------------------------------------------------

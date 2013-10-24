@@ -7,6 +7,7 @@
 namespace zn
 {
 
+// Subsystem dedicated to music
 class MusicSystem
 {
 public:
@@ -17,7 +18,7 @@ public:
 
 	void update(sf::Time delta);
 
-	void play(std::string name);
+	void play(std::string name, bool loop=true);
 	void stop();
 	void pause();
 	void resume();
