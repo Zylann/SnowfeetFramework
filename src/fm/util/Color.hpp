@@ -16,11 +16,11 @@ This file is part of the zCraft framework project.
 
 namespace zn
 {
+
 /*
 	Stores a color using 4 unsigned byte values for red, green, blue and alpha.
 	This version is well-suited for performance and storage.
 */
-
 struct Color
 {
 	u8 r;

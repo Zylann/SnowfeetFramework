@@ -90,7 +90,7 @@ void PerformanceGraph::pushValue(f32 y)
 
 	s32 i0 = m_currentIndex*2;
 
-	f32 v = math::clamp(m_valueRange.getT(y), 0.f, 1.f);
+	f32 v = math::clamp(m_valueRange.lerp(y), 0.f, 1.f);
 	m_vertices[i0+1].position.y = m_size.y - v * static_cast<f32>(m_size.y);
 
 	m_vertices[i0+1].color = color1;

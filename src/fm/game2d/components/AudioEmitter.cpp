@@ -95,20 +95,20 @@ void AudioEmitter::play(std::string soundName, f32 volume, f32 pitch, bool loop)
 #endif
 	assert(soundBuffer != nullptr);
 
-	AudioSource * sound = getFreeSource();
+	AudioSource * source = getFreeSource();
 	// If the sound can be played
-	if(sound)
+	if(source)
 	{
 		// Configure and play it
-		sound->setBuffer(*soundBuffer);
-		sound->setVolume(volume*100.f);
-		sound->setPitch(pitch);
-		sound->setPosition(position.x, position.y, 0);
-		sound->setLoop(loop);
-		sound->setMinDistance(m_minRadius);
-		sound->setAttenuation(m_attenuation);
-		sound->setRelativeToListener(!m_spatialize);
-		sound->play();
+		source->setBuffer(*soundBuffer);
+		source->setVolume(volume*100.f);
+		source->setPitch(pitch);
+		source->setPosition(position.x, position.y, 0);
+		source->setLoop(loop);
+		source->setMinDistance(m_minRadius);
+		source->setAttenuation(m_attenuation);
+		source->setRelativeToListener(!m_spatialize);
+		source->play();
 	}
 }
 
