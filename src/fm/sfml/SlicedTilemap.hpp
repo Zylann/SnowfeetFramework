@@ -3,8 +3,8 @@
 
 #include <SFML/Graphics.hpp>
 #include <unordered_map>
-#include "fm/util/Vector2.hpp"
-#include "fm/util/Array2D.hpp"
+#include "../util/Vector2.hpp"
+#include "../util/Array2D.hpp"
 
 namespace zn
 {
