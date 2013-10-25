@@ -71,7 +71,7 @@ void AudioSystem::update(sf::Time delta)
 		}
 	}
 
-	music.update(delta);
+//	music.update(delta);
 }
 
 //------------------------------------------------------------------------------
@@ -120,6 +120,7 @@ void AudioSystem::setGlobalVolume(float volume)
 	sf::Listener::setGlobalVolume(volume / 100.f);
 }
 
+/*
 //------------------------------------------------------------------------------
 void MusicSystem::play(std::string name, bool loop)
 {
@@ -191,6 +192,7 @@ void MusicSystem::update(sf::Time delta)
 
 	// TODO MusicSystem: handle cross-fade
 }
+*/
 
 } // namespace zn
 

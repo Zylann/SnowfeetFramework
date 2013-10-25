@@ -82,7 +82,7 @@ void AudioSource::setStreamFromFile(const std::string & filePath)
 #ifdef ZN_DEBUG
 	if(!soundStreamWasLoaded)
 	{
-		std::cout << "E: AudioSource::setStreamFromFile: unable to open " << filePath << std::endl;
+		std::cout << "E: AudioSource::setStreamFromFile: unable to open \"" << filePath << '"' << std::endl;
 	}
 #endif
 	assert(soundStreamWasLoaded);

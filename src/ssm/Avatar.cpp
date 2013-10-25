@@ -80,7 +80,8 @@ void Avatar::update()
 		if(!m_pressedLastFrame)
 		{
 			m_pressedLastFrame = true;
-			entity().audio()->play("cat_meow1");
+			entity().audio()->playBuffer("cat_meow1");
+//			entity().audio()->playStream("theme");
 
 			// TEST
 //			MusicSystem & music = entity().scene().audioSystem.music;

@@ -75,9 +75,15 @@ bool AssetBank::loadFromJSON(const std::string & filePath)
 			return false;
 	}
 
-	if(doc.HasMember("sounds"))
+	if(doc.HasMember("soundbuffers"))
 	{
-		if(!sounds.loadList(doc["sounds"]))
+		if(!soundBuffers.loadList(doc["soundbuffers"]))
+			return false;
+	}
+
+	if(doc.HasMember("soundstreams"))
+	{
+		if(!soundStreams.loadList(doc["soundstreams"]))
 			return false;
 	}
 
@@ -90,12 +96,6 @@ bool AssetBank::loadFromJSON(const std::string & filePath)
 	if(doc.HasMember("maps"))
 	{
 		if(!maps.loadList(doc["maps"]))
-			return false;
-	}
-
-	if(doc.HasMember("soundstreams"))
-	{
-		if(!soundStreams.loadList(doc["soundstreams"]))
 			return false;
 	}
 

@@ -67,30 +67,34 @@ void AudioEmitter::setRadii(f32 minRadius, f32 maxRadius)
 }
 
 //------------------------------------------------------------------------------
-void AudioEmitter::play(std::string soundName, f32 volume, f32 pitch, bool loop)
+bool AudioEmitter::canBeHeard()
 {
-#ifdef ZN_DEBUG
-	std::cout << "D: AudioEmitter: play " << soundName << std::endl;
-#endif
-
-	// TODO AudioEmitter: search for a streamed sound if no sound is found
-
 	AudioSystem & system = entity().scene().audioSystem;
 	sf::Vector2f position = entity().position();
 
 	// If we are beyond the maximal radius, the sound is not played
-	if(zn::distance(system.listenerPosition(), position) > m_maxRadius)
-	{
+	return zn::distance(system.listenerPosition(), position) <= m_maxRadius;
+}
+
+//------------------------------------------------------------------------------
+void AudioEmitter::playBuffer(std::string name, f32 volume, f32 pitch, bool loop)
+{
+#ifdef ZN_DEBUG
+	std::cout << "D: AudioEmitter: playBuffer " << name << std::endl;
+#endif
+
+	if(!canBeHeard())
 		return;
-	}
+
+	// TODO AudioEmitter: search for a streamed sound if no sound buffer is found
 
 	// Get sound buffer
-	const sf::SoundBuffer * soundBuffer = AssetBank::current()->sounds.get(soundName);
+	const sf::SoundBuffer * soundBuffer = AssetBank::current()->soundBuffers.get(name);
 
 #ifdef ZN_DEBUG
 	if(soundBuffer == nullptr)
 	{
-		std::cout << "E: AudioEmitter::play: no such sound (" << soundName << ")" << std::endl;
+		std::cout << "E: AudioEmitter::play: no such sound (" << name << ")" << std::endl;
 	}
 #endif
 	assert(soundBuffer != nullptr);
@@ -99,8 +103,52 @@ void AudioEmitter::play(std::string soundName, f32 volume, f32 pitch, bool loop)
 	// If the sound can be played
 	if(source)
 	{
+		sf::Vector2f position = entity().position();
+
 		// Configure and play it
 		source->setBuffer(*soundBuffer);
+		source->setVolume(volume*100.f);
+		source->setPitch(pitch);
+		source->setPosition(position.x, position.y, 0);
+		source->setLoop(loop);
+		source->setMinDistance(m_minRadius);
+		source->setAttenuation(m_attenuation);
+		source->setRelativeToListener(!m_spatialize);
+		source->play();
+	}
+}
+
+//------------------------------------------------------------------------------
+void AudioEmitter::playStream(std::string name, f32 volume, f32 pitch, bool loop)
+{
+#ifdef ZN_DEBUG
+	std::cout << "D: AudioEmitter: playStream " << name << std::endl;
+#endif
+
+	if(!canBeHeard())
+		return;
+
+	// TODO AudioEmitter: search for a streamed sound if no sound buffer is found
+
+	// Get sound buffer
+	const FileRef * fileRef = AssetBank::current()->soundStreams.get(name);
+
+#ifdef ZN_DEBUG
+	if(fileRef == nullptr)
+	{
+		std::cout << "E: AudioEmitter::playStream: no such sound (" << name << ")" << std::endl;
+	}
+#endif
+	assert(fileRef != nullptr);
+
+	AudioSource * source = getFreeSource();
+	// If the sound can be played
+	if(source)
+	{
+		sf::Vector2f position = entity().position();
+
+		// Configure and play it
+		source->setStreamFromFile(fileRef->filePath);
 		source->setVolume(volume*100.f);
 		source->setPitch(pitch);
 		source->setPosition(position.x, position.y, 0);

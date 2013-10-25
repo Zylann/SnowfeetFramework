@@ -12,6 +12,7 @@ This file is part of the zCraftFramework project.
 #include "AssetMap.hpp"
 #include "TextureAtlas.hpp"
 #include "TiledMap.hpp"
+#include "FileRef.hpp"
 
 namespace zn
 {
@@ -26,8 +27,8 @@ public:
 	AssetMap<sf::Font>         fonts;
 	AssetMap<TextureAtlas>     atlases;
 	AssetMap<TiledMap>         maps;
-	AssetMap<sf::SoundBuffer>  sounds;
-	AssetMap<sf::Music>        soundStreams;
+	AssetMap<sf::SoundBuffer>  soundBuffers; // TODO AssetBank: merge sound types into one
+	AssetMap<FileRef>          soundStreams;
 
 	AssetBank();
 	~AssetBank();

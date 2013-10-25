@@ -34,10 +34,16 @@ public:
 	// radius. Default is 1.
 	void setAttenuation(f32 factor);
 
-	// Plays a sound. It will stack with previously played ones if possible.
+	// Plays a sound that is fully loaded and decompressed in memory.
+	// It will stack with previously played ones if possible.
 	// Volume and pitch are in [0,1].
 	// Panning is automatically computed from the position of the entity.
-	void play(std::string soundName, f32 volume=1, f32 pitch=1, bool loop=false);
+	void playBuffer(std::string name, f32 volume=1, f32 pitch=1, bool loop=false);
+
+	// Plays a streamed sound. It will stack with previously played ones if possible.
+	// Volume and pitch are in [0,1].
+	// Panning is automatically computed from the position of the entity.
+	void playStream(std::string name, f32 volume=1, f32 pitch=1, bool loop=false);
 
 	// Stops all the sounds the emitter is playing.
 	void stop();
@@ -49,6 +55,8 @@ public:
 	inline f32 minRadius() const { return m_minRadius; }
 	inline f32 maxRadius() const { return m_maxRadius; }
 	inline f32 attenuation() const { return m_attenuation; }
+
+	bool canBeHeard();
 
 	// TODO support mix streams and non-stream sounds
 

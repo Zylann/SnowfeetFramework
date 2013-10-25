@@ -7,6 +7,7 @@
 namespace zn
 {
 
+/*
 // Subsystem dedicated to music
 // TODO remove it, because everything will rely on AudioEmitters as we can now
 // play buffers and streams with them
@@ -36,6 +37,7 @@ private:
 	f32         m_volume;
 
 };
+*/
 
 class AudioSystem
 {
@@ -70,7 +72,7 @@ public:
 	// Set global volume in [0..1]
 	void setGlobalVolume(float volume);
 
-	MusicSystem music;
+	//MusicSystem music;
 
 private:
 

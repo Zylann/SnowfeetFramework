@@ -25,7 +25,7 @@
 		]
 	},
 
-	"sounds":
+	"soundbuffers":
 	{
 		"root":"assets/sounds",
 		"list":
