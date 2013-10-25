@@ -39,7 +39,8 @@ Dependencies
 
 - SFML 2.1 http://www.sfml-dev.org/
 - RapidJSON (included in source) https://code.google.com/p/rapidjson/
-- C++11
+- zlib 1.2.8
+- C++11 (works with GCC MinGW 4.7+)
 
 Folder structure
 ----------------
@@ -71,7 +72,9 @@ necessary.
 | | |            contain drawable classes that are not component-based.
 | | |
 | | |-util/    : Only-STL-dependent files for various things such as 2D arrays,
-| |              pathfinding, math, Vector2i, Rect...
+| | |            pathfinding, math, Vector2i, Rect...
+| | |
+| | |-zlib/    : zlib compression library code
 | |  
 | |-ssm/       : contains the game's code (namespace is ssm::)
 
