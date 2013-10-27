@@ -16,10 +16,12 @@ Features
 - Cross-platform (Windows, Linux, Mac)
 - Component-oriented design
 - Component-subsystems instead of Container-entities
+- Cameras, sorted renderers and texture atlases
+- Audio system based on spatialized emitters and a listener
 - Easily versionnable meta-file system using JSON
 - Template asset pipeline
 - Source access for both gameplay and engine modifications
-- TilEd import http://www.mapeditor.org/
+- TilEd JSON import http://www.mapeditor.org/
 
 Planned/suggested :
 
@@ -27,11 +29,13 @@ Planned/suggested :
 - Python, Lua or AngelScript scripting
 - Script-based export pipeline
 - Full-featured editor made using the engine
-- Customizable rendering pipeline
+- Highly customizable rendering pipeline
 - GUI (for both game and editor?)
 - Entity parenting
 - Scene transitions
 - Serialization
+- Networking
+- Asynchronous tasks
 - ...
 
 Dependencies
