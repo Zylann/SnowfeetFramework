@@ -69,11 +69,19 @@ void AudioEmitter::setRadii(f32 minRadius, f32 maxRadius)
 //------------------------------------------------------------------------------
 bool AudioEmitter::canBeHeard()
 {
-	AudioSystem & system = entity().scene().audioSystem;
-	sf::Vector2f position = entity().position();
+	if(m_spatialize)
+	{
+		AudioSystem & system = entity().scene().audioSystem;
+		sf::Vector2f position = entity().position();
 
-	// If we are beyond the maximal radius, the sound is not played
-	return zn::distance(system.listenerPosition(), position) <= m_maxRadius;
+		// If we are beyond the maximal radius, the sound is not played
+		return zn::distance(system.listenerPosition(), position) <= m_maxRadius;
+	}
+	else
+	{
+		// Not spatialized sounds can always be heard
+		return true;
+	}
 }
 
 //------------------------------------------------------------------------------
