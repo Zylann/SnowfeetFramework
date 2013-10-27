@@ -1,5 +1,5 @@
 #include <iostream>
-#include "test_json.hpp"
+#include "test.hpp"
 #include "fm/rapidjson/document.h"
 #include "fm/rapidjson/filestream.h"
 
@@ -7,7 +7,11 @@ using namespace rapidjson;
 
 void test_json()
 {
-	FILE * cfile = fopen("src/test/room_atlas.json", "rb");
+	//
+	// Parse
+	//
+
+	FILE * cfile = fopen("test_data/room_atlas.json", "rb");
 	if(!cfile)
 	{
 		std::cout << "E: failed to open file" << std::endl;
@@ -28,6 +32,12 @@ void test_json()
 	std::cout << "Done" << std::endl;
 
 	getchar();
+
+	//
+	// Write
+	//
+
+	// TODO test rapidjson's writing API
 }
 
 

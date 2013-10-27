@@ -1,6 +1,6 @@
 #include <iostream>
 #include "fm/util/stringutils.hpp"
-#include "test_stringutils.hpp"
+#include "test.hpp"
 
 void test_stringutils()
 {

@@ -2,7 +2,7 @@
 #include <iostream>
 #include <vector>
 #include "fm/zlib/zlib.h"
-#include "test_zlib.hpp"
+#include "test.hpp"
 
 using namespace std;
 
@@ -85,12 +85,12 @@ void test_compress(string filePath)
 
 	// Write output for further compare
 	{
-		ofstream ofs("test_zlib_data_out.txt", ios::trunc|ios::out|ios::binary);
+		ofstream ofs("test_data/test_zlib_data_out.txt", ios::trunc|ios::out|ios::binary);
 		ofs.write(&data[0], data.size());
 		ofs.close();
 	}
 	{
-		ofstream ofs("test_zlib_compressed_data_out", ios::trunc|ios::out|ios::binary);
+		ofstream ofs("test_data/test_zlib_compressed_data_out", ios::trunc|ios::out|ios::binary);
 		ofs.write((char*)(&compressedData[0]), compressedData.size());
 		ofs.close();
 	}

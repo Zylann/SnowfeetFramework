@@ -1,5 +1,6 @@
 #include <cstdio>
 #include "fm/util/PathFinder.hpp"
+#include "test.hpp"
 
 using namespace std;
 

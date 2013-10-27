@@ -97,6 +97,7 @@ public:
 		return nullptr;
 	}
 
+	// Shortcuts
 	inline ARenderer * renderer() const  { return r_renderer; }
 	inline AAnimator * animator() const  { return r_animator; }
 	inline Camera * camera() const       { return r_camera; }
