@@ -9,9 +9,9 @@ This file is part of the zCraft-Framework project.
 #include <cassert>
 #include <map>
 #include "Scene.hpp"
-#include "components/Renderer.hpp"
-#include "components/Collider.hpp"
-#include "components/Body.hpp"
+#include "graphics/Renderer.hpp"
+#include "physics/Collider.hpp"
+#include "physics/Body.hpp"
 
 #define ZN_PROFILE_SCENE
 

@@ -12,8 +12,8 @@
 #include <iostream>
 #include "fm/sfml/sfml2_utils.hpp"
 #include "fm/game2d/Entity.hpp"
-#include "fm/game2d/components/SpriteAnimator.hpp"
-#include "fm/game2d/components/BoxCollider.hpp"
+#include "fm/game2d/animation/SpriteAnimator.hpp"
+#include "fm/game2d/physics/BoxCollider.hpp"
 #include "fm/game2d/Direction.hpp"
 #include "fm/game2d/Scene.hpp"
 #include "fm/asset/AssetBank.hpp"

@@ -1,9 +1,9 @@
 #include <iostream>
 #include "Entity.hpp"
-#include "components/Component.hpp"
-#include "components/Renderer.hpp"
-#include "components/Collider.hpp"
-#include "components/Body.hpp"
+#include "Component.hpp"
+#include "graphics/Renderer.hpp"
+#include "physics/Collider.hpp"
+#include "physics/Body.hpp"
 #include "Scene.hpp"
 #include "../util/typecheck.hpp"
 

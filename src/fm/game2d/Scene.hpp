@@ -12,8 +12,8 @@ This file is part of the zCraft-Framework project.
 #include "Entity.hpp"
 #include "LayerMap.hpp"
 #include "ComponentSystem.hpp"
-#include "components/Behaviour.hpp"
-#include "AudioSystem.hpp"
+#include "behaviour/Behaviour.hpp"
+#include "audio/AudioSystem.hpp"
 
 namespace zn
 {

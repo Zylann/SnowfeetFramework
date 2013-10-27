@@ -3,7 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "Component.hpp"
+#include "../Component.hpp"
 #include "../../asset/TextureAtlas.hpp"
 
 namespace zn

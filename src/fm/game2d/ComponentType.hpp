@@ -7,7 +7,7 @@ This file is part of the zCraft-Framework project.
 #ifndef HEADER_ZN_COMPONENTTYPE_HPP_INCLUDED
 #define HEADER_ZN_COMPONENTTYPE_HPP_INCLUDED
 
-#include "../../types.hpp"
+#include "../types.hpp"
 #include <string>
 #include <iostream>
 

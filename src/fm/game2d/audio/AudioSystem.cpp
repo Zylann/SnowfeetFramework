@@ -1,7 +1,7 @@
 #include <cassert>
 #include "AudioSystem.hpp"
-#include "Entity.hpp"
-#include "../asset/AssetBank.hpp"
+#include "../Entity.hpp"
+#include "../../asset/AssetBank.hpp"
 
 namespace zn
 {

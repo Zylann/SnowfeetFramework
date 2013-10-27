@@ -10,8 +10,8 @@ This file is part of the zCraft-Framework project.
 #include <list>
 #include <SFML/Graphics.hpp>
 #include "../types.hpp"
-#include "components/Animator.hpp"
-#include "components/Camera.hpp"
+#include "animation/Animator.hpp"
+#include "graphics/Camera.hpp"
 #include "Object.hpp"
 
 namespace zn

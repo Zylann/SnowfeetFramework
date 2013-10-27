@@ -1,7 +1,7 @@
 #include <iostream>
-#include "../../config.hpp"
+#include "../config.hpp"
 #include "Component.hpp"
-#include "../Entity.hpp"
+#include "Entity.hpp"
 
 namespace zn
 {

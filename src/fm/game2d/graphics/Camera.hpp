@@ -2,7 +2,7 @@
 #define HEADER_ZN_CAMERA_HPP_INCLUDED
 
 #include <SFML/Graphics.hpp>
-#include "Component.hpp"
+#include "../Component.hpp"
 
 namespace zn
 {

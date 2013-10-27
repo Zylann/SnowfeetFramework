@@ -2,7 +2,7 @@
 
 #include "SpriteAnimator.hpp"
 #include "../../asset/TextureAtlas.hpp"
-#include "Renderer.hpp"
+#include "../graphics/Renderer.hpp"
 #include "../Entity.hpp"
 
 using namespace std;

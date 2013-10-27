@@ -2,9 +2,9 @@
 #define HEADER_ZN_COMPONENT_HPP_INCLUDED
 
 #include <string>
-#include "../../types.hpp"
-#include "../Object.hpp"
-#include "../CollisionInfo.hpp"
+#include "../types.hpp"
+#include "Object.hpp"
+#include "physics/CollisionInfo.hpp"
 #include "ComponentType.hpp"
 
 namespace zn

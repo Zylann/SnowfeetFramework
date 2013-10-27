@@ -12,7 +12,7 @@
 #ifndef HEADER_SSM_MOVER_HPP_INCLUDED
 #define HEADER_SSM_MOVER_HPP_INCLUDED
 
-#include "fm/game2d/components/Behaviour.hpp"
+#include "fm/game2d/behaviour/Behaviour.hpp"
 #include "common.hpp"
 
 namespace ssm

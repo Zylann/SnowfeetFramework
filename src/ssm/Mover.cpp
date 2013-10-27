@@ -12,7 +12,7 @@
 #include "Mover.hpp"
 #include "fm/sfml/sfml2_utils.hpp"
 #include "fm/game2d/Scene.hpp"
-#include "fm/game2d/components/Collider.hpp"
+#include "fm/game2d/physics/Collider.hpp"
 
 namespace ssm
 {

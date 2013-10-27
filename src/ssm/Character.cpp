@@ -11,7 +11,7 @@
 
 #include <iostream>
 #include "fm/game2d/Entity.hpp"
-#include "fm/game2d/components/BoxCollider.hpp"
+#include "fm/game2d/physics/BoxCollider.hpp"
 #include "Character.hpp"
 #include "Mover.hpp"
 
