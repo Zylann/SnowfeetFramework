@@ -37,9 +37,14 @@ public:
 
 	inline T width() const { return _max - _min; }
 
-	inline f32 lerp(T t)
+	inline f32 inverseLerp(T v)
 	{
-		return static_cast<f32>(t - _min) / static_cast<f32>(width());
+		return static_cast<f32>(v - _min) / static_cast<f32>(width());
+	}
+
+	inline f32 lerp(f32 t)
+	{
+		return _min + t * width();
 	}
 
 	inline T min() const { return _min; }
