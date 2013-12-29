@@ -15,6 +15,8 @@ class Entity;
 // A piece that composes an entity.
 // Note: components that derive directly from Component are specific to the engine.
 // if you want to implement gameplay, please derive from Behaviour instead.
+// For serialization and execution flow reasons, components must define a default
+// constructor and avoid to rely on a constructor with parameters.
 class AComponent : public Object
 {
 public:
@@ -34,14 +36,17 @@ public:
 	// Called to initialize the component after being added to an entity.
 	virtual void init();
 
-	// Called on each frame to update realtime behaviour.
-	virtual void update();
-
 	// Called just before the component to be destroyed.
 	virtual void onDestroy();
 
 	// Called when the owning entity receives a generic message
 	virtual void onMessage(const std::string & msg) {}
+
+	//----------
+	// TODO make callbacks below optional by using an event system?
+
+	// Called on each frame to update realtime behaviour.
+	virtual void update();
 
 	// Called when the entity starts colliding with something
 	virtual void onCollisionEnter(const CollisionInfo & info) {}
