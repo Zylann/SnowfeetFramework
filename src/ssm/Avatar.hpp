@@ -12,8 +12,8 @@
 #ifndef HEADER_SSM_AVATAR_HPP_INCLUDED
 #define HEADER_SSM_AVATAR_HPP_INCLUDED
 
-#include "fm/game2d/Component.hpp"
-#include "fm/game2d/graphics/SpriteRenderer.hpp"
+#include "fm/proto/Component.hpp"
+#include "fm/proto/graphics/SpriteRenderer.hpp"
 #include "Character.hpp"
 
 namespace ssm

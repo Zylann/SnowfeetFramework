@@ -11,8 +11,8 @@
 
 #include "Mover.hpp"
 #include "fm/sfml/sfml2_utils.hpp"
-#include "fm/game2d/Scene.hpp"
-#include "fm/game2d/physics/Collider.hpp"
+#include "fm/proto/Scene.hpp"
+#include "fm/proto/physics/Collider.hpp"
 
 namespace ssm
 {

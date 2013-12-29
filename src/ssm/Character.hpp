@@ -12,8 +12,8 @@
 #ifndef HEADER_SSM_CHARACTER_HPP_INCLUDED
 #define HEADER_SSM_CHARACTER_HPP_INCLUDED
 
-#include "fm/game2d/graphics/SpriteRenderer.hpp"
-#include "fm/game2d/Direction.hpp"
+#include "fm/proto/graphics/SpriteRenderer.hpp"
+#include "fm/proto/Direction.hpp"
 #include "common.hpp"
 #include "Mover.hpp"
 

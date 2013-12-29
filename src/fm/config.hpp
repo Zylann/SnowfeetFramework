@@ -4,6 +4,9 @@
 // Enables debug code (additionnal checks and messages, may decrease performance)
 #define ZN_DEBUG
 
+// Enables editor integration
+//#define ZN_EDITOR
+
 // Hint to ease SFML integration
 #define ZN_SFML
 

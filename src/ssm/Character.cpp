@@ -10,8 +10,8 @@
 //
 
 #include <iostream>
-#include "fm/game2d/Entity.hpp"
-#include "fm/game2d/physics/BoxCollider.hpp"
+#include "fm/proto/Entity.hpp"
+#include "fm/proto/physics/BoxCollider.hpp"
 #include "Character.hpp"
 #include "Mover.hpp"
 

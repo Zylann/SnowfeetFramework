@@ -1,7 +1,7 @@
 #ifndef SSM_HEADER_GAME_HPP_INCLUDED
 #define SSM_HEADER_GAME_HPP_INCLUDED
 
-#include "fm/game2d/GameApp.hpp"
+#include "fm/proto/GameApp.hpp"
 #include "common.hpp"
 
 namespace ssm
