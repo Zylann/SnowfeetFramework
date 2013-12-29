@@ -31,12 +31,12 @@
 		"list":
 		[
 			{ "src":"cat_meow1.wav" },
-			{ "name":"cat_meow2", "src":"cat_meow2.wav" },
-			{ "name":"cat_meow3", "src":"cat_meow3.wav" },
-			{ "name":"cat_meow4", "src":"cat_meow4.wav" },
-			{ "name":"gate_close", "src":"gate_close.wav" },
-			{ "name":"gate_open", "src":"gate_open.wav" },
-			{ "name":"step", "src":"step.wav" }
+			{ "src":"cat_meow2.wav", "name":"cat_meow2" },
+			{ "src":"cat_meow3.wav", "name":"cat_meow3" },
+			{ "src":"cat_meow4.wav", "name":"cat_meow4" },
+			{ "src":"gate_close.wav", "name":"gate_close"  },
+			{ "src":"gate_open.wav", "name":"gate_open" },
+			{ "src":"step.wav", "name":"step" }
 		]
 	},
 
