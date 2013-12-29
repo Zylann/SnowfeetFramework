@@ -18,7 +18,7 @@ public:
 	void onAdd(Entity * e) override;
 	void onDestroy() override;
 
-	virtual void accelerate(const sf::Vector2f & acc) = 0;
+	virtual void accelerate(const sf::Vector2f & acc) {}
 
 };
 

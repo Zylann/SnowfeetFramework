@@ -10,6 +10,7 @@ This file is part of the zCraft-Framework project.
 #include "../types.hpp"
 #include <string>
 #include <iostream>
+#include <functional>
 
 // Shortcut macros
 
@@ -22,7 +23,8 @@ This file is part of the zCraft-Framework project.
 	{                                                                          \
 		static ComponentType cmpt(#__name, CG_BEHAVIOUR);                      \
 		return cmpt;                                                           \
-	}
+	}                                                                          \
+	static AComponent * instantiate() { return new __name(); }
 
 // This macro is useful if you are extending a engine kind of component.
 // Place this in public in all your complete-type components class declarations.
@@ -34,10 +36,13 @@ This file is part of the zCraft-Framework project.
 	{                                                                          \
 		static ComponentType cmpt(#__name, __group, CTF_UNIQUE_OF_GROUP);      \
 		return cmpt;                                                           \
-	}
+	}                                                                          \
+	static AComponent * instantiate() { return new __name(); }
 
 namespace zn
 {
+
+class AComponent;
 
 // All these IDs refer to inheriting a specific type of Component.
 // It can change the way they are handled by the engine
@@ -86,6 +91,25 @@ struct ComponentType
 	{
 		os << "{" << name << ", cg:" << (u32)group << ", order:" << updateOrder << "}";
 	}
+
+	// -------------------
+	// Factory system
+	// -------------------
+
+	// Functions below allow you to register components in the factory system,
+	// which can then be created from their name as strings.
+	// This is mainly used for serialization.
+
+	// Registers a component type by a name and a function that instantiates this type.
+	// You must always use the full name of the class in the C++ way of things.
+	static void registerType(const std::string className, std::function<AComponent*()> factory);
+
+	// Creates a new instance of a component from its name.
+	// It does the same thing as "new MyComponent()", where className = "MyComponent".
+	static AComponent * instantiate(const std::string className);
+
+	// Registers built-in components. Must be called once.
+	static void registerEngineComponents();
 
 };
 

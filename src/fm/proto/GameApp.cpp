@@ -46,6 +46,9 @@ void GameApp::setFullScreen(bool fullScreen)
 
 void GameApp::start()
 {
+	// Register components in factory
+	ComponentType::registerEngineComponents();
+
 	m_fullScreen = true; // To make the next line work...
 	setFullScreen(false); // Creates the SFML window
 
@@ -56,17 +59,21 @@ void GameApp::start()
 
 #ifdef ZN_DEBUG
 
+	// Initialize update time graph
 	m_updateTimeGraph.setColor(sf::Color(255,127,0,192));
 	m_updateTimeGraph.setPosition(sf::Vector2f(8,8));
 	m_updateTimeGraph.setValueRange(0.0f, 2.f/60.f);
 	m_updateTimeGraph.updateMesh();
 
+	// Initialize render time graph
 	m_renderTimeGraph.setColor(sf::Color(0,255,0,192));
 	m_renderTimeGraph.setPosition(sf::Vector2f(8+200+8, 8));
 	m_renderTimeGraph.setValueRange(0.0f, 2.f/60.f);
 	m_renderTimeGraph.updateMesh();
 
 #endif
+
+	// Main loop
 
 	m_runFlag = true;
 	while(m_runFlag && m_window.isOpen())
