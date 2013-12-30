@@ -2,7 +2,9 @@
 #define HEADER_ZN_COMPONENT_HPP_INCLUDED
 
 #include <string>
+
 #include "../types.hpp"
+#include "../json/JsonBox.h"
 #include "Object.hpp"
 #include "physics/CollisionInfo.hpp"
 #include "ComponentType.hpp"
@@ -53,6 +55,16 @@ public:
 
 	// Called when the entity exits a collision
 	virtual void onCollisionExit(const CollisionInfo & info) {}
+
+	// --------------------
+	// Serialization
+	// --------------------
+
+	// Saves the component as JSON data
+	static void serialize(AComponent * component, JsonBox::Object & o);
+
+	// Creates a component from JSON data
+	static AComponent * unserialize(const JsonBox::Object & o);
 
 protected:
 

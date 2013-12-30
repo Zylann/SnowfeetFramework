@@ -13,8 +13,7 @@ This file is part of the zCraftFramework project.
 
 #include "../util/stringutils.hpp"
 #include "../config.hpp"
-#include "../rapidjson/document.h"
-#include "../rapidjson/filestream.h"
+#include "../json/JsonBox.h"
 
 namespace zn
 {
@@ -104,27 +103,30 @@ public:
 		}
 	}
 
-	bool loadList(const rapidjson::Value & obj)
+	bool loadList(JsonBox::Value & obj)
 	{
-		if(obj.HasMember("root"))
+		if(!obj["root"].isNull())
 		{
-			setRootFolder(obj["root"].GetString());
+			setRootFolder(obj["root"].getString());
 		}
 
-		const rapidjson::Value & jlist = obj["list"];
+		JsonBox::Array jlist = obj["list"].getArray();
 
 		std::string name, src;
 
-		for(rapidjson::SizeType i = 0; i < jlist.Size(); ++i)
+		for(auto it = jlist.begin(); it != jlist.end(); ++it)
 		{
-			src = jlist[i]["src"].GetString();
+			src = (*it)["src"].getString();
 
-			if(jlist[i].HasMember("name"))
+			// Get the user-defined name of the asset
+			// Note : JsonBox will not raise an error if the name is not specified,
+			// it reacts as an std::map
+			name = (*it)["name"].getString();
+
+			// Then if the name is empty
+			if(name.empty())
 			{
-				name = jlist[i]["name"].GetString();
-			}
-			else
-			{
+				// We use the filename directly
 				name = fileNameWithoutExtension(src);
 			}
 

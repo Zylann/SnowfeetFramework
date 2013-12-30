@@ -7,12 +7,10 @@ This file is part of the zCraftFramework project.
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <cassert>
 #include "TextureAtlas.hpp"
-#include "../rapidjson/document.h"
-#include "../rapidjson/filestream.h"
 #include "../sfml/sfml2_utils.hpp"
-
-using namespace rapidjson;
+#include "../json/JsonBox.h"
 
 namespace zn
 {
@@ -30,8 +28,8 @@ bool TextureAtlas::loadFromFile(const std::string & filePath)
 //------------------------------------------------------------------------------
 bool TextureAtlas::loadFromJSONFile(const std::string & filePath)
 {
-	FILE * cfile = fopen(filePath.c_str(), "rb");
-	if(!cfile)
+	std::ifstream ifs(filePath.c_str(), std::ios::in|std::ios::binary);
+	if(!ifs.good())
 	{
 		std::cout << "E: TiledMap::loadFromJSONFile: couldn't open \"" + filePath + '"' << std::endl;
 		return false;
@@ -41,42 +39,39 @@ bool TextureAtlas::loadFromJSONFile(const std::string & filePath)
 
 	// Parse stream
 
-	FileStream fs(cfile);
-	Document doc;
-	doc.ParseStream<0>(fs);
+	JsonBox::Value doc;
+	doc.loadFromStream(ifs);
+	ifs.close();
 
-	// Check version
+	// Check document
 
-	assert(doc.IsObject());
-	assert(doc.HasMember("version"));
-
-	s32 version = doc["version"].GetInt();
+	assert(doc.isObject());
+	s32 version = doc["version"].getInt();
 	if(version != 1)
 	{
 		std::cout << "E: TextureAtlas: unsupported JSON version (" << version << ")" << std::endl;
-		fclose(cfile);
 		return false;
 	}
 
 	// Globals
 
-	std::string textureName = doc["texture"].GetString();
-	s32 prescale = doc["prescale"].GetInt();
-	s32 timescale = doc["timescale"].GetInt();
+	std::string textureName = doc["texture"].getString();
+	s32 prescale = doc["prescale"].getInt();
+	s32 timescale = doc["timescale"].getInt();
 
 	// Frames
 
-	const Value & jframes = doc["frames"];
-	for(SizeType i = 0; i < jframes.Size(); ++i)
+	JsonBox::Array jframes = doc["frames"].getArray();
+	for(auto it = jframes.begin(); it != jframes.end(); ++it)
 	{
 		Frame f;
 
-		std::string name = jframes[i]["name"].GetString();
+		std::string name = (*it)["name"].getString();
 
-		f.rect.left = prescale * jframes[i]["x"].GetInt();
-		f.rect.top = prescale * jframes[i]["y"].GetInt();
-		f.rect.width = prescale * jframes[i]["w"].GetInt();
-		f.rect.height = prescale * jframes[i]["h"].GetInt();
+		f.rect.left = prescale * (*it)["x"].getInt();
+		f.rect.top = prescale * (*it)["y"].getInt();
+		f.rect.width = prescale * (*it)["w"].getInt();
+		f.rect.height = prescale * (*it)["h"].getInt();
 
 		if(m_frames.find(name) != m_frames.end())
 		{
@@ -88,24 +83,24 @@ bool TextureAtlas::loadFromJSONFile(const std::string & filePath)
 
 	// Sequences
 
-	const Value & jsequences = doc["sequences"];
-	for(SizeType i = 0; i < jsequences.Size(); ++i)
+	JsonBox::Array jsequences = doc["sequences"].getArray();
+	for(auto it = jsequences.begin(); it != jsequences.end(); ++it)
 	{
 		Sequence seq;
 
-		std::string name = jsequences[i]["name"].GetString();
+		std::string name = (*it)["name"].getString();
 
-		const Value & jframes = jsequences[i]["frames"];
-		for(SizeType i = 0; i < jframes.Size(); ++i)
+		JsonBox::Array jseqframes = (*it)["frames"].getArray();
+		for(auto itf = jseqframes.begin(); itf != jseqframes.end(); ++itf)
 		{
 			SequenceFrame f;
 
-			f.rect.left = prescale * jframes[i]["x"].GetInt();
-			f.rect.top = prescale * jframes[i]["y"].GetInt();
-			f.rect.width = prescale * jframes[i]["w"].GetInt();
-			f.rect.height = prescale * jframes[i]["h"].GetInt();
+			f.rect.left = prescale * (*itf)["x"].getInt();
+			f.rect.top = prescale * (*itf)["y"].getInt();
+			f.rect.width = prescale * (*itf)["w"].getInt();
+			f.rect.height = prescale * (*itf)["h"].getInt();
 
-			f.duration = timescale * jframes[i]["d"].GetInt();
+			f.duration = timescale * (*itf)["d"].getInt();
 
 			seq.frames.push_back(f);
 		}
@@ -118,16 +113,17 @@ bool TextureAtlas::loadFromJSONFile(const std::string & filePath)
 		m_sequences[name] = seq;
 	}
 
-	fclose(cfile);
+	// Load texture
 
 	std::string localDir = filePath.substr(0, filePath.find_last_of("/\\"));
 	std::string texturePath = localDir + '/' + textureName;
 	if(!m_texture.loadFromFile(texturePath))
 	{
-		std::cout << "E: TextureAtlas: couldn't load texture " << texturePath << std::endl;
+		std::cout << "E: TextureAtlas: couldn't load texture \"" << texturePath << '"' << std::endl;
 		return false;
 	}
 
+	// TODO add JSON option for texture smooth
 	m_texture.setSmooth(false);
 
 	return true;

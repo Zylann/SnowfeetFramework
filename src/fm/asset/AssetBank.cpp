@@ -8,10 +8,6 @@ This file is part of the zCraftFramework project.
 #include <iostream>
 #include <cstdio>
 #include "AssetBank.hpp"
-#include "../rapidjson/document.h"
-#include "../rapidjson/filestream.h"
-
-using namespace rapidjson;
 
 namespace zn
 {
@@ -46,62 +42,62 @@ void AssetBank::setRootFolder(const std::string & rf)
 
 bool AssetBank::loadFromJSON(const std::string & filePath)
 {
-	FILE * cfile = fopen(filePath.c_str(), "rb");
-	if(!cfile)
+	std::ifstream ifs(filePath.c_str(), std::ios::in|std::ios::binary);
+	if(!ifs.good())
 	{
 		std::cout << "E: AssetBank::loadFromJSON: couldn't open \"" + filePath + '"' << std::endl;
 		return false;
 	}
 
-	std::cout << "Reading AssetBank " << filePath << "..." << std::endl;
+	std::cout << "I: Reading AssetBank " << filePath << "..." << std::endl;
 
 	// Parse stream
 
-	FileStream fs(cfile);
-	Document doc;
-	doc.ParseStream<0>(fs);
+	JsonBox::Value doc;
+	doc.loadFromStream(ifs);
+	ifs.close();
 
 	// Load assets
 
-	if(doc.HasMember("textures"))
+	// TODO make this more generic
+
+	if(!doc["textures"].isNull())
 	{
 		if(!textures.loadList(doc["textures"]))
 			return false;
 	}
 
-	if(doc.HasMember("fonts"))
+	if(!doc["fonts"].isNull())
 	{
 		if(!fonts.loadList(doc["fonts"]))
 			return false;
 	}
 
-	if(doc.HasMember("soundbuffers"))
+	if(!doc["soundbuffers"].isNull())
 	{
 		if(!soundBuffers.loadList(doc["soundbuffers"]))
 			return false;
 	}
 
-	if(doc.HasMember("soundstreams"))
+	if(!doc["soundstreams"].isNull())
 	{
 		if(!soundStreams.loadList(doc["soundstreams"]))
 			return false;
 	}
 
-	if(doc.HasMember("atlases"))
+	if(!doc["atlases"].isNull())
 	{
 		if(!atlases.loadList(doc["atlases"]))
 			return false;
 	}
 
-	if(doc.HasMember("maps"))
+	if(!doc["maps"].isNull())
 	{
 		if(!maps.loadList(doc["maps"]))
 			return false;
 	}
 
-	fclose(cfile);
-
-	std::cout << "Done" << std::endl;
+	std::cout << "I: Done" << std::endl;
 
 	return true;
 }

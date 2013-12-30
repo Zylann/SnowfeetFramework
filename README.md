@@ -25,6 +25,7 @@ Features
 
 Planned/suggested :
 
+- JSON/PropertyTree-based serialization
 - Box2D integration
 - Python, Lua or AngelScript scripting
 - Script-based export pipeline
@@ -33,7 +34,6 @@ Planned/suggested :
 - GUI (for both game and editor?)
 - Entity parenting
 - Scene transitions
-- Serialization
 - Networking
 - Asynchronous tasks
 - ...
@@ -42,8 +42,8 @@ Dependencies
 ------------
 
 - SFML 2.1 http://www.sfml-dev.org/
-- RapidJSON (included in source) https://code.google.com/p/rapidjson/
-- zlib 1.2.8
+- JsonBox (included in source) https://github.com/anhero/JsonBox
+- zlib 1.2.8 (included in source) http://zlib.net/
 - C++11 (works with GCC MinGW 4.7+)
 
 Folder structure
@@ -66,11 +66,11 @@ necessary.
 | | |-asset/   : asset system (doesnt depends on the game engine,
 | | |            it's a separate system)
 | | |
-| | |-game2d/  : the actual game engine (window, components, scene...).
+| | |-proto/   : the actual game engine (window, components, scene...).
 | | |            it uses all the other source files under fm/.
 | | |
-| | |-rapidjson/ : the JSON API used by the engine.
-| | |              more at https://code.google.com/p/rapidjson/
+| | |-json/    : the JSON API used by the engine.
+| | |              more at https://github.com/anhero/JsonBox
 | | |
 | | |-sfml/    : sfml utility that doesn't depends on the engine. It may also
 | | |            contain drawable classes that are not component-based.

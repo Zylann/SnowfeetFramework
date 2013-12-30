@@ -7,20 +7,13 @@ This file is part of the zCraftFramework project.
 #include <iostream>
 #include <cstdio>
 #include <sstream>
+#include <cassert>
+#include <fstream>
+
 #include "../util/Exception.hpp"
 #include "../util/stringutils.hpp"
-#include "../rapidjson/document.h"
-#include "../rapidjson/filestream.h"
+#include "../json/JsonBox.h"
 #include "TiledMap.hpp"
-
-#define xassert(__test)                                              \
-	if(!__test) {                                                    \
-		std::stringstream ss;                                        \
-		ss << __FILE__ << ", line " << __LINE__ << ": " << #__test;  \
-		throw Exception(ss.str());                                   \
-	}
-
-using namespace rapidjson;
 
 namespace zn
 {
@@ -28,178 +21,119 @@ namespace zn
 //------------------------------------------------------------------------------
 bool TiledMap::loadFromFile(const std::string & filePath)
 {
-	try
+	return loadFromJSONFile(filePath);
+}
+
+//------------------------------------------------------------------------------
+bool TiledMap::loadFromJSONFile(const std::string & filePath)
+{
+	std::ifstream ifs(filePath.c_str(), std::ios::in|std::ios::binary);
+	if(!ifs.good())
 	{
-		loadFromJSONFile(filePath);
-	}
-	catch(std::exception & e)
-	{
-		std::cout << "E: TiledMap::loadFromFile: assertion failed: " << e.what() << std::endl;
+		std::cout << "E: TiledMap::loadFromJSONFile: couldn't open \"" + filePath + '"' << std::endl;
 		return false;
 	}
 
-	return true;
-}
-
-//------------------------------------------------------------------------------
-// Helper function
-sf::Vector2i readSize(const Value & v, const char * wname, const char * hname)
-{
-	sf::Vector2i s;
-
-	xassert(v.HasMember(wname));
-	xassert(v[wname].IsUint())
-	s.x = v[wname].GetUint();
-
-	xassert(v.HasMember(hname));
-	xassert(v[hname].IsUint())
-	s.y = v[hname].GetUint();
-
-	return s;
-}
-
-//------------------------------------------------------------------------------
-// Helper function
-sf::Vector2i readPosition(const Value & v, const char * xname, const char * yname)
-{
-	sf::Vector2i s;
-
-	xassert(v.HasMember(xname));
-	xassert(v[xname].IsInt())
-	s.x = v[xname].GetInt();
-
-	xassert(v.HasMember(yname));
-	xassert(v[yname].IsInt())
-	s.y = v[yname].GetInt();
-
-	return s;
-}
-
-//------------------------------------------------------------------------------
-// Helper function
-std::string readString(const Value & v, const char * name)
-{
-	std::string s;
-
-	xassert(v.HasMember(name));
-	xassert(v[name].IsString());
-	s = v[name].GetString();
-
-	return s;
-}
-
-//------------------------------------------------------------------------------
-void TiledMap::loadFromJSONFile(const std::string & filePath) throw(Exception)
-{
-	// TODO TiledMap: cleaner code
-	// A lot of lines are for testing and reporting errors.
-	// It would be cleaner if no check were made : fail quick and hard.
-	// Then, the debugger should be a good friend here.
-
-	FILE * cfile = fopen(filePath.c_str(), "rb");
-	if(!cfile)
-	{
-		throw Exception("E: TiledMap::loadFromJSONFile: couldn't open \"" + filePath + '"');
-	}
-
-	FileStream fs(cfile);
-
-	//
-	// Root
-	//
-
 	std::cout << "I: Reading TiledMap JSON..." << std::endl;
 
-	Document doc;
+	// Parse stream
 
-	doc.ParseStream<0>(fs);
+	JsonBox::Value doc;
+	doc.loadFromStream(ifs);
+	ifs.close();
 
-	xassert(doc.IsObject());
+	// Check document
 
-	// Check JSON version
-	s32 version = doc["version"].GetInt();
+	assert(doc.isObject());
+	s32 version = doc["version"].getInt();
 	if(version != 1)
 	{
-		fclose(cfile);
-		throw Exception("E: TiledMap: unsupported JSON version (" + toString(version) + ")");
+		std::cout << "E: TiledMap: unsupported JSON version (" << version << ")" << std::endl;
+		return false;
 	}
 
-	// Global size
-	size = readSize(doc, "width", "height");
+	//
+	// Globals
+	//
 
-	// Global tile size
-	tileSize = readSize(doc, "tilewidth", "tileheight");
+	// Map size
+	size.x = doc["width"].getInt();
+	size.y = doc["height"].getInt();
+
+	// Tiles size
+	tileSize.x = doc["tilewidth"].getInt();
+	tileSize.y = doc["tileheight"].getInt();
 
 	//
 	// Layers
 	//
 
-	xassert(doc.HasMember("layers"));
-	const Value & jlayers = doc["layers"];
-	xassert(jlayers.IsArray());
-
-	layers.resize(jlayers.Size(), Layer());
+	JsonBox::Array jlayers = doc["layers"].getArray();
+	layers.resize(jlayers.size(), Layer());
 
 	// Fetch layers
-	for(SizeType layer_i = 0; layer_i < jlayers.Size(); ++layer_i)
+	u32 layerIndex = 0;
+	for(auto layerIt = jlayers.begin(); layerIt != jlayers.end(); ++layerIt, ++layerIndex)
 	{
-		// Get layer
-		const Value & jlayer = jlayers[layer_i];
-		xassert(jlayer.IsObject());
-
-		Layer & layer = layers[layer_i];
+		Layer & layer = layers[layerIndex];
 
 		// Read layer information
-		layer.size     = readSize(jlayer, "width", "height");
-		layer.position = readPosition(jlayer, "x", "y");
-		layer.name     = readString(jlayer, "name");
+		layer.size.x      = (*layerIt)["width"].getInt();
+		layer.size.y      = (*layerIt)["height"].getInt();
+		layer.position.x  = (*layerIt)["x"].getInt();
+		layer.position.y  = (*layerIt)["y"].getInt();
+		layer.name        = (*layerIt)["name"].getString();
 
-		std::string layerType = readString(jlayer, "type");
+		std::string layerType = (*layerIt)["type"].getString();
 
 		if(layerType == "tilelayer")
 		{
 			std::cout << "I: Reading tilelayer..." << std::endl;
 
-			// Get data
-			xassert(jlayer.HasMember("data"));
-			const Value & jdata = jlayer["data"];
-			xassert(jdata.IsArray());
+			// Get tiles data
+			JsonBox::Array jdata = (*layerIt)["data"].getArray();
 
 			// Check if dimensions are consistent
-			u32 layerDataSize = layer.size.x*layer.size.y;
-			if(layerDataSize != jdata.Size())
+			u32 layerDataSize = layer.size.x * layer.size.y;
+			if(layerDataSize != jdata.size())
 			{
-				fclose(cfile);
-				throw(Exception("layerDataSize != width*height (layer name: \"" + layer.name + "\")"));
+				// Dimensions mismatch !
+				std::cout << "E: jdata.size()(" << jdata.size() << ")"
+					" != width(" << layer.size.x << ")*height(" << layer.size.y << ")"
+					" (layer name: \"" << layer.name << "\")" << std::endl;
+				return false;
 			}
 
-			// Read data
+			// Read tiles data
 			layer.grid.resize(layerDataSize);
-			for(SizeType i = 0; i < jdata.Size(); ++i)
+			u32 i = 0;
+			for(auto it = jdata.begin(); it != jdata.end(); ++it)
 			{
-				layer.grid[i] = jdata[i].GetUint();
+				layer.grid[i] = it->getInt();
+				++i;
 			}
 		}
 		else if(layerType == "objectgroup")
 		{
 			std::cout << "I: Reading objectgroup..." << std::endl;
 
-			// Get data
-			const Value & jobjects = jlayer["objects"];
+			// Get objects data
+			JsonBox::Array jobjects = (*layerIt)["objects"].getArray();
 
 			// Read data
-			layer.objects.resize(jobjects.Size());
-			for(SizeType i = 0; i < jobjects.Size(); ++i)
+			layer.objects.resize(jobjects.size());
+			u32 i = 0;
+			for(auto it = jobjects.begin(); it != jobjects.end(); ++it)
 			{
-				const Value & jobj = jobjects[i];
+				JsonBox::Object jobj = it->getObject();
 				Object & obj = layer.objects[i];
 
-				obj.position.x  = jobj["x"].GetInt();
-				obj.position.y  = jobj["y"].GetInt();
-				obj.gid         = jobj["gid"].GetInt();
-				obj.visible     = jobj["visible"].GetBool();
-				obj.size.x      = jobj["width"].GetInt();
-				obj.size.y      = jobj["height"].GetInt();
+				obj.position.x  = jobj["x"].getInt();
+				obj.position.y  = jobj["y"].getInt();
+				obj.gid         = jobj["gid"].getInt();
+				obj.visible     = jobj["visible"].getBoolean();
+				obj.size.x      = jobj["width"].getInt();
+				obj.size.y      = jobj["height"].getInt();
 			}
 		}
 	}
@@ -208,36 +142,34 @@ void TiledMap::loadFromJSONFile(const std::string & filePath) throw(Exception)
 	// Tilesets
 	//
 
-	xassert(doc.HasMember("tilesets"));
-	const Value & jtilesets = doc["tilesets"];
-	xassert(jtilesets.IsArray());
+	JsonBox::Array jtilesets = doc["tilesets"].getArray();
 
-	tileSets.resize(jtilesets.Size(), TileSet());
+	tileSets.resize(jtilesets.size(), TileSet());
 
-	for(SizeType i = 0; i < jtilesets.Size(); ++i)
+	u32 tilesetIndex = 0;
+	for(auto tilesetIt = jtilesets.begin(); tilesetIt != jtilesets.end(); ++tilesetIt, ++tilesetIndex)
 	{
-		std::cout << "I: Reading tileset " << i << "..." << std::endl;
+		std::cout << "I: Reading tileset " << tilesetIndex << "..." << std::endl;
 
-		const Value & jtileset = jtilesets[i];
-		xassert(jtileset.IsObject());
-
-		TileSet & tileset = tileSets[i];
+		TileSet & tileset = tileSets[tilesetIndex];
 
 		// Tileset size
-		tileset.tileSize = readSize(jtileset, "tilewidth", "tileheight");
+		tileset.tileSize.x = (*tilesetIt)["tilewidth"].getInt();
+		tileset.tileSize.y = (*tilesetIt)["tileheight"].getInt();
+
 		// Tileset name
-		tileset.name = readString(jtileset, "name");
+		tileset.name = (*tilesetIt)["name"].getString();
 
-		// firstgid
-		xassert(jtileset.HasMember("firstgid"));
-		xassert(jtileset["firstgid"].IsUint());
-		tileset.firstgid = jtileset["firstgid"].GetUint();
+		// Firstgid
+		tileset.firstgid = (*tilesetIt)["firstgid"].getInt();
 
-		// texture path
-		tileset.texturePath = readString(jtileset, "image");
+		// Texture path
+		tileset.texturePath = (*tilesetIt)["image"].getString();
 	}
 
-	fclose(cfile);
+	print(std::cout);
+
+	return true;
 }
 
 //------------------------------------------------------------------------------

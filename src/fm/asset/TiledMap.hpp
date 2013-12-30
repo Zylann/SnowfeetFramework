@@ -79,7 +79,7 @@ public:
 	//-----------------------
 
 	bool loadFromFile(const std::string & filePath) override;
-	void loadFromJSONFile(const std::string & filePath) throw(Exception);
+	bool loadFromJSONFile(const std::string & filePath);
 
 	void print(std::ostream & os) const;
 
