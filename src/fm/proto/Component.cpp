@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cassert>
 #include "../config.hpp"
 #include "Component.hpp"
 #include "Entity.hpp"
@@ -46,22 +47,49 @@ Entity & AComponent::entity() const
 }
 
 //------------------------------------------------------------------------------
+// Serialization (member)
+
+void AComponent::serializeData(JsonBox::Value & o)
+{
+	o["name"] = name();
+	o["flags"] = m_flags;
+}
+
+void AComponent::unserializeData(JsonBox::Value & o)
+{
+	setName(o["name"].getString());
+	m_flags = o["flags"].getInt();
+}
+
+//------------------------------------------------------------------------------
 // Serialization (static)
 
 // TODO use a PropertyTree instead of directly JsonBox::Object?
 // It would solve the problem about which serialization format to choose...
 
-void AComponent::serialize(AComponent * component, JsonBox::Object & o)
+void AComponent::serialize(AComponent * component, JsonBox::Value & o)
 {
-	// TODO implement serialization
-	cout << "E: Not implemented yet" << endl;
+	// Serialize type
+	o["type"] = JsonBox::Value(component->componentType().name);
+
+	// Serialize properties
+	JsonBox::Value & properties = o["data"];
+	component->serializeData(properties);
 }
 
-AComponent * AComponent::unserialize(const JsonBox::Object & o)
+AComponent * AComponent::unserialize(JsonBox::Value & o)
 {
-	// TODO implement unserialization
-	cout << "E: Not implemented yet" << endl;
-	return nullptr;
+	// Get type of the component
+	std::string type = o["type"].getString();
+
+	// Instantiate it
+	AComponent * component = ComponentType::instantiate(type);
+
+	// Deserialize properties
+	assert(component != nullptr);
+	component->unserializeData(o["data"]);
+
+	return component;
 }
 
 } // namespace zn

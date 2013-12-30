@@ -73,6 +73,13 @@ public:
 	inline sf::Time deltaTime() const { return m_deltaTime; }
 
 	//----------------------------
+	// Serialization
+	//----------------------------
+
+	void serialize(JsonBox::Value & o);
+	void unserialize(JsonBox::Value & o);
+
+	//----------------------------
 	// Component systems
 	//----------------------------
 
@@ -91,6 +98,10 @@ protected:
 	void draw(sf::RenderTarget & target, sf::RenderStates states) const override;
 
 private:
+
+	// Called after unserializing the scene in order to reconstruct references
+	// between components
+	void postUnserialize();
 
 	std::list<Entity*>              m_entities; // Entities in play
 

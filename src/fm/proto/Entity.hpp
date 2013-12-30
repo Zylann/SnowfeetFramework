@@ -121,6 +121,14 @@ public:
 	inline void setLayerMask(u32 mask) { m_layerMask = mask; }
 	inline u32 layerMask() const { return m_layerMask; }
 
+	//--------------------------------------
+	// Serialization
+	//--------------------------------------
+
+	void serialize(JsonBox::Value & o);
+	void unserialize(JsonBox::Value & o);
+	void postUnserialize();
+
 private:
 
 	friend class Scene;

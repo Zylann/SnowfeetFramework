@@ -104,6 +104,8 @@ AComponent * Entity::addComponent(AComponent * newCmp)
 	}
 #endif
 
+	m_components.push_back(newCmp);
+
 	// Assign quick lookup pointer
 	switch(ct.group)
 	{
@@ -168,6 +170,92 @@ void Entity::onCollisionExit(const CollisionInfo & info)
 	for(u32 i = 0; i < m_components.size(); ++i)
 	{
 		m_components[i]->onCollisionExit(info);
+	}
+}
+
+//------------------------------------------------------------------------------
+//	sf::Transformable         m_transform;
+//	u8                        m_flags;
+//	u32                       m_layerMask;
+
+void Entity::serialize(JsonBox::Value & o)
+{
+	// Transform
+
+	JsonBox::Value & transformData = o["transform"];
+
+	JsonBox::Value & positionData = transformData["position"];
+	positionData["x"] = m_transform.getPosition().x;
+	positionData["y"] = m_transform.getPosition().y;
+
+	JsonBox::Value & scaleData = transformData["scale"];
+	scaleData["x"] = m_transform.getScale().x;
+	scaleData["y"] = m_transform.getScale().y;
+
+	transformData["rotation"] = m_transform.getRotation();
+
+	// Meta
+
+	o["flags"]      = m_flags;
+	o["layerMask"]  = (s32)m_layerMask; // TODO fix JsonBox so it accepts unsigned integers
+	o["name"]       = name();
+
+	// Components
+
+	JsonBox::Array componentListData;
+	componentListData.resize(m_components.size());
+	for(u32 i = 0; i < m_components.size(); ++i)
+	{
+		JsonBox::Value & componentData = componentListData[i];
+		AComponent::serialize(m_components[i], componentData);
+	}
+	o["components"] = componentListData;
+}
+
+//------------------------------------------------------------------------------
+void Entity::unserialize(JsonBox::Value & o)
+{
+	// Transform
+
+	JsonBox::Value transformData = o["transform"];
+
+	JsonBox::Value positionData = transformData["position"];
+	m_transform.setPosition(
+		positionData["x"].getDouble(),
+		positionData["y"].getDouble()
+	);
+
+	JsonBox::Value scaleData = transformData["scale"];
+	m_transform.setScale(
+		scaleData["x"].getDouble(),
+		scaleData["y"].getDouble()
+	);
+
+	m_transform.setRotation(transformData["rotation"].getDouble());
+
+	// Meta
+
+	m_flags = o["flags"].getInt();
+	m_layerMask = o["layerMask"].getInt();
+	setName(o["name"].getString());
+
+	// Components
+
+	JsonBox::Value & componentListData = o["components"];
+	u32 n = componentListData.getArray().size();
+	for(u32 i = 0; i < n; ++i)
+	{
+		AComponent * component = AComponent::unserialize(componentListData[i]);
+		addComponent(component);
+	}
+}
+
+//------------------------------------------------------------------------------
+void Entity::postUnserialize()
+{
+	for(auto it = m_components.begin(); it != m_components.end(); ++it)
+	{
+		(*it)->postUnserialize();
 	}
 }
 

@@ -153,7 +153,7 @@ namespace JsonBox {
 		 * @return Reference to the modified value.
 		 */
 		Value &operator=(const Value &src);
-		
+
 		/**
 		 * Checks if the current value is equal to the right hand side value.
 		 * @param rhs Right hand side value to check for equality with.
@@ -170,7 +170,7 @@ namespace JsonBox {
 		 * if not.
 		 */
 		bool operator!=(const Value &rhs) const;
-		
+
 		/**
 		 * Checks if the contents of instance are lexicographically less than
 		 * the contents of the right hand side value.
@@ -179,7 +179,7 @@ namespace JsonBox {
 		 * less than the contents of the right hand side value.
 		 */
 		bool operator <(const Value &rhs) const;
-		
+
 		/**
 		 * Checks if the contents of instance are lexicographically less than or
 		 * equal the contents of the right hand side value.
@@ -188,7 +188,7 @@ namespace JsonBox {
 		 * less than or equal the contents of the right hand side value.
 		 */
 		bool operator <=(const Value &rhs) const;
-		
+
 		/**
 		 * Checks if the contents of instance are lexicographically greater than
 		 * the contents of the right hand side value.
@@ -197,7 +197,7 @@ namespace JsonBox {
 		 * greater than the contents of the right hand side value.
 		 */
 		bool operator >(const Value &rhs) const;
-		
+
 		/**
 		 * Checks if the contents of instance are lexicographically greater than
 		 * or equal the contents of the right hand side value.

@@ -60,11 +60,25 @@ public:
 	// Serialization
 	// --------------------
 
-	// Saves the component as JSON data
-	static void serialize(AComponent * component, JsonBox::Object & o);
+	// Saves the component as JSON data.
+	// Automatically adds type information from componentType().
+	static void serialize(AComponent * component, JsonBox::Value & o);
 
 	// Creates a component from JSON data
-	static AComponent * unserialize(const JsonBox::Object & o);
+	// Retrieves type information to instantiate the component.
+	static AComponent * unserialize(JsonBox::Value & o);
+
+	// Saves component's data to JSON (no need to save the type).
+	// You need to call superclass' version.
+	virtual void serializeData(JsonBox::Value & o);
+
+	// Initializes the component from JSON data
+	// You need to call superclass' version.
+	virtual void unserializeData(JsonBox::Value & o);
+
+	// Called after unserialization of all components in the entity.
+	// Use this function to relink references, check integrity etc.
+	virtual void postUnserialize() {}
 
 protected:
 

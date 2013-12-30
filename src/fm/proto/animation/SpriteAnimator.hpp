@@ -14,7 +14,7 @@ public:
 	ZN_COMPONENT(zn::SpriteAnimator, CG_ANIMATOR)
 
 	SpriteAnimator() : AAnimator(),
-		m_sequence(0),
+		r_sequence(0),
 		m_sequenceFrame(0),
 		m_remainingLoops(0)
 	{}
@@ -24,7 +24,12 @@ public:
 	void play(const std::string & id, s32 loops=-1) override;
 	void stop() override;
 
-	inline bool playing() const { return m_sequence != nullptr; }
+	inline bool playing() const { return r_sequence != nullptr; }
+
+	// Serialization
+	void serializeData(JsonBox::Value & o) override;
+	void unserializeData(JsonBox::Value & o) override;
+	void postUnserialize() override;
 
 protected:
 
@@ -33,10 +38,13 @@ protected:
 
 private:
 
-	const TextureAtlas::Sequence * m_sequence;
+	const TextureAtlas::Sequence * r_sequence;
 	u32 m_sequenceFrame;
 	s32 m_remainingLoops;
-	sf::Clock m_sequenceClock;
+	sf::Clock m_sequenceClock; // Measures the time between each frame
+
+	std::string m_sequenceName; // Name of the current playing sequence
+	std::string m_frameName; // Name of the current still frame (not sequence)
 
 };
 

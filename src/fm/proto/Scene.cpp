@@ -267,6 +267,43 @@ ACollider * Scene::colliderAt(const sf::FloatRect & rect, const ACollider * exce
 	return nullptr;
 }
 
+//------------------------------------------------------------------------------
+void Scene::serialize(JsonBox::Value & o)
+{
+	JsonBox::Array entityListData;
+	for(auto it = m_entities.begin(); it != m_entities.end(); ++it)
+	{
+		JsonBox::Value entityData;
+		(*it)->serialize(entityData);
+		entityListData.push_back(entityData);
+	}
+
+	o["entities"] = entityListData;
+}
+
+//------------------------------------------------------------------------------
+void Scene::unserialize(JsonBox::Value & o)
+{
+	JsonBox::Value & entityListData = o["entities"];
+	u32 n = entityListData.getArray().size();
+	for(u32 i = 0; i < n; ++i)
+	{
+		Entity * entity = createEntity();
+		entity->unserialize(entityListData[i]);
+	}
+
+	postUnserialize();
+}
+
+//------------------------------------------------------------------------------
+void Scene::postUnserialize()
+{
+	for(auto it = m_entities.begin(); it != m_entities.end(); ++it)
+	{
+		(*it)->postUnserialize();
+	}
+}
+
 } // namespace zn
 
 

@@ -75,6 +75,16 @@ void Game::onEvent(sf::Event& e)
 		{
 			setFullScreen(!fullScreen());
 		}
+		else if(e.key.code == sf::Keyboard::Key::F5)
+		{
+			// TEST
+			std::cout << "Scene serialization" << std::endl;
+			JsonBox::Value v;
+			m_scene.serialize(v);
+			std::ofstream ofs("test_scene.json", std::ios::out|std::ios::trunc|std::ios::binary);
+			v.writeToStream(ofs);
+			ofs.close();
+		}
 		break;
 
 //	case sf::Event::MouseButtonPressed:
