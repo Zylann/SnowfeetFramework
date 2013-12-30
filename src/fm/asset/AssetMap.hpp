@@ -32,6 +32,7 @@ public:
 		clear();
 	};
 
+	// Destroys all the assets contained in the map
 	void clear()
 	{
 		for(auto it = m_map.begin(); it != m_map.end(); ++it)
@@ -57,6 +58,7 @@ public:
 		}
 	}
 
+	// Gets an asset from its name
 	T * get(const std::string & id) const
 	{
 		auto it = m_map.find(id);
@@ -71,6 +73,7 @@ public:
 		}
 	}
 
+	// Loads an asset from a file into the map with a name
 	bool load(std::string filePath, const std::string & id)
 	{
 		if(id.empty())
@@ -103,6 +106,7 @@ public:
 		}
 	}
 
+	// Loads a list of assets from its JSON object representation
 	bool loadList(JsonBox::Value & obj)
 	{
 		if(!obj["root"].isNull())
