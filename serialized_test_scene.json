@@ -1,0 +1,203 @@
+{
+	"entities" : [
+		{
+			"components" : [
+				{
+					"data" : {
+						"atlas" : "room",
+						"bgLayerName" : "background",
+						"drawOrder" : -1,
+						"flags" : 0,
+						"name" : "_component_",
+						"tiledMap" : "test"
+					},
+					"type" : "zn::MapRenderer"
+				},
+				{
+					"data" : {
+						"flags" : 0,
+						"name" : "_component_"
+					},
+					"type" : "zn::MapCollider"
+				}
+			],
+			"flags" : 1,
+			"layerMask" : 1,
+			"name" : "map",
+			"transform" : {
+				"position" : {
+					"x" : 0,
+					"y" : 0
+				},
+				"rotation" : 0,
+				"scale" : {
+					"x" : 1,
+					"y" : 1
+				}
+			}
+		},
+		{
+			"components" : [
+				{
+					"data" : {
+						"flags" : 0,
+						"name" : "_component_",
+						"scaleMode" : "adapted",
+						"size" : {
+							"x" : 800,
+							"y" : 600
+						},
+						"viewport" : {
+							"h" : 1,
+							"w" : 1,
+							"x" : 0,
+							"y" : 0
+						}
+					},
+					"type" : "zn::Camera"
+				}
+			],
+			"flags" : 1,
+			"layerMask" : 1,
+			"name" : "main_camera",
+			"transform" : {
+				"position" : {
+					"x" : 2077.47,
+					"y" : 1000.43
+				},
+				"rotation" : 0.998802,
+				"scale" : {
+					"x" : 1,
+					"y" : 1
+				}
+			}
+		},
+		{
+			"components" : [
+				{
+					"data" : {
+						"flags" : 0,
+						"name" : "_component_"
+					},
+					"type" : "ssm::Avatar"
+				},
+				{
+					"data" : {
+						"drawOrder" : 0,
+						"flags" : 0,
+						"name" : "_component_"
+					},
+					"type" : "zn::SpriteRenderer"
+				},
+				{
+					"data" : {
+						"flags" : 0,
+						"name" : "_component_"
+					},
+					"type" : "ssm::Mover"
+				},
+				{
+					"data" : {
+						"flags" : 0,
+						"name" : "_component_"
+					},
+					"type" : "zn::BoxCollider"
+				},
+				{
+					"data" : {
+						"flags" : 0,
+						"frame" : "",
+						"name" : "_component_",
+						"remainingLoops" : 0,
+						"sequence" : "",
+						"sequenceFrame" : 0
+					},
+					"type" : "zn::SpriteAnimator"
+				},
+				{
+					"data" : {
+						"attenuation" : 32,
+						"flags" : 0,
+						"maxRadius" : 2000,
+						"minRadius" : 1000,
+						"name" : "_component_",
+						"spatialize" : true
+					},
+					"type" : "zn::AudioEmitter"
+				}
+			],
+			"flags" : 1,
+			"layerMask" : 1,
+			"name" : "the_bum",
+			"transform" : {
+				"position" : {
+					"x" : 2061.47,
+					"y" : 984.429
+				},
+				"rotation" : 0,
+				"scale" : {
+					"x" : 1,
+					"y" : 1
+				}
+			}
+		},
+		{
+			"components" : [
+				{
+					"data" : {
+						"flags" : 0,
+						"name" : "_component_"
+					},
+					"type" : "ssm::Cat"
+				},
+				{
+					"data" : {
+						"drawOrder" : 0,
+						"flags" : 0,
+						"name" : "_component_"
+					},
+					"type" : "zn::SpriteRenderer"
+				},
+				{
+					"data" : {
+						"flags" : 0,
+						"name" : "_component_"
+					},
+					"type" : "ssm::Mover"
+				},
+				{
+					"data" : {
+						"flags" : 0,
+						"name" : "_component_"
+					},
+					"type" : "zn::BoxCollider"
+				},
+				{
+					"data" : {
+						"flags" : 0,
+						"frame" : "",
+						"name" : "_component_",
+						"remainingLoops" : 0,
+						"sequence" : "",
+						"sequenceFrame" : 0
+					},
+					"type" : "zn::SpriteAnimator"
+				}
+			],
+			"flags" : 1,
+			"layerMask" : 1,
+			"name" : "snowfeet",
+			"transform" : {
+				"position" : {
+					"x" : 1984,
+					"y" : 992
+				},
+				"rotation" : 0,
+				"scale" : {
+					"x" : 1,
+					"y" : 1
+				}
+			}
+		}
+	]
+}

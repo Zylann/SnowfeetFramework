@@ -78,12 +78,15 @@ void Game::onEvent(sf::Event& e)
 		else if(e.key.code == sf::Keyboard::Key::F5)
 		{
 			// TEST
-			std::cout << "Scene serialization" << std::endl;
+			std::cout << "Scene serialization..." << std::endl;
+			sf::Clock timer;
 			JsonBox::Value v;
 			m_scene.serialize(v);
-			std::ofstream ofs("test_scene.json", std::ios::out|std::ios::trunc|std::ios::binary);
+			std::ofstream ofs("serialized_test_scene.json", std::ios::out|std::ios::trunc|std::ios::binary);
 			v.writeToStream(ofs);
 			ofs.close();
+			f32 timeSpent = timer.getElapsedTime().asSeconds();
+			std::cout << "Took " << timeSpent << "s to serialize the scene as a file." << std::endl;
 		}
 		break;
 
