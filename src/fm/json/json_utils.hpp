@@ -30,7 +30,26 @@ inline void unserialize(JsonBox::Value & o, Range<s32> & range)
 #ifdef ZN_SFML
 
 template <typename T>
-void serialize(JsonBox::Value & o, const sf::Rect<T> rect)
+inline void serialize(JsonBox::Value & o, const sf::Vector2<T> & vec)
+{
+	o["x"] = vec.x;
+	o["y"] = vec.y;
+}
+
+inline void unserialize(JsonBox::Value & o, sf::Vector2f & vec)
+{
+	vec.x = o["x"].getDouble();
+	vec.y = o["y"].getDouble();
+}
+
+inline void unserialize(JsonBox::Value & o, sf::Vector2i & vec)
+{
+	vec.x = o["x"].getInt();
+	vec.y = o["y"].getInt();
+}
+
+template <typename T>
+inline void serialize(JsonBox::Value & o, const sf::Rect<T> & rect)
 {
 	o["x"] = rect.left;
 	o["y"] = rect.top;
@@ -38,7 +57,7 @@ void serialize(JsonBox::Value & o, const sf::Rect<T> rect)
 	o["h"] = rect.height;
 }
 
-inline void unserialize(JsonBox::Value & o, sf::FloatRect rect)
+inline void unserialize(JsonBox::Value & o, sf::FloatRect & rect)
 {
 	rect.left   = o["x"].getDouble();
 	rect.top    = o["y"].getDouble();
@@ -46,7 +65,7 @@ inline void unserialize(JsonBox::Value & o, sf::FloatRect rect)
 	rect.height = o["h"].getDouble();
 }
 
-inline void unserialize(JsonBox::Value & o, sf::IntRect rect)
+inline void unserialize(JsonBox::Value & o, sf::IntRect & rect)
 {
 	rect.left   = o["x"].getInt();
 	rect.top    = o["y"].getInt();

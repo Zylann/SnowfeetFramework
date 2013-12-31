@@ -34,6 +34,11 @@ public:
 
 	void setFrame(const std::string& id);
 
+	// Serialization
+	void serializeData(JsonBox::Value & o) override;
+	void unserializeData(JsonBox::Value & o) override;
+	void postUnserialize() override;
+
 protected:
 
 	void draw(sf::RenderTarget & target, sf::RenderStates states) const override;

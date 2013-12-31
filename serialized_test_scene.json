@@ -62,10 +62,10 @@
 			"name" : "main_camera",
 			"transform" : {
 				"position" : {
-					"x" : 2077.47,
-					"y" : 1000.43
+					"x" : 1821.22,
+					"y" : 996.716
 				},
-				"rotation" : 0.998802,
+				"rotation" : 359.897,
 				"scale" : {
 					"x" : 1,
 					"y" : 1
@@ -83,9 +83,29 @@
 				},
 				{
 					"data" : {
+						"atlas" : "avatar",
 						"drawOrder" : 0,
 						"flags" : 0,
-						"name" : "_component_"
+						"name" : "_component_",
+						"origin" : {
+							"x" : 0,
+							"y" : 0
+						},
+						"position" : {
+							"x" : 1805.22,
+							"y" : 980.716
+						},
+						"rotation" : 0,
+						"scale" : {
+							"x" : 1,
+							"y" : 1
+						},
+						"textureRect" : {
+							"h" : 32,
+							"w" : 32,
+							"x" : 0,
+							"y" : 32
+						}
 					},
 					"type" : "zn::SpriteRenderer"
 				},
@@ -116,7 +136,7 @@
 				},
 				{
 					"data" : {
-						"attenuation" : 32,
+						"attenuation" : 3.61941e+031,
 						"flags" : 0,
 						"maxRadius" : 2000,
 						"minRadius" : 1000,
@@ -131,8 +151,8 @@
 			"name" : "the_bum",
 			"transform" : {
 				"position" : {
-					"x" : 2061.47,
-					"y" : 984.429
+					"x" : 1805.22,
+					"y" : 980.716
 				},
 				"rotation" : 0,
 				"scale" : {
@@ -152,9 +172,29 @@
 				},
 				{
 					"data" : {
+						"atlas" : "cat",
 						"drawOrder" : 0,
 						"flags" : 0,
-						"name" : "_component_"
+						"name" : "_component_",
+						"origin" : {
+							"x" : 0,
+							"y" : 0
+						},
+						"position" : {
+							"x" : 1974.53,
+							"y" : 927.145
+						},
+						"rotation" : 0,
+						"scale" : {
+							"x" : 1,
+							"y" : 1
+						},
+						"textureRect" : {
+							"h" : 16,
+							"w" : 16,
+							"x" : 16,
+							"y" : 48
+						}
 					},
 					"type" : "zn::SpriteRenderer"
 				},
@@ -177,8 +217,8 @@
 						"flags" : 0,
 						"frame" : "",
 						"name" : "_component_",
-						"remainingLoops" : 0,
-						"sequence" : "",
+						"remainingLoops" : -1,
+						"sequence" : "walk.up",
 						"sequenceFrame" : 0
 					},
 					"type" : "zn::SpriteAnimator"
@@ -189,8 +229,8 @@
 			"name" : "snowfeet",
 			"transform" : {
 				"position" : {
-					"x" : 1984,
-					"y" : 992
+					"x" : 1974.53,
+					"y" : 927.145
 				},
 				"rotation" : 0,
 				"scale" : {
