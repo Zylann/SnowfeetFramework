@@ -14,15 +14,15 @@ public:
 	ZN_COMPONENT(zn::ParticleSystem, CG_RENDERER)
 
 	ParticleSystem() : ARenderer(),
-		_maxParticles(0),
-		_particleRadius(1,1),
-		_particleLifeTime(10,10),
-		_atlasRef(nullptr)
+		m_maxParticles(0),
+		m_particleRadius(1,1),
+		m_particleLifeTime(10,10),
+		r_atlas(nullptr)
 	{
-		_vertices.setPrimitiveType(sf::Quads);
+		m_vertices.setPrimitiveType(sf::Quads);
 	}
 
-	const TextureAtlas * atlas() override { return _atlasRef; }
+	const TextureAtlas * atlas() override { return r_atlas; }
 	void setAtlas(const TextureAtlas * atlas) override;
 	void setTextureRect(const sf::IntRect & rect) override;
 
@@ -42,13 +42,13 @@ private:
 
 	void updateUVs(u32 i_start);
 
-	u32 _maxParticles;
-	Range<f32> _particleRadius;
-	Range<f32> _particleLifeTime;
-	sf::FloatRect _emissionZone;
-	const TextureAtlas * _atlasRef;
-	sf::IntRect _atlasRect;
-	sf::VertexArray _vertices;
+	u32                    m_maxParticles;
+	Range<f32>             m_particleRadius;
+	Range<f32>             m_particleLifeTime;
+	sf::FloatRect          m_emissionZone;
+	const TextureAtlas *   r_atlas;
+	sf::IntRect            m_atlasRect;
+	sf::VertexArray        m_vertices;
 
 	struct Particle
 	{
@@ -60,7 +60,7 @@ private:
 		Particle() : remainingTime(-1), radius(1) {}
 	};
 
-	std::vector<Particle> _particles;
+	std::vector<Particle>  m_particles;
 
 };
 

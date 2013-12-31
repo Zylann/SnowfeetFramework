@@ -59,8 +59,8 @@ void PerformanceGraph::updateMesh()
 			m_vertices[i].position = sf::Vector2f(i/2, m_size.y);
 			m_vertices[i+1].position = sf::Vector2f(i/2, m_size.y);
 
-//			_vertices[i].color = sf::Color(_color.r/2, _color.g/2, _color.b/2, _color.a);
-//			_vertices[i+1].color = _color;
+//			m_vertices[i].color = sf::Color(_color.r/2, _color.g/2, _color.b/2, _color.a);
+//			m_vertices[i+1].color = _color;
 		}
 
 		m_background[0].position = sf::Vector2f(-1, -1);
