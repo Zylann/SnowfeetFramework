@@ -15,5 +15,20 @@ void ACollider::onDestroy()
 	entity().scene().colliders.unregisterComponent(this);
 }
 
+void ACollider::serializeData(JsonBox::Value & o)
+{
+	AComponent::serializeData(o);
+}
+
+void ACollider::unserializeData(JsonBox::Value & o)
+{
+	AComponent::unserializeData(o);
+}
+
+void ACollider::postUnserialize()
+{
+	AComponent::postUnserialize();
+}
+
 } // namespace zn
 

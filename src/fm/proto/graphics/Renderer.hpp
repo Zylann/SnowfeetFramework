@@ -17,9 +17,9 @@ public:
 	void onDestroy();
 
 	// Serialization
-	void serializeData(JsonBox::Value & o) override;
-	void unserializeData(JsonBox::Value & o) override;
-	void postUnserialize() override;
+	virtual void serializeData(JsonBox::Value & o) override;
+	virtual void unserializeData(JsonBox::Value & o) override;
+	virtual void postUnserialize() override;
 
 protected:
 

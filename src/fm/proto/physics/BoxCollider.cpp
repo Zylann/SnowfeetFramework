@@ -1,39 +1,65 @@
 #include "../Entity.hpp"
 #include "../../sfml/sfml2_utils.hpp"
 #include "BoxCollider.hpp"
+#include "../../json/json_utils.hpp"
 
 namespace zn
 {
 
+//------------------------------------------------------------------------------
 void BoxCollider::setRect(const sf::FloatRect& r)
 {
-	_rect = r;
+	m_rect = r;
 }
 
+//------------------------------------------------------------------------------
 bool BoxCollider::collides(const sf::Vector2f& p) const
 {
-	return _rect.contains(p - entity().position());
+	return m_rect.contains(p - entity().position());
 }
 
+//------------------------------------------------------------------------------
 bool BoxCollider::collides(const sf::FloatRect & r0) const
 {
 	sf::FloatRect r(r0);
 	r.left -= entity().position().x;
 	r.top -= entity().position().y;
-	return intersects(_rect, r);
+	return intersects(m_rect, r);
 }
 
+//------------------------------------------------------------------------------
 sf::FloatRect BoxCollider::bounds() const
 {
-	return _rect;
+	return m_rect;
 }
 
+//------------------------------------------------------------------------------
+void BoxCollider::serializeData(JsonBox::Value & o)
+{
+	ACollider::serializeData(o);
+	zn::serialize(o["rect"], m_rect);
+}
+
+//------------------------------------------------------------------------------
+void BoxCollider::unserializeData(JsonBox::Value & o)
+{
+	ACollider::unserializeData(o);
+	zn::unserialize(o["rect"], m_rect);
+}
+
+//------------------------------------------------------------------------------
+void BoxCollider::postUnserialize()
+{
+	ACollider::postUnserialize();
+}
+
+//------------------------------------------------------------------------------
 #ifdef ZN_DEBUG
 void BoxCollider::debug_draw(sf::RenderTarget & target) const
 {
 	static sf::RectangleShape rect;
-	rect.setSize(sf::Vector2f(_rect.width, _rect.height));
-	rect.setPosition(sf::Vector2f(_rect.left, _rect.top) + entity().position());
+	rect.setSize(sf::Vector2f(m_rect.width, m_rect.height));
+	rect.setPosition(sf::Vector2f(m_rect.left, m_rect.top) + entity().position());
 	rect.setOutlineColor(sf::Color::Green);
 	rect.setOutlineThickness(1);
 	rect.setFillColor(sf::Color::Transparent);
@@ -42,4 +68,6 @@ void BoxCollider::debug_draw(sf::RenderTarget & target) const
 #endif
 
 } // namespace zn
+
+
 

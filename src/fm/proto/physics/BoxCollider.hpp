@@ -16,8 +16,13 @@ public:
 	bool collides(const sf::FloatRect & r0) const override;
 	sf::FloatRect bounds() const override;
 
-	inline const sf::FloatRect & rect() const { return _rect; }
+	inline const sf::FloatRect & rect() const { return m_rect; }
 	void setRect(const sf::FloatRect & r);
+
+	// Serialization
+	void serializeData(JsonBox::Value & o) override;
+	void unserializeData(JsonBox::Value & o) override;
+	void postUnserialize() override;
 
 #ifdef ZN_DEBUG
 	void debug_draw(sf::RenderTarget & target) const override;
@@ -25,7 +30,7 @@ public:
 
 private:
 
-	sf::FloatRect _rect;
+	sf::FloatRect m_rect;
 
 };
 

@@ -21,6 +21,11 @@ public:
 	virtual sf::FloatRect bounds() const = 0;
 	//virtual bool raycast(const Ray & ray, RayHit * hit=nullptr, f32 maxDistance=100f) const = 0;
 
+	// Serialization
+	virtual void serializeData(JsonBox::Value & o) override;
+	virtual void unserializeData(JsonBox::Value & o) override;
+	virtual void postUnserialize() override;
+
 #ifdef ZN_DEBUG
 	// Renders the boundaries or the collider
 	virtual void debug_draw(sf::RenderTarget & target) const = 0;
