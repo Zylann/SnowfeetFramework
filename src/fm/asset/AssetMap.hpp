@@ -73,6 +73,18 @@ public:
 		}
 	}
 
+	// Finds the name of an asset from its pointer.
+	// Returns an empty string if the asset is not contained in the map.
+	std::string findName(const T * asset) const
+	{
+		for(auto it = m_map.cbegin(); it != m_map.cend(); ++it)
+		{
+			if(it->second == asset)
+				return it->first;
+		}
+		return "";
+	}
+
 	// Loads an asset from a file into the map with a name
 	bool load(std::string filePath, const std::string & id)
 	{
