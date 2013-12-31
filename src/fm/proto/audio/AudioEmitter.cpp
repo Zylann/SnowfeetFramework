@@ -221,6 +221,35 @@ AudioSource * AudioEmitter::getFreeSource()
 	return s; // Note: can be nullptr if not found
 }
 
+//------------------------------------------------------------------------------
+void AudioEmitter::serializeData(JsonBox::Value & o)
+{
+	AComponent::serializeData(o);
+
+	o["spatialize"] = m_spatialize;
+	o["minRadius"] = m_minRadius;
+	o["maxRadius"] = m_maxRadius;
+	o["attenuation"] = m_attenuation;
+}
+
+//------------------------------------------------------------------------------
+void AudioEmitter::unserializeData(JsonBox::Value & o)
+{
+	AComponent::unserializeData(o);
+
+	m_spatialize = o["spatialize"].getBoolean();
+	m_minRadius = o["minRadius"].getDouble();
+	m_maxRadius = o["maxRadius"].getDouble();
+	m_attenuation = o["attenuation"].getDouble();
+}
+
+//------------------------------------------------------------------------------
+void AudioEmitter::postUnserialize()
+{
+
+}
+
+
 } // namespace zn
 
 

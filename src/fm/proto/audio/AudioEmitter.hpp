@@ -60,6 +60,11 @@ public:
 
 	// TODO support mix streams and non-stream sounds
 
+	// Serialization
+	void serializeData(JsonBox::Value & o) override;
+	void unserializeData(JsonBox::Value & o) override;
+	void postUnserialize() override;
+
 private:
 
 	friend class AudioSystem;
