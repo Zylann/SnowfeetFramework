@@ -26,6 +26,11 @@ public:
 				const TextureAtlas * atlas = nullptr,
 				const std::string bgLayerName="background");
 
+	// Serialize
+	void serializeData(JsonBox::Value & o) override;
+	void unserializeData(JsonBox::Value & o) override;
+	void postUnserialize() override;
+
 protected:
 
 	void update() override;

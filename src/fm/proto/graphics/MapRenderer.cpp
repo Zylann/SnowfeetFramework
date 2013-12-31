@@ -1,5 +1,7 @@
 #include <iostream>
+
 #include "MapRenderer.hpp"
+#include "../../asset/AssetBank.hpp"
 
 namespace zn
 {
@@ -103,6 +105,63 @@ void MapRenderer::updateMesh()
 	}
 
 	m_needUpdate = false;
+}
+
+//------------------------------------------------------------------------------
+void MapRenderer::serializeData(JsonBox::Value & o)
+{
+	ARenderer::serializeData(o);
+
+	// TODO support TiledMap that are not from assets?
+	// This is possible as long as the user maintains the data available,
+	// but it will not be saved here. The user will have to handle saving
+	// by writing its own component and serialization.
+
+	std::string tiledMapName;
+	if(r_tiledMap != nullptr)
+	{
+		tiledMapName = AssetBank::current()->maps.findName(r_tiledMap);
+	}
+
+	std::string atlasName;
+	if(r_atlas != nullptr)
+	{
+		atlasName = AssetBank::current()->atlases.findName(r_atlas);
+	}
+
+	o["tiledMap"]      = tiledMapName;
+	o["atlas"]         = atlasName;
+	o["bgLayerName"]   = m_bgLayerName;
+}
+
+//------------------------------------------------------------------------------
+void MapRenderer::unserializeData(JsonBox::Value & o)
+{
+	ARenderer::unserializeData(o);
+
+	std::string tiledMapName  = o["tiledMap"].getString();
+	std::string atlasName     = o["atlas"].getString();
+	std::string bgLayerName   = o["bgLayerName"].getString();
+
+#ifdef ZN_DEBUG
+	if(tiledMapName.empty())
+		std::cout << "W: MapRenderer::unserializeData: tiledMapName is empty" << std::endl;
+	if(atlasName.empty())
+		std::cout << "W: MapRenderer::unserializeData: atlasName is empty" << std::endl;
+	if(bgLayerName.empty())
+		std::cout << "W: MapRenderer::unserializeData: bgLayerName is empty" << std::endl;
+#endif
+
+	r_tiledMap = AssetBank::current()->maps.get(tiledMapName);
+	r_atlas = AssetBank::current()->atlases.get(atlasName);
+	m_bgLayerName = bgLayerName;
+	m_needUpdate = true;
+}
+
+//------------------------------------------------------------------------------
+void MapRenderer::postUnserialize()
+{
+
 }
 
 } // namespace zn
