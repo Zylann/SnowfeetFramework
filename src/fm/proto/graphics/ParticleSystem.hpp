@@ -31,6 +31,11 @@ public:
 	void setParticleLifeTime(f32 min, f32 max);
 	void setEmissionZone(const sf::FloatRect & rect);
 
+	// Serialize
+	void serializeData(JsonBox::Value & o) override;
+	void unserializeData(JsonBox::Value & o) override;
+	void postUnserialize() override;
+
 protected:
 
 	void init() override;

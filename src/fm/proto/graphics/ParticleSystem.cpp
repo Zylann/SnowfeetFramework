@@ -3,6 +3,8 @@
 #include "../Entity.hpp"
 #include "../../util/math.hpp"
 #include "../Scene.hpp"
+#include "../json/json_utils.hpp"
+#include "../../asset/AssetBank.hpp"
 
 namespace zn
 {
@@ -166,6 +168,55 @@ void ParticleSystem::draw(sf::RenderTarget& target, sf::RenderStates states) con
 //	}
 }
 
+//------------------------------------------------------------------------------
+void ParticleSystem::serializeData(JsonBox::Value & o)
+{
+	ARenderer::serializeData(o);
+
+	o["maxParticles"] = (s32)m_maxParticles;
+
+	zn::serialize(o["particleRadius"], m_particleRadius);
+	zn::serialize(o["particleLifeTime"], m_particleLifeTime);
+	zn::serialize(o["emissionZone"], m_emissionZone);
+
+	std::string atlasName;
+	if(r_atlas != nullptr)
+	{
+		atlasName = AssetBank::current()->atlases.findName(r_atlas);
+	}
+	o["atlas"] = atlasName;
+	zn::serialize(o["atlasRect"], m_atlasRect);
+}
+
+//------------------------------------------------------------------------------
+void ParticleSystem::unserializeData(JsonBox::Value & o)
+{
+	ARenderer::unserializeData(o);
+
+	setMaxParticles(o["maxParticles"].getInt());
+
+	zn::unserialize(o["particleRadius"], m_particleRadius);
+	zn::unserialize(o["particleLifeTime"], m_particleLifeTime);
+	zn::unserialize(o["emissionZone"], m_emissionZone);
+
+	std::string atlasName = o["atlas"].getString();
+	r_atlas = AssetBank::current()->atlases.get(atlasName);
+	if(r_atlas == nullptr)
+	{
+		std::cout << "E: ParticleSystem::unserializeData: atlas not found \""
+			<< atlasName << '"' << std::endl;
+	}
+
+	sf::IntRect atlasRect;
+	zn::unserialize(o["atlasRect"], atlasRect);
+	setTextureRect(atlasRect);
+}
+
+//------------------------------------------------------------------------------
+void ParticleSystem::postUnserialize()
+{
+
+}
 
 } // namespace zn
 
