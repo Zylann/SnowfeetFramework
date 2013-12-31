@@ -43,6 +43,11 @@ public:
 	void init() override;
 	void update() override;
 
+	// Serialization
+	void serializeData(JsonBox::Value & o) override;
+	void unserializeData(JsonBox::Value & o) override;
+	void postUnserialize() override;
+
 private:
 
 	sf::View m_view;

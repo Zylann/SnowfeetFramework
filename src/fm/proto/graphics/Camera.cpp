@@ -64,6 +64,72 @@ void Camera::onScreenResized(sf::Vector2u resolution)
 	}
 }
 
+//------------------------------------------------------------------------------
+void Camera::serializeData(JsonBox::Value & o)
+{
+	AComponent::serializeData(o);
+
+	JsonBox::Value & sizeData = o["size"];
+	sizeData["x"] = m_view.getSize().x;
+	sizeData["y"] = m_view.getSize().y;
+
+	JsonBox::Value & viewportData = o["viewport"];
+	viewportData["x"] = m_view.getViewport().left;
+	viewportData["y"] = m_view.getViewport().top;
+	viewportData["w"] = m_view.getViewport().width;
+	viewportData["h"] = m_view.getViewport().height;
+
+	std::string scaleModeStr;
+	switch(m_scaleMode)
+	{
+	case FIXED: scaleModeStr = "fixed"; break;
+	case ADAPTED: scaleModeStr = "adapted"; break;
+	case STRETCHED: scaleModeStr = "stretched"; break;
+	default: break;
+	}
+	o["scaleMode"] = scaleModeStr;
+}
+
+//------------------------------------------------------------------------------
+void Camera::unserializeData(JsonBox::Value & o)
+{
+	AComponent::unserializeData(o);
+
+	JsonBox::Value & sizeData = o["size"];
+	m_view.setSize(
+		sizeData["x"].getDouble(),
+		sizeData["y"].getDouble()
+	);
+
+	JsonBox::Value & viewportData = o["viewport"];
+	m_view.setViewport(sf::FloatRect(
+		viewportData["x"].getDouble(),
+		viewportData["y"].getDouble(),
+		viewportData["w"].getDouble(),
+		viewportData["h"].getDouble()
+	));
+
+	std::string scaleModeStr = o["scaleMode"].getString();
+	if(scaleModeStr == "fixed")
+	{
+		m_scaleMode = FIXED;
+	}
+	else if(scaleModeStr == "adapted")
+	{
+		m_scaleMode = ADAPTED;
+	}
+	else if(scaleModeStr == "stretched")
+	{
+		m_scaleMode = STRETCHED;
+	}
+}
+
+//------------------------------------------------------------------------------
+void Camera::postUnserialize()
+{
+
+}
+
 } // namespace zn
 
 
