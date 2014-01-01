@@ -60,6 +60,15 @@ public:
 	// Serialization
 	// --------------------
 
+	// Warning: serializing a component can't be done at any time with the same
+	// meaning, so it depends what you want to do.
+	// For instance, during execution, if a behaviour adds components to
+	// the entity, if you serialize it and then reloads it,
+	// the same behaviour may end up adding components a second time, and there
+	// will be duplicates.
+	// serialization may be called in a "scene edition" state.
+	// Doing that in "play state" might be useful as a debug dump.
+
 	// Saves the component as JSON data.
 	// Automatically adds type information from componentType().
 	static void serialize(AComponent * component, JsonBox::Value & o);

@@ -19,6 +19,13 @@ public:
 
 	virtual ~Object() {}
 
+	// TODO put serialization and meta-class stuff here?
+//	virtual const std::string & className()
+//	{
+//		static std::string __name = "Object";
+//		return __name;
+//	}
+
 private:
 
 };
