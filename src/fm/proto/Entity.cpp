@@ -6,6 +6,7 @@
 #include "physics/Body.hpp"
 #include "Scene.hpp"
 #include "../util/typecheck.hpp"
+#include "../json/json_utils.hpp"
 
 namespace zn
 {
@@ -183,15 +184,8 @@ void Entity::serialize(JsonBox::Value & o)
 	// Transform
 
 	JsonBox::Value & transformData = o["transform"];
-
-	JsonBox::Value & positionData = transformData["position"];
-	positionData["x"] = m_transform.getPosition().x;
-	positionData["y"] = m_transform.getPosition().y;
-
-	JsonBox::Value & scaleData = transformData["scale"];
-	scaleData["x"] = m_transform.getScale().x;
-	scaleData["y"] = m_transform.getScale().y;
-
+	zn::serialize(transformData["position"], m_transform.getPosition());
+	zn::serialize(transformData["scale"], m_transform.getScale());
 	transformData["rotation"] = m_transform.getRotation();
 
 	// Meta
@@ -219,18 +213,10 @@ void Entity::unserialize(JsonBox::Value & o)
 
 	JsonBox::Value transformData = o["transform"];
 
-	JsonBox::Value positionData = transformData["position"];
-	m_transform.setPosition(
-		positionData["x"].getDouble(),
-		positionData["y"].getDouble()
-	);
+	sf::Vector2f v;
 
-	JsonBox::Value scaleData = transformData["scale"];
-	m_transform.setScale(
-		scaleData["x"].getDouble(),
-		scaleData["y"].getDouble()
-	);
-
+	zn::unserialize(transformData["position"], v);  m_transform.setPosition(v);
+	zn::unserialize(transformData["scale"], v);     m_transform.setScale(v);
 	m_transform.setRotation(transformData["rotation"].getDouble());
 
 	// Meta

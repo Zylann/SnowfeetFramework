@@ -1,6 +1,7 @@
 #include "../Entity.hpp"
 #include "../Scene.hpp"
 #include "Camera.hpp"
+#include "../../json/json_utils.hpp"
 
 namespace zn
 {
@@ -69,15 +70,8 @@ void Camera::serializeData(JsonBox::Value & o)
 {
 	AComponent::serializeData(o);
 
-	JsonBox::Value & sizeData = o["size"];
-	sizeData["x"] = m_view.getSize().x;
-	sizeData["y"] = m_view.getSize().y;
-
-	JsonBox::Value & viewportData = o["viewport"];
-	viewportData["x"] = m_view.getViewport().left;
-	viewportData["y"] = m_view.getViewport().top;
-	viewportData["w"] = m_view.getViewport().width;
-	viewportData["h"] = m_view.getViewport().height;
+	zn::serialize(o["size"], m_view.getSize());
+	zn::serialize(o["viewport"], m_view.getViewport());
 
 	std::string scaleModeStr;
 	switch(m_scaleMode)
@@ -95,19 +89,13 @@ void Camera::unserializeData(JsonBox::Value & o)
 {
 	AComponent::unserializeData(o);
 
-	JsonBox::Value & sizeData = o["size"];
-	m_view.setSize(
-		sizeData["x"].getDouble(),
-		sizeData["y"].getDouble()
-	);
+	sf::Vector2f size;
+	zn::unserialize(o["size"], size);
+	m_view.setSize(size);
 
-	JsonBox::Value & viewportData = o["viewport"];
-	m_view.setViewport(sf::FloatRect(
-		viewportData["x"].getDouble(),
-		viewportData["y"].getDouble(),
-		viewportData["w"].getDouble(),
-		viewportData["h"].getDouble()
-	));
+	sf::FloatRect viewport;
+	zn::unserialize(o["viewport"], viewport);
+	m_view.setViewport(viewport);
 
 	std::string scaleModeStr = o["scaleMode"].getString();
 	if(scaleModeStr == "fixed")

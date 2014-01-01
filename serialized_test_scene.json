@@ -151,10 +151,10 @@
 			"name" : "main_camera",
 			"transform" : {
 				"position" : {
-					"x" : 1882.36,
-					"y" : 990.136
+					"x" : 1749.78,
+					"y" : 947.867
 				},
-				"rotation" : 359.272,
+				"rotation" : 0.595632,
 				"scale" : {
 					"x" : 1,
 					"y" : 1
@@ -181,8 +181,8 @@
 							"y" : 0
 						},
 						"position" : {
-							"x" : 1866.36,
-							"y" : 974.136
+							"x" : 1733.78,
+							"y" : 931.867
 						},
 						"rotation" : 0,
 						"scale" : {
@@ -192,8 +192,8 @@
 						"textureRect" : {
 							"h" : 32,
 							"w" : 32,
-							"x" : 0,
-							"y" : 32
+							"x" : 96,
+							"y" : 0
 						}
 					},
 					"type" : "zn::SpriteRenderer"
@@ -223,15 +223,15 @@
 						"flags" : 0,
 						"frame" : "",
 						"name" : "_component_",
-						"remainingLoops" : 0,
-						"sequence" : "",
-						"sequenceFrame" : 0
+						"remainingLoops" : -1,
+						"sequence" : "walk.left",
+						"sequenceFrame" : 2
 					},
 					"type" : "zn::SpriteAnimator"
 				},
 				{
 					"data" : {
-						"attenuation" : 32,
+						"attenuation" : 6.65531e+031,
 						"flags" : 0,
 						"maxRadius" : 2000,
 						"minRadius" : 1000,
@@ -246,8 +246,8 @@
 			"name" : "the_bum",
 			"transform" : {
 				"position" : {
-					"x" : 1866.36,
-					"y" : 974.136
+					"x" : 1733.78,
+					"y" : 931.867
 				},
 				"rotation" : 0,
 				"scale" : {
@@ -277,7 +277,7 @@
 						},
 						"position" : {
 							"x" : 1984,
-							"y" : 944.5
+							"y" : 992
 						},
 						"rotation" : 0,
 						"scale" : {
@@ -288,7 +288,7 @@
 							"h" : 16,
 							"w" : 16,
 							"x" : 0,
-							"y" : 48
+							"y" : 32
 						}
 					},
 					"type" : "zn::SpriteRenderer"
@@ -331,7 +331,7 @@
 			"transform" : {
 				"position" : {
 					"x" : 1984,
-					"y" : 944.5
+					"y" : 992
 				},
 				"rotation" : 0,
 				"scale" : {
