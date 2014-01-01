@@ -7,38 +7,6 @@
 namespace zn
 {
 
-/*
-// Subsystem dedicated to music
-// TODO remove it, because everything will rely on AudioEmitters as we can now
-// play buffers and streams with them
-class MusicSystem
-{
-public:
-
-	MusicSystem() :
-		r_currentMusic(nullptr),
-		m_volume(1)
-	{}
-
-	void update(sf::Time delta);
-
-	void play(std::string name, bool loop=true);
-	void stop();
-	void pause();
-	void resume();
-	void setVolume(f32 volume);
-
-	inline bool playing() const { return r_currentMusic != nullptr; }
-	inline f32 volume() const { return m_volume; }
-
-private:
-
-	sf::Music * r_currentMusic;
-	f32         m_volume;
-
-};
-*/
-
 class AudioSystem
 {
 public:
