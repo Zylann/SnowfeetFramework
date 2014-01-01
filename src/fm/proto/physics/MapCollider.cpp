@@ -4,6 +4,8 @@
 #include "../../sfml/sfml2_utils.hpp"
 #include "../Entity.hpp"
 #include "MapCollider.hpp"
+#include "../../json/json_utils.hpp"
+#include "../../asset/AssetBank.hpp"
 
 #ifdef ZN_DEBUG
 	#include <map> // for debug
@@ -14,7 +16,8 @@ namespace zn
 
 MapCollider::MapCollider() : ACollider(),
 	m_cellSize(1), // Default
-	m_outerColliderType(0) // Default
+	m_outerColliderType(0), // Default
+	r_tiledMap(nullptr)
 {
 	m_colliderTypes.push_back(sf::FloatRect(0,0,1,1)); // The empty collider
 	m_colliderTypes.push_back(sf::FloatRect(0,0,1,1)); // Block default collider
@@ -119,6 +122,10 @@ void MapCollider::build(const TiledMap & map,
 			std::cout << "D: [" << (s32)it->first << "]: " << it->second << std::endl;
 	}
 #endif
+
+	r_tiledMap = &map;
+	m_tiledLayerName = collisionLayerName;
+	m_tiledTilesetName = collisionTileSetName;
 }
 
 //------------------------------------------------------------------------------
@@ -229,6 +236,98 @@ u8 MapCollider::cellCollider(const sf::Vector2i & cellPos) const
 		return m_collisionMap[i];
 	else
 		return m_outerColliderType;
+}
+
+//------------------------------------------------------------------------------
+void MapCollider::serializeData(JsonBox::Value & o)
+{
+	ACollider::serializeData(o);
+
+	o["cellSize"] = m_cellSize;
+	zn::serialize(o["size"], m_size);
+	o["voidColliderShape"] = m_outerColliderType;
+
+	// Save collision shapes
+	JsonBox::Array shapesData;
+	shapesData.resize(m_colliderTypes.size());
+	for(u32 i = 0; i < shapesData.size(); ++i)
+	{
+		zn::serialize(shapesData[i], m_colliderTypes[i]);
+	}
+	o["collisionShapes"] = shapesData;
+
+	// If the collider is derived from a TiledMap
+	if(r_tiledMap != nullptr)
+	{
+		// Save TiledMap reference
+		std::string tiledMapName = AssetBank::current()->maps.findName(r_tiledMap);
+		o["tiledMap"] = tiledMapName;
+		o["tiledMapLayer"] = m_tiledLayerName;
+		o["tiledMapTileset"] = m_tiledTilesetName;
+	}
+	else
+	{
+		// Save map data directly
+		JsonBox::Array mapData;
+		mapData.resize(m_collisionMap.size());
+		for(u32 i = 0; i < m_collisionMap.size(); ++i)
+		{
+			mapData[i] = m_collisionMap[i];
+		}
+		o["mapData"] = mapData;
+	}
+}
+
+//------------------------------------------------------------------------------
+void MapCollider::unserializeData(JsonBox::Value & o)
+{
+	ACollider::unserializeData(o);
+
+	m_cellSize = o["cellSize"].getDouble();
+	zn::unserialize(o["size"], m_size);
+	m_outerColliderType = o["voidColliderShape"].getInt();
+
+	// Load collision shapes
+	JsonBox::Value & shapesData = o["collisionShapes"];
+	u32 n = shapesData.getArray().size();
+	m_colliderTypes.resize(n);
+	for(u32 i = 0; i < n; ++i)
+	{
+		sf::FloatRect rect;
+		zn::unserialize(shapesData[i], rect);
+		m_colliderTypes[i] = rect;
+	}
+
+	// Get TiledMap reference name
+	std::string tiledMapName = o["tiledMap"].getString();
+
+	// If the name is not empty
+	if(!tiledMapName.empty())
+	{
+		// Build the map from TiledMap
+		const TiledMap * tiledMap = AssetBank::current()->maps.get(tiledMapName);
+		build(
+			*tiledMap,
+			o["tiledMapLayer"].getString(),
+			o["tiledMapTileset"].getString()
+		);
+	}
+	else
+	{
+		// Build the map from direct data
+		const JsonBox::Array & mapData = o["mapData"].getArray();
+		m_collisionMap.resize(mapData.size());
+		for(u32 i = 0; i < mapData.size(); ++i)
+		{
+			m_collisionMap[i] = mapData[i].getInt();
+		}
+	}
+}
+
+//------------------------------------------------------------------------------
+void MapCollider::postUnserialize()
+{
+
 }
 
 //------------------------------------------------------------------------------

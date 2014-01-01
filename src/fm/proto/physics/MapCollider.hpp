@@ -51,6 +51,11 @@ public:
 	void debug_draw(sf::RenderTarget & target) const override;
 #endif
 
+	// Serialization
+	void serializeData(JsonBox::Value & o) override;
+	void unserializeData(JsonBox::Value & o) override;
+	void postUnserialize() override;
+
 private:
 
 	inline u32 cellIndex(const sf::Vector2i pos) const
@@ -63,6 +68,11 @@ private:
 	std::vector<u8>               m_collisionMap;
 	std::vector<sf::FloatRect>    m_colliderTypes;
 	u8                            m_outerColliderType;
+
+	// If the MapCollider is built from a TiledMap:
+	const TiledMap *              r_tiledMap;
+	std::string                   m_tiledLayerName;
+	std::string                   m_tiledTilesetName;
 
 };
 
