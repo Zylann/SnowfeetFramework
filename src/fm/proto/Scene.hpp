@@ -79,6 +79,9 @@ public:
 	void serialize(JsonBox::Value & o);
 	void unserialize(JsonBox::Value & o);
 
+	bool saveToFile(const std::string & filePath);
+	bool loadFromFile(const std::string & filePath);
+
 	//----------------------------
 	// Component systems
 	//----------------------------

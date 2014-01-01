@@ -6,8 +6,10 @@ This file is part of the zCraft-Framework project.
 
 #include <iostream>
 #include <sstream>
+#include <fstream>
 #include <cassert>
 #include <map>
+
 #include "Scene.hpp"
 #include "graphics/Renderer.hpp"
 #include "physics/Collider.hpp"
@@ -302,6 +304,64 @@ void Scene::postUnserialize()
 	{
 		(*it)->postUnserialize();
 	}
+}
+
+//------------------------------------------------------------------------------
+bool Scene::saveToFile(const std::string & filePath)
+{
+#ifdef ZN_DEBUG
+	std::cout << "D: Saving scene as \"" << filePath << '"' << std::endl;
+	sf::Clock timer;
+#endif
+
+	std::ofstream ofs(filePath.c_str(), std::ios::out|std::ios::trunc|std::ios::binary);
+	if(ofs.good())
+	{
+		JsonBox::Value v;
+		serialize(v);
+		v.writeToStream(ofs);
+		ofs.close();
+	}
+	else
+	{
+		std::cout << "E: Failed to load scene from \"" << filePath << '"' << std::endl;
+		return false;
+	}
+
+#ifdef ZN_DEBUG
+	f32 timeSpent = timer.getElapsedTime().asSeconds();
+	std::cout << "D: Took " << timeSpent << "s to serialize the scene as a file." << std::endl;
+#endif
+	return true;
+}
+
+//------------------------------------------------------------------------------
+bool Scene::loadFromFile(const std::string & filePath)
+{
+#ifdef ZN_DEBUG
+	std::cout << "D: Loading scene from \"" << filePath << '"' << std::endl;
+	sf::Clock timer;
+#endif
+
+	std::ifstream ifs(filePath.c_str(), std::ios::in|std::ios::binary);
+	if(ifs.good())
+	{
+		JsonBox::Value v;
+		unserialize(v);
+		v.loadFromStream(ifs);
+		ifs.close();
+	}
+	else
+	{
+		std::cout << "E: Failed to save scene to \"" << filePath << '"' << std::endl;
+		return false;
+	}
+
+#ifdef ZN_DEBUG
+	f32 timeSpent = timer.getElapsedTime().asSeconds();
+	std::cout << "D: Took " << timeSpent << "s to serialize the scene as a file." << std::endl;
+#endif
+	return true;
 }
 
 } // namespace zn
