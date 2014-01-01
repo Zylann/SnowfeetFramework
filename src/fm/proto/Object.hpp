@@ -19,12 +19,7 @@ public:
 
 	virtual ~Object() {}
 
-	inline const std::string & name() const { return m_name; }
-	inline void setName(const std::string & newName) { m_name = newName; }
-
 private:
-
-	std::string m_name;
 
 };
 

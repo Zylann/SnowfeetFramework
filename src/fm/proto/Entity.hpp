@@ -68,6 +68,9 @@ public:
 	// Structure & behavior
 	//--------------------------------------
 
+	inline const std::string & name() const { return m_name; }
+	inline void setName(const std::string & newName) { m_name = newName; }
+
 	template <class Cmp_T>
 	Cmp_T * addComponent()
 	{
@@ -171,6 +174,8 @@ private:
 	u32                       m_layerMask;
 
 	Scene *                   r_scene;
+
+	std::string               m_name;
 
 };
 

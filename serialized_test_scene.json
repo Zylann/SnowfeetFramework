@@ -8,7 +8,6 @@
 						"bgLayerName" : "background",
 						"drawOrder" : -1,
 						"flags" : 0,
-						"name" : "_component_",
 						"tiledMap" : "test"
 					},
 					"type" : "zn::MapRenderer"
@@ -97,7 +96,6 @@
 							}
 						],
 						"flags" : 0,
-						"name" : "_component_",
 						"size" : {
 							"x" : 100,
 							"y" : 50
@@ -130,7 +128,6 @@
 				{
 					"data" : {
 						"flags" : 0,
-						"name" : "_component_",
 						"scaleMode" : "adapted",
 						"size" : {
 							"x" : 800,
@@ -151,10 +148,10 @@
 			"name" : "main_camera",
 			"transform" : {
 				"position" : {
-					"x" : 1749.78,
-					"y" : 947.867
+					"x" : 2064,
+					"y" : 1008
 				},
-				"rotation" : 0.595632,
+				"rotation" : 0.730908,
 				"scale" : {
 					"x" : 1,
 					"y" : 1
@@ -165,8 +162,7 @@
 			"components" : [
 				{
 					"data" : {
-						"flags" : 0,
-						"name" : "_component_"
+						"flags" : 0
 					},
 					"type" : "ssm::Avatar"
 				},
@@ -175,14 +171,13 @@
 						"atlas" : "avatar",
 						"drawOrder" : 0,
 						"flags" : 0,
-						"name" : "_component_",
 						"origin" : {
 							"x" : 0,
 							"y" : 0
 						},
 						"position" : {
-							"x" : 1733.78,
-							"y" : 931.867
+							"x" : 2048,
+							"y" : 992
 						},
 						"rotation" : 0,
 						"scale" : {
@@ -192,23 +187,21 @@
 						"textureRect" : {
 							"h" : 32,
 							"w" : 32,
-							"x" : 96,
-							"y" : 0
+							"x" : 0,
+							"y" : 64
 						}
 					},
 					"type" : "zn::SpriteRenderer"
 				},
 				{
 					"data" : {
-						"flags" : 0,
-						"name" : "_component_"
+						"flags" : 0
 					},
 					"type" : "ssm::Mover"
 				},
 				{
 					"data" : {
 						"flags" : 0,
-						"name" : "_component_",
 						"rect" : {
 							"h" : 24,
 							"w" : 24,
@@ -222,20 +215,18 @@
 					"data" : {
 						"flags" : 0,
 						"frame" : "",
-						"name" : "_component_",
-						"remainingLoops" : -1,
-						"sequence" : "walk.left",
-						"sequenceFrame" : 2
+						"remainingLoops" : 0,
+						"sequence" : "",
+						"sequenceFrame" : 0
 					},
 					"type" : "zn::SpriteAnimator"
 				},
 				{
 					"data" : {
-						"attenuation" : 6.65531e+031,
+						"attenuation" : 4.2039e-045,
 						"flags" : 0,
 						"maxRadius" : 2000,
 						"minRadius" : 1000,
-						"name" : "_component_",
 						"spatialize" : true
 					},
 					"type" : "zn::AudioEmitter"
@@ -246,8 +237,8 @@
 			"name" : "the_bum",
 			"transform" : {
 				"position" : {
-					"x" : 1733.78,
-					"y" : 931.867
+					"x" : 2048,
+					"y" : 992
 				},
 				"rotation" : 0,
 				"scale" : {
@@ -260,8 +251,7 @@
 			"components" : [
 				{
 					"data" : {
-						"flags" : 0,
-						"name" : "_component_"
+						"flags" : 0
 					},
 					"type" : "ssm::Cat"
 				},
@@ -270,7 +260,6 @@
 						"atlas" : "cat",
 						"drawOrder" : 0,
 						"flags" : 0,
-						"name" : "_component_",
 						"origin" : {
 							"x" : 0,
 							"y" : 0
@@ -295,15 +284,13 @@
 				},
 				{
 					"data" : {
-						"flags" : 0,
-						"name" : "_component_"
+						"flags" : 0
 					},
 					"type" : "ssm::Mover"
 				},
 				{
 					"data" : {
 						"flags" : 0,
-						"name" : "_component_",
 						"rect" : {
 							"h" : 16,
 							"w" : 16,
@@ -317,7 +304,6 @@
 					"data" : {
 						"flags" : 0,
 						"frame" : "",
-						"name" : "_component_",
 						"remainingLoops" : 0,
 						"sequence" : "",
 						"sequenceFrame" : 0

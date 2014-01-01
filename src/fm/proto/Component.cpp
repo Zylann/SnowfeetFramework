@@ -13,7 +13,6 @@ AComponent::AComponent() :
 	r_owner(nullptr),
 	m_flags(0)
 {
-	setName("_component_");
 }
 
 AComponent::~AComponent()
@@ -51,13 +50,11 @@ Entity & AComponent::entity() const
 
 void AComponent::serializeData(JsonBox::Value & o)
 {
-	o["name"] = name();
 	o["flags"] = m_flags;
 }
 
 void AComponent::unserializeData(JsonBox::Value & o)
 {
-	setName(o["name"].getString());
 	m_flags = o["flags"].getInt();
 }
 
