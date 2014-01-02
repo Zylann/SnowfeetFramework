@@ -36,9 +36,6 @@ void Character::setSpriteDirection(u8 dir)
 
 void Character::onUpdate()
 {
-	// TODO update transform in renderer
-	r_sprite->setPosition(entity().position());
-
 	bool moving = r_mover->moving();
 
 	if(m_spriteDir != m_spriteDirLastFrame || (moving ^ m_movingLastFrame))

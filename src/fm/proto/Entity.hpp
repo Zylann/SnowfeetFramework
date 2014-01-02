@@ -51,6 +51,8 @@ public:
 	void setScale(const sf::Vector2f & s);
 	void setRotation(float angleDeg);
 
+	const sf::Transform & matrix() const { return m_transform.getTransform(); }
+
 	//--------------------------------------
 	// Lifecycle
 	//--------------------------------------
