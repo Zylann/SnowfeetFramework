@@ -34,7 +34,7 @@ void Character::setSpriteDirection(u8 dir)
 	m_spriteDir = dir;
 }
 
-void Character::update()
+void Character::onUpdate()
 {
 	// TODO update transform in renderer
 	r_sprite->setPosition(entity().position());

@@ -30,7 +30,7 @@ public:
 	Mover();
 
 	void init() override;
-	void update() override;
+	void onUpdate() override;
 
 	void setMaxSpeed(f32 speed);
 	void accelerate(const sf::Vector2f & acc);

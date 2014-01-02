@@ -59,7 +59,7 @@ void  Mover::setVelocity(const sf::Vector2f & velocity)
 }
 
 //------------------------------------------------------------------------------
-void Mover::update()
+void Mover::onUpdate()
 {
 	if(isZero(m_acceleration))
 	{

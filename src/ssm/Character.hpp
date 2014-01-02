@@ -43,7 +43,7 @@ protected:
 	SpriteRenderer * r_sprite;
 	Mover *          r_mover;
 
-	void update() override;
+	void onUpdate() override;
 
 private:
 

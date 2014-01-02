@@ -23,7 +23,7 @@ public:
 
 	void onAdd(Entity * e) override;
 	void onDestroy() override;
-	void update() override;
+	void onUpdate() override;
 
 	// Sets attenuation radii :
 	// minRadius defines a circle where sound is not attenuated,

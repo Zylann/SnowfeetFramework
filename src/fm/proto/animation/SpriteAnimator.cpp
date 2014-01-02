@@ -76,7 +76,7 @@ void SpriteAnimator::init()
 {
 }
 
-void SpriteAnimator::update()
+void SpriteAnimator::onUpdate()
 {
 	ARenderer * r = entity().renderer();
 	if(r == nullptr)

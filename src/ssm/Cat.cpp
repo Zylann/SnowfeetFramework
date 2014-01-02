@@ -37,7 +37,7 @@ void Cat::init()
 	m_motorDir = Direction::NONE;
 }
 
-void Cat::update()
+void Cat::onUpdate()
 {
 	f32 dt = entity().scene().deltaTime().asSeconds();
 	m_timeBeforeAction -= dt;
@@ -60,7 +60,7 @@ void Cat::update()
 		setSpriteDirection(m_motorDir);
 	}
 
-	Character::update();
+	Character::onUpdate();
 }
 
 } // namespace ssm

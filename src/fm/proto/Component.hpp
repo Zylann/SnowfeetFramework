@@ -14,8 +14,14 @@ namespace zn
 
 class Entity;
 
+enum ComponentFlags
+{
+	CF_FIRST_UPDATE = 1
+};
+
 // A piece that composes an entity.
-// Note: components that derive directly from Component are specific to the engine.
+// Components are a core element of the engine.
+// Note: components that derive directly from AComponent are specific to the engine.
 // if you want to implement gameplay, please derive from Behaviour instead.
 // For serialization and execution flow reasons, components must define a default
 // constructor and avoid to rely on a constructor with parameters.
@@ -38,6 +44,9 @@ public:
 	// Called to initialize the component after being added to an entity.
 	virtual void init();
 
+	// Called just before the first update of the component.
+	virtual void onStart();
+
 	// Called just before the component to be destroyed.
 	virtual void onDestroy();
 
@@ -48,7 +57,7 @@ public:
 	// TODO make callbacks below optional by using an event system?
 
 	// Called on each frame to update realtime behaviour.
-	virtual void update();
+	void update();
 
 	// Called when the entity starts colliding with something
 	virtual void onCollisionEnter(const CollisionInfo & info) {}
@@ -64,7 +73,7 @@ public:
 	// meaning, so it depends what you want to do.
 	// For instance, during execution, if a behaviour adds components to
 	// the entity, if you serialize it and then reloads it,
-	// the same behaviour may end up adding components a second time, and there
+	// the same behaviour will end up adding components a second time, and there
 	// will be duplicates.
 	// serialization may be called in a "scene edition" state.
 	// Doing that in "play state" might be useful as a debug dump.
@@ -90,6 +99,9 @@ public:
 	virtual void postUnserialize() {}
 
 protected:
+
+	// Called on each frame to update realtime behaviour.
+	virtual void onUpdate();
 
 	AComponent();
 

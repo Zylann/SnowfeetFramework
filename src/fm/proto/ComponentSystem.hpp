@@ -58,7 +58,7 @@ public:
 
 	void update()
 	{
-		// Iterate over a copy to avoid
+		// Iterate over a copy to avoid concurrent modifications
 		auto updateList = m_all;
 
 		for(auto it = updateList.begin(); it != updateList.end(); ++it)

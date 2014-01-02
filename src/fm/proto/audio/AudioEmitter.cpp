@@ -27,7 +27,7 @@ void AudioEmitter::onDestroy()
 }
 
 //------------------------------------------------------------------------------
-void AudioEmitter::update()
+void AudioEmitter::onUpdate()
 {
 	sf::Vector2f pos = entity().position();
 	std::unordered_set<AudioSource*>::iterator it;

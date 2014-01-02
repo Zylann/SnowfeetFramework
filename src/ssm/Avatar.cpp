@@ -44,7 +44,7 @@ void Avatar::init()
 	m_pressedLastFrame = false;
 }
 
-void Avatar::update()
+void Avatar::onUpdate()
 {
 	// Poll input
 
@@ -113,7 +113,7 @@ void Avatar::update()
 
 	// Character-specific stuff (sprite orientation...)
 
-	Character::update();
+	Character::onUpdate();
 }
 
 void Avatar::onCollisionEnter(const CollisionInfo & info)

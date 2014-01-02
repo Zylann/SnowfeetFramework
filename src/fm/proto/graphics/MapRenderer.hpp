@@ -33,7 +33,7 @@ public:
 
 protected:
 
-	void update() override;
+	void onUpdate() override;
 	void draw(sf::RenderTarget & target, sf::RenderStates states) const override;
 	void updateMesh();
 

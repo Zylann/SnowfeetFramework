@@ -23,7 +23,7 @@ void MapRenderer::setMap(const TiledMap* map, const TextureAtlas * atlas, const 
 }
 
 //------------------------------------------------------------------------------
-void MapRenderer::update()
+void MapRenderer::onUpdate()
 {
 	if(m_needUpdate)
 		updateMesh();

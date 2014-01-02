@@ -19,23 +19,49 @@ AComponent::~AComponent()
 {
 }
 
+//------------------------------------------------------------------------------
 void AComponent::onAdd(Entity * e)
 {
 	r_owner = e;
+	m_flags |= CF_FIRST_UPDATE;
 }
 
+//------------------------------------------------------------------------------
 void AComponent::init()
 {
 }
 
-void AComponent::update()
+//------------------------------------------------------------------------------
+void AComponent::onStart()
 {
 }
 
+//------------------------------------------------------------------------------
+void AComponent::update()
+{
+	if(m_flags && CF_FIRST_UPDATE)
+	{
+		onStart();
+		onUpdate();
+		m_flags &= ~CF_FIRST_UPDATE;
+	}
+	else
+	{
+		onUpdate();
+	}
+}
+
+//------------------------------------------------------------------------------
+void AComponent::onUpdate()
+{
+}
+
+//------------------------------------------------------------------------------
 void AComponent::onDestroy()
 {
 }
 
+//------------------------------------------------------------------------------
 Entity & AComponent::entity() const
 {
 #ifdef ZN_DEBUG
@@ -74,6 +100,7 @@ void AComponent::serialize(AComponent * component, JsonBox::Value & o)
 	component->serializeData(properties);
 }
 
+//------------------------------------------------------------------------------
 AComponent * AComponent::unserialize(JsonBox::Value & o)
 {
 	// Get type of the component

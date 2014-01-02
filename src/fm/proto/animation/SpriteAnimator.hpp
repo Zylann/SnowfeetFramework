@@ -34,7 +34,7 @@ public:
 protected:
 
 	void init() override;
-	void update() override;
+	void onUpdate() override;
 
 private:
 

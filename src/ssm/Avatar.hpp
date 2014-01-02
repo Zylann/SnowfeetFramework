@@ -26,7 +26,7 @@ public:
 	ZN_BEHAVIOUR(ssm::Avatar)
 
 	void init() override;
-	void update() override;
+	void onUpdate() override;
 
 	void onCollisionEnter(const CollisionInfo & info) override;
 

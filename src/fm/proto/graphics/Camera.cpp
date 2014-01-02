@@ -40,7 +40,7 @@ void Camera::setViewport(const sf::FloatRect & r)
 	m_view.setViewport(r);
 }
 
-void Camera::update()
+void Camera::onUpdate()
 {
 	m_view.setCenter(entity().position());
 	m_view.setRotation(entity().rotation());

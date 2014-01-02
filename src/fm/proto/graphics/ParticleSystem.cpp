@@ -106,7 +106,7 @@ void ParticleSystem::init()
 }
 
 //------------------------------------------------------------------------------
-void ParticleSystem::update()
+void ParticleSystem::onUpdate()
 {
 	//sf::Vector2f ownerPos = entity().position();
 

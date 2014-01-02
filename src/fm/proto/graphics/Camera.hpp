@@ -41,7 +41,7 @@ public:
 	// TODO pixelPerfect parameter
 
 	void init() override;
-	void update() override;
+	void onUpdate() override;
 
 	// Serialization
 	void serializeData(JsonBox::Value & o) override;
