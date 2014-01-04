@@ -22,20 +22,23 @@ Features
 - Template asset pipeline
 - Source access for both gameplay and engine modifications
 - TilEd JSON import http://www.mapeditor.org/
+- JSON scene dump (serialization preview, currently for debug)
 
 Planned/suggested :
 
-- JSON/PropertyTree-based serialization
-- Box2D integration
+- JSON/PropertyTree-based serialization of components
+- Entity parenting
+- Scene editor
 - Python, Lua or AngelScript scripting
-- Script-based export pipeline
 - Full-featured editor made using the engine
+- Box2D integration
+- Script-based export pipeline
 - Highly customizable rendering pipeline
 - GUI (for both game and editor?)
-- Entity parenting
 - Scene transitions
 - Networking
 - Asynchronous tasks
+- Prefabs
 - ...
 
 Dependencies
