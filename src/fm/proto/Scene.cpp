@@ -167,10 +167,17 @@ void Scene::draw(sf::RenderTarget& target, sf::RenderStates states) const
 		return;
 	}
 
-	// For each camera
+	// Sort cameras by depth
+	std::multimap<s32, Camera*> sortedCameras;
 	for(auto cameraIt = cameras.cbegin(); cameraIt != cameras.cend(); ++cameraIt)
 	{
-		const Camera & camera = **cameraIt;
+		sortedCameras.insert(std::make_pair((*cameraIt)->depth, *cameraIt));
+	}
+
+	// For each camera
+	for(auto cameraIt = sortedCameras.cbegin(); cameraIt != sortedCameras.cend(); ++cameraIt)
+	{
+		const Camera & camera = *(cameraIt->second);
 
 		// Set view transform
 		target.setView(camera.internalView());

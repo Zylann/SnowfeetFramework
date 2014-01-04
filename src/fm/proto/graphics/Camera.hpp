@@ -48,6 +48,9 @@ public:
 	void unserializeData(JsonBox::Value & o) override;
 	void postUnserialize() override;
 
+	// Order of rendering
+	s32 depth = 0;
+
 private:
 
 	sf::View m_view;

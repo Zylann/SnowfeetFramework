@@ -70,6 +70,8 @@ void Camera::serializeData(JsonBox::Value & o)
 {
 	AComponent::serializeData(o);
 
+	o["depth"] = depth;
+
 	zn::serialize(o["size"], m_view.getSize());
 	zn::serialize(o["viewport"], m_view.getViewport());
 
@@ -88,6 +90,8 @@ void Camera::serializeData(JsonBox::Value & o)
 void Camera::unserializeData(JsonBox::Value & o)
 {
 	AComponent::unserializeData(o);
+
+	depth = o["depth"].getInt();
 
 	sf::Vector2f size;
 	zn::unserialize(o["size"], size);
