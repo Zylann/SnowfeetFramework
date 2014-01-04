@@ -19,12 +19,12 @@ This file is part of the zCraft-Framework project.
 // Place this in public in all your complete-type behaviour-components class declarations.
 // __name: class name with namespace (ie: myNamespace::MyBehaviour)
 #define ZN_BEHAVIOUR(__name)                                                   \
-	const ComponentType & componentType() const override                       \
+	const zn::ComponentType & componentType() const override                   \
 	{                                                                          \
-		static ComponentType cmpt(#__name, CG_BEHAVIOUR);                      \
+		static zn::ComponentType cmpt(#__name, zn::CG_BEHAVIOUR);              \
 		return cmpt;                                                           \
 	}                                                                          \
-	static AComponent * instantiate() { return new __name(); }
+	static zn::AComponent * instantiate() { return new __name(); }
 
 // This macro is useful if you are extending a engine kind of component.
 // Place this in public in all your complete-type components class declarations.
@@ -32,12 +32,13 @@ This file is part of the zCraft-Framework project.
 // __name: class name with full namespace
 // __group: group from enum ComponentGroup
 #define ZN_COMPONENT(__name, __group)                                          \
-	const ComponentType & componentType() const override                       \
+	const zn::ComponentType & componentType() const override                   \
 	{                                                                          \
-		static ComponentType cmpt(#__name, __group, CTF_UNIQUE_OF_GROUP);      \
+		static zn::ComponentType cmpt(                                         \
+			#__name, __group, zn::CTF_UNIQUE_OF_GROUP);                        \
 		return cmpt;                                                           \
 	}                                                                          \
-	static AComponent * instantiate() { return new __name(); }
+	static zn::AComponent * instantiate() { return new __name(); }
 
 namespace zn
 {
