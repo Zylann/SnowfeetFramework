@@ -21,6 +21,8 @@ public:
 		ADAPTED // Keep same width but change the ratio
 	};
 
+	// TODO ADAPTED_INT ScaleMode that keeps pixels scaled by an integer factor
+
 	Camera();
 	~Camera();
 
