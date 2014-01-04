@@ -7,6 +7,7 @@
 #include "Avatar.hpp"
 #include "Cat.hpp"
 #include "Game.hpp"
+#include "Cursor.hpp"
 
 namespace ssm
 {
@@ -16,6 +17,10 @@ void Game::onInit()
 	// Assets
 
 	m_assets.loadFromJSON("assets/assets.json");
+
+	// Scene config
+
+	m_scene.layers.setLayer(1, "gui");
 
 	// Map
 
@@ -41,7 +46,7 @@ void Game::onInit()
 	mc->setColliderType(12, sf::FloatRect(ts/4, 0, ts/2, ts));
 	mc->build(*mapAsset, "collision", "collision");
 
-	// Camera
+	// Scene camera
 
 	Entity * cameraObj = m_scene.createEntity("main_camera", sf::Vector2f(500,100));
 	Camera * camera = cameraObj->addComponent<Camera>();
@@ -49,6 +54,22 @@ void Game::onInit()
 	camera->setScaleMode(Camera::ADAPTED);
 	m_scene.setMainCamera(camera);
 	m_scene.audioSystem.setListener(cameraObj);
+
+	// GUI camera
+
+	Entity * guiCameraObj = m_scene.createEntity("gui_camera");
+	Camera * guiCamera = guiCameraObj->addComponent<Camera>();
+	guiCamera->setInternalView(m_window.getDefaultView());
+	guiCamera->setScaleMode(Camera::FIXED);
+	guiCamera->depth = 1;
+	//guiCamera->topLeftOrigin = true;
+	guiCameraObj->setLayerMask(m_scene.layers.maskFromName("gui"));
+
+	// Mouse cursor
+
+	Entity * mouseCursor = m_scene.createEntity("cursor");
+	mouseCursor->addComponent<Cursor>();
+	mouseCursor->setLayerMask(m_scene.layers.maskFromName("gui"));
 
 	// Avatar
 
