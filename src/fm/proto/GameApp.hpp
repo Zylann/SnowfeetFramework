@@ -15,7 +15,9 @@ This file is part of the zCraft-Framework project.
 namespace zn
 {
 
-// Top-level class for a 2D game built with SFML2
+// Top-level class handling the execution of the game.
+// There must be only one GameApp (or derivated) instance created in the
+// whole program execution.
 class GameApp
 {
 public:
@@ -45,6 +47,9 @@ public:
 		return exitCode;
 	}
 
+	// Gets the current game instance
+	static GameApp * instance();
+
 	// Constructs a GameApp with an optional title
 	GameApp(std::string title = "GameApp");
 
@@ -56,14 +61,32 @@ public:
 	// Tells the game to stop
 	void stop();
 
+	// Gets the time span between two frames
 	inline sf::Time frameTime() const { return m_frameTime; }
+
+	// Gets the total elapsed time since startup
 	inline sf::Time time() const { return m_timeClock.getElapsedTime(); }
 
 	// Sets wether the game should be in fulscreen or not.
 	// Does nothing if the game is already in the given state.
 	void setFullScreen(bool fullScreen);
 
+	// Get fullscreen state
 	inline bool fullScreen() const { return m_fullScreen; }
+
+	// Gets the size of the drawable area of the window in pixels
+	inline sf::Vector2i screenSize() const
+	{
+		// Note: converted as signed integer coordinates because it's
+		// easier to use in calculations with signed integers
+		return sf::Vector2i(m_window.getSize().x, m_window.getSize().y);
+	}
+
+	// Gets mouse position relative to the window in pixels
+	inline sf::Vector2i mousePosition() const { return sf::Mouse::getPosition(m_window); }
+
+	// Hides or shows system's mouse cursor
+	inline void setSystemCursorVisible(bool visible) { m_window.setMouseCursorVisible(visible); }
 
 protected:
 

@@ -6,19 +6,31 @@ This file is part of the zCraft-Framework project.
 
 #include <iostream>
 #include "GameApp.hpp"
+#include "../util/macros.hpp"
 
 namespace zn
 {
+
+// Global game instance reference
+GameApp * g_instance = nullptr;
+
+GameApp * GameApp::instance()
+{
+	return g_instance;
+}
 
 GameApp::GameApp(std::string title) :
 	m_fullScreen(false),
 	m_runFlag(false),
 	m_title(title)
 {
+	ZN_CALL_ONCE;
+	g_instance = this;
 }
 
 GameApp::~GameApp()
 {
+	g_instance = nullptr;
 }
 
 void GameApp::setFullScreen(bool fullScreen)
@@ -149,7 +161,7 @@ void GameApp::render()
 //	m_window.setView(m_screenView);
 //	m_window.draw(screenSprite);
 
-	m_window.clear(sf::Color(64,64,64));
+	m_window.clear(sf::Color(20,20,30));
 	m_window.draw(m_scene);
 
 #ifdef ZN_DEBUG
