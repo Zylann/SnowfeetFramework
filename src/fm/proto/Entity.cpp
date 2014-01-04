@@ -18,7 +18,7 @@ Entity::Entity() :
 	r_camera(nullptr),
 	r_animator(nullptr),
 	m_flags(ACTIVE),
-	m_layerMask(1),
+	m_layerMask(1), // default mask
 	r_scene(nullptr)
 {
 	setName("_entity_");
@@ -90,16 +90,26 @@ AComponent * Entity::addComponent(AComponent * newCmp)
 	// Check component group unicity
 	if(ct.flags & CTF_UNIQUE_OF_GROUP)
 	{
-		bool duplicate = false;
+		AComponent * duplicate = nullptr;
 		for(u32 i = 0; i < m_components.size(); ++i)
 		{
-			if(m_components[i]->componentType().group == ct.group);
-				duplicate = true;
+			if(m_components[i]->componentType().group == ct.group)
+			{
+				duplicate = m_components[i];
+				break;
+			}
 		}
-		if(duplicate)
+		if(duplicate != nullptr)
 		{
-			std::cout << "E: Entity::addComponent: duplicate, "
-				"the component " << ct.name << " must be unique per entity." << std::endl;
+			std::cout << "E: Entity::addComponent: duplicate of same group !" << std::endl;
+
+			std::cout << "E: | adding: ";
+			newCmp->componentType().print(std::cout);
+			std::cout << std::endl;
+
+			std::cout << "E: | duplicate is: ";
+			duplicate->componentType().print(std::cout);
+			std::cout << std::endl;
 		}
 		assert(!duplicate);
 	}
