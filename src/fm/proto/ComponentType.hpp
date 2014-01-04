@@ -75,13 +75,13 @@ struct ComponentType
 	std::string name;
 	u8 group;
 	u8 flags;
-	u32 updateOrder; // only used by behaviours
+	s32 updateOrder; // only used by behaviours
 	//dependencies?
 
 	ComponentType(
 		const std::string & p_name,
 		u8 p_group,
-		u32 p_updateOrder=0,
+		s32 p_updateOrder=0,
 		u8 p_flags=CTF_DEFAULT
 	) :
 		name(p_name),
@@ -92,7 +92,7 @@ struct ComponentType
 
 	void print(std::ostream & os) const
 	{
-		os << "{" << name << ", group:" << (u32)group << ", order:" << updateOrder << "}";
+		os << "{" << name << ", group:" << (u32)group << ", updateOrder:" << updateOrder << "}";
 	}
 
 	// -------------------

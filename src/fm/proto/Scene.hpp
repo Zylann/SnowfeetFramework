@@ -109,7 +109,7 @@ private:
 	std::list<Entity*>              m_entities; // Entities in play
 
 	// References to behaviours [updateOrder][index]
-	std::vector< ComponentSystem<ABehaviour> > m_behaviours;
+	std::map< s32, ComponentSystem<ABehaviour> > m_behaviours;
 
 	Camera *                        r_mainCamera;
 	sf::Clock                       m_time;
