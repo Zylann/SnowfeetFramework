@@ -18,10 +18,12 @@ This file is part of the zCraft-Framework project.
 // Behaviours are updated before all other components.
 // Place this in public in all your complete-type behaviour-components class declarations.
 // __name: class name with namespace (ie: myNamespace::MyBehaviour)
-#define ZN_BEHAVIOUR(__name)                                                   \
+#define ZN_BEHAVIOUR(__name, __updateOrder)                                    \
 	const zn::ComponentType & componentType() const override                   \
 	{                                                                          \
-		static zn::ComponentType cmpt(#__name, zn::CG_BEHAVIOUR);              \
+		static zn::ComponentType cmpt(                                         \
+			#__name, zn::CG_BEHAVIOUR, __updateOrder                           \
+		);                                                                     \
 		return cmpt;                                                           \
 	}                                                                          \
 	static zn::AComponent * instantiate() { return new __name(); }
@@ -35,7 +37,7 @@ This file is part of the zCraft-Framework project.
 	const zn::ComponentType & componentType() const override                   \
 	{                                                                          \
 		static zn::ComponentType cmpt(                                         \
-			#__name, __group, zn::CTF_UNIQUE_OF_GROUP);                        \
+			#__name, __group, 0, zn::CTF_UNIQUE_OF_GROUP);                     \
 		return cmpt;                                                           \
 	}                                                                          \
 	static zn::AComponent * instantiate() { return new __name(); }
@@ -88,9 +90,9 @@ struct ComponentType
 		updateOrder(p_updateOrder)
 	{}
 
-	void print(std::ostream & os)
+	void print(std::ostream & os) const
 	{
-		os << "{" << name << ", cg:" << (u32)group << ", order:" << updateOrder << "}";
+		os << "{" << name << ", group:" << (u32)group << ", order:" << updateOrder << "}";
 	}
 
 	// -------------------

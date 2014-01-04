@@ -64,7 +64,13 @@ void Scene::registerBehaviour(ABehaviour * behaviour)
 	assert(behaviour != nullptr);
 	assert(behaviour->componentType().group == CG_BEHAVIOUR);
 
+	// TODO use a map to store ordered behaviours, it would allow any relative integer as order.
+
 	u32 updateOrder = behaviour->componentType().updateOrder;
+#ifdef ZN_DEBUG
+	if(updateOrder > 10000)
+		std::cout << "W: Scene::registerBehaviour: update order index is very high (" << updateOrder << ")..." << std::endl;
+#endif
 	if(updateOrder >= m_behaviours.size())
 	{
 		m_behaviours.resize(updateOrder+1);

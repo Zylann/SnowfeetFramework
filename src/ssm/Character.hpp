@@ -25,6 +25,7 @@ class Character : public zn::ABehaviour
 {
 public:
 
+	// Character is not a complete component type, it's only a base
 //	ZN_BEHAVIOUR(ssm::Character)
 
 	Character() : ABehaviour(),

@@ -21,7 +21,7 @@ class Cat : public Character
 {
 public:
 
-	ZN_BEHAVIOUR(ssm::Cat)
+	ZN_BEHAVIOUR(ssm::Cat, 10)
 
 	void init() override;
 	void onUpdate() override;

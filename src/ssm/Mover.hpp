@@ -25,7 +25,7 @@ class Mover : public ABehaviour
 {
 public:
 
-	ZN_BEHAVIOUR(ssm::Mover)
+	ZN_BEHAVIOUR(ssm::Mover, 10)
 
 	Mover();
 

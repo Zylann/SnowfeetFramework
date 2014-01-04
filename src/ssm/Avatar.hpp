@@ -23,7 +23,7 @@ class Avatar : public Character
 {
 public:
 
-	ZN_BEHAVIOUR(ssm::Avatar)
+	ZN_BEHAVIOUR(ssm::Avatar, 10)
 
 	void init() override;
 	void onUpdate() override;
