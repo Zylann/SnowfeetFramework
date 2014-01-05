@@ -14,7 +14,7 @@
 #include "fm/proto/Scene.hpp"
 #include "fm/proto/physics/BoxCollider.hpp"
 #include "fm/proto/animation/SpriteAnimator.hpp"
-#include "fm/proto/Direction.hpp"
+#include "fm/util/Direction.hpp"
 #include "fm/util/math.hpp"
 
 namespace ssm

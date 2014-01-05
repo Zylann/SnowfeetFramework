@@ -5,7 +5,6 @@
 #include "../types.hpp"
 
 //#define ZN_Y_UP
-//#define ZN_DIRECTION_BINARY
 
 namespace zn
 {
@@ -14,21 +13,25 @@ namespace zn
 namespace Direction
 {
 
+	// Contiguous direction identifiers
 	enum
 	{
-#ifdef ZN_DIRECTION_BINARY
-		NONE = 0
-		EAST = 1,
-		WEST = 1 << 1,
-		NORTH = 1 << 2,
-		SOUTH = 1 << 3
-#else
-		EAST = 0,
-		WEST = 1,
-		NORTH = 2,
-		SOUTH = 3,
-		NONE = 4
-#endif
+		EAST   = 0,
+		WEST   = 1,
+		NORTH  = 2,
+		SOUTH  = 3,
+		NONE   = 4
+	};
+
+	// Bitmasks
+	enum
+	{
+		EAST_BIT  = 1 << EAST,
+		WEST_BIT  = 1 << WEST,
+		NORTH_BIT = 1 << NORTH,
+		SOUTH_BIT = 1 << SOUTH,
+		NONE_BITS = 0,
+		ANY_BITS  = EAST_BIT | WEST_BIT | NORTH_BIT | SOUTH_BIT
 	};
 
 	inline u8 opposite(u8 dir)

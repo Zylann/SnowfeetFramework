@@ -13,7 +13,7 @@
 #define HEADER_SSM_CHARACTER_HPP_INCLUDED
 
 #include "fm/proto/graphics/SpriteRenderer.hpp"
-#include "fm/proto/Direction.hpp"
+#include "fm/util/Direction.hpp"
 #include "common.hpp"
 #include "Mover.hpp"
 
