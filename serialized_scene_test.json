@@ -95,7 +95,7 @@
 								"y" : 0
 							}
 						],
-						"flags" : 0,
+						"flags" : 1,
 						"size" : {
 							"x" : 100,
 							"y" : 50
@@ -127,11 +127,12 @@
 			"components" : [
 				{
 					"data" : {
+						"depth" : 0,
 						"flags" : 0,
 						"scaleMode" : "adapted",
 						"size" : {
 							"x" : 800,
-							"y" : 600
+							"y" : 475.238
 						},
 						"viewport" : {
 							"h" : 1,
@@ -148,10 +149,97 @@
 			"name" : "main_camera",
 			"transform" : {
 				"position" : {
-					"x" : 2064,
-					"y" : 1008
+					"x" : 969.639,
+					"y" : 929.978
 				},
-				"rotation" : 0.908329,
+				"rotation" : 0,
+				"scale" : {
+					"x" : 1,
+					"y" : 1
+				}
+			}
+		},
+		{
+			"components" : [
+				{
+					"data" : {
+						"depth" : 1,
+						"flags" : 0,
+						"scaleMode" : "fixed",
+						"size" : {
+							"x" : 1680,
+							"y" : 998
+						},
+						"viewport" : {
+							"h" : 1,
+							"w" : 1,
+							"x" : 0,
+							"y" : 0
+						}
+					},
+					"type" : "zn::Camera"
+				}
+			],
+			"flags" : 1,
+			"layerMask" : 2,
+			"name" : "gui_camera",
+			"transform" : {
+				"position" : {
+					"x" : 0,
+					"y" : 0
+				},
+				"rotation" : 0,
+				"scale" : {
+					"x" : 1,
+					"y" : 1
+				}
+			}
+		},
+		{
+			"components" : [
+				{
+					"data" : {
+						"flags" : 0
+					},
+					"type" : "ssm::Cursor"
+				},
+				{
+					"data" : {
+						"drawOrder" : 0,
+						"flags" : 0,
+						"origin" : {
+							"x" : 0,
+							"y" : 0
+						},
+						"position" : {
+							"x" : 0,
+							"y" : 0
+						},
+						"rotation" : 0,
+						"scale" : {
+							"x" : 1,
+							"y" : 1
+						},
+						"texture" : "cursor",
+						"textureRect" : {
+							"h" : 32,
+							"w" : 32,
+							"x" : 0,
+							"y" : 0
+						}
+					},
+					"type" : "zn::SpriteRenderer"
+				}
+			],
+			"flags" : 1,
+			"layerMask" : 2,
+			"name" : "cursor",
+			"transform" : {
+				"position" : {
+					"x" : 146,
+					"y" : -105
+				},
+				"rotation" : 0,
 				"scale" : {
 					"x" : 1,
 					"y" : 1
@@ -176,8 +264,8 @@
 							"y" : 0
 						},
 						"position" : {
-							"x" : 2048,
-							"y" : 992
+							"x" : 0,
+							"y" : 0
 						},
 						"rotation" : 0,
 						"scale" : {
@@ -188,7 +276,7 @@
 							"h" : 32,
 							"w" : 32,
 							"x" : 0,
-							"y" : 64
+							"y" : 96
 						}
 					},
 					"type" : "zn::SpriteRenderer"
@@ -201,7 +289,7 @@
 				},
 				{
 					"data" : {
-						"flags" : 0,
+						"flags" : 1,
 						"rect" : {
 							"h" : 24,
 							"w" : 24,
@@ -223,7 +311,7 @@
 				},
 				{
 					"data" : {
-						"attenuation" : 4.2039e-045,
+						"attenuation" : 1.85344e-039,
 						"flags" : 0,
 						"maxRadius" : 2000,
 						"minRadius" : 1000,
@@ -237,8 +325,8 @@
 			"name" : "the_bum",
 			"transform" : {
 				"position" : {
-					"x" : 2048,
-					"y" : 992
+					"x" : 953.639,
+					"y" : 913.978
 				},
 				"rotation" : 0,
 				"scale" : {
@@ -265,8 +353,8 @@
 							"y" : 0
 						},
 						"position" : {
-							"x" : 1984,
-							"y" : 992
+							"x" : 0,
+							"y" : 0
 						},
 						"rotation" : 0,
 						"scale" : {
@@ -277,7 +365,7 @@
 							"h" : 16,
 							"w" : 16,
 							"x" : 0,
-							"y" : 32
+							"y" : 48
 						}
 					},
 					"type" : "zn::SpriteRenderer"
@@ -290,7 +378,7 @@
 				},
 				{
 					"data" : {
-						"flags" : 0,
+						"flags" : 1,
 						"rect" : {
 							"h" : 16,
 							"w" : 16,
@@ -316,8 +404,8 @@
 			"name" : "snowfeet",
 			"transform" : {
 				"position" : {
-					"x" : 1984,
-					"y" : 992
+					"x" : 1974.53,
+					"y" : 927.145
 				},
 				"rotation" : 0,
 				"scale" : {

@@ -200,9 +200,6 @@ void Scene::draw(sf::RenderTarget& target, sf::RenderStates states) const
 		{
 			const ARenderer & renderer = *it->second;
 
-			// Apply entity's transform
-			states.transform.combine(renderer.entity().m_transform.getTransform());
-
 			// Draw renderer
 			target.draw(renderer);
 		}
