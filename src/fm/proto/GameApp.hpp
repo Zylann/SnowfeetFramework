@@ -11,6 +11,7 @@ This file is part of the zCraft-Framework project.
 #include "../asset/AssetBank.hpp"
 #include "Scene.hpp"
 #include "PerformanceGraph.hpp"
+#include "GameSettings.hpp"
 
 namespace zn
 {
@@ -50,8 +51,9 @@ public:
 	// Gets the current game instance
 	static GameApp * instance();
 
-	// Constructs a GameApp with an optional title
-	GameApp(std::string title = "GameApp");
+	// Constructs a GameApp with an optional title.
+	// An empty name means using the title defined in GameSettings.
+	GameApp(std::string title = "");
 
 	virtual ~GameApp();
 
@@ -96,7 +98,7 @@ protected:
 
 	// Called when the application starts, after window's creation, before main loop.
 	// The default implementation does nothing.
-	virtual void onInit() {}
+	virtual bool onInit() { return true; }
 
 	// Called when an event is received (input or window change)
 	// The default implementation does nothing.
@@ -114,10 +116,13 @@ protected:
 
 private:
 
+	bool init();
 	void update();
 	void render();
 
 	void onScreenResize(sf::Vector2u size);
+
+	GameSettings        m_gameSettings; // startup game settings
 
 	bool                m_fullScreen;
 	bool                m_runFlag;

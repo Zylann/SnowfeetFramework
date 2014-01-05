@@ -42,7 +42,7 @@ void GameApp::setFullScreen(bool fullScreen)
 		sf::ContextSettings contextSettings(
 			0, // Depth buffer bits
 			0, // Stencil buffer bits
-			0 // Antialias
+			m_gameSettings.antialias
 		);
 
 		if(m_fullScreen)
@@ -57,7 +57,7 @@ void GameApp::setFullScreen(bool fullScreen)
 		else
 		{
 			m_window.create(
-				sf::VideoMode(800,600),
+				m_gameSettings.videoMode,
 				m_title,
 				sf::Style::Titlebar | sf::Style::Resize | sf::Style::Close,
 				contextSettings
@@ -65,21 +65,52 @@ void GameApp::setFullScreen(bool fullScreen)
 			std::cout << "I: switched to windowed mode." << std::endl;
 		}
 
-		m_window.setVerticalSyncEnabled(true);
+		m_window.setVerticalSyncEnabled(m_gameSettings.verticalSync);
 
 		onScreenResize(m_window.getSize());
 	}
 }
 
-void GameApp::start()
+bool GameApp::init()
 {
 	// Register components in factory
 	ComponentType::registerEngineComponents();
 
-	m_fullScreen = true; // To make the next line work...
-	setFullScreen(false); // Creates the SFML window
+	// Read config file
+	const std::string settingsFileName = "game_settings.json";
+	if(!m_gameSettings.loadFromJSONFile(settingsFileName))
+	{
+		std::cout << "I: " << settingsFileName << " was not found, creating a new one." << std::endl;
+		m_gameSettings.saveToJSONFile(settingsFileName);
+	}
 
-	onInit();
+	// If the hardcoded title is empty, use the one from the settings
+	if(m_title.empty())
+	{
+		m_title = m_gameSettings.title;
+	}
+
+	// Create game window
+	m_fullScreen = !m_gameSettings.fullscreen; // To make the next line work...
+	setFullScreen(m_gameSettings.fullscreen); // Creates the SFML window
+
+	// Load startup assets
+	// TODO asynchronous loading of assets with a progressBar
+	if(!m_assets.loadFromJSON(m_gameSettings.assetsRoot + "/assets.json"))
+	{
+		return false;
+	}
+
+	return onInit();
+}
+
+void GameApp::start()
+{
+	if(!init())
+	{
+		std::cout << "E: Failed to initialize the game." << std::endl;
+		return;
+	}
 
 	m_frameClock.restart();
 	m_frameTime = sf::seconds(1.f / 60.f);

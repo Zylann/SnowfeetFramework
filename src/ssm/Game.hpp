@@ -11,12 +11,12 @@ class Game : public zn::GameApp
 {
 public:
 
-	Game() : GameApp("SSM - entity framework version")
+	Game() : GameApp()
 	{}
 
 protected:
 
-	virtual void onInit();
+	virtual bool onInit();
 	virtual void onEvent(sf::Event & e);
 	virtual void onClose();
 

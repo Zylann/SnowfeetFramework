@@ -1,0 +1,10 @@
+{
+	"antialias" : 0,
+	"assetsRoot" : "assets",
+	"bitsPerPixel" : 32,
+	"fullscreen" : false,
+	"height" : 600,
+	"title" : "Game",
+	"verticalSync" : true,
+	"width" : 800
+}

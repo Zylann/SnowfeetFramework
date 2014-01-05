@@ -12,12 +12,8 @@
 namespace ssm
 {
 
-void Game::onInit()
+bool Game::onInit()
 {
-	// Assets
-
-	m_assets.loadFromJSON("assets/assets.json");
-
 	// Scene config
 
 	m_scene.layers.setLayer(1, "gui");
@@ -48,9 +44,11 @@ void Game::onInit()
 
 	// Scene camera
 
+	const sf::View & defaultView = m_window.getDefaultView();
+
 	Entity * cameraObj = m_scene.createEntity("main_camera", sf::Vector2f(500,100));
 	Camera * camera = cameraObj->addComponent<Camera>();
-	camera->setInternalView(m_window.getDefaultView());
+	camera->setInternalView(defaultView);
 	camera->setScaleMode(Camera::ADAPTED);
 	m_scene.setMainCamera(camera);
 	m_scene.audioSystem.setListener(cameraObj);
@@ -59,7 +57,7 @@ void Game::onInit()
 
 	Entity * guiCameraObj = m_scene.createEntity("gui_camera");
 	Camera * guiCamera = guiCameraObj->addComponent<Camera>();
-	guiCamera->setInternalView(m_window.getDefaultView());
+	guiCamera->setInternalView(defaultView);
 	guiCamera->setScaleMode(Camera::FIXED);
 	guiCamera->depth = 1;
 	//guiCamera->topLeftOrigin = true;
@@ -81,6 +79,7 @@ void Game::onInit()
 	Entity * cat = m_scene.createEntity("snowfeet", sf::Vector2f(62*ts, 31*ts));
 	cat->addComponent<Cat>();
 
+	return true;
 }
 
 void Game::onEvent(sf::Event& e)
