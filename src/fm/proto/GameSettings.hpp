@@ -16,6 +16,7 @@ struct GameSettings
 	bool verticalSync;
 	u32 antialias;
 	std::string assetsRoot;
+	bool showSystemCursor;
 
 	// Constructs game settings with default values
 	GameSettings() :
@@ -24,7 +25,8 @@ struct GameSettings
 		fullscreen(false),
 		verticalSync(true),
 		antialias(0),
-		assetsRoot("assets")
+		assetsRoot("assets"),
+		showSystemCursor(true)
 	{}
 
 	bool loadFromJSONFile(const std::string & filePath)
@@ -46,6 +48,7 @@ struct GameSettings
 		fullscreen = v["fullscreen"].getBoolean();
 		verticalSync = v["verticalSync"].getBoolean();
 		antialias = v["antialias"].getInt();
+		showSystemCursor = v["showSystemCursor"].getBoolean();
 
 		assetsRoot = v["assetsRoot"].getString();
 
@@ -64,6 +67,7 @@ struct GameSettings
 		v["fullscreen"] = fullscreen;
 		v["verticalSync"] = verticalSync;
 		v["antialias"] = (s32)antialias;
+		v["showSystemCursor"] = showSystemCursor;
 
 		v["assetsRoot"] = assetsRoot;
 

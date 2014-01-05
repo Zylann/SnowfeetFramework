@@ -88,7 +88,11 @@ public:
 	inline sf::Vector2i mousePosition() const { return sf::Mouse::getPosition(m_window); }
 
 	// Hides or shows system's mouse cursor
-	inline void setSystemCursorVisible(bool visible) { m_window.setMouseCursorVisible(visible); }
+	inline void setSystemCursorVisible(bool visible)
+	{
+		m_window.setMouseCursorVisible(visible);
+		m_gameSettings.showSystemCursor = visible;
+	}
 
 protected:
 

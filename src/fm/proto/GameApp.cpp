@@ -68,6 +68,7 @@ void GameApp::setFullScreen(bool fullScreen)
 		}
 
 		m_window.setVerticalSyncEnabled(m_gameSettings.verticalSync);
+		m_window.setMouseCursorVisible(m_gameSettings.showSystemCursor);
 
 		onScreenResize(m_window.getSize());
 	}
