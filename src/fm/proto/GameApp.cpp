@@ -19,6 +19,7 @@ GameApp * GameApp::instance()
 	return g_instance;
 }
 
+//------------------------------------------------------------------------------
 GameApp::GameApp(std::string title) :
 	m_fullScreen(false),
 	m_runFlag(false),
@@ -33,6 +34,7 @@ GameApp::~GameApp()
 	g_instance = nullptr;
 }
 
+//------------------------------------------------------------------------------
 void GameApp::setFullScreen(bool fullScreen)
 {
 	if(fullScreen != m_fullScreen)
@@ -71,6 +73,7 @@ void GameApp::setFullScreen(bool fullScreen)
 	}
 }
 
+//------------------------------------------------------------------------------
 bool GameApp::init()
 {
 	// Register components in factory
@@ -104,6 +107,7 @@ bool GameApp::init()
 	return onInit();
 }
 
+//------------------------------------------------------------------------------
 void GameApp::start()
 {
 	if(!init())
@@ -178,6 +182,7 @@ void GameApp::start()
 	onClose();
 }
 
+//------------------------------------------------------------------------------
 void GameApp::onScreenResize(sf::Vector2u size)
 {
 //	if(!_renderTexture.create(m_window.getSize().x, m_window.getSize().y))
@@ -191,11 +196,13 @@ void GameApp::onScreenResize(sf::Vector2u size)
 	m_scene.onScreenResized(size);
 }
 
+//------------------------------------------------------------------------------
 void GameApp::update()
 {
 	m_scene.update(m_frameTime);
 }
 
+//------------------------------------------------------------------------------
 void GameApp::render()
 {
 //	m_renderTexture.clear(sf::Color(128,128,128));
@@ -226,6 +233,7 @@ void GameApp::render()
 	m_window.display();
 }
 
+//------------------------------------------------------------------------------
 void GameApp::stop()
 {
 	m_runFlag = false;
