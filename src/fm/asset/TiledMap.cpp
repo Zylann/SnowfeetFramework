@@ -167,7 +167,7 @@ bool TiledMap::loadFromJSONFile(const std::string & filePath)
 		tileset.texturePath = (*tilesetIt)["image"].getString();
 	}
 
-	print(std::cout);
+	//print(std::cout);
 
 	return true;
 }
