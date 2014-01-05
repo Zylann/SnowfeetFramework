@@ -39,14 +39,29 @@ void GameApp::setFullScreen(bool fullScreen)
 	{
 		m_fullScreen = fullScreen;
 
+		sf::ContextSettings contextSettings(
+			0, // Depth buffer bits
+			0, // Stencil buffer bits
+			0 // Antialias
+		);
+
 		if(m_fullScreen)
 		{
-			m_window.create(sf::VideoMode::getDesktopMode(), m_title, sf::Style::Fullscreen);
+			m_window.create(
+				sf::VideoMode::getDesktopMode(),
+				m_title,
+				sf::Style::Fullscreen, contextSettings
+			);
 			std::cout << "I: switched to fullscreen mode." << std::endl;
 		}
 		else
 		{
-			m_window.create(sf::VideoMode(800,600), m_title);
+			m_window.create(
+				sf::VideoMode(800,600),
+				m_title,
+				sf::Style::Titlebar | sf::Style::Resize | sf::Style::Close,
+				contextSettings
+			);
 			std::cout << "I: switched to windowed mode." << std::endl;
 		}
 
