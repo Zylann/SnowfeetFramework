@@ -7,7 +7,7 @@ namespace zn
 
 MazeGenerator::MazeGenerator(u32 width, u32 height)
 {
-	grid.create(width, height);
+	grid.create(width, height, 0);
 }
 
 //------------------------------------------------------------------------------
