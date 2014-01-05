@@ -5,6 +5,7 @@
 bool test_pathfinder();
 void test_stringutils();
 void test_compress(std::string filePath);
+void test_mazeGenerator();
 
 #endif // HEADER_ZN_TEST_HPP_INCLUDED
 
