@@ -69,6 +69,9 @@ public :
 		return m_data;
 	}
 
+	// Accesses directly the flat array.
+	// i must be in [0, area()[.
+	// i can be computed with index(x,y).
 	inline T & operator[](u32 i)
 	{
 		return m_data[i];
@@ -184,6 +187,13 @@ public :
 	//
 	// Convenience methods
 	//
+
+	// Tells if the given signed coordinates are valid in this array
+	// (Convenience)
+	inline bool contains(s32 x, s32 y) const
+	{
+		return x >= 0 && y >= 0 && x < static_cast<s32>(m_sizeX) && y < static_cast<s32>(m_sizeY);
+	}
 
 	// same as create(Area3D), with an additionnal parameter for default values
 	// (Convenience)
