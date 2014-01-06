@@ -113,7 +113,7 @@ protected:
 	// The default implementation does nothing.
 	virtual void onClose() {}
 
-//	sf::RenderTexture   m_renderTexture;
+	//sf::RenderTexture   m_renderTexture;
 	sf::RenderWindow    m_window;
 	AssetBank           m_assets;
 	Scene               m_scene;

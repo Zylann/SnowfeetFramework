@@ -186,7 +186,7 @@ void GameApp::start()
 //------------------------------------------------------------------------------
 void GameApp::onScreenResize(sf::Vector2u size)
 {
-//	if(!_renderTexture.create(m_window.getSize().x, m_window.getSize().y))
+//	if(!m_renderTexture.create(m_window.getSize().x*2, m_window.getSize().y*2))
 //	{
 //		std::cout << "E: Game2D::onScreenResize: failed to create screen renderTexture." << std::endl;
 //	}
@@ -206,11 +206,13 @@ void GameApp::update()
 //------------------------------------------------------------------------------
 void GameApp::render()
 {
-//	m_renderTexture.clear(sf::Color(128,128,128));
+//	m_renderTexture.setSmooth(true);
+//	m_renderTexture.clear(sf::Color(20,20,30));
 //	m_renderTexture.draw(m_scene);
 //	m_renderTexture.display();
 //
 //	sf::Sprite screenSprite(m_renderTexture.getTexture());
+//	screenSprite.setScale(1.f/2.f, 1.f/2.f);
 //	m_window.clear(sf::Color(64,64,64));
 //	m_window.setView(m_screenView);
 //	m_window.draw(screenSprite);
