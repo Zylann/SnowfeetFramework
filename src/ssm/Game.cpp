@@ -85,7 +85,7 @@ bool Game::onInit()
 	Entity * textEntity = m_scene.createEntity("text", sf::Vector2f(-200, -200));
 	textEntity->setLayerMask(m_scene.layers.maskFromName("gui"));
 	TextRenderer * text = textEntity->addComponent<TextRenderer>();
-	text->setText(L"Hello World !");
+	text->setText(L"Hello World ! éèë");
 	text->setFont("default");
 	text->setCharacterSize(16);
 	text->setColor(sf::Color(255,192,32));
