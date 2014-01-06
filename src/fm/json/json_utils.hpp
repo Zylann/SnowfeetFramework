@@ -1,9 +1,13 @@
 #ifndef JSON_UTILS_HPP_INCLUDED
 #define JSON_UTILS_HPP_INCLUDED
 
-#include <SFML/Graphics/Rect.hpp>
 #include "JsonBox.h"
 #include "../util/Range.hpp"
+
+#ifdef ZN_SFML
+#include <SFML/Graphics/Rect.hpp>
+#include <SFML/Graphics/Color.hpp>
+#endif
 
 // Json serialization helpers for various composed types
 
@@ -71,6 +75,22 @@ inline void unserialize(JsonBox::Value & o, sf::IntRect & rect)
 	rect.top    = o["y"].getInt();
 	rect.width  = o["w"].getInt();
 	rect.height = o["h"].getInt();
+}
+
+inline void serialize(JsonBox::Value & o, const sf::Color & color)
+{
+	o["r"] = color.r;
+	o["g"] = color.g;
+	o["b"] = color.b;
+	o["a"] = color.a;
+}
+
+inline void unserialize(JsonBox::Value & o, sf::Color & color)
+{
+	color.r = o["r"].getInt();
+	color.g = o["g"].getInt();
+	color.b = o["b"].getInt();
+	color.a = o["a"].getInt();
 }
 
 // TODO serialization util sf::Transformable

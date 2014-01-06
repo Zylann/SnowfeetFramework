@@ -16,7 +16,9 @@ This file is part of the zCraft-Framework project.
 #include "graphics/MapRenderer.hpp"
 #include "graphics/ParticleSystem.hpp"
 #include "graphics/SpriteRenderer.hpp"
+#include "graphics/TextRenderer.hpp"
 #include "physics/BoxCollider.hpp"
+#include "physics/MapCollider.hpp"
 
 using namespace std;
 
@@ -63,12 +65,19 @@ void ComponentType::registerEngineComponents()
 	ZN_CALL_ONCE;
 
 	ZN_REGISTER_COMPONENT( zn::SpriteAnimator );
+
 	ZN_REGISTER_COMPONENT( zn::AudioEmitter );
+
 	ZN_REGISTER_COMPONENT( zn::Camera );
+
 	ZN_REGISTER_COMPONENT( zn::MapRenderer );
 	ZN_REGISTER_COMPONENT( zn::ParticleSystem );
 	ZN_REGISTER_COMPONENT( zn::SpriteRenderer );
+	ZN_REGISTER_COMPONENT( zn::TextRenderer );
+
 	ZN_REGISTER_COMPONENT( zn::BoxCollider );
+	ZN_REGISTER_COMPONENT( zn::MapCollider );
+
 }
 
 

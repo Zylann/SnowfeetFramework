@@ -3,6 +3,7 @@
 #include "fm/proto/graphics/MapRenderer.hpp"
 #include "fm/proto/physics/MapCollider.hpp"
 #include "fm/proto/graphics/Camera.hpp"
+#include "fm/proto/graphics/TextRenderer.hpp"
 //#include "fm/proto/components/ParticleSystem.hpp"
 #include "Avatar.hpp"
 #include "Cat.hpp"
@@ -78,6 +79,16 @@ bool Game::onInit()
 
 	Entity * cat = m_scene.createEntity("snowfeet", sf::Vector2f(62*ts, 31*ts));
 	cat->addComponent<Cat>();
+
+	// Text
+
+	Entity * textEntity = m_scene.createEntity("text", sf::Vector2f(-200, -200));
+	textEntity->setLayerMask(m_scene.layers.maskFromName("gui"));
+	TextRenderer * text = textEntity->addComponent<TextRenderer>();
+	text->setText(L"Hello World !");
+	text->setFont("default");
+	text->setCharacterSize(16);
+	text->setColor(sf::Color(255,192,32));
 
 	return true;
 }
