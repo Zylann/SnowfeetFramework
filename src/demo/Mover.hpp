@@ -15,7 +15,7 @@
 #include "fm/proto/behaviour/Behaviour.hpp"
 #include "common.hpp"
 
-namespace ssm
+namespace demo
 {
 
 // The engine doesn't supports physics yet.
@@ -25,7 +25,7 @@ class Mover : public ABehaviour
 {
 public:
 
-	ZN_BEHAVIOUR(ssm::Mover, 10)
+	ZN_BEHAVIOUR(demo::Mover, 10)
 
 	Mover();
 
@@ -48,7 +48,7 @@ private:
 
 };
 
-} // namespace ssm
+} // namespace demo
 
 #endif // HEADER_SSM_MOVER_HPP_INCLUDED
 

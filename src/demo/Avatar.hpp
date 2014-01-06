@@ -16,14 +16,14 @@
 #include "fm/proto/graphics/SpriteRenderer.hpp"
 #include "Character.hpp"
 
-namespace ssm
+namespace demo
 {
 
 class Avatar : public Character
 {
 public:
 
-	ZN_BEHAVIOUR(ssm::Avatar, 10)
+	ZN_BEHAVIOUR(demo::Avatar, 10)
 
 	void init() override;
 	void onUpdate() override;
@@ -36,7 +36,7 @@ private:
 
 };
 
-} // namespace ssm
+} // namespace demo
 
 #endif // HEADER_SSM_AVATAR_HPP_INCLUDED
 

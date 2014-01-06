@@ -17,7 +17,7 @@
 #include "common.hpp"
 #include "Mover.hpp"
 
-namespace ssm
+namespace demo
 {
 
 // Base component for characters that can move and animate
@@ -26,7 +26,7 @@ class Character : public zn::ABehaviour
 public:
 
 	// Character is not a complete component type, it's only a base
-//	ZN_BEHAVIOUR(ssm::Character)
+//	ZN_BEHAVIOUR(demo::Character)
 
 	Character() : ABehaviour(),
 		r_sprite(nullptr),
@@ -54,7 +54,7 @@ private:
 
 };
 
-} // namespace ssm
+} // namespace demo
 
 #endif // HEADER_SSM_CHARACTER_HPP_INCLUDED
 

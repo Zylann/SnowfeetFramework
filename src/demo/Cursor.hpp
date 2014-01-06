@@ -3,14 +3,14 @@
 
 #include "fm/proto/behaviour/Behaviour.hpp"
 
-namespace ssm
+namespace demo
 {
 
 class Cursor : public zn::ABehaviour
 {
 public:
 
-	ZN_BEHAVIOUR(ssm::Cursor, 0) // The cursor is updated first
+	ZN_BEHAVIOUR(demo::Cursor, 0) // The cursor is updated first
 
 	void init() override;
 	void onStart() override;
@@ -18,6 +18,6 @@ public:
 
 };
 
-} // namespace ssm
+} // namespace demo
 
 #endif // SSM_CURSOR_HPP_INCLUDED

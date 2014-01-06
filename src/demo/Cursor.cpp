@@ -5,7 +5,7 @@
 #include "Cursor.hpp"
 #include "common.hpp"
 
-namespace ssm
+namespace demo
 {
 
 void Cursor::init()
@@ -30,5 +30,5 @@ void Cursor::onUpdate()
 	));
 }
 
-} // namespace ssm
+} // namespace demo
 

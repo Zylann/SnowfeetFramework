@@ -10,7 +10,7 @@
 #include "Game.hpp"
 #include "Cursor.hpp"
 
-namespace ssm
+namespace demo
 {
 
 bool Game::onInit()
@@ -133,6 +133,6 @@ void Game::onClose()
 }
 
 
-} // namespace ssm
+} // namespace demo
 
 

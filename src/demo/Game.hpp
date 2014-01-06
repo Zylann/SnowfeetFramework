@@ -4,7 +4,7 @@
 #include "fm/proto/GameApp.hpp"
 #include "common.hpp"
 
-namespace ssm
+namespace demo
 {
 
 class Game : public zn::GameApp
@@ -22,7 +22,7 @@ protected:
 
 };
 
-} // namespace ssm
+} // namespace demo
 
 #endif // SSM_HEADER_GAME_HPP_INCLUDED
 

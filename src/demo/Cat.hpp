@@ -14,14 +14,14 @@
 
 #include "Character.hpp"
 
-namespace ssm
+namespace demo
 {
 
 class Cat : public Character
 {
 public:
 
-	ZN_BEHAVIOUR(ssm::Cat, 10)
+	ZN_BEHAVIOUR(demo::Cat, 10)
 
 	void init() override;
 	void onUpdate() override;
@@ -33,7 +33,7 @@ private:
 
 };
 
-} // namespace ssm
+} // namespace demo
 
 #endif // HEADER_SSMCAT_HPP_INCLUDED
 

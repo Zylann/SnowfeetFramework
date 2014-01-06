@@ -15,7 +15,7 @@
 #include "Character.hpp"
 #include "Mover.hpp"
 
-namespace ssm
+namespace demo
 {
 
 void Character::init()
@@ -86,5 +86,5 @@ void Character::onUpdate()
 	}
 }
 
-} // namespace ssm
+} // namespace demo
 

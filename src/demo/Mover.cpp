@@ -14,7 +14,7 @@
 #include "fm/proto/Scene.hpp"
 #include "fm/proto/physics/Collider.hpp"
 
-namespace ssm
+namespace demo
 {
 
 Mover::Mover() : ABehaviour(),
@@ -154,5 +154,5 @@ void Mover::onUpdate()
 	}
 }
 
-} // namespace ssm
+} // namespace demo
 

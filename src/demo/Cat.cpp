@@ -17,7 +17,7 @@
 #include "fm/util/Direction.hpp"
 #include "fm/util/math.hpp"
 
-namespace ssm
+namespace demo
 {
 
 void Cat::init()
@@ -63,7 +63,7 @@ void Cat::onUpdate()
 	Character::onUpdate();
 }
 
-} // namespace ssm
+} // namespace demo
 
 
 

@@ -200,7 +200,7 @@ private:
 
 };
 
-} // namespace ssm
+} // namespace zn
 
 #endif // HEADER_ZN_PRIORITYQUEUEB_HPP_INCLUDED
 

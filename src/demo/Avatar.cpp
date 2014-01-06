@@ -22,7 +22,7 @@
 
 using namespace zn;
 
-namespace ssm
+namespace demo
 {
 
 void Avatar::init()
@@ -121,6 +121,6 @@ void Avatar::onCollisionEnter(const CollisionInfo & info)
 
 }
 
-} // namespace ssm
+} // namespace demo
 
 
