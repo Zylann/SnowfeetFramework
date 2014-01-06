@@ -2,6 +2,7 @@
 
 #include "MapRenderer.hpp"
 #include "../../asset/AssetBank.hpp"
+#include "../Entity.hpp"
 
 namespace zn
 {
@@ -36,6 +37,9 @@ void MapRenderer::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	if(r_atlas == nullptr)
 		std::cout << "E: MapRenderer::draw: no atlas defined !" << std::endl;
 #endif
+
+	states.transform.combine(entity().matrix());
+
 	// apply the tileset texture
 	states.texture = &r_atlas->texture();
 
