@@ -44,7 +44,7 @@ void PerformanceGraph::setSize(sf::Vector2i size)
 
 	m_size = size;
 	m_values.resize(size.x);
-	std::cout << "Size set to " << m_values.size() << std::endl;
+	std::cout << "D: PerformanceGraph: size set to " << m_values.size() << std::endl;
 
 	updateMesh();
 }

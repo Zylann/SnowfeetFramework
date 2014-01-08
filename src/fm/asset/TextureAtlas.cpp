@@ -35,7 +35,7 @@ bool TextureAtlas::loadFromJSONFile(const std::string & filePath)
 		return false;
 	}
 
-	std::cout << "Reading TextureAtlas..." << std::endl;
+	std::cout << "D: Reading TextureAtlas..." << std::endl;
 
 	// Parse stream
 
