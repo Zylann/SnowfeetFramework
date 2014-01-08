@@ -35,11 +35,13 @@ public:
 	inline f32 cellSize() const { return m_cellSize; }
 
 	// Setups a type of collider as a box.
+	// Types are internally stored in an array, index will be used to access its value.
+	// If the array is too small, it will be resized.
 	// Note: collider type 0 will always be treated as empty.
 	void setColliderType(u8 index, const sf::FloatRect & box);
 
 	// Setups the type of collider used out of map bounds.
-	void setOuterColliderType(u8 index);
+	void setVoidColliderType(u8 index);
 
 	const sf::FloatRect & colliderType(u8 index);
 	inline u32 colliderTypesCount() const { return m_colliderTypes.size(); }
@@ -67,7 +69,7 @@ private:
 	sf::Vector2i                  m_size;
 	std::vector<u8>               m_collisionMap;
 	std::vector<sf::FloatRect>    m_colliderTypes;
-	u8                            m_outerColliderType;
+	u8                            m_voidColliderType;
 
 	// If the MapCollider is built from a TiledMap:
 	const TiledMap *              r_tiledMap;

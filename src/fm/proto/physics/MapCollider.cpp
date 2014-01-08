@@ -16,7 +16,7 @@ namespace zn
 
 MapCollider::MapCollider() : ACollider(),
 	m_cellSize(1), // Default
-	m_outerColliderType(0), // Default
+	m_voidColliderType(0), // Default
 	r_tiledMap(nullptr)
 {
 	m_colliderTypes.push_back(sf::FloatRect(0,0,1,1)); // The empty collider
@@ -235,7 +235,7 @@ u8 MapCollider::cellCollider(const sf::Vector2i & cellPos) const
 	if(i >= 0 && i < static_cast<s32>(m_collisionMap.size()))
 		return m_collisionMap[i];
 	else
-		return m_outerColliderType;
+		return m_voidColliderType;
 }
 
 //------------------------------------------------------------------------------
@@ -245,7 +245,7 @@ void MapCollider::serializeData(JsonBox::Value & o)
 
 	o["cellSize"] = m_cellSize;
 	zn::serialize(o["size"], m_size);
-	o["voidColliderShape"] = m_outerColliderType;
+	o["voidColliderShape"] = m_voidColliderType;
 
 	// Save collision shapes
 	JsonBox::Array shapesData;
@@ -285,7 +285,7 @@ void MapCollider::unserializeData(JsonBox::Value & o)
 
 	m_cellSize = o["cellSize"].getDouble();
 	zn::unserialize(o["size"], m_size);
-	m_outerColliderType = o["voidColliderShape"].getInt();
+	m_voidColliderType = o["voidColliderShape"].getInt();
 
 	// Load collision shapes
 	JsonBox::Value & shapesData = o["collisionShapes"];
@@ -328,6 +328,12 @@ void MapCollider::unserializeData(JsonBox::Value & o)
 void MapCollider::postUnserialize()
 {
 
+}
+
+//------------------------------------------------------------------------------
+void MapCollider::setVoidColliderType(u8 index)
+{
+	m_voidColliderType = index;
 }
 
 //------------------------------------------------------------------------------
