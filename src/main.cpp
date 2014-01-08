@@ -10,7 +10,7 @@ int main(int argc, char*argv[])
 
 	int exitCode = 0;
 	exitCode = zn::GameApp::run<demo::Game>();
-	//test_mazeGenerator();
+//	test_typecheck();
 
 	cout << "Exit main" << endl;
 	return exitCode;
