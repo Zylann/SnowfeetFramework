@@ -2,9 +2,9 @@ Proto2D (temp title)
 --------------------
 
 This is an experimental, cross-platform game engine specialized for 2D desktop
-game making. Currently, it is built on top of SFML2
+game making. Currently, it is built on top of SFML
 (a nice but basic 2D multimedia library), but as the development progresses,
-it may shift to SDL2 and some external libs.
+it may shift to SDL 2 and some external libs.
 
 The project was originally a game prototype, but I decided to put its
 engine-related files open-source. The game is still there, but now it serves as
@@ -29,6 +29,7 @@ Planned/suggested :
 - JSON/PropertyTree-based serialization of components
 - Entity parenting
 - Scene editor
+- 2D Culling for big scenes
 - Python, Lua or AngelScript scripting
 - Full-featured editor made using the engine
 - Box2D integration
@@ -71,6 +72,8 @@ necessary.
 | | |
 | | |-proto/   : the actual game engine (window, components, scene...).
 | | |            it uses all the other source files under fm/.
+| | |
+| | |-pcg/     : Procedural content generation library
 | | |
 | | |-json/    : the JSON API used by the engine.
 | | |              more at https://github.com/anhero/JsonBox
