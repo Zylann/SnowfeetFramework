@@ -15,7 +15,29 @@ void MapRenderer::setAtlas(const TextureAtlas * atlas)
 }
 
 //------------------------------------------------------------------------------
-void MapRenderer::setMap(const TiledMap * map,
+void MapRenderer::setTileSize(sf::Vector2i sizePx)
+{
+#ifdef ZN_DEBUG
+	if(r_atlas != nullptr)
+	{
+		if(sizePx.x > static_cast<s32>(r_atlas->texture().getSize().x) ||
+			sizePx.y > static_cast<s32>(r_atlas->texture().getSize().y))
+		{
+			std::cout << "E: MapRenderer::setAtlasTileSize: sizePx is too big : " << sizePx.x << "x" << sizePx.y << std::endl;
+			return;
+		}
+		else if(sizePx.x == 0 || sizePx.y == 0)
+		{
+			std::cout << "E: MapRenderer::setAtlasTileSize: invalid sizePx : " << sizePx.x << "x" << sizePx.y << std::endl;
+			return;
+		}
+	}
+#endif
+	m_tileSize = sizePx;
+}
+
+//------------------------------------------------------------------------------
+void MapRenderer::build(const TiledMap * map,
 						const TextureAtlas * atlas,
 						const std::string layerName,
 						const std::string tilesetName)
@@ -90,7 +112,7 @@ void MapRenderer::setMap(const TiledMap * map,
 	}
 
 	// Copy tiles data
-	m_tilesData.create(r_tiledMap->size.x, r_tiledMap->size.y, 0);
+	tiles.create(r_tiledMap->size.x, r_tiledMap->size.y, 0);
 	for(s32 y = 0; y < layer->size.y; ++y)
 	{
 		for(s32 x = 0; x < layer->size.x; ++x)
@@ -100,19 +122,14 @@ void MapRenderer::setMap(const TiledMap * map,
 			s32 absX = layer->position.x+x;
 			s32 absY = layer->position.y+y;
 
-			if(m_tilesData.contains(absX, absY))
+			if(tiles.contains(absX, absY))
 			{
-				m_tilesData.setNoEx(absX, absY, tile);
+				tiles.setNoEx(absX, absY, tile);
 			}
 		}
 	}
 
 	updateMesh();
-}
-
-//------------------------------------------------------------------------------
-void MapRenderer::onUpdate()
-{
 }
 
 //------------------------------------------------------------------------------
@@ -136,18 +153,18 @@ void MapRenderer::draw(sf::RenderTarget& target, sf::RenderStates states) const
 void MapRenderer::updateMesh()
 {
 	m_vertices.setPrimitiveType(sf::Quads);
-	m_vertices.resize(m_tilesData.sizeX() * m_tilesData.sizeY() * 4);
+	m_vertices.resize(tiles.sizeX() * tiles.sizeY() * 4);
 
 #ifdef ZN_DEBUG
 	std::cout << "D: MapRenderer: update monolithic mesh ("
-		<< m_tilesData.sizeX() << "x" << m_tilesData.sizeY() << ")"
+		<< tiles.sizeX() << "x" << tiles.sizeY() << ")"
 		<< std::endl;
 #endif
 
 	// populate the vertex array, with one quad per tile
-	for(u32 j = 0; j < m_tilesData.sizeY(); ++j)
+	for(u32 j = 0; j < tiles.sizeY(); ++j)
 	{
-		for(u32 i = 0; i < m_tilesData.sizeX(); ++i)
+		for(u32 i = 0; i < tiles.sizeX(); ++i)
 		{
 			updateTile(i, j);
 		}
@@ -164,10 +181,10 @@ void MapRenderer::updateTile(u32 i, u32 j)
 	const sf::Texture & texture = r_atlas->texture();
 
 	// get the current tile number
-	s32 tileNumber = m_tilesData.getNoEx(i, j);
+	s32 tileNumber = tiles.getNoEx(i, j);
 
 	// get a pointer to the current tile's quad
-	sf::Vertex * quad = &m_vertices[(i + j * m_tilesData.sizeX()) * 4];
+	sf::Vertex * quad = &m_vertices[(i + j * tiles.sizeX()) * 4];
 
 	if(tileNumber >= 0)
 	{
@@ -204,6 +221,13 @@ void MapRenderer::updateTile(u32 i, u32 j)
 }
 
 //------------------------------------------------------------------------------
+void MapRenderer::setTile(u32 x, u32 y, s32 tileNumber)
+{
+	tiles.set(x, y, tileNumber);
+	updateTile(x, y);
+}
+
+//------------------------------------------------------------------------------
 void MapRenderer::serializeData(JsonBox::Value & o)
 {
 	ARenderer::serializeData(o);
@@ -232,14 +256,14 @@ void MapRenderer::serializeData(JsonBox::Value & o)
 
 	zn::serialize(o["tileSize"], m_tileSize);
 
-	zn::serialize(o["size"], sf::Vector2i(m_tilesData.sizeX(), m_tilesData.sizeY()));
+	zn::serialize(o["size"], sf::Vector2i(tiles.sizeX(), tiles.sizeY()));
 
 	// TODO tweak JsonBox to output large arrays of numbers in line or without indentation in readable mode,
 	// because indentation is heavy as hell and the size make the file uneasy to navigate
-	JsonBox::Array tilesData(m_tilesData.area());
+	JsonBox::Array tilesData(tiles.area());
 	for(u32 i = 0; i < tilesData.size(); ++i)
 	{
-		tilesData[i] = m_tilesData[i];
+		tilesData[i] = tiles[i];
 	}
 	o["tilesData"] = tilesData;
 }
@@ -272,13 +296,13 @@ void MapRenderer::unserializeData(JsonBox::Value & o)
 
 	sf::Vector2i size;
 	zn::unserialize(o["size"], size);
-	m_tilesData.create(size.x, size.y);
+	tiles.create(size.x, size.y);
 
 	JsonBox::Value & data = o["tilesData"];
 	const u32 n = data.getArray().size();
 	for(u32 i = 0; i < n; ++i)
 	{
-		m_tilesData[i] = data[i].getInt();
+		tiles[i] = data[i].getInt();
 	}
 }
 

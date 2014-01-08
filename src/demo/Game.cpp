@@ -25,9 +25,9 @@ bool Game::onInit()
 
 	Entity * map = m_scene.createEntity("map", sf::Vector2f(0,0));
 	const TiledMap * mapAsset = m_assets.maps.get("test");
-	MapRenderer * mr = map->addComponent<MapRenderer>();
-	mr->setMap(mapAsset, m_assets.atlases.get("room"), "background");
-	mr->drawOrder = -1; // The map is drawn first
+	r_tilemap = map->addComponent<MapRenderer>();
+	r_tilemap->build(mapAsset, m_assets.atlases.get("room"), "background");
+	r_tilemap->drawOrder = -1; // The map is drawn first
 	MapCollider * mc = map->addComponent<MapCollider>();
 	mc->setColliderType(1, sf::FloatRect(0, 0, ts, ts));
 	mc->setColliderType(2, sf::FloatRect(0, 0, ts/2, ts));
@@ -113,14 +113,18 @@ void Game::onEvent(sf::Event& e)
 		}
 		break;
 
-//	case sf::Event::MouseButtonPressed:
-//	{
-//		sf::Vector2i mousePos(e.mouseButton.x, e.mouseButton.y);
-//		sf::Vector2f pos = _window.mapPixelToCoords(mousePos, _scene.mainCamera()->internalView());
-//		if(_scene.colliderAt(pos))
-//			std::cout << "Collision" << std::endl;
-//	}
-//	break;
+	case sf::Event::MouseButtonPressed:
+	{
+		sf::Vector2i mousePos(e.mouseButton.x, e.mouseButton.y);
+		sf::Vector2f pos = m_window.mapPixelToCoords(mousePos, m_scene.mainCamera()->internalView());
+		s32 tileX = pos.x / (f32)r_tilemap->tileSize().x;
+		s32 tileY = pos.y / (f32)r_tilemap->tileSize().y;
+		if(r_tilemap->tiles.contains(tileX, tileY))
+		{
+			r_tilemap->setTile(tileX, tileY, 4);
+		}
+	}
+	break;
 
 	default:
 		break;
