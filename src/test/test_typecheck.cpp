@@ -28,7 +28,6 @@ void test_typecheck()
 	B b;
 
 	A * pointerA = &a;
-	B * pointerB = &b;
 	I * pointerIA = &a;
 	A * nullPointer = nullptr;
 
