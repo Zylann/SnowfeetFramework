@@ -32,6 +32,8 @@ void TextRenderer::draw(sf::RenderTarget & target, sf::RenderStates states) cons
 //------------------------------------------------------------------------------
 void TextRenderer::serializeData(JsonBox::Value & o)
 {
+	ARenderer::serializeData(o);
+
 	std::string fontName = AssetBank::current()->fonts.findName(r_font);
 	o["font"] = fontName;
 
@@ -47,6 +49,8 @@ void TextRenderer::serializeData(JsonBox::Value & o)
 //------------------------------------------------------------------------------
 void TextRenderer::unserializeData(JsonBox::Value & o)
 {
+	ARenderer::unserializeData(o);
+
 	std::string fontName = o["font"].getString();
 	if(!fontName.empty())
 	{
