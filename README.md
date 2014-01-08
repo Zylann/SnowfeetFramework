@@ -86,7 +86,7 @@ necessary.
 | | |
 | | |-zlib/    : zlib compression library code
 | |  
-| |-ssm/       : contains the game's code (namespace is ssm::)
+| |-demo/       : contains the game's code (namespace is demo::)
 
 Notes
 -----
