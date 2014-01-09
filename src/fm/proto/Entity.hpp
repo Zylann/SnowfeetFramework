@@ -134,6 +134,8 @@ public:
 	void unserialize(JsonBox::Value & o);
 	void postUnserialize();
 
+	inline u32 id() const { return m_id; }
+
 private:
 
 	friend class Scene;
@@ -160,6 +162,8 @@ private:
 	//--------------------------------------
 	// Attributes
 	//--------------------------------------
+
+	u32                       m_id;
 
 	std::vector<AComponent*>  m_components;
 

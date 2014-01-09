@@ -106,6 +106,10 @@ private:
 	// between components
 	void postUnserialize();
 
+	u32                             m_nextID;
+
+	// TODO add scene modes : EDIT / PLAY / RECORD
+
 	std::list<Entity*>              m_entities; // Entities in play
 
 	// References to behaviours [updateOrder][index]

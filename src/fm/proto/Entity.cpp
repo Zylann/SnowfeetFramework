@@ -200,6 +200,7 @@ void Entity::serialize(JsonBox::Value & o)
 
 	// Meta
 
+	o["id"]         = (s32)m_id;
 	o["flags"]      = m_flags;
 	o["layerMask"]  = (s32)m_layerMask; // TODO fix JsonBox so it accepts unsigned integers
 	o["name"]       = name();
@@ -231,6 +232,7 @@ void Entity::unserialize(JsonBox::Value & o)
 
 	// Meta
 
+	m_id = o["id"].getInt();
 	m_flags = o["flags"].getInt();
 	m_layerMask = o["layerMask"].getInt();
 	setName(o["name"].getString());

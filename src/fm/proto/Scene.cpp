@@ -21,6 +21,7 @@ namespace zn
 {
 
 Scene::Scene() :
+	m_nextID(0),
 	r_mainCamera(nullptr)
 {
 	layers.setLayer(0, "default");
@@ -36,12 +37,14 @@ Entity * Scene::createEntity(std::string name, sf::Vector2f pos)
 {
 	Entity * e = new Entity();
 
+	e->m_id = m_nextID++;
+
 	e->setPosition(pos);
 
 	if(name.empty())
 	{
 		std::stringstream ss;
-		ss << "entity" << m_entities.size();
+		ss << "entity" << e->id();
 		name = ss.str();
 	}
 	e->setName(name);
@@ -51,7 +54,7 @@ Entity * Scene::createEntity(std::string name, sf::Vector2f pos)
 	m_entities.push_back(e);
 
 #ifdef ZN_DEBUG
-	std::cout << "D: Scene::addEntity: " << name
+	std::cout << "D: Scene::addEntity: [" << e->id() << "] " << name
 		<< " at (" << pos.x << ", " << pos.y << ")" << std::endl;
 #endif
 
@@ -128,6 +131,8 @@ void Scene::clear()
 		delete e;
 	}
 	m_entities.clear();
+
+	m_nextID = 0;
 }
 
 //------------------------------------------------------------------------------
@@ -295,19 +300,52 @@ void Scene::serialize(JsonBox::Value & o)
 		entityListData.push_back(entityData);
 	}
 
+	o["nextID"] = (s32)m_nextID;
 	o["entities"] = entityListData;
 }
 
 //------------------------------------------------------------------------------
 void Scene::unserialize(JsonBox::Value & o)
 {
+	clear();
+
+	u32 computedNextID = 0;
+
+	std::unordered_map<u32,Entity*> id2entity;
+
 	JsonBox::Value & entityListData = o["entities"];
 	u32 n = entityListData.getArray().size();
 	for(u32 i = 0; i < n; ++i)
 	{
+		JsonBox::Value & entityData = entityListData[i];
+
 		Entity * entity = createEntity();
+		u32 id = entityData["id"].getInt();
+
+		auto it = id2entity.find(id);
+		if(it != id2entity.end())
+		{
+			std::cout << "E: Conflicting entity found on scene loading : "
+				"\"" << entityData["name"] << "\"[" << id << "] "
+				"conflicts with "
+				"\"" << it->second->name() << "\"[" << it->second->id() << "]"
+				<< std::endl;
+			continue;
+		}
+		else
+		{
+			id2entity.insert(std::make_pair(id, entity));
+		}
+
 		entity->unserialize(entityListData[i]);
+
+		if(computedNextID <= id)
+		{
+			computedNextID = id+1;
+		}
 	}
+
+	m_nextID = computedNextID;
 
 	postUnserialize();
 }
