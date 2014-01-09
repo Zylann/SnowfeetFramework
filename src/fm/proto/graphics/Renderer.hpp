@@ -30,7 +30,7 @@ protected:
 
 public:
 
-	virtual const TextureAtlas * atlas() { return nullptr; }
+	virtual const TextureAtlas * atlas() const { return nullptr; }
 	virtual void setAtlas(const TextureAtlas * atlas) {}
 	virtual void setTextureRect(const sf::IntRect & rect) {}
 

@@ -31,7 +31,7 @@ public:
 	void setTexture(const sf::Texture & texture) { m_sprite.setTexture(texture); }
 	void setTextureRect(const sf::IntRect & rect) override;
 
-	const TextureAtlas * atlas() override { return r_atlas; }
+	const TextureAtlas * atlas() const override { return r_atlas; }
 	void setAtlas(const TextureAtlas * atlas) override;
 
 	void setFrame(const std::string& id);

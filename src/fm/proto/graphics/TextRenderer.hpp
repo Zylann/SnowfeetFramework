@@ -35,6 +35,8 @@ public:
 	void unserializeData(JsonBox::Value & o) override;
 	void postUnserialize() override;
 
+	// Note: TextRenderer doesn't supports atlases yet.
+
 protected:
 
 	void draw(sf::RenderTarget & target, sf::RenderStates states) const override;

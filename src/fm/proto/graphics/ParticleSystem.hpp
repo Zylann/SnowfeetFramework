@@ -22,7 +22,7 @@ public:
 		m_vertices.setPrimitiveType(sf::Quads);
 	}
 
-	const TextureAtlas * atlas() override { return r_atlas; }
+	const TextureAtlas * atlas() const override { return r_atlas; }
 	void setAtlas(const TextureAtlas * atlas) override;
 	void setTextureRect(const sf::IntRect & rect) override;
 
