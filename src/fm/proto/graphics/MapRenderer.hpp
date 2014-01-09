@@ -23,7 +23,7 @@ public:
 	{}
 
 	void setAtlas(const TextureAtlas * atlas) override;
-	// TODO atlas() accessor
+	const TextureAtlas * atlas() override { return r_atlas; }
 
 	sf::FloatRect localBounds() const override;
 
