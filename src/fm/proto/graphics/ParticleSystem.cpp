@@ -30,6 +30,12 @@ void ParticleSystem::setTextureRect(const sf::IntRect& rect)
 }
 
 //------------------------------------------------------------------------------
+sf::FloatRect ParticleSystem::localBounds() const
+{
+	return m_emissionZone;
+}
+
+//------------------------------------------------------------------------------
 void ParticleSystem::setMaxParticles(u32 max)
 {
 	if(m_maxParticles != max)

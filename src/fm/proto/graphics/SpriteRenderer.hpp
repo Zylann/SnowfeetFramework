@@ -21,6 +21,8 @@ public:
 	inline void setOrigin(const sf::Vector2f & org) { m_sprite.setOrigin(org); }
 	inline void setRotation(float angleDeg) { m_sprite.setRotation(angleDeg); }
 
+	sf::FloatRect localBounds() const override;
+
 	inline const sf::Vector2f & position() const { return m_sprite.getPosition(); }
 	inline const sf::Vector2f & scale() const { return m_sprite.getScale(); }
 	inline const sf::Vector2f & origin() const { return m_sprite.getOrigin(); }

@@ -19,6 +19,14 @@ void SpriteRenderer::draw(sf::RenderTarget & target, sf::RenderStates states) co
 }
 
 //------------------------------------------------------------------------------
+sf::FloatRect SpriteRenderer::localBounds() const
+{
+	// Note: currently, sprites have an internal transform.
+	// this is the global bounds from this transform, not the one from the entity hierarchy.
+	return m_sprite.getGlobalBounds();
+}
+
+//------------------------------------------------------------------------------
 void SpriteRenderer::setTextureRect(const sf::IntRect& rect)
 {
 	if(m_sprite.getTexture() == nullptr)

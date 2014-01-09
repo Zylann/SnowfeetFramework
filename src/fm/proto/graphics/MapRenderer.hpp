@@ -23,6 +23,9 @@ public:
 	{}
 
 	void setAtlas(const TextureAtlas * atlas) override;
+	// TODO atlas() accessor
+
+	sf::FloatRect localBounds() const override;
 
 	// Setups the tilemap from a TiledMap
 	void build(const TiledMap * map,

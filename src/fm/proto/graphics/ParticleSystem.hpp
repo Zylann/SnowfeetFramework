@@ -26,6 +26,8 @@ public:
 	void setAtlas(const TextureAtlas * atlas) override;
 	void setTextureRect(const sf::IntRect & rect) override;
 
+	sf::FloatRect localBounds() const override;
+
 	void setMaxParticles(u32 max);
 	void setParticleRadius(f32 min, f32 max);
 	void setParticleLifeTime(f32 min, f32 max);
@@ -50,7 +52,7 @@ private:
 	u32                    m_maxParticles;
 	Range<f32>             m_particleRadius;
 	Range<f32>             m_particleLifeTime;
-	sf::FloatRect          m_emissionZone;
+	sf::FloatRect          m_emissionZone; // TODO more particle shapes
 	const TextureAtlas *   r_atlas;
 	sf::IntRect            m_atlasRect;
 	sf::VertexArray        m_vertices;

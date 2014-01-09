@@ -146,7 +146,12 @@ void Scene::clear()
 void Scene::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 #ifdef ZN_DEBUG
+
 	sf::Clock profileClock;
+
+	bool drawBounds = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::F9);
+	bool drawColliders = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::F10);
+
 #endif
 
 	// If there is no camera to render the scene, there is nothing to draw
@@ -202,22 +207,32 @@ void Scene::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 			// Draw renderer
 			target.draw(renderer);
-		}
 
 #ifdef ZN_DEBUG
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::F3))
-		{
-			// Draw collider boundaries
-			for(auto it = drawList.cbegin(); it != drawList.cend(); ++it)
+			if(drawBounds)
 			{
+				// Draw renderer bounds
+				// TODO use global bounds when they will be implemented
+				sf::FloatRect bounds = renderer.localBounds();
+				sf::RectangleShape rect(sf::Vector2f(bounds.width, bounds.height));
+				rect.setFillColor(sf::Color::Transparent);
+				rect.setOutlineColor(sf::Color(64,64,255));
+				rect.setPosition(renderer.entity().position());
+				rect.setOutlineThickness(1);
+				target.draw(rect);
+			}
+
+			if(drawColliders)
+			{
+				// Draw collider boundaries
 				const ACollider * collider = it->second->entity().collider();
 				if(collider != nullptr)
 				{
 					collider->debug_draw(target);
 				}
 			}
-		}
 #endif
+		}
 	}
 
 #if defined(ZN_DEBUG) && defined(ZN_PROFILE_SCENE)

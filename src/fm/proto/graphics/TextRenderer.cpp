@@ -30,6 +30,15 @@ void TextRenderer::draw(sf::RenderTarget & target, sf::RenderStates states) cons
 }
 
 //------------------------------------------------------------------------------
+sf::FloatRect TextRenderer::localBounds() const
+{
+	// Note: currently, the internal text object has an internal (unusued) transform.
+	// this is the global bounds from this transform, not the one from the entity hierarchy.
+	// (An SDL switch may fix this overhead one day :D)
+	return m_text.getGlobalBounds();
+}
+
+//------------------------------------------------------------------------------
 void TextRenderer::serializeData(JsonBox::Value & o)
 {
 	ARenderer::serializeData(o);

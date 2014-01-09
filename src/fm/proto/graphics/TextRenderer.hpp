@@ -22,6 +22,8 @@ public:
 	void setCharacterSize(u32 sizePx) { m_text.setCharacterSize(sizePx); }
 	void setStyle(u32 styleMask) { m_text.setStyle(styleMask); }
 
+	sf::FloatRect localBounds() const override;
+
 	const std::wstring text() const;
 	const sf::Color & color() const { return m_text.getColor(); }
 	const sf::Font * font() const { return m_text.getFont(); }

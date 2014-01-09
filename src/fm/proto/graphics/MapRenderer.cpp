@@ -15,6 +15,15 @@ void MapRenderer::setAtlas(const TextureAtlas * atlas)
 }
 
 //------------------------------------------------------------------------------
+sf::FloatRect MapRenderer::localBounds() const
+{
+	return sf::FloatRect(0, 0,
+		m_tileSize.x * tiles.sizeX(),
+		m_tileSize.y * tiles.sizeY()
+	);
+}
+
+//------------------------------------------------------------------------------
 void MapRenderer::setTileSize(sf::Vector2i sizePx)
 {
 #ifdef ZN_DEBUG
@@ -34,6 +43,7 @@ void MapRenderer::setTileSize(sf::Vector2i sizePx)
 	}
 #endif
 	m_tileSize = sizePx;
+
 }
 
 //------------------------------------------------------------------------------
