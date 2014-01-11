@@ -12,6 +12,7 @@ namespace zn
 {
 
 Entity::Entity() :
+	transform(*this),
 	r_renderer(nullptr),
 	r_collider(nullptr),
 	r_body(nullptr),
@@ -37,24 +38,6 @@ Entity::~Entity()
 Scene & Entity::scene() const
 {
 	return *r_scene;
-}
-
-//------------------------------------------------------------------------------
-void Entity::setScale(const sf::Vector2f & s)
-{
-	m_transform.setScale(s);
-}
-
-//------------------------------------------------------------------------------
-void Entity::setPosition(const sf::Vector2f& pos)
-{
-	m_transform.setPosition(pos);
-}
-
-//------------------------------------------------------------------------------
-void Entity::setRotation(float angleDeg)
-{
-	m_transform.setRotation(angleDeg);
 }
 
 //------------------------------------------------------------------------------
@@ -194,9 +177,7 @@ void Entity::serialize(JsonBox::Value & o)
 	// Transform
 
 	JsonBox::Value & transformData = o["transform"];
-	zn::serialize(transformData["position"], m_transform.getPosition());
-	zn::serialize(transformData["scale"], m_transform.getScale());
-	transformData["rotation"] = m_transform.getRotation();
+	transform.serialize(transformData);
 
 	// Meta
 
@@ -223,12 +204,7 @@ void Entity::unserialize(JsonBox::Value & o)
 	// Transform
 
 	JsonBox::Value transformData = o["transform"];
-
-	sf::Vector2f v;
-
-	zn::unserialize(transformData["position"], v);  m_transform.setPosition(v);
-	zn::unserialize(transformData["scale"], v);     m_transform.setScale(v);
-	m_transform.setRotation(transformData["rotation"].getDouble());
+	transform.unserialize(transformData);
 
 	// Meta
 
@@ -249,7 +225,7 @@ void Entity::unserialize(JsonBox::Value & o)
 }
 
 //------------------------------------------------------------------------------
-void Entity::postUnserialize()
+void Entity::postUnserialize(JsonBox::Value & o)
 {
 	for(auto it = m_components.begin(); it != m_components.end(); ++it)
 	{

@@ -203,7 +203,7 @@ void GameApp::update()
 	// Clamp frametime above minimal value
 	const f32 maximalFrametime = 1.f / 10.f;
 	f32 seconds = m_frameTime.asSeconds();
-	if(seconds > maxmialFrametime)
+	if(seconds > maximalFrametime)
 	{
 		seconds = maximalFrametime;
 	}

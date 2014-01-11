@@ -39,7 +39,7 @@ Entity * Scene::createEntity(std::string name, sf::Vector2f pos)
 
 	e->m_id = m_nextID++;
 
-	e->setPosition(pos);
+	e->transform.setPosition(pos);
 
 	if(name.empty())
 	{
@@ -59,6 +59,17 @@ Entity * Scene::createEntity(std::string name, sf::Vector2f pos)
 #endif
 
 	return e;
+}
+
+//------------------------------------------------------------------------------
+Entity * Scene::findEntityFromID(u32 id) const
+{
+	for(auto it = m_entities.begin(); it != m_entities.end(); ++it)
+	{
+		if((*it)->id() == id)
+			return *it;
+	}
+	return nullptr;
 }
 
 //------------------------------------------------------------------------------
@@ -222,7 +233,7 @@ void Scene::draw(sf::RenderTarget& target, sf::RenderStates states) const
 				sf::RectangleShape rect(sf::Vector2f(bounds.width, bounds.height));
 				rect.setFillColor(sf::Color::Transparent);
 				rect.setOutlineColor(sf::Color(64,64,255));
-				rect.setPosition(renderer.entity().position());
+				rect.setPosition(renderer.entity().transform.position());
 				rect.setOutlineThickness(1);
 				target.draw(rect);
 			}
@@ -307,11 +318,13 @@ void Scene::serialize(JsonBox::Value & o)
 //------------------------------------------------------------------------------
 void Scene::unserialize(JsonBox::Value & o)
 {
+	// Unserialized content will replace old content
 	clear();
 
 	u32 computedNextID = 0;
 
 	std::unordered_map<u32,Entity*> id2entity;
+	std::list<std::pair<Entity*,JsonBox::Value*>> entityDataList;
 
 	JsonBox::Value & entityListData = o["entities"];
 	u32 n = entityListData.getArray().size();
@@ -339,6 +352,8 @@ void Scene::unserialize(JsonBox::Value & o)
 
 		entity->unserialize(entityListData[i]);
 
+		entityDataList.push_back(std::make_pair(entity, &entityData));
+
 		if(computedNextID <= id)
 		{
 			computedNextID = id+1;
@@ -347,15 +362,14 @@ void Scene::unserialize(JsonBox::Value & o)
 
 	m_nextID = computedNextID;
 
-	postUnserialize();
-}
+	// Post-unserialize
 
-//------------------------------------------------------------------------------
-void Scene::postUnserialize()
-{
-	for(auto it = m_entities.begin(); it != m_entities.end(); ++it)
+	for(auto it = entityDataList.begin(); it != entityDataList.end(); ++it)
 	{
-		(*it)->postUnserialize();
+		Entity * entity = it->first;
+		JsonBox::Value * entityData = it->second;
+
+		entity->postUnserialize(*entityData);
 	}
 }
 

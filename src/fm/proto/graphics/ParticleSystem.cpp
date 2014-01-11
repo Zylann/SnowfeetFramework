@@ -162,6 +162,8 @@ void ParticleSystem::draw(sf::RenderTarget& target, sf::RenderStates states) con
 	// apply texture
 	states.texture = &r_atlas->texture();
 
+	states.transform = entity().transform.matrix();
+
 	// draw the vertex array
 	target.draw(m_vertices, states);
 

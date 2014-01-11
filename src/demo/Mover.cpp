@@ -89,7 +89,7 @@ void Mover::onUpdate()
 		sf::Vector2f motion = m_velocity;
 		const ACollider * collider = entity().collider();
 		sf::FloatRect rect = collider->bounds();
-		sf::Vector2f pos = entity().position();
+		sf::Vector2f pos = entity().transform.position();
 		sf::Vector2f boxOffset(rect.left, rect.top);
 		rect.left += pos.x;
 		rect.top += pos.y;
@@ -150,7 +150,7 @@ void Mover::onUpdate()
 
 		pos.x = rect.left - boxOffset.x;
 		pos.y = rect.top - boxOffset.y;
-		entity().setPosition(pos);
+		entity().transform.setPosition(pos);
 	}
 }
 

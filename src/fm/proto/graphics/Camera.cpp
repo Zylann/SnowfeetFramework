@@ -42,8 +42,8 @@ void Camera::setViewport(const sf::FloatRect & r)
 
 void Camera::onUpdate()
 {
-	m_view.setCenter(entity().position());
-	m_view.setRotation(entity().rotation());
+	m_view.setCenter(entity().transform.position());
+	m_view.setRotation(entity().transform.rotation());
 }
 
 void Camera::setScaleMode(u8 mode)

@@ -4,7 +4,8 @@
 		"root":"assets/textures",
 		"list":
 		[
-			{ "name":"cursor", "src":"cursor.png"}
+			{ "src":"cursor.png", "name":"cursor" },
+			{ "src":"wool_ball.png" }
 		]
 	},
 

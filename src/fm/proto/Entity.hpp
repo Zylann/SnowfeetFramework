@@ -13,6 +13,7 @@ This file is part of the zCraft-Framework project.
 #include "animation/Animator.hpp"
 #include "graphics/Camera.hpp"
 #include "Object.hpp"
+#include "Transform.hpp"
 
 namespace zn
 {
@@ -40,20 +41,6 @@ public:
 	~Entity();
 
 	//--------------------------------------
-	// Wrapped transform
-	//--------------------------------------
-
-	inline const sf::Vector2f & position() const { return m_transform.getPosition(); }
-	inline const sf::Vector2f & scale() const { return m_transform.getScale(); }
-	inline f32 rotation() const { return m_transform.getRotation(); }
-
-	void setPosition(const sf::Vector2f & pos);
-	void setScale(const sf::Vector2f & s);
-	void setRotation(float angleDeg);
-
-	const sf::Transform & matrix() const { return m_transform.getTransform(); }
-
-	//--------------------------------------
 	// Lifecycle
 	//--------------------------------------
 
@@ -69,6 +56,8 @@ public:
 	//--------------------------------------
 	// Structure & behavior
 	//--------------------------------------
+
+	Transform transform;
 
 	inline const std::string & name() const { return m_name; }
 	inline void setName(const std::string & newName) { m_name = newName; }
@@ -132,7 +121,7 @@ public:
 
 	void serialize(JsonBox::Value & o);
 	void unserialize(JsonBox::Value & o);
-	void postUnserialize();
+	void postUnserialize(JsonBox::Value & o);
 
 	inline u32 id() const { return m_id; }
 
@@ -175,7 +164,6 @@ private:
 	AAnimator *               r_animator;
 	AudioEmitter *            r_audioEmitter;
 
-	sf::Transformable         m_transform;
 	u8                        m_flags;
 	u32                       m_layerMask;
 

@@ -69,7 +69,9 @@ public:
 	// Serialization
 	// --------------------
 
-	// Warning: serializing a component can't be done at any time with the same
+	// Please note:
+	//
+	// serializing a component can't be done at any time with the same
 	// meaning, so it depends what you want to do.
 	// For instance, during execution, if a behaviour adds components to
 	// the entity, if you serialize it and then reloads it,
@@ -83,7 +85,7 @@ public:
 	static void serialize(AComponent * component, JsonBox::Value & o);
 
 	// Creates a component from JSON data
-	// Retrieves type information to instantiate the component.
+	// Retrieves type information and use ComponentType factory to instantiate the component.
 	static AComponent * unserialize(JsonBox::Value & o);
 
 	// Saves component's data to JSON (no need to save the type).

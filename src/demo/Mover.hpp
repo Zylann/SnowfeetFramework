@@ -9,6 +9,7 @@
 // Copyright Marc Gilleron 2013
 //
 
+// TODO change SSM header to DEMO
 #ifndef HEADER_SSM_MOVER_HPP_INCLUDED
 #define HEADER_SSM_MOVER_HPP_INCLUDED
 

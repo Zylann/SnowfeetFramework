@@ -131,7 +131,7 @@ void MapCollider::build(const TiledMap & map,
 //------------------------------------------------------------------------------
 bool MapCollider::collides(const sf::Vector2f & pos) const
 {
-	sf::Vector2f rpos = pos - entity().position();
+	sf::Vector2f rpos = pos - entity().transform.position();
 	u8 ct = cellCollider(sf::Vector2i(rpos.x/m_cellSize, pos.y/m_cellSize));
 	if(ct == 0 || ct >= m_colliderTypes.size())
 		return false;
@@ -145,8 +145,8 @@ bool MapCollider::collides(const sf::Vector2f & pos) const
 bool MapCollider::collides(const sf::FloatRect & r0) const
 {
 	sf::FloatRect r;
-	r.left = r0.left - entity().position().x;
-	r.top = r0.top - entity().position().y;
+	r.left = r0.left - entity().transform.position().x;
+	r.top = r0.top - entity().transform.position().y;
 	r.width = r0.width;
 	r.height = r0.height;
 
@@ -358,7 +358,7 @@ void MapCollider::debug_draw(sf::RenderTarget & target) const
 
 				rect.setSize(sf::Vector2f(r.width, r.height));
 				rect.setOrigin(-r.left, -r.top);
-				rect.setPosition(m_cellSize*sf::Vector2f(pos.x, pos.y) + entity().position());
+				rect.setPosition(m_cellSize*sf::Vector2f(pos.x, pos.y) + entity().transform.position());
 				target.draw(rect);
 			}
 		}

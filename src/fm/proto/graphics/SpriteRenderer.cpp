@@ -13,7 +13,7 @@ namespace zn
 //------------------------------------------------------------------------------
 void SpriteRenderer::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
-	states.transform.combine(entity().matrix());
+	states.transform.combine(entity().transform.matrix());
 
 	target.draw(m_sprite, states);
 }

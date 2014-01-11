@@ -9,6 +9,7 @@
 #include "Cat.hpp"
 #include "Game.hpp"
 #include "Cursor.hpp"
+#include "Rotate.hpp"
 
 namespace demo
 {
@@ -90,6 +91,29 @@ bool Game::onInit()
 	text->setCharacterSize(16);
 	text->setColor(sf::Color(255,192,32));
 
+	// Rotating things
+
+	const sf::Texture & ballTexture = *m_assets.textures.get("wool_ball");
+
+	Entity * rotateObj1 = m_scene.createEntity("ball1", sf::Vector2f(50*ts, 31*ts));
+	rotateObj1->addComponent<Rotate>();
+	SpriteRenderer * sprite = rotateObj1->addComponent<SpriteRenderer>();
+	sprite->setTexture(ballTexture);
+	sprite->setPosition(-sf::Vector2f(8, 8)); // center sprite
+
+	Entity * rotateObj2 = m_scene.createEntity("ball2", sf::Vector2f(2*ts, 0));
+	rotateObj2->addComponent<Rotate>();
+	sprite = rotateObj2->addComponent<SpriteRenderer>();
+	sprite->setTexture(ballTexture);
+	sprite->setPosition(-sf::Vector2f(8, 8)); // center sprite
+	rotateObj2->transform.setParent(rotateObj1->transform);
+
+	Entity * rotateObj3 = m_scene.createEntity("ball3", sf::Vector2f(ts, 0));
+	sprite = rotateObj3->addComponent<SpriteRenderer>();
+	sprite->setTexture(ballTexture);
+	sprite->setPosition(-sf::Vector2f(8, 8)); // center sprite
+	rotateObj3->transform.setParent(rotateObj2->transform);
+
 	return true;
 }
 
@@ -109,7 +133,7 @@ void Game::onEvent(sf::Event& e)
 		else if(e.key.code == sf::Keyboard::Key::F5)
 		{
 			// TEST
-			m_scene.saveToFile("serialized_scene_test.json");
+			m_scene.saveToFile("scene_dump.json");
 		}
 		break;
 

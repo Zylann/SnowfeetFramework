@@ -150,7 +150,7 @@ void MapRenderer::draw(sf::RenderTarget& target, sf::RenderStates states) const
 		std::cout << "E: MapRenderer::draw: no atlas defined !" << std::endl;
 #endif
 
-	states.transform.combine(entity().matrix());
+	states.transform.combine(entity().transform.matrix());
 
 	// apply the tileset texture
 	states.texture = &r_atlas->texture();

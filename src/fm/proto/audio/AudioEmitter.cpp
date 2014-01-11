@@ -29,7 +29,7 @@ void AudioEmitter::onDestroy()
 //------------------------------------------------------------------------------
 void AudioEmitter::onUpdate()
 {
-	sf::Vector2f pos = entity().position();
+	sf::Vector2f pos = entity().transform.position();
 	std::unordered_set<AudioSource*>::iterator it;
 	for(it = m_sourceRefs.begin(); it != m_sourceRefs.end(); it++)
 	{
@@ -72,7 +72,7 @@ bool AudioEmitter::canBeHeard()
 	if(m_spatialize)
 	{
 		AudioSystem & system = entity().scene().audioSystem;
-		sf::Vector2f position = entity().position();
+		sf::Vector2f position = entity().transform.position();
 
 		// If we are beyond the maximal radius, the sound is not played
 		return zn::distance(system.listenerPosition(), position) <= m_maxRadius;
@@ -111,7 +111,7 @@ void AudioEmitter::playBuffer(std::string name, f32 volume, f32 pitch, bool loop
 	// If the sound can be played
 	if(source)
 	{
-		sf::Vector2f position = entity().position();
+		sf::Vector2f position = entity().transform.position();
 
 		// Configure and play it
 		source->setBuffer(*soundBuffer);
@@ -153,7 +153,7 @@ void AudioEmitter::playStream(std::string name, f32 volume, f32 pitch, bool loop
 	// If the sound can be played
 	if(source)
 	{
-		sf::Vector2f position = entity().position();
+		sf::Vector2f position = entity().transform.position();
 
 		// Configure and play it
 		source->setStreamFromFile(fileRef->filePath);
@@ -213,7 +213,7 @@ AudioSource * AudioEmitter::getFreeSource()
 	AudioSource * s = entity().scene().audioSystem.requestSource(*this);
 	if(s != 0)
 	{
-		sf::Vector2f pos = entity().position();
+		sf::Vector2f pos = entity().transform.position();
 		s->setPosition(pos.x, pos.y, 0);
 		m_sourceRefs.insert(s);
 	}

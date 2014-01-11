@@ -49,6 +49,10 @@ public:
 	inline void setMainCamera(Camera * cam) { r_mainCamera = cam; }
 	inline Camera * mainCamera() { return r_mainCamera; }
 
+	// Finds the entity having the given ID.
+	// Returns nullptr when not found.
+	Entity * findEntityFromID(u32 id) const;
+
 	//----------------------------
 	// Events
 	//----------------------------
@@ -101,10 +105,6 @@ protected:
 	void draw(sf::RenderTarget & target, sf::RenderStates states) const override;
 
 private:
-
-	// Called after unserializing the scene in order to reconstruct references
-	// between components
-	void postUnserialize();
 
 	u32                             m_nextID;
 
