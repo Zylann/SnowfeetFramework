@@ -16,24 +16,26 @@ Features
 - Cross-platform (Windows, Linux, Mac)
 - Component-oriented design
 - Component-subsystems instead of Container-entities
-- Cameras, sorted renderers and texture atlases
+- Camera objects and sorted rendering
+- Texture atlases with frames and animation sequences
 - Audio system based on spatialized emitters and a listener
 - Easily versionnable meta-file system using JSON
-- Template asset pipeline
-- Source access for both gameplay and engine modifications
+- Asset loader based on templates
+- Source access for both gameplay and engine modification
 - TilEd JSON import http://www.mapeditor.org/
-- JSON scene dump (serialization preview, currently for debug)
+- JSON scene dump (editor serialization preview, currently for debug)
+- Entity hierarchy (parenting)
 
 Planned/suggested :
 
 - JSON/PropertyTree-based serialization of components
-- Entity parenting
 - Scene editor
 - 2D Culling for big scenes
+- Shaders
 - Python, Lua or AngelScript scripting
 - Full-featured editor made using the engine
 - Box2D integration
-- Script-based export pipeline
+- Scripted export pipeline
 - Highly customizable rendering pipeline
 - GUI (for both game and editor?)
 - Scene transitions
