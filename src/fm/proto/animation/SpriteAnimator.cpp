@@ -103,9 +103,11 @@ void SpriteAnimator::onUpdate()
 				}
 			}
 
-			// FIXME potential sigsev due to nulling _sequenceFrame before !
-			r->setTextureRect(r_sequence->frames[m_sequenceFrame].rect);
-			m_sequenceClock.restart();
+			if(r_sequence != nullptr)
+			{
+				r->setTextureRect(r_sequence->frames[m_sequenceFrame].rect);
+				m_sequenceClock.restart();
+			}
 		}
 	}
 }
