@@ -267,6 +267,7 @@ void Transform::setParent(Transform * parent)
 	}
 
 	m_globalMatrixNeedUpdate = true;
+	notifyChildrenForParentChange();
 }
 
 //------------------------------------------------------------------------------
