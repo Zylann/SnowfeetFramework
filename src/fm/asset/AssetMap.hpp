@@ -48,7 +48,7 @@ public:
 	{
 #ifdef ZN_DEBUG
 		if(!m_map.empty())
-			std::cout << "D: AssetMap: root folder changed while assets are already loaded." << std::endl;
+			std::cout << "W: AssetMap: root folder changed while assets are already loaded." << std::endl;
 #endif
 		m_rootFolder = rf;
 		// Remove the '/' if it is present
@@ -67,7 +67,7 @@ public:
 		else
 		{
 #ifdef ZN_DEBUG
-			std::cout << "D: AssetMap::get: not found " << id << std::endl;
+			std::cout << "E: AssetMap::get: not found " << id << std::endl;
 #endif
 			return nullptr;
 		}
@@ -102,7 +102,7 @@ public:
 		if(!m_rootFolder.empty())
 			filePath = m_rootFolder + '/' + filePath;
 #ifdef ZN_DEBUG
-		std::cout << "D: AssetMap: loading " << filePath << std::endl;
+		std::cout << "D: AssetMap: loading \"" << filePath << "\" as \"" << id << '"' << std::endl;
 #endif
 
 		T * asset = new T();

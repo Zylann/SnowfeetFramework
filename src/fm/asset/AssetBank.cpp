@@ -60,6 +60,7 @@ bool AssetBank::loadFromJSON(const std::string & filePath)
 	// Load assets
 
 	// TODO make this more generic
+	// TODO add loading parameters such as lazy loading (load a manifest instead of directly read the file)
 
 	if(!doc["textures"].isNull())
 	{
