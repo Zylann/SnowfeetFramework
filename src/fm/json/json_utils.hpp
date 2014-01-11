@@ -93,8 +93,6 @@ inline void unserialize(JsonBox::Value & o, sf::Color & color)
 	color.a = o["a"].getInt();
 }
 
-// TODO serialization util sf::Transformable
-
 #endif
 
 }
