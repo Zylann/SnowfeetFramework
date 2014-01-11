@@ -109,7 +109,7 @@ bool AssetBank::loadFromJSON(const std::string & filePath)
 bool AssetBank::loadFolder(const std::string & folderPath)
 {
 	std::cout << "AssetBank::loadFolder: not implemented yet !" << std::endl;
-	// TODO implement
+	// TODO implement AssetBank::loadFolder()
 	return false;
 }
 */
