@@ -201,11 +201,11 @@ void GameApp::onScreenResize(sf::Vector2u size)
 void GameApp::update()
 {
 	// Clamp frametime above minimal value
-	const f32 minimalFrametime = 1.f / 10.f;
+	const f32 maximalFrametime = 1.f / 10.f;
 	f32 seconds = m_frameTime.asSeconds();
-	if(seconds < minimalFrametime)
+	if(seconds > maxmialFrametime)
 	{
-		seconds = minimalFrametime;
+		seconds = maximalFrametime;
 	}
 
 	// Update scene for the current timespan
