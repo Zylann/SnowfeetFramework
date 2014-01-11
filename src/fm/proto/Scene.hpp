@@ -53,6 +53,10 @@ public:
 	// Returns nullptr when not found.
 	Entity * findEntityFromID(u32 id) const;
 
+	// Finds the first encountered entity having the given name.
+	// Returns nullptr when not found.
+	Entity * findEntityFromName(const std::string & name);
+
 	//----------------------------
 	// Events
 	//----------------------------

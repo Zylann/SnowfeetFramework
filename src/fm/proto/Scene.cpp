@@ -73,6 +73,17 @@ Entity * Scene::findEntityFromID(u32 id) const
 }
 
 //------------------------------------------------------------------------------
+Entity * Scene::findEntityFromName(const std::string & name)
+{
+	for(auto it = m_entities.begin(); it != m_entities.end(); ++it)
+	{
+		if((*it)->name() == name)
+			return *it;
+	}
+	return nullptr;
+}
+
+//------------------------------------------------------------------------------
 void Scene::registerBehaviour(ABehaviour * behaviour)
 {
 	assert(behaviour != nullptr);
