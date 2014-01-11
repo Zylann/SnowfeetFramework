@@ -1,5 +1,5 @@
-#ifndef SSM_HEADER_GAME_HPP_INCLUDED
-#define SSM_HEADER_GAME_HPP_INCLUDED
+#ifndef HEADER_DEMO_GAME_HPP_INCLUDED
+#define HEADER_DEMO_GAME_HPP_INCLUDED
 
 #include "fm/proto/GameApp.hpp"
 #include "common.hpp"
@@ -30,7 +30,7 @@ private:
 
 } // namespace demo
 
-#endif // SSM_HEADER_GAME_HPP_INCLUDED
+#endif // HEADER_DEMO_GAME_HPP_INCLUDED
 
 
 

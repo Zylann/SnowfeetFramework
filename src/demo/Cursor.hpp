@@ -1,5 +1,5 @@
-#ifndef SSM_CURSOR_HPP_INCLUDED
-#define SSM_CURSOR_HPP_INCLUDED
+#ifndef HEADER_DEMO_CURSOR_HPP_INCLUDED
+#define HEADER_DEMO_CURSOR_HPP_INCLUDED
 
 #include "fm/proto/behaviour/Behaviour.hpp"
 
@@ -20,4 +20,4 @@ public:
 
 } // namespace demo
 
-#endif // SSM_CURSOR_HPP_INCLUDED
+#endif // HEADER_DEMO_CURSOR_HPP_INCLUDED

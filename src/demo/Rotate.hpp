@@ -1,5 +1,5 @@
-#ifndef HEADET_DEMO_ROTATE_HPP_INCLUDED
-#define HEADET_DEMO_ROTATE_HPP_INCLUDED
+#ifndef HEADER_DEMO_ROTATE_HPP_INCLUDED
+#define HEADER_DEMO_ROTATE_HPP_INCLUDED
 
 #include "fm/proto/behaviour/Behaviour.hpp"
 

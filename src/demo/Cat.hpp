@@ -1,16 +1,5 @@
-//  __                      __           _
-// / _\_ __   _____      __/ _| ___  ___| |_
-// \ \| '_ \ / _ \ \ /\ / / |_ / _ \/ _ \ __|
-// _\ \ | | | (_) \ V  V /|  _|  __/  __/ |_
-// \__/_| |_|\___/ \_/\_/ |_|  \___|\___|\__|
-//         S P A C E     M A D N E S S
-//
-// This file is part of the Snowfeet Space Madness game.
-// Copyright Marc Gilleron 2013
-//
-
-#ifndef HEADER_SSM_CAT_HPP_INCLUDED
-#define HEADER_SSMCAT_HPP_INCLUDED
+#ifndef HEADER_DEMO_CAT_HPP_INCLUDED
+#define HEADER_DEMO_CAT_HPP_INCLUDED
 
 #include "Character.hpp"
 
@@ -35,5 +24,5 @@ private:
 
 } // namespace demo
 
-#endif // HEADER_SSMCAT_HPP_INCLUDED
+#endif // HEADER_DEMO_CAT_HPP_INCLUDED
 
