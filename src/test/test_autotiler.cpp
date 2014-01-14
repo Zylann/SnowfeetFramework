@@ -8,14 +8,16 @@ void test_autotiler()
 	const u32 width = 16;
 	const u32 height = 8;
 
+	// TODO profile AutoTiler to check performance as it may be used on playtime
+
 	// Let's say '1' are walls and '0' are floor.
 	u8 rawGrid[width*height] = {
 	//                 |
 	//                 v
 		1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-		1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-		1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, // <--
-		1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+		1, 1, 1, 0, 0, 2, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+		1, 1, 2, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, // <--
+		1, 1, 2, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 		1, 1, 0, 0, 1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1,
 		1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 		1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
@@ -40,6 +42,7 @@ void test_autotiler()
 	// The 1 type makes fifferent tiles depending on its neighbors
 	AutoTiler::TypeRules type1;
 	type1.defaultTile = 1;
+	type1.setFilterAllButSelf(0); // See all types but 1 as 0
 	type1.add(
 		0, 0, 0,
 		0,    0,

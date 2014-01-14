@@ -40,6 +40,11 @@ void AutoTiler::process(const Array2D<Type> typeGrid, Array2D<Tile> & tileGrid)
 
 						Type ntype = typeGrid.contains(nx, ny) ? typeGrid.getNoEx(nx, ny) : defaultType;
 
+						if(tr.filterAllButSelf && type!=ntype)
+						{
+							ntype = tr.defaultNeighborType;
+						}
+
 						m |= ntype;
 
 						if(i != 7)

@@ -28,8 +28,28 @@ public:
 	// in order to choose the good center tile from a series of possible variants
 	struct TypeRules
 	{
+		// Tile used is none of the rules match
 		Tile defaultTile;
+
+		// Relation between a specific neighboring and the tiles that can be used
 		std::map<Neighboring, std::vector<Tile>> rules; // [neighbors][variant]
+
+		// Any neighboring type that hasn't the same type will be seen as the default neighbor type.
+		// For instance, this may be useful for walls that don't change regardless of floor types
+		bool filterAllButSelf;
+		u8 defaultNeighborType;
+
+		TypeRules():
+			defaultTile(0),
+			filterAllButSelf(false),
+			defaultNeighborType(0)
+		{}
+
+		void setFilterAllButSelf(u8 neighborType)
+		{
+			filterAllButSelf = true;
+			defaultNeighborType = neighborType;
+		}
 
 		void add(u8 v0, u8 v1, u8 v2, u8 v3, u8 v4, u8 v5, u8 v6, u8 v7, std::vector<Tile> variants)
 		{
