@@ -2,25 +2,27 @@
 #define HEADER_ZN_AUTOTILER_HPP_INCLUDED
 
 #include <vector>
+#include <array>
 #include <map>
 #include "fm/util/Array2D.hpp"
 
 namespace zn
 {
 
+// Data-oriented auto-tiler.
+// Given a grid of cell types, finds which tiles apply to them
+// (handles connections, variants and default tiles)
 class AutoTiler
 {
 public:
 
 	typedef u32 Tile;
 	typedef u8 Type;
-//	typedef u64 Neighboring;
 
-	struct Neighboring
-	{
-		u32 upper;
-		u32 lower;
-	};
+	// 0 1 2
+	// 3 x 4
+	// 5 6 7
+	typedef u64 Neighboring; // 01234567 (8 * 8bits)
 
 	// Defines the rules applied to a type of tile depending on various neighborings,
 	// in order to choose the good center tile from a series of possible variants
@@ -29,16 +31,16 @@ public:
 		Tile defaultTile;
 		std::map<Neighboring, std::vector<Tile>> rules; // [neighbors][variant]
 
-//		void add(u64 v1, u64 v2, u64 v3, u64 v4,
-//		         u64 v5, u64 v6, u64 v7, u64 v8,
-		void add(u32 v1, u32 v2, u32 v3, u32 v4,
-		         u32 v5, u32 v6, u32 v7, u32 v8,
-		         std::vector<Tile> variants)
+		void add(u8 v0, u8 v1, u8 v2, u8 v3, u8 v4, u8 v5, u8 v6, u8 v7, std::vector<Tile> variants)
 		{
-//			Neighboring n = (v1 << 56) | (v2 << 48) | (v3 << 40) | (v4 << 32) |
-//				            (v5 << 24) | (v6 << 16) | (v7 << 8) | v8 ;
-			Neighboring n = { (v1 << 24) | (v2 << 16) | (v3 << 8) | v4,
-				              (v5 << 24) | (v6 << 16) | (v7 << 8) | v8 };
+			Neighboring n = v7; n <<= 8;
+			n |= v6; n <<= 8;
+			n |= v5; n <<= 8;
+			n |= v4; n <<= 8;
+			n |= v3; n <<= 8;
+			n |= v2; n <<= 8;
+			n |= v1; n <<= 8;
+			n |= v0;
 
 			rules.insert(std::make_pair(n, variants));
 		}
@@ -57,8 +59,6 @@ public:
 	void process(const Array2D<Type> typeGrid, Array2D<Tile> & tileGrid);
 
 };
-
-bool operator<(const AutoTiler::Neighboring & a, const AutoTiler::Neighboring & b);
 
 } // namespace zn
 

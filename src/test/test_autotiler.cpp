@@ -19,6 +19,8 @@ void test_autotiler()
 		1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 		1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 		1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+
+		// The pointed coordinates must be 5 after processing
 	};
 
 	Array2D<u8> grid(width, height);
