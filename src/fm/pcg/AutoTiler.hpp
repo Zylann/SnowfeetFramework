@@ -33,14 +33,14 @@ public:
 
 		void add(u8 v0, u8 v1, u8 v2, u8 v3, u8 v4, u8 v5, u8 v6, u8 v7, std::vector<Tile> variants)
 		{
-			Neighboring n = v7; n <<= 8;
-			n |= v6; n <<= 8;
-			n |= v5; n <<= 8;
-			n |= v4; n <<= 8;
-			n |= v3; n <<= 8;
-			n |= v2; n <<= 8;
+			Neighboring n = v0; n <<= 8;
 			n |= v1; n <<= 8;
-			n |= v0;
+			n |= v2; n <<= 8;
+			n |= v3; n <<= 8;
+			n |= v4; n <<= 8;
+			n |= v5; n <<= 8;
+			n |= v6; n <<= 8;
+			n |= v7;
 
 			rules.insert(std::make_pair(n, variants));
 		}
