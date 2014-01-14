@@ -28,8 +28,8 @@ class Array2D
 public :
 
 	// creates an empty array
-	Array2D()
-		: m_data(nullptr),
+	Array2D() :
+		m_data(nullptr),
 		m_sizeX(0),
 		m_sizeY(0)
 	{}
@@ -38,17 +38,43 @@ public :
 	// Note : data values are not initialized, use the fill() function if necessary.
 	Array2D(u32 psizeX, u32 psizeY)
 	{
-		create(psizeX, psizeY);
+		m_sizeX = psizeX;
+		m_sizeY = psizeY;
+
+		if(m_sizeX == 0 || m_sizeY == 0)
+		{
+			// Empty array
+			m_data = nullptr;
+		}
+		else
+		{
+			// Allocate memory
+			m_data = new T[area()];
+		}
 	}
 
 	// creates an array with the specified size and value
 	Array2D(u32 psizeX, u32 psizeY, const T & value)
 	{
-		create(psizeX, psizeY, value);
+		m_sizeX = psizeX;
+		m_sizeY = psizeY;
+
+		if(m_sizeX == 0 || m_sizeY == 0)
+		{
+			// Empty array
+			m_data = nullptr;
+		}
+		else
+		{
+			// Allocate memory
+			m_data = new T[area()];
+		}
+
+		fill(value);
 	}
 
-	// creates an array as copy from another
-	Array2D(const Array2D & other)
+	// creates an array as a copy from another
+	Array2D(const Array2D & other) : m_data(nullptr)
 	{
 		copyFrom(other);
 	}
@@ -89,20 +115,23 @@ public :
 	{
 		// Delete old data
 		if(m_data != nullptr)
-			delete[] m_data;
-
-		// Check if the given area is correct
-		if(psizeX == 0 || psizeY == 0)
 		{
-			std::cout << "WARNING: Array2D::create received empty area ("
-					<< psizeX << ", " << psizeY << ", " << ")" << std::endl;
-			return;
+			delete[] m_data;
 		}
 
-		// Allocate memory
 		m_sizeX = psizeX;
 		m_sizeY = psizeY;
-		m_data = new T[area()];
+
+		if(m_sizeX == 0 || m_sizeY == 0)
+		{
+			// Empty array
+			m_data = nullptr;
+		}
+		else
+		{
+			// Allocate memory
+			m_data = new T[area()];
+		}
 	}
 
 	// Copies data from another array into this one.
@@ -110,7 +139,9 @@ public :
 	void copyFrom(const Array2D<T> & other)
 	{
 		if(other.empty())
+		{
 			clear();
+		}
 		else
 		{
 			create(other.sizeX(), other.sizeY());
