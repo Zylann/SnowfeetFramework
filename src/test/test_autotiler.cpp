@@ -10,7 +10,7 @@ void test_autotiler()
 
 	// TODO profile AutoTiler to check performance as it may be used on playtime
 
-	// Let's say '1' are walls and '0' are floor.
+	// Let's say '1' are walls, '0' are floor and '2' another type of floor.
 	u8 rawGrid[width*height] = {
 	//                 |
 	//                 v
@@ -23,9 +23,10 @@ void test_autotiler()
 		1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 		1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
 
-		// The pointed coordinates must be 5 after processing
+		// The pointed location must be 5 after processing
 	};
 
+	// Put the raw array in a 2D array class
 	Array2D<u8> grid(width, height);
 	u32 len = grid.area();
 	for(u32 i = 0; i < len; ++i)
@@ -33,23 +34,21 @@ void test_autotiler()
 		grid[i] = rawGrid[i];
 	}
 
-	Array2D<u32> tiles(width, height, 0);
-
 	// The 0 type always makes the 0 tile
 	AutoTiler::TypeRules type0;
 	type0.defaultTile = 0;
 
-	// The 1 type makes fifferent tiles depending on its neighbors
+	// The 1 type makes different tiles depending on its neighbors
 	AutoTiler::TypeRules type1;
 	type1.defaultTile = 1;
-	type1.setFilterAllButSelf(0); // See all types but 1 as 0
-	type1.add(
+	type1.setLookupsAsOnly(1); // See all types but self as 0
+	type1.addCase(
 		0, 0, 0,
 		0,    0,
-		0, 0, 1,
+		0, 0, 1, // 1 means self type (here walls) and 0 any other
 		{5}
 	);
-	type1.add(
+	type1.addCase(
 		1, 1, 0,
 		1,    0,
 		1, 1, 0,
@@ -59,10 +58,18 @@ void test_autotiler()
 	AutoTiler tiler;
 	tiler.typeRules.push_back(type0);
 	tiler.typeRules.push_back(type1);
+
+	// The map is surrounded by walls
 	tiler.defaultType = 1;
 
+	// There is no rules for the '2' type, then the default tile should be used
+	tiler.defaultTile = 0;
+
+	// Calculate tiles
+	Array2D<u32> tiles(width, height, 0);
 	tiler.process(grid, tiles);
 
+	// Display output
 	for(u32 y = 0; y < tiles.sizeY(); ++y)
 	{
 		for(u32 x = 0; x < tiles.sizeX(); ++x)

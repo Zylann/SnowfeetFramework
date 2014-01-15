@@ -14,6 +14,8 @@ void AutoTiler::process(const Array2D<Type> typeGrid, Array2D<Tile> & tileGrid)
 	{
 		for(s32 x = 0; x < static_cast<s32>(typeGrid.sizeX()); ++x)
 		{
+			// TODO separate the following in a function
+
 			// Get the type of the cell
 			Type type = typeGrid.getNoEx(x,y);
 
@@ -23,11 +25,11 @@ void AutoTiler::process(const Array2D<Type> typeGrid, Array2D<Tile> & tileGrid)
 			if(type < typeRules.size())
 			{
 				// If the type has no rules
-				const TypeRules & tr = typeRules[type];
-				if(tr.rules.empty())
+				const TypeRules & rules = typeRules[type];
+				if(rules.cases.empty())
 				{
 					// Apply default tile to the cell
-					tile = tr.defaultTile;
+					tile = rules.defaultTile;
 				}
 				else // The type has rules:
 				{
@@ -40,24 +42,26 @@ void AutoTiler::process(const Array2D<Type> typeGrid, Array2D<Tile> & tileGrid)
 
 						Type ntype = typeGrid.contains(nx, ny) ? typeGrid.getNoEx(nx, ny) : defaultType;
 
-						if(tr.filterAllButSelf && type!=ntype)
+						u8 lookup = rules.defaultLookup;
+						auto it = rules.lookups.find(ntype);
+						if(it != rules.lookups.end())
 						{
-							ntype = tr.defaultNeighborType;
+							lookup = it->second;
 						}
 
-						m |= ntype;
+						m |= lookup;
 
 						if(i != 7)
 						{
-							m <<= 8;
+							m <<= 4;
 						}
 					}
 
 					Neighboring neighboring = m;
 
 					// Find a rule for the given neighboring
-					auto ruleIt = tr.rules.find(neighboring);
-					if(ruleIt != tr.rules.end())
+					auto ruleIt = rules.cases.find(neighboring);
+					if(ruleIt != rules.cases.end())
 					{
 						// Found a rule, apply a corresponding tile
 						tile = ruleIt->second[0]; // TODO choose variant at random
@@ -65,7 +69,7 @@ void AutoTiler::process(const Array2D<Type> typeGrid, Array2D<Tile> & tileGrid)
 					else
 					{
 						// No rules for this case, use type's default tile
-						tile = tr.defaultTile;
+						tile = rules.defaultTile;
 					}
 				}
 			}
@@ -85,7 +89,7 @@ void AutoTiler::process(const Array2D<Type> typeGrid, Array2D<Tile> & tileGrid)
 	"typeRules": [
 		{
 			"defaultTile": 0,
-			"rules": [
+			"cases": [
 				{
 					"n":[
 						1, 1, 1,
