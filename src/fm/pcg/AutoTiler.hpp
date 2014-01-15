@@ -101,7 +101,10 @@ public:
 	std::vector<TypeRules> typeRules;
 
 	// Converts a grid of types into a grid of tiles
-	void process(const Array2D<Type> typeGrid, Array2D<Tile> & tileGrid);
+	void process(const Array2D<Type> & typeGrid, Array2D<Tile> & tileGrid);
+
+	// Calculates a tile from its type at the given position
+	void processTile(const Array2D<Type> & typeGrid, Array2D<Tile> & tileGrid, u32 x, u32 y);
 
 };
 
