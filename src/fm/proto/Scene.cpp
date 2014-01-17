@@ -170,6 +170,18 @@ void Scene::clear()
 //}
 
 //------------------------------------------------------------------------------
+bool f_cameraOrder(const Camera *&cam1, const Camera *&cam2)
+{
+    return cam1->depth < cam2->depth;
+}
+
+//------------------------------------------------------------------------------
+bool f_rendererOrder(const ARenderer *&r1, const ARenderer *&r2)
+{
+    return r1->drawOrder < r2->drawOrder;
+}
+
+//------------------------------------------------------------------------------
 void Scene::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 #ifdef ZN_DEBUG
@@ -195,27 +207,30 @@ void Scene::draw(sf::RenderTarget& target, sf::RenderStates states) const
 		return;
 	}
 
-	// Sort cameras by depth
-	std::multimap<s32, Camera*> sortedCameras;
+	// Filter and sort cameras by depth
+	std::list<const Camera*> sortedCameras;
 	for(auto cameraIt = cameras.cbegin(); cameraIt != cameras.cend(); ++cameraIt)
 	{
-		sortedCameras.insert(std::make_pair((*cameraIt)->depth, *cameraIt));
+	    const Camera * camera = *cameraIt;
+	    if(camera->entity().active())
+        {
+            sortedCameras.push_back(camera);
+        }
 	}
+	sortedCameras.sort(f_cameraOrder);
 
-	// For each camera
+	// For each active camera
 	for(auto cameraIt = sortedCameras.cbegin(); cameraIt != sortedCameras.cend(); ++cameraIt)
 	{
-		const Camera & camera = *(cameraIt->second);
+		const Camera & camera = **cameraIt;
 
 		// Set view transform
 		target.setView(camera.internalView());
 
 		u32 layerMask = camera.entity().layerMask();
 
-		// TODO optimize renderer sorting
-
 		// Filter and sort renderers by draw order
-		std::multimap<s32, const ARenderer*> drawList;
+		std::list<const ARenderer*> drawList;
 		for(auto it = renderers.cbegin(); it != renderers.cend(); ++it)
 		{
 			const ARenderer * renderer = *it;
@@ -223,14 +238,15 @@ void Scene::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 			if(entity.active() && (entity.layerMask() & layerMask))
 			{
-				drawList.insert(std::make_pair(renderer->drawOrder, renderer));
+				drawList.push_back(renderer);
 			}
 		}
+		drawList.sort(f_rendererOrder);
 
 		// Draw filtered renderers in the right order
 		for(auto it = drawList.cbegin(); it != drawList.cend(); ++it)
 		{
-			const ARenderer & renderer = *it->second;
+			const ARenderer & renderer = **it;
 
 			// Draw renderer
 			target.draw(renderer);
@@ -252,7 +268,7 @@ void Scene::draw(sf::RenderTarget& target, sf::RenderStates states) const
 			if(drawColliders)
 			{
 				// Draw collider boundaries
-				const ACollider * collider = it->second->entity().collider();
+				const ACollider * collider = (*it)->entity().collider();
 				if(collider != nullptr)
 				{
 					collider->debug_draw(target);
