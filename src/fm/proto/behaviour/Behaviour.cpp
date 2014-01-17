@@ -1,5 +1,5 @@
-#include "Behaviour.hpp"
-#include "../Scene.hpp"
+#include <fm/proto/behaviour/Behaviour.hpp>
+#include <fm/proto/Scene.hpp>
 
 namespace zn
 {

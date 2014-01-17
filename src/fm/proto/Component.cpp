@@ -1,8 +1,9 @@
 #include <iostream>
 #include <cassert>
-#include "../config.hpp"
-#include "Component.hpp"
-#include "Entity.hpp"
+
+#include <fm/config.hpp>
+#include <fm/proto/Component.hpp>
+#include <fm/proto/Entity.hpp>
 
 using namespace std;
 

@@ -10,10 +10,10 @@ This file is part of the zCraftFramework project.
 #include <cassert>
 #include <fstream>
 
-#include "../util/Exception.hpp"
-#include "../util/stringutils.hpp"
-#include "../json/JsonBox.h"
-#include "TiledMap.hpp"
+#include <fm/util/Exception.hpp>
+#include <fm/util/stringutils.hpp>
+#include <fm/json/JsonBox.h>
+#include <fm/asset/TiledMap.hpp>
 
 namespace zn
 {

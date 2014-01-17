@@ -5,8 +5,9 @@ This file is part of the zCraft-Framework project.
 */
 
 #include <iostream>
-#include "GameApp.hpp"
-#include "../util/macros.hpp"
+
+#include <fm/proto/GameApp.hpp>
+#include <fm/util/macros.hpp>
 
 namespace zn
 {

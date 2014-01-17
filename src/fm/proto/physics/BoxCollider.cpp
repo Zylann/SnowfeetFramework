@@ -1,7 +1,8 @@
-#include "../Entity.hpp"
-#include "../../sfml/sfml2_utils.hpp"
-#include "BoxCollider.hpp"
-#include "../../json/json_utils.hpp"
+#include <fm/proto/Entity.hpp>
+#include <fm/proto/physics/BoxCollider.hpp>
+#include <fm/sfml/sfml2_utils.hpp>
+
+#include "fm/json/json_utils.hpp"
 
 namespace zn
 {

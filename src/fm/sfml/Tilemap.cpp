@@ -4,8 +4,8 @@ Copyright (C) 2010-2013 Marc GILLERON
 This file is part of the zCraftFramework project.
 */
 
-#include "Tilemap.hpp"
 #include <iostream>
+#include <fm/sfml/Tilemap.hpp>
 
 namespace zn
 {

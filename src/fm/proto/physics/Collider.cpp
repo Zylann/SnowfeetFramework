@@ -1,5 +1,5 @@
-#include "Collider.hpp"
-#include "../Scene.hpp"
+#include <fm/proto/physics/Collider.hpp>
+#include <fm/proto/Scene.hpp>
 
 namespace zn
 {

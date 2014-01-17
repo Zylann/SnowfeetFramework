@@ -1,6 +1,6 @@
 #include <list>
-#include "MazeGenerator.hpp"
-#include "../util/Vector2.hpp"
+#include <fm/pcg/MazeGenerator.hpp>
+#include <fm/util/Vector2.hpp>
 
 namespace zn
 {

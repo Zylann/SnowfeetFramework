@@ -1,5 +1,5 @@
-#include "Body.hpp"
-#include "../Scene.hpp"
+#include <fm/proto/physics/Body.hpp>
+#include <fm/proto/Scene.hpp>
 
 namespace zn
 {

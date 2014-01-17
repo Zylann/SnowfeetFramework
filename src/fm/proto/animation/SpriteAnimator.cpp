@@ -1,9 +1,9 @@
 #include <iostream>
 
-#include "SpriteAnimator.hpp"
-#include "../../asset/TextureAtlas.hpp"
-#include "../graphics/Renderer.hpp"
-#include "../Entity.hpp"
+#include <fm/proto/animation/SpriteAnimator.hpp>
+#include <fm/asset/TextureAtlas.hpp>
+#include <fm/proto/graphics/Renderer.hpp>
+#include <fm/proto/Entity.hpp>
 
 using namespace std;
 

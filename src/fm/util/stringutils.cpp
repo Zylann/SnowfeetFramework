@@ -7,7 +7,7 @@ This file is part of the zCraft project.
 #include <sstream>
 #include <cmath>
 
-#include "stringutils.hpp"
+#include <fm/util/stringutils.hpp>
 
 namespace zn
 {

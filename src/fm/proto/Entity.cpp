@@ -1,12 +1,14 @@
 #include <iostream>
-#include "Entity.hpp"
-#include "Component.hpp"
-#include "graphics/Renderer.hpp"
-#include "physics/Collider.hpp"
-#include "physics/Body.hpp"
-#include "Scene.hpp"
-#include "../util/typecheck.hpp"
-#include "../json/json_utils.hpp"
+
+#include <fm/proto/Entity.hpp>
+#include <fm/proto/Component.hpp>
+#include <fm/proto/graphics/Renderer.hpp>
+#include <fm/proto/physics/Collider.hpp>
+#include <fm/proto/physics/Body.hpp>
+#include <fm/proto/Scene.hpp>
+#include <fm/util/typecheck.hpp>
+
+#include "fm/json/json_utils.hpp"
 
 namespace zn
 {

@@ -7,18 +7,18 @@ This file is part of the zCraft-Framework project.
 #include <cassert>
 #include <unordered_map>
 
-#include "ComponentType.hpp"
-#include "../util/macros.hpp"
+#include <fm/proto/ComponentType.hpp>
+#include <fm/util/macros.hpp>
 
-#include "animation/SpriteAnimator.hpp"
-#include "audio/AudioEmitter.hpp"
-#include "graphics/Camera.hpp"
-#include "graphics/MapRenderer.hpp"
-#include "graphics/ParticleSystem.hpp"
-#include "graphics/SpriteRenderer.hpp"
-#include "graphics/TextRenderer.hpp"
-#include "physics/BoxCollider.hpp"
-#include "physics/MapCollider.hpp"
+#include <fm/proto/animation/SpriteAnimator.hpp>
+#include <fm/proto/audio/AudioEmitter.hpp>
+#include <fm/proto/graphics/Camera.hpp>
+#include <fm/proto/graphics/MapRenderer.hpp>
+#include <fm/proto/graphics/ParticleSystem.hpp>
+#include <fm/proto/graphics/SpriteRenderer.hpp>
+#include <fm/proto/graphics/TextRenderer.hpp>
+#include <fm/proto/physics/BoxCollider.hpp>
+#include <fm/proto/physics/MapCollider.hpp>
 
 using namespace std;
 

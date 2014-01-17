@@ -54,8 +54,7 @@ Dependencies
 ------------
 
 - SFML 2.1 http://www.sfml-dev.org/
-- JsonBox (included in source) https://github.com/anhero/JsonBox
-- zlib 1.2.8 (included in source) http://zlib.net/
+- JsonBox (included in source (not for ever)) https://github.com/anhero/JsonBox
 - C++11 (works with GCC MinGW 4.7+)
 
 Folder structure

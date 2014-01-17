@@ -1,5 +1,5 @@
-#include "Renderer.hpp"
-#include "../Scene.hpp"
+#include <fm/proto/graphics/Renderer.hpp>
+#include <fm/proto/Scene.hpp>
 
 namespace zn
 {

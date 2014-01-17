@@ -5,8 +5,8 @@ This file is part of the zCraft framework project.
 */
 
 #include <sstream>
-#include "Color.hpp"
-#include "math.hpp"
+#include <fm/util/Color.hpp>
+#include <fm/util/math.hpp>
 
 namespace zn
 {

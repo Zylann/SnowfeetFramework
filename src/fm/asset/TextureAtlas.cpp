@@ -8,9 +8,11 @@ This file is part of the zCraftFramework project.
 #include <sstream>
 #include <iostream>
 #include <cassert>
-#include "TextureAtlas.hpp"
-#include "../sfml/sfml2_utils.hpp"
-#include "../json/JsonBox.h"
+
+#include <fm/asset/TextureAtlas.hpp>
+#include <fm/sfml/sfml2_utils.hpp>
+
+#include "fm/json/JsonBox.h"
 
 namespace zn
 {

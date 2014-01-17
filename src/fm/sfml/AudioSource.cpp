@@ -1,5 +1,5 @@
 #include <cassert>
-#include "AudioSource.hpp"
+#include <fm/sfml/AudioSource.hpp>
 
 #ifdef ZN_DEBUG
 #include <iostream>

@@ -1,9 +1,11 @@
 #include <iostream>
-#include "SpriteRenderer.hpp"
-#include "../Entity.hpp"
-#include "../../sfml/sfml2_utils.hpp"
-#include "../../json/json_utils.hpp"
-#include "../../asset/AssetBank.hpp"
+
+#include <fm/proto/graphics/SpriteRenderer.hpp>
+#include <fm/proto/Entity.hpp>
+#include <fm/sfml/sfml2_utils.hpp>
+#include <fm/asset/AssetBank.hpp>
+
+#include "fm/json/json_utils.hpp"
 
 using namespace std;
 

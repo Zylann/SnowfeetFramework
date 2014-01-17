@@ -1,10 +1,10 @@
 #include <iostream>
 #include <cassert>
 
-#include "MapRenderer.hpp"
-#include "../../asset/AssetBank.hpp"
-#include "../Entity.hpp"
-#include "../../json/json_utils.hpp"
+#include <fm/asset/AssetBank.hpp>
+#include <fm/json/json_utils.hpp>
+#include <fm/proto/graphics/MapRenderer.hpp>
+#include <fm/proto/Entity.hpp>
 
 namespace zn
 {

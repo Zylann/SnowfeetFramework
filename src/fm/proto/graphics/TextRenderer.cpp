@@ -1,7 +1,8 @@
-#include "TextRenderer.hpp"
-#include "../../asset/AssetBank.hpp"
-#include "../Entity.hpp"
-#include "../../json/json_utils.hpp"
+#include <fm/proto/graphics/TextRenderer.hpp>
+#include <fm/asset/AssetBank.hpp>
+#include <fm/proto/Entity.hpp>
+
+#include "fm/json/json_utils.hpp"
 
 namespace zn
 {

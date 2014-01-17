@@ -19,6 +19,7 @@ public:
 	typedef u32 Tile;
 	typedef u8 Type;
 
+	// A neigboring is a mask containing 8 values of a grid.
 	// Each value in this grid is a lookup refering to a type.
 	// A lookup can refer up to 16 different types (4 bit values).
 	// 0 1 2
@@ -51,7 +52,8 @@ public:
 			defaultLookup(0)
 		{}
 
-		// Sets a type to be seen as the given lookup in Neighboring keys
+		// Sets a type to be seen as the given lookup in Neighboring keys.
+		// Performs additionnal checks in debug mode.
 		void setLookup(u8 type, u8 lookup)
 		{
 #ifdef ZN_DEBUG
@@ -74,6 +76,7 @@ public:
 			lookups[type] = 1;
 		}
 
+		// Adds a neighboring case by specifying 8 neighbor aliases and the resulting center tile variants
 		void addCase(u8 v0, u8 v1, u8 v2, u8 v3, u8 v4, u8 v5, u8 v6, u8 v7, std::vector<Tile> variants)
 		{
 			Neighboring n = v0; n <<= 4;

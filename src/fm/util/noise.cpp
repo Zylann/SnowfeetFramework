@@ -7,8 +7,8 @@ This file is part of the zCraft project.
 #include <cmath>
 #include <iostream>
 
-#include "noise.hpp"
-#include "interpolation.hpp"
+#include <fm/util/noise.hpp>
+#include <fm/util/interpolation.hpp>
 
 // set at random
 #define RAND_SEQ_X 72699

@@ -1,10 +1,11 @@
-#include "ParticleSystem.hpp"
-#include "../../sfml/sfml2_utils.hpp"
-#include "../Entity.hpp"
-#include "../../util/math.hpp"
-#include "../Scene.hpp"
-#include "../json/json_utils.hpp"
-#include "../../asset/AssetBank.hpp"
+#include <fm/sfml/sfml2_utils.hpp>
+#include <fm/util/math.hpp>
+#include <fm/asset/AssetBank.hpp>
+#include <fm/proto/Entity.hpp>
+#include <fm/proto/Scene.hpp>
+#include <fm/proto/graphics/ParticleSystem.hpp>
+
+#include "fm/json/json_utils.hpp"
 
 namespace zn
 {

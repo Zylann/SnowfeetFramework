@@ -1,7 +1,8 @@
-#include "../Entity.hpp"
-#include "../Scene.hpp"
-#include "Camera.hpp"
-#include "../../json/json_utils.hpp"
+#include <fm/proto/Entity.hpp>
+#include <fm/proto/Scene.hpp>
+#include <fm/proto/graphics/Camera.hpp>
+
+#include "fm/json/json_utils.hpp"
 
 namespace zn
 {

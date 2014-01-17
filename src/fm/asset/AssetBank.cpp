@@ -7,7 +7,8 @@ This file is part of the zCraftFramework project.
 #include <fstream>
 #include <iostream>
 #include <cstdio>
-#include "AssetBank.hpp"
+
+#include <fm/asset/AssetBank.hpp>
 
 namespace zn
 {

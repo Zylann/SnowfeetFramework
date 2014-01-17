@@ -2,7 +2,7 @@
 #define JSON_UTILS_HPP_INCLUDED
 
 #include "JsonBox.h"
-#include "../util/Range.hpp"
+#include <fm/util/Range.hpp>
 
 #ifdef ZN_SFML
 #include <SFML/Graphics/Rect.hpp>

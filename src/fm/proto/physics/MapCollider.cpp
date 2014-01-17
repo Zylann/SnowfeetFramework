@@ -1,11 +1,12 @@
 #include <iostream>
 
-#include "../../util/math.hpp"
-#include "../../sfml/sfml2_utils.hpp"
-#include "../Entity.hpp"
-#include "MapCollider.hpp"
-#include "../../json/json_utils.hpp"
-#include "../../asset/AssetBank.hpp"
+#include <fm/util/math.hpp>
+#include <fm/sfml/sfml2_utils.hpp>
+#include <fm/proto/Entity.hpp>
+#include <fm/proto/physics/MapCollider.hpp>
+#include <fm/asset/AssetBank.hpp>
+
+#include "fm/json/json_utils.hpp"
 
 #ifdef ZN_DEBUG
 	#include <map> // for debug

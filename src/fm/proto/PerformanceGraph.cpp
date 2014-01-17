@@ -4,8 +4,8 @@ Copyright (C) 2010-2013 Marc GILLERON
 This file is part of the zCraft-Framework project.
 */
 
-#include "PerformanceGraph.hpp"
-#include "../util/math.hpp"
+#include <fm/proto/PerformanceGraph.hpp>
+#include <fm/util/math.hpp>
 
 namespace zn
 {

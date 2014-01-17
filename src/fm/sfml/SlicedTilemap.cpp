@@ -1,4 +1,4 @@
-#include "SlicedTilemap.hpp"
+#include <fm/sfml/SlicedTilemap.hpp>
 
 namespace zn
 {

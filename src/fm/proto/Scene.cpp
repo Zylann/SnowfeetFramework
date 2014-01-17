@@ -10,10 +10,10 @@ This file is part of the zCraft-Framework project.
 #include <cassert>
 #include <map>
 
-#include "Scene.hpp"
-#include "graphics/Renderer.hpp"
-#include "physics/Collider.hpp"
-#include "physics/Body.hpp"
+#include <fm/proto/Scene.hpp>
+#include <fm/proto/graphics/Renderer.hpp>
+#include <fm/proto/physics/Collider.hpp>
+#include <fm/proto/physics/Body.hpp>
 
 #define ZN_PROFILE_SCENE
 

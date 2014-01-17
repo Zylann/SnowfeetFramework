@@ -4,7 +4,7 @@ Copyright (C) 2010-2013 Marc GILLERON
 This file is part of the zCraft framework project.
 */
 
-#include "interpolation.hpp"
+#include <fm/util/interpolation.hpp>
 
 namespace zn
 {

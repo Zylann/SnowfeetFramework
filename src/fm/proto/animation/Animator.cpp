@@ -1,5 +1,5 @@
-#include "Animator.hpp"
-#include "../Scene.hpp"
+#include <fm/proto/animation/Animator.hpp>
+#include <fm/proto/Scene.hpp>
 
 namespace zn
 {
