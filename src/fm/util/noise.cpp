@@ -55,7 +55,7 @@ f32 noise2dGradient(f32 x, f32 y, s32 seed)
 	f32 v01 = noise2d(x0, y0+1, seed);
 	f32 v11 = noise2d(x0+1, y0+1, seed);
 	// Interpolate
-	return biLinearInterpolation(v00,v10,v01,v11,xl,yl);
+	return biLinearInterpolationSmooth(v00,v10,v01,v11,xl,yl);
 }
 
 f32 noise2dPerlin(

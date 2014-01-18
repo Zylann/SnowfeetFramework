@@ -12,7 +12,7 @@ namespace zn
 	Linear intepolations
 */
 
-f32 biLinearInterpolation(
+f32 biLinearInterpolationSmooth(
 	const f32 x0y0, const f32 x1y0,
 	const f32 x0y1, const f32 x1y1,
 	const f32 x, const f32 y)
