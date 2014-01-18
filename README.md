@@ -66,34 +66,27 @@ and other were there before the 2D engine to be implemented. Keep in mind that
 no additionnal dependency must be added to these files unless it is really
 necessary.
 
-|-assets/      : the assets of the game
-|                (fonts, textures, atlases, maps... scripts?)
+fm/        : the engine's code.
+|            "fm" is meant for "framework". (namespace is zn::).
 |
-|-src/         : the C++ source code
-| |
-| |-fm/        : the engine's code.
-| | |            "fm" is meant for "framework". (namespace is zn::).
-| | |
-| | |-asset/   : asset system (doesnt depends on the game engine,
-| | |            it's a separate system)
-| | |
-| | |-proto/   : the actual game engine (window, components, scene...).
-| | |            it uses all the other source files under fm/.
-| | |
-| | |-pcg/     : Procedural content generation library
-| | |
-| | |-json/    : the JSON API used by the engine.
-| | |              more at https://github.com/anhero/JsonBox
-| | |
-| | |-sfml/    : sfml utility that doesn't depends on the engine. It may also
-| | |            contain drawable classes that are not component-based.
-| | |
-| | |-util/    : Only-STL-dependent files for various things such as 2D arrays,
-| | |            pathfinding, math, Vector2i, Rect...
-| | |
-| | |-zlib/    : zlib compression library code
-| |  
-| |-demo/       : contains the game's code (namespace is demo::)
+|-asset/   : asset system (doesnt depends on the game engine,
+|              it's a separate system)
+|
+|-proto/   : the actual game engine (window, components, scene...).
+|            it uses all the other source files under fm/.
+|
+|-pcg/     : Procedural content generation library
+|
+|-json/    : the JSON API used by the engine.
+|              more at https://github.com/anhero/JsonBox
+|
+|-sfml/    : sfml utility that doesn't depends on the engine. It may also
+|            contain drawable classes that are not component-based.
+|
+|-util/    : Only-STL-dependent files for various things such as 2D arrays,
+|            pathfinding, math, Vector2i, Rect...
+| 
+|-demo/       : contains the game's code (namespace is demo::)
 
 Notes
 -----
