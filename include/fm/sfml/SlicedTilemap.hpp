@@ -11,7 +11,7 @@ namespace zn
 
 // Optimized tilemap sliced into chunks. Empty tiles also don't generate geometry.
 // Useful for big maps.
-class SlicedTilemap : public sf::Drawable
+class ZN_API SlicedTilemap : public sf::Drawable
 {
 public:
 

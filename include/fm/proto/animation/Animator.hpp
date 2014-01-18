@@ -6,7 +6,7 @@
 namespace zn
 {
 
-class AAnimator : public AComponent
+class ZN_API AAnimator : public AComponent
 {
 public:
 

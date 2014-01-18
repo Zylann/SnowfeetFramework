@@ -9,7 +9,7 @@ namespace zn
 {
 
 // Adds the ability of emitting sounds to an entity.
-class AudioEmitter : public AComponent
+class ZN_API AudioEmitter : public AComponent
 {
 public:
 

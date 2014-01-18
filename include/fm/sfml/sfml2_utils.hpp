@@ -12,13 +12,13 @@ namespace zn
 {
 
 template <typename T>
-inline float distance(const sf::Vector2<T> & a, const sf::Vector2<T> & b)
+inline f32 distance(const sf::Vector2<T> & a, const sf::Vector2<T> & b)
 {
 	return sqrt(math::sq(a.x-b.x) + math::sq(a.y-b.y));
 }
 
 template <typename T>
-inline float length(const sf::Vector2<T> & a)
+inline f32 length(const sf::Vector2<T> & a)
 {
 	return sqrt(math::sq(a.x) + math::sq(a.y));
 }

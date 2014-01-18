@@ -10,7 +10,7 @@ namespace zn
 // Merges streamed and full-loaded audio file playback,
 // because SFML has them separated, despite their interface's high similarity.
 // Yes, It's... basically a wrapper.
-class AudioSource
+class ZN_API AudioSource
 {
 public:
 

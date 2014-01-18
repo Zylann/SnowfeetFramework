@@ -7,7 +7,7 @@ namespace zn
 {
 
 // Base class for user-defined gameplay components
-class ABehaviour : public AComponent
+class ZN_API ABehaviour : public AComponent
 {
 public:
 

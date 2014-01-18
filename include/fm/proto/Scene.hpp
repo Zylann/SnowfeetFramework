@@ -22,7 +22,7 @@ namespace zn
 // Top-level class for every game object.
 // It contains all stuff that the player can see and interact with.
 // Only one scene should be active at a time (except for asynchronous loading).
-class Scene : public sf::Drawable
+class ZN_API Scene : public sf::Drawable
 {
 public:
 

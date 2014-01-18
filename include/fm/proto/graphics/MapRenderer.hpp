@@ -10,7 +10,7 @@ namespace zn
 
 // 2D orthographic map renderer.
 // It renders only one layer of tiles.
-class MapRenderer : public ARenderer
+class ZN_API MapRenderer : public ARenderer
 {
 public:
 

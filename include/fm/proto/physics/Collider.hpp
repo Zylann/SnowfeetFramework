@@ -9,7 +9,7 @@
 namespace zn
 {
 
-class ACollider : public AComponent
+class ZN_API ACollider : public AComponent
 {
 public:
 

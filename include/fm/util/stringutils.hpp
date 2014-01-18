@@ -8,30 +8,31 @@ This file is part of the zCraftFramework project.
 #define HEADER_ZN_STRINGUTILS_HPP_INCLUDED
 
 #include <string>
+#include <fm/types.hpp>
 
 namespace zn
 {
 // TODO stringutils: use std::to_string and make standard functions
 // But MinGW doesn't seems to include it yet...
 
-std::string toString(float x);
-std::string toString(double x);
-std::string toString(int x);
-std::string toString(unsigned int x);
-std::string toString(bool b);
+std::string ZN_API toString(f32 x);
+std::string ZN_API toString(f64 x);
+std::string ZN_API toString(s32 x);
+std::string ZN_API toString(u32 x);
+std::string ZN_API toString(bool b);
 
-std::string toStringBin(unsigned int x, unsigned char n=32);
-std::string toStringAlnum(int x);
+std::string ZN_API toStringBin(u32 x, u8 n=32);
+std::string ZN_API toStringAlnum(s32 x);
 
-int toInt(std::string s);
-void toUpper(std::string & str);
+s32 ZN_API toInt(std::string s);
+void ZN_API toUpper(std::string & str);
 
 // convert a time given in seconds to a time string formated like "hh:mm:ss:ms"
-std::string toTimeString(float s);
+std::string ZN_API toTimeString(f32 s);
 
-bool isPrintableChar(char c);
+bool ZN_API isPrintableChar(u8 c);
 
-std::string cropStr(std::string str, char c);
+std::string ZN_API cropStr(std::string str, u8 c);
 
 inline std::string fileNameWithoutExtension(std::string path)
 {

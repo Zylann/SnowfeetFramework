@@ -31,7 +31,7 @@
 // DLL options
 #ifdef ZN_DLL
 	// This is placed before each element we want to expose to the user of the DLL.
-	// (Header-only definitions are obviously included)
+	// (Header-only definitions don't need that)
 	#define ZN_API __declspec(dllexport)
 #else
 	// Not creating a DLL: empty macro

@@ -7,7 +7,7 @@
 namespace zn
 {
 
-class ParticleSystem : public ARenderer
+class ZN_API ParticleSystem : public ARenderer
 {
 public:
 

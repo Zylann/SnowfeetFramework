@@ -14,7 +14,7 @@ namespace zn
 /// Inspired on a similar implementation here :
 /// http://www.codeguru.com/csharp/csharp/cs_misc/designtechniques/article.php/c12527/AStar-A-Implementation-in-C-Path-Finding-PathFinder.htm
 /// Translated from C#.
-class PathFinder
+class ZN_API PathFinder
 {
 public:
 

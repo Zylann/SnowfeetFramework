@@ -6,7 +6,7 @@
 namespace zn
 {
 
-class TextRenderer : public ARenderer
+class ZN_API TextRenderer : public ARenderer
 {
 public:
 

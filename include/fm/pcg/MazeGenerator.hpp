@@ -16,7 +16,7 @@ namespace zn
 {
 
 // 2D orthonormal maze generator
-class MazeGenerator
+class ZN_API MazeGenerator
 {
 public:
 

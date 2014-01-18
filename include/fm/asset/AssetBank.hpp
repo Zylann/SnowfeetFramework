@@ -20,7 +20,7 @@ namespace zn
 
 // Centralized asset container.
 // /!\ Not thread-safe (yet).
-class AssetBank : public NonCopyable
+class ZN_API AssetBank : public NonCopyable
 {
 public:
 

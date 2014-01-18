@@ -25,7 +25,7 @@ enum ComponentFlags
 // if you want to implement gameplay, please derive from Behaviour instead.
 // For serialization and execution flow reasons, components must define a default
 // constructor and avoid to rely on a constructor with parameters.
-class AComponent : public Object
+class ZN_API AComponent : public Object
 {
 public:
 

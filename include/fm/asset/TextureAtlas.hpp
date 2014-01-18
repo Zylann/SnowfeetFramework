@@ -15,7 +15,7 @@ This file is part of the zCraftFramework project.
 namespace zn
 {
 
-class TextureAtlas : public IAsset
+class ZN_API TextureAtlas : public IAsset
 {
 public:
 

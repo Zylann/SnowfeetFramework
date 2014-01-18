@@ -6,7 +6,7 @@
 namespace zn
 {
 
-class BoxCollider : public ACollider
+class ZN_API BoxCollider : public ACollider
 {
 public:
 

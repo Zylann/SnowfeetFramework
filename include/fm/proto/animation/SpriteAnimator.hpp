@@ -7,7 +7,7 @@
 namespace zn
 {
 
-class SpriteAnimator : public AAnimator
+class ZN_API SpriteAnimator : public AAnimator
 {
 public:
 

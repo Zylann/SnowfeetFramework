@@ -7,7 +7,7 @@
 namespace zn
 {
 
-class Camera : public AComponent
+class ZN_API Camera : public AComponent
 {
 public:
 

@@ -11,7 +11,7 @@ namespace zn
 // Simple map collider with static square cells.
 // Each cell is associated to a simple collider primitive (square, triangle...).
 // Currently, only rectangular shapes are supported (more will come with the integration of a physics engine).
-class MapCollider : public ACollider
+class ZN_API MapCollider : public ACollider
 {
 public:
 

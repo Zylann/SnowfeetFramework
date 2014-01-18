@@ -14,7 +14,7 @@ namespace zn
 {
 
 // A simple histogram showing the evolution of a value over time.
-class PerformanceGraph : public sf::Drawable
+class ZN_API PerformanceGraph : public sf::Drawable
 {
 public:
 

@@ -7,7 +7,7 @@
 namespace zn
 {
 
-class AudioSystem
+class ZN_API AudioSystem
 {
 public:
 

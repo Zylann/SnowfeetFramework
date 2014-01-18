@@ -28,7 +28,7 @@ class AudioEmitter;
 
 // An entity can be anything in the scene.
 // It is composed of components that define its behavior.
-class Entity : public Object
+class ZN_API Entity : public Object
 {
 public:
 

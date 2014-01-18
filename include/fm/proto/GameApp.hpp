@@ -20,7 +20,7 @@ namespace zn
 // Top-level class handling the execution of the game.
 // There must be only one GameApp (or derivated) instance created in the
 // whole program execution.
-class GameApp
+class ZN_API GameApp
 {
 public:
 

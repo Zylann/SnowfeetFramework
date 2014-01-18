@@ -13,28 +13,28 @@ namespace zn
 {
 // TODO stringutils: may be optimized
 
-std::string toString(float x)
+std::string toString(f32 x)
 {
 	std::stringstream ss;
 	ss << x;
 	return ss.str();
 }
 
-std::string toString(double x)
+std::string toString(f64 x)
 {
 	std::stringstream ss;
 	ss << x;
 	return ss.str();
 }
 
-std::string toString(int x)
+std::string toString(s32 x)
 {
 	std::stringstream ss;
 	ss << x;
 	return ss.str();
 }
 
-std::string toString(unsigned int x)
+std::string toString(u32 x)
 {
 	std::stringstream ss;
 	ss << x;
@@ -46,12 +46,12 @@ std::string toString(bool b)
 	return b ? "true" : "false";
 }
 
-std::string toStringBin(unsigned int x, unsigned char n)
+std::string toStringBin(u32 x, u8 n)
 {
-	unsigned int mask = 1 << (n-1);
+	u32 mask = 1 << (n-1);
 	std::string str;
 
-	for(unsigned char i = 0; i < n; i++, mask = mask >> 1)
+	for(u8 i = 0; i < n; i++, mask = mask >> 1)
 	{
 		if(x & mask)
 			str += "1";
@@ -63,25 +63,25 @@ std::string toStringBin(unsigned int x, unsigned char n)
 
 void toUpper(std::string & str)
 {
-	for(unsigned int i = 0; i < str.size(); i++)
+	for(u32 i = 0; i < str.size(); i++)
 		str[i] = toupper(str[i]);
 }
 
-int toInt(std::string s)
+s32 toInt(std::string s)
 {
 	std::stringstream ss(s);
-	int i;
+	s32 i;
 	ss >> i;
 	return i;
 }
 
-std::string toTimeString(float s)
+std::string toTimeString(f32 s)
 {
-	int min = s / 60;
-	int hr = min / 60;
+	s32 min = s / 60;
+	s32 hr = min / 60;
 	min = min % 60;
-	int sec = ((int)s) % 60;
-	int ms = 1000.0 * (s - floor(s));
+	s32 sec = ((s32)s) % 60;
+	s32 ms = 1000.0 * (s - floor(s));
 
 	std::string s_hr;
 	std::string s_min;
@@ -121,12 +121,12 @@ std::string toTimeString(float s)
 	return s_hr + ":" + s_min + ":" + s_sec + ":" + s_ms;
 }
 
-bool isPrintableChar(char c)
+bool isPrintableChar(u8 c)
 {
 	return (c >= 32 && c <= 126); // without the char(13) which is '\n'
 }
 
-std::string cropStr(std::string str, char c)
+std::string cropStr(std::string str, u8 c)
 {
 	if(str.empty())
 		return str;
@@ -138,7 +138,7 @@ std::string cropStr(std::string str, char c)
 		return str;
 	}
 
-	unsigned int i = str.find(c);
+	u32 i = str.find(c);
 	if(i != std::string::npos)
 		str = str.substr(i + 1);
 

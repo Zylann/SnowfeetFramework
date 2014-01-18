@@ -13,7 +13,7 @@ class Entity;
 // as well as its place in the hierarchy (children, parent).
 // Note that only entities are allowed to create such objects.
 // An entity always has only one transform.
-class Transform
+class ZN_API Transform
 {
 public:
 

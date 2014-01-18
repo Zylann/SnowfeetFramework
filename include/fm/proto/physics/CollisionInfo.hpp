@@ -13,7 +13,7 @@ This file is part of the zCraft-Framework project.
 namespace zn
 {
 
-class ACollider;
+class ZN_API ACollider;
 
 struct CollisionInfo
 {

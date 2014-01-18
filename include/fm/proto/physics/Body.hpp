@@ -9,7 +9,7 @@ namespace zn
 // Physics
 // Note: the engine doesn't supports physics yet.
 // TODO Body: interface with Box2D
-class Body : public AComponent
+class ZN_API Body : public AComponent
 {
 public:
 

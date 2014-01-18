@@ -21,7 +21,7 @@ namespace zn
 	Stores a color using 4 unsigned byte values for red, green, blue and alpha.
 	This version is well-suited for performance and storage.
 */
-struct Color
+struct ZN_API Color
 {
 	u8 r;
 	u8 g;

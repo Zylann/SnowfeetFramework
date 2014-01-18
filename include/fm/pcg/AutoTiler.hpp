@@ -13,7 +13,7 @@ namespace zn
 // Data-oriented auto-tiler.
 // Given a grid where each cell is a type, finds which tiles apply to them
 // (can handle connections, variants and default tiles)
-class AutoTiler
+class ZN_API AutoTiler
 {
 public:
 

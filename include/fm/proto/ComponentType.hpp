@@ -70,7 +70,7 @@ enum ComponentTypeFlags
 
 // Meta-class of a component
 // Note: it is fixed in the final game.
-struct ComponentType
+struct ZN_API ComponentType
 {
 	std::string name;
 	u8 group;

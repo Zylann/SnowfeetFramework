@@ -9,7 +9,7 @@
 namespace zn
 {
 
-class ARenderer : public AComponent, public sf::Drawable
+class ZN_API ARenderer : public AComponent, public sf::Drawable
 {
 public:
 

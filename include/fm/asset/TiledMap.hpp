@@ -21,7 +21,7 @@ namespace zn
 // Note: not all features of Tiled are used here.
 // Tiled is a free and open-source 2D map editor.
 // http://www.mapeditor.org/
-class TiledMap : public IAsset
+class ZN_API TiledMap : public IAsset
 {
 public:
 

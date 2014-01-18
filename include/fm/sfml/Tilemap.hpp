@@ -13,7 +13,7 @@ This file is part of the zCraftFramework project.
 namespace zn
 {
 
-class Tilemap : public sf::Drawable
+class ZN_API Tilemap : public sf::Drawable
 {
 public:
 

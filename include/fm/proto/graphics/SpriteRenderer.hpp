@@ -6,7 +6,7 @@
 namespace zn
 {
 
-class SpriteRenderer : public ARenderer
+class ZN_API SpriteRenderer : public ARenderer
 {
 public:
 
