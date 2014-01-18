@@ -47,7 +47,7 @@ void AutoTiler::processTile(const Array2D<Type> & typeGrid, Array2D<Tile> & tile
 		else // The type has rules:
 		{
 			// Retrieve neighboring mask
-			u64 m = 0;
+			u32 m = 0;
 			for(u32 i = 0; i < 8; ++i)
 			{
 				s32 nx = x + g_nv8[i][0];
