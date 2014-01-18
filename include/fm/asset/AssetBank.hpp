@@ -34,15 +34,25 @@ public:
 	AssetBank();
 	~AssetBank();
 
-	// Sets the root folder of all AssetMaps.
-	//void setRootFolder(const std::string & rf);
+	// Sets the root folder containing all the assets.
+	// This folder will be prepended to every assets to be loaded.
+	void setRootFolder(const std::string & rootFolder);
 
-	bool loadFromJSON(const std::string & assetsRoot, const std::string & manifestPath);
+	// Loads all the assets contained in a manifest JSON file.
+	// You must specify a path relative to the executable.
+	bool loadFromJSON(const std::string & manifestPath);
+
 //	bool loadFolder(const std::string & folderPath);
 
+	// Sets this AssetBank as the current one for global access
 	void makeCurrent();
 
+	// Gets the active AssetBank
 	static AssetBank * current();
+
+private:
+
+	std::string m_root;
 
 };
 

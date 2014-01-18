@@ -103,13 +103,16 @@ bool GameApp::init()
 	m_fullScreen = !m_gameSettings.fullscreen; // To make the next line work...
 	setFullScreen(m_gameSettings.fullscreen); // Creates the SFML window
 
+	m_assets.setRootFolder(m_gameSettings.assetsRoot);
+
 	// Load startup assets
 	// TODO asynchronous loading of assets with a progressBar
-	if(!m_assets.loadFromJSON(m_gameSettings.assetsRoot + "/assets.json", m_gameSettings.assetsRoot))
+	if(!m_assets.loadFromJSON(m_gameSettings.assetsRoot + "/assets.json"))
 	{
 		return false;
 	}
 
+	// Perform game-specific initialization
 	return onInit();
 }
 

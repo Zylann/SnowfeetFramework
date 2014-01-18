@@ -28,19 +28,16 @@ AssetBank::~AssetBank()
 }
 
 //------------------------------------------------------------------------------
-//void AssetBank::setRootFolder(const std::string & rf)
-//{
-//#ifdef ZN_DEBUG
-//	std::cout << "D: AssetBank: root folder set to " << rf << '.' << std::endl;
-//#endif // ZN_DEBUG
-//	fonts.setRootFolder(rf);
-//	textures.setRootFolder(rf);
-//	atlases.setRootFolder(rf);
-//	maps.setRootFolder(rf);
-//}
+void AssetBank::setRootFolder(const std::string & rootFolder)
+{
+#ifdef ZN_DEBUG
+	std::cout << "D: AssetBank: root folder set to " << rootFolder << '.' << std::endl;
+#endif // ZN_DEBUG
+	m_root = rootFolder;
+}
 
 //------------------------------------------------------------------------------
-bool AssetBank::loadFromJSON(const std::string & manifestPath, const std::string & assetsRoot)
+bool AssetBank::loadFromJSON(const std::string & manifestPath)
 {
 	std::ifstream ifs(manifestPath.c_str(), std::ios::in|std::ios::binary);
 	if(!ifs.good())
@@ -64,37 +61,37 @@ bool AssetBank::loadFromJSON(const std::string & manifestPath, const std::string
 
 	if(!doc["textures"].isNull())
 	{
-		if(!textures.loadList(doc["textures"], assetsRoot))
+		if(!textures.loadList(doc["textures"], m_root))
 			return false;
 	}
 
 	if(!doc["fonts"].isNull())
 	{
-		if(!fonts.loadList(doc["fonts"], assetsRoot))
+		if(!fonts.loadList(doc["fonts"], m_root))
 			return false;
 	}
 
 	if(!doc["soundbuffers"].isNull())
 	{
-		if(!soundBuffers.loadList(doc["soundbuffers"], assetsRoot))
+		if(!soundBuffers.loadList(doc["soundbuffers"], m_root))
 			return false;
 	}
 
 	if(!doc["soundstreams"].isNull())
 	{
-		if(!soundStreams.loadList(doc["soundstreams"], assetsRoot))
+		if(!soundStreams.loadList(doc["soundstreams"], m_root))
 			return false;
 	}
 
 	if(!doc["atlases"].isNull())
 	{
-		if(!atlases.loadList(doc["atlases"], assetsRoot))
+		if(!atlases.loadList(doc["atlases"], m_root))
 			return false;
 	}
 
 	if(!doc["maps"].isNull())
 	{
-		if(!maps.loadList(doc["maps"], assetsRoot))
+		if(!maps.loadList(doc["maps"], m_root))
 			return false;
 	}
 
