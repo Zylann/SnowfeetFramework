@@ -119,11 +119,11 @@ public:
 	}
 
 	// Loads a list of assets from its JSON object representation
-	bool loadList(JsonBox::Value & obj)
+	bool loadList(JsonBox::Value & obj, const std::string assetsRoot)
 	{
 		if(!obj["root"].isNull())
 		{
-			setRootFolder(obj["root"].getString());
+			setRootFolder(assetsRoot + '/' + obj["root"].getString());
 		}
 
 		JsonBox::Array jlist = obj["list"].getArray();

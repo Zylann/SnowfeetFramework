@@ -1,7 +1,7 @@
 {
 	"textures":
 	{
-		"root":"assets/textures",
+		"root":"textures",
 		"list":
 		[
 			{ "src":"cursor.png", "name":"cursor" },
@@ -11,7 +11,7 @@
 
 	"fonts":
 	{
-		"root":"assets/fonts",
+		"root":"fonts",
 		"list":
 		[
 			{ "name":"default", "src":"Grand9K Pixel.ttf" }
@@ -20,7 +20,7 @@
 
 	"atlases":
 	{
-		"root":"assets/textures",
+		"root":"textures",
 		"list":
 		[
 			{ "name":"room", "src":"room_atlas.json" },
@@ -31,7 +31,7 @@
 
 	"soundbuffers":
 	{
-		"root":"assets/sounds",
+		"root":"sounds",
 		"list":
 		[
 			{ "src":"cat_meow1.wav" },
@@ -46,7 +46,7 @@
 
 	"soundstreams":
 	{
-		"root":"assets/music",
+		"root":"music",
 		"list":
 		[
 			{ "name":"theme", "src":"ssm_theme.ogg" }
@@ -55,7 +55,7 @@
 
 	"maps":
 	{
-		"root":"assets/maps",
+		"root":"maps",
 		"list":
 		[
 			{ "name":"test", "src":"test_map.json" }

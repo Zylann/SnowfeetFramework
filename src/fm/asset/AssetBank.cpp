@@ -28,29 +28,28 @@ AssetBank::~AssetBank()
 }
 
 //------------------------------------------------------------------------------
-void AssetBank::setRootFolder(const std::string & rf)
-{
-#ifdef ZN_DEBUG
-	std::cout << "D: AssetBank: root folder set to " << rf << '.' << std::endl;
-#endif // ZN_DEBUG
-	fonts.setRootFolder(rf);
-	textures.setRootFolder(rf);
-	//atlases.setRootFolder(rf);
-	//maps.setRootFolder(rf);
-}
+//void AssetBank::setRootFolder(const std::string & rf)
+//{
+//#ifdef ZN_DEBUG
+//	std::cout << "D: AssetBank: root folder set to " << rf << '.' << std::endl;
+//#endif // ZN_DEBUG
+//	fonts.setRootFolder(rf);
+//	textures.setRootFolder(rf);
+//	atlases.setRootFolder(rf);
+//	maps.setRootFolder(rf);
+//}
 
 //------------------------------------------------------------------------------
-
-bool AssetBank::loadFromJSON(const std::string & filePath)
+bool AssetBank::loadFromJSON(const std::string & manifestPath, const std::string & assetsRoot)
 {
-	std::ifstream ifs(filePath.c_str(), std::ios::in|std::ios::binary);
+	std::ifstream ifs(manifestPath.c_str(), std::ios::in|std::ios::binary);
 	if(!ifs.good())
 	{
-		std::cout << "E: AssetBank::loadFromJSON: couldn't open \"" + filePath + '"' << std::endl;
+		std::cout << "E: AssetBank::loadFromJSON: couldn't open \"" + manifestPath + '"' << std::endl;
 		return false;
 	}
 
-	std::cout << "I: Reading AssetBank " << filePath << "..." << std::endl;
+	std::cout << "I: Reading AssetBank " << manifestPath << "..." << std::endl;
 
 	// Parse stream
 
@@ -65,37 +64,37 @@ bool AssetBank::loadFromJSON(const std::string & filePath)
 
 	if(!doc["textures"].isNull())
 	{
-		if(!textures.loadList(doc["textures"]))
+		if(!textures.loadList(doc["textures"], assetsRoot))
 			return false;
 	}
 
 	if(!doc["fonts"].isNull())
 	{
-		if(!fonts.loadList(doc["fonts"]))
+		if(!fonts.loadList(doc["fonts"], assetsRoot))
 			return false;
 	}
 
 	if(!doc["soundbuffers"].isNull())
 	{
-		if(!soundBuffers.loadList(doc["soundbuffers"]))
+		if(!soundBuffers.loadList(doc["soundbuffers"], assetsRoot))
 			return false;
 	}
 
 	if(!doc["soundstreams"].isNull())
 	{
-		if(!soundStreams.loadList(doc["soundstreams"]))
+		if(!soundStreams.loadList(doc["soundstreams"], assetsRoot))
 			return false;
 	}
 
 	if(!doc["atlases"].isNull())
 	{
-		if(!atlases.loadList(doc["atlases"]))
+		if(!atlases.loadList(doc["atlases"], assetsRoot))
 			return false;
 	}
 
 	if(!doc["maps"].isNull())
 	{
-		if(!maps.loadList(doc["maps"]))
+		if(!maps.loadList(doc["maps"], assetsRoot))
 			return false;
 	}
 

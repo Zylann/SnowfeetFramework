@@ -35,9 +35,9 @@ public:
 	~AssetBank();
 
 	// Sets the root folder of all AssetMaps.
-	void setRootFolder(const std::string & rf);
+	//void setRootFolder(const std::string & rf);
 
-	bool loadFromJSON(const std::string & filePath);
+	bool loadFromJSON(const std::string & assetsRoot, const std::string & manifestPath);
 //	bool loadFolder(const std::string & folderPath);
 
 	void makeCurrent();

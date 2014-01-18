@@ -88,6 +88,10 @@ bool GameApp::init()
 		std::cout << "I: " << settingsFileName << " was not found, creating a new one." << std::endl;
 		m_gameSettings.saveToJSONFile(settingsFileName);
 	}
+	else
+	{
+		std::cout << "I: Reading " << settingsFileName << std::endl;
+	}
 
 	// If the hardcoded title is empty, use the one from the settings
 	if(m_title.empty())
@@ -101,7 +105,7 @@ bool GameApp::init()
 
 	// Load startup assets
 	// TODO asynchronous loading of assets with a progressBar
-	if(!m_assets.loadFromJSON(m_gameSettings.assetsRoot + "/assets.json"))
+	if(!m_assets.loadFromJSON(m_gameSettings.assetsRoot + "/assets.json", m_gameSettings.assetsRoot))
 	{
 		return false;
 	}
