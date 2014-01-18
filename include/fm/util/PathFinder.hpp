@@ -4,7 +4,8 @@
 #include <cassert>
 #include <iostream>
 #include <cmath>
-#include "PriorityQueueB.hpp"
+
+#include <fm/util/PriorityQueueB.hpp>
 
 namespace zn
 {

@@ -8,7 +8,7 @@ This file is part of the zCraft framework project.
 #define HEADER_ZN_COLOR_HPP_INCLUDED
 
 #include <string>
-#include "../types.hpp"
+#include <fm/types.hpp>
 
 #ifdef ZN_SFML
 	#include <SFML/Graphics.hpp>

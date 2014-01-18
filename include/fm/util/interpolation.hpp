@@ -9,6 +9,8 @@ This file is part of the zCraft framework project.
 
 #include <cmath>
 
+// TODO typedef types convention
+
 namespace zn
 {
 // x in [0,1]

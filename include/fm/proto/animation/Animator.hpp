@@ -1,7 +1,7 @@
 #ifndef HEADER_ZN_AANIMATOR_HPP_INCLUDED
 #define HEADER_ZN_AANIMATOR_HPP_INCLUDED
 
-#include "../Component.hpp"
+#include <fm/proto/Component.hpp>
 
 namespace zn
 {

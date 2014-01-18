@@ -8,7 +8,7 @@ This file is part of the zCraftFramework project.
 #define HEADER_ZN_TILEMAP_H_INCLUDED
 
 #include <SFML/Graphics.hpp>
-#include "../util/Vector2.hpp"
+#include <fm/util/Vector2.hpp>
 
 namespace zn
 {

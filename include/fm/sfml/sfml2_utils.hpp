@@ -3,7 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <sstream>
-#include "../util/math.hpp"
+#include <fm/util/math.hpp>
 
 // Utility functions that extend SFML functionnality,
 // mainly for clarity and shorter code

@@ -1,7 +1,8 @@
 #ifndef MACROS_HPP_INCLUDED
 #define MACROS_HPP_INCLUDED
 
-#include "../config.hpp"
+#include <sstream>
+#include <fm/config.hpp>
 
 // Place this at the beginning of a code section that may be called twice.
 // It will raise a failing assertion if the code is called twice.

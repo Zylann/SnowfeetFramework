@@ -8,9 +8,9 @@ This file is part of the zCraftFramework project.
 #define HEADER_ZN_VECTOR2_HPP_INCLUDED
 
 #include <string>
-#include "../types.hpp"
-#include "math.hpp"
-#include "stringutils.hpp"
+#include <fm/types.hpp>
+#include <fm/util/math.hpp>
+#include <fm/util/stringutils.hpp>
 
 #ifdef ZN_SFML
 	#include <SFML/System.hpp>

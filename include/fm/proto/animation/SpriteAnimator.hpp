@@ -1,8 +1,8 @@
 #ifndef HEADER_ZN_SPRITEANIMATOR_HPP_INCLUDED
 #define HEADER_ZN_SPRITEANIMATOR_HPP_INCLUDED
 
-#include "Animator.hpp"
-#include "../../asset/TextureAtlas.hpp"
+#include <fm/proto/animation/Animator.hpp>
+#include <fm/asset/TextureAtlas.hpp>
 
 namespace zn
 {

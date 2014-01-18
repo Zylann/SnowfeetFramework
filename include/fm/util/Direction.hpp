@@ -2,7 +2,7 @@
 #define HEADER_ZN_DIRECTION_HPP_INCLUDED
 
 #include <SFML/System.hpp>
-#include "../types.hpp"
+#include <fm/types.hpp>
 
 //#define ZN_Y_UP
 

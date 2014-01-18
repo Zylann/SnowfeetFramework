@@ -10,8 +10,8 @@ This file is part of the zCraftFramework project.
 #include <cstring> // For memcpy and memset
 #include <iostream>
 
-#include "Vector2.hpp"
-#include "Exception.hpp"
+#include <fm/util/Vector2.hpp>
+#include <fm/util/Exception.hpp>
 
 namespace zn
 {

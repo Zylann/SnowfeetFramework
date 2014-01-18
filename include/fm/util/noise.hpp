@@ -10,6 +10,8 @@ This file is part of the zCraft framework project.
 namespace zn
 {
 
+// TODO typedef type conventions
+
 float noise2d(int x, int y, int seed);
 
 float noise2dGradient(float x, float y, int seed);

@@ -8,7 +8,7 @@ This file is part of the zCraft project.
 #define HEADER_ZN_RECT_HPP_INCLUDED
 
 #include <iostream> // For textual representation
-#include "Vector2.hpp"
+#include <fm/util/Vector2.hpp>
 
 namespace zn
 {

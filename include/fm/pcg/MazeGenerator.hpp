@@ -3,10 +3,10 @@
 
 #include <vector>
 
-#include "../types.hpp"
-#include "../util/Array2D.hpp"
-#include "../util/math.hpp"
-#include "../util/Direction.hpp"
+#include <fm/types.hpp>
+#include <fm/util/Array2D.hpp>
+#include <fm/util/math.hpp>
+#include <fm/util/Direction.hpp>
 
 #ifdef ZN_SFML
 #include <SFML/Graphics.hpp>

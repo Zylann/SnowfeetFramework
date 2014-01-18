@@ -2,7 +2,7 @@
 #define HEADER_ZN_AUDIOSOURCE_HPP_INCLUDED
 
 #include <SFML/Audio.hpp>
-#include "../types.hpp"
+#include <fm/types.hpp>
 
 namespace zn
 {

@@ -1,18 +1,19 @@
-#ifndef HEADER_ZN_ASSETBANK_HPP_INCLUDED
-#define HEADER_ZN_ASSETBANK_HPP_INCLUDED
 /*
 AssetBank.hpp
 Copyright (C) 2010-2013 Marc GILLERON
 This file is part of the zCraftFramework project.
 */
 
+#ifndef HEADER_ZN_ASSETBANK_HPP_INCLUDED
+#define HEADER_ZN_ASSETBANK_HPP_INCLUDED
+
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
-#include "../util/NonCopyable.hpp"
-#include "AssetMap.hpp"
-#include "TextureAtlas.hpp"
-#include "TiledMap.hpp"
-#include "FileRef.hpp"
+#include <fm/util/NonCopyable.hpp>
+#include <fm/asset/AssetMap.hpp>
+#include <fm/asset/TextureAtlas.hpp>
+#include <fm/asset/TiledMap.hpp>
+#include <fm/asset/FileRef.hpp>
 
 namespace zn
 {

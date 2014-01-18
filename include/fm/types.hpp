@@ -7,7 +7,7 @@ This file is part of the zCraft-Framework project.
 #ifndef HEADER_ZN_TYPES_HPP_INCLUDED
 #define HEADER_ZN_TYPES_HPP_INCLUDED
 
-#include "config.hpp"
+#include <fm/config.hpp>
 
 namespace zn
 {

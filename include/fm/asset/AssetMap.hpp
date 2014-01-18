@@ -11,9 +11,9 @@ This file is part of the zCraftFramework project.
 #include <unordered_map>
 #include <iostream>
 
-#include "../util/stringutils.hpp"
-#include "../config.hpp"
-#include "../json/JsonBox.h"
+#include <fm/config.hpp>
+#include <fm/util/stringutils.hpp>
+#include <JsonBox.h>
 
 namespace zn
 {

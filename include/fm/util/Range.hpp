@@ -8,7 +8,7 @@ This file is part of the zCraftFramework.
 #define HEADER_ZN_RANGE_HPP_INCLUDED
 
 #include <iostream>
-#include "../types.hpp"
+#include <fm/types.hpp>
 
 namespace zn
 {

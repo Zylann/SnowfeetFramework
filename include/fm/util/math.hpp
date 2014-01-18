@@ -9,7 +9,7 @@ This file is part of the zCraft framework.
 
 #include <cmath>
 #include <cstdlib>
-#include "../types.hpp"
+#include <fm/types.hpp>
 
 namespace zn
 {

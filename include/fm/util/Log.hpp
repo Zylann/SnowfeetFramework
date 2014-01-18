@@ -19,6 +19,7 @@ This file is part of the zCraftFramework project.
 namespace zn
 {
 
+// TODO make it compile properly
 // Simple stream wrapper providing file or console output
 class Log
 {

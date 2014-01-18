@@ -2,7 +2,7 @@
 #define HEADER_ZN_TYPECHECK_HPP_INCLUDED
 
 #include <typeinfo>
-#include "../config.hpp"
+#include <fm/config.hpp>
 
 namespace zn
 {

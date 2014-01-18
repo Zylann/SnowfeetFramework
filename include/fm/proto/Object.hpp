@@ -7,8 +7,8 @@ This file is part of the zCraft-Framework project.
 #ifndef HEADER_ZN_OBJECT_HPP_INCLUDED
 #define HEADER_ZN_OBJECT_HPP_INCLUDED
 
-#include "../types.hpp"
-#include "ComponentType.hpp"
+#include <fm/types.hpp>
+#include <fm/proto/ComponentType.hpp>
 
 namespace zn
 {

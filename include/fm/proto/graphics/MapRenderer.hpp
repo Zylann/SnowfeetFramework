@@ -1,9 +1,9 @@
 #ifndef HEADER_ZN_MAPRENDERER_HPP_INCLUDED
 #define HEADER_ZN_MAPRENDERER_HPP_INCLUDED
 
-#include "Renderer.hpp"
-#include "../../asset/TiledMap.hpp"
-#include "../../util/Array2D.hpp"
+#include <fm/proto/graphics/Renderer.hpp>
+#include <fm/asset/TiledMap.hpp>
+#include <fm/util/Array2D.hpp>
 
 namespace zn
 {

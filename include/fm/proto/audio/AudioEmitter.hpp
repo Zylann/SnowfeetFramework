@@ -2,8 +2,8 @@
 #define HEADER_ZN_AUDIOEMITTER_HPP_INCLUDED
 
 #include <unordered_set>
-#include "../../sfml/AudioSource.hpp"
-#include "../Component.hpp"
+#include <fm/sfml/AudioSource.hpp>
+#include <fm/proto/Component.hpp>
 
 namespace zn
 {

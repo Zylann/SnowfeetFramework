@@ -9,11 +9,12 @@ This file is part of the zCraft-Framework project.
 
 #include <SFML/Graphics.hpp>
 #include <unordered_set>
-#include "Entity.hpp"
-#include "LayerMap.hpp"
-#include "ComponentSystem.hpp"
-#include "behaviour/Behaviour.hpp"
-#include "audio/AudioSystem.hpp"
+
+#include <fm/proto/Entity.hpp>
+#include <fm/proto/LayerMap.hpp>
+#include <fm/proto/ComponentSystem.hpp>
+#include <fm/proto/behaviour/Behaviour.hpp>
+#include <fm/proto/audio/AudioSystem.hpp>
 
 namespace zn
 {

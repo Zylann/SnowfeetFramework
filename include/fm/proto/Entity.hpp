@@ -9,11 +9,12 @@ This file is part of the zCraft-Framework project.
 
 #include <list>
 #include <SFML/Graphics.hpp>
-#include "../types.hpp"
-#include "animation/Animator.hpp"
-#include "graphics/Camera.hpp"
-#include "Object.hpp"
-#include "Transform.hpp"
+
+#include <fm/types.hpp>
+#include <fm/proto/animation/Animator.hpp>
+#include <fm/proto/graphics/Camera.hpp>
+#include <fm/proto/Object.hpp>
+#include <fm/proto/Transform.hpp>
 
 namespace zn
 {

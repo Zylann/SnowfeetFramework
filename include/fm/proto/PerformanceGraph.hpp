@@ -8,7 +8,7 @@ This file is part of the zCraft-Framework project.
 #define HEADER_ZN_PERFORMANCEGRAPH_HPP_INCLUDED
 
 #include <SFML/Graphics.hpp>
-#include "../util/Range.hpp"
+#include <fm/util/Range.hpp>
 
 namespace zn
 {

@@ -4,7 +4,8 @@
 #include <vector>
 #include <array>
 #include <unordered_map>
-#include "fm/util/Array2D.hpp"
+
+#include <fm/util/Array2D.hpp>
 
 namespace zn
 {

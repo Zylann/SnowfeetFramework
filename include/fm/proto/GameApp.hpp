@@ -8,10 +8,11 @@ This file is part of the zCraft-Framework project.
 #define HEADER_ZN_GAMEAPP_H_INCLUDED
 
 #include <SFML/Graphics.hpp>
-#include "../asset/AssetBank.hpp"
-#include "Scene.hpp"
-#include "PerformanceGraph.hpp"
-#include "GameSettings.hpp"
+
+#include <fm/asset/AssetBank.hpp>
+#include <fm/proto/Scene.hpp>
+#include <fm/proto/PerformanceGraph.hpp>
+#include <fm/proto/GameSettings.hpp>
 
 namespace zn
 {

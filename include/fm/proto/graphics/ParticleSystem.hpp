@@ -1,8 +1,8 @@
 #ifndef HEADER_ZN_PARTICLESYSTEM_HPP_INCLUDED
 #define HEADER_ZN_PARTICLESYSTEM_HPP_INCLUDED
 
-#include "../../util/Range.hpp"
-#include "Renderer.hpp"
+#include <fm/util/Range.hpp>
+#include <fm/proto/graphics/Renderer.hpp>
 
 namespace zn
 {
