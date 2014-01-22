@@ -190,6 +190,20 @@ inline T lerp(T src, T dst, f32 t)
 	return src + (dst - src) * t;
 }
 
+/// Counts the number of bits set in an integer (human-readable version, not fastest)
+/// See http://stackoverflow.com/questions/109023/how-to-count-the-number-of-set-bits-in-a-32-bit-integer
+inline u32 bitcount(u32 value)
+{
+    u32 count = 0;
+    while(value != 0) // until all bits are zero
+	{
+		if((value & 1) == 1) // check lower bit
+			++count;
+		value >>= 1; // shift bits, removing lower bit
+    }
+    return count;
+}
+
 // TODO math: fast rsqrt for vector normalization
 
 } // namespace math
