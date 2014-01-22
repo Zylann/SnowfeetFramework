@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Engine" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/proto" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="obj/Debug/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add directory="src" />
+					<Add directory="include" />
+					<Add directory="include/fm/json" />
+				</Compiler>
+				<Linker>
+					<Add library="sfml-audio" />
+					<Add library="sfml-graphics" />
+					<Add library="sfml-window" />
+					<Add library="sfml-system" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/SSM_Cpp_v2" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+		</Compiler>
+		<Unit filename="include/fm/asset/Asset.hpp" />
+		<Unit filename="include/fm/asset/AssetBank.hpp" />
+		<Unit filename="include/fm/asset/AssetMap.hpp" />
+		<Unit filename="include/fm/asset/FileRef.hpp" />
+		<Unit filename="include/fm/asset/TextureAtlas.hpp" />
+		<Unit filename="include/fm/asset/TiledMap.hpp" />
+		<Unit filename="include/fm/config.hpp" />
+		<Unit filename="include/fm/json/JsonBox.h" />
+		<Unit filename="include/fm/json/JsonBox/Array.h" />
+		<Unit filename="include/fm/json/JsonBox/Convert.h" />
+		<Unit filename="include/fm/json/JsonBox/Escaper.h" />
+		<Unit filename="include/fm/json/JsonBox/Grammar.h" />
+		<Unit filename="include/fm/json/JsonBox/IndentCanceller.h" />
+		<Unit filename="include/fm/json/JsonBox/Indenter.h" />
+		<Unit filename="include/fm/json/JsonBox/Object.h" />
+		<Unit filename="include/fm/json/JsonBox/OutputFilter.h" />
+		<Unit filename="include/fm/json/JsonBox/SolidusEscaper.h" />
+		<Unit filename="include/fm/json/JsonBox/Value.h" />
+		<Unit filename="include/fm/json/json_utils.hpp" />
+		<Unit filename="include/fm/pcg/AutoTiler.hpp" />
+		<Unit filename="include/fm/pcg/MazeGenerator.hpp" />
+		<Unit filename="include/fm/proto/Component.hpp" />
+		<Unit filename="include/fm/proto/ComponentSystem.hpp" />
+		<Unit filename="include/fm/proto/ComponentType.hpp" />
+		<Unit filename="include/fm/proto/Entity.hpp" />
+		<Unit filename="include/fm/proto/GameApp.hpp" />
+		<Unit filename="include/fm/proto/GameSettings.hpp" />
+		<Unit filename="include/fm/proto/LayerMap.hpp" />
+		<Unit filename="include/fm/proto/Object.hpp" />
+		<Unit filename="include/fm/proto/PerformanceGraph.hpp" />
+		<Unit filename="include/fm/proto/Scene.hpp" />
+		<Unit filename="include/fm/proto/Transform.hpp" />
+		<Unit filename="include/fm/proto/animation/Animator.hpp" />
+		<Unit filename="include/fm/proto/animation/SpriteAnimator.hpp" />
+		<Unit filename="include/fm/proto/audio/AudioEmitter.hpp" />
+		<Unit filename="include/fm/proto/audio/AudioSystem.hpp" />
+		<Unit filename="include/fm/proto/behaviour/Behaviour.hpp" />
+		<Unit filename="include/fm/proto/graphics/Camera.hpp" />
+		<Unit filename="include/fm/proto/graphics/MapRenderer.hpp" />
+		<Unit filename="include/fm/proto/graphics/ParticleSystem.hpp" />
+		<Unit filename="include/fm/proto/graphics/Renderer.hpp" />
+		<Unit filename="include/fm/proto/graphics/SpriteRenderer.hpp" />
+		<Unit filename="include/fm/proto/graphics/TextRenderer.hpp" />
+		<Unit filename="include/fm/proto/physics/Body.hpp" />
+		<Unit filename="include/fm/proto/physics/BoxCollider.hpp" />
+		<Unit filename="include/fm/proto/physics/Collider.hpp" />
+		<Unit filename="include/fm/proto/physics/CollisionInfo.hpp" />
+		<Unit filename="include/fm/proto/physics/MapCollider.hpp" />
+		<Unit filename="include/fm/sfml/AudioSource.hpp" />
+		<Unit filename="include/fm/sfml/SlicedTilemap.hpp" />
+		<Unit filename="include/fm/sfml/Tilemap.hpp" />
+		<Unit filename="include/fm/sfml/sfml2_utils.hpp" />
+		<Unit filename="include/fm/types.hpp" />
+		<Unit filename="include/fm/util/Array2D.hpp" />
+		<Unit filename="include/fm/util/Color.hpp" />
+		<Unit filename="include/fm/util/Direction.hpp" />
+		<Unit filename="include/fm/util/Exception.hpp" />
+		<Unit filename="include/fm/util/Log.hpp" />
+		<Unit filename="include/fm/util/NonCopyable.hpp" />
+		<Unit filename="include/fm/util/PathFinder.hpp" />
+		<Unit filename="include/fm/util/PriorityQueueB.hpp" />
+		<Unit filename="include/fm/util/Range.hpp" />
+		<Unit filename="include/fm/util/Rect.hpp" />
+		<Unit filename="include/fm/util/Vector2.hpp" />
+		<Unit filename="include/fm/util/interpolation.hpp" />
+		<Unit filename="include/fm/util/macros.hpp" />
+		<Unit filename="include/fm/util/math.hpp" />
+		<Unit filename="include/fm/util/noise.hpp" />
+		<Unit filename="include/fm/util/stringutils.hpp" />
+		<Unit filename="include/fm/util/typecheck.hpp" />
+		<Unit filename="src/fm/asset/AssetBank.cpp" />
+		<Unit filename="src/fm/asset/TextureAtlas.cpp" />
+		<Unit filename="src/fm/asset/TiledMap.cpp" />
+		<Unit filename="src/fm/json/JsonBox/Array.cpp" />
+		<Unit filename="src/fm/json/JsonBox/Convert.cpp" />
+		<Unit filename="src/fm/json/JsonBox/Escaper.cpp" />
+		<Unit filename="src/fm/json/JsonBox/IndentCanceller.cpp" />
+		<Unit filename="src/fm/json/JsonBox/Indenter.cpp" />
+		<Unit filename="src/fm/json/JsonBox/Object.cpp" />
+		<Unit filename="src/fm/json/JsonBox/SolidusEscaper.cpp" />
+		<Unit filename="src/fm/json/JsonBox/Value.cpp" />
+		<Unit filename="src/fm/json/json_utils.cpp" />
+		<Unit filename="src/fm/pcg/AutoTiler.cpp" />
+		<Unit filename="src/fm/pcg/MazeGenerator.cpp" />
+		<Unit filename="src/fm/proto/Component.cpp" />
+		<Unit filename="src/fm/proto/ComponentType.cpp" />
+		<Unit filename="src/fm/proto/Entity.cpp" />
+		<Unit filename="src/fm/proto/GameApp.cpp" />
+		<Unit filename="src/fm/proto/PerformanceGraph.cpp" />
+		<Unit filename="src/fm/proto/Scene.cpp" />
+		<Unit filename="src/fm/proto/Transform.cpp" />
+		<Unit filename="src/fm/proto/animation/Animator.cpp" />
+		<Unit filename="src/fm/proto/animation/SpriteAnimator.cpp" />
+		<Unit filename="src/fm/proto/audio/AudioEmitter.cpp" />
+		<Unit filename="src/fm/proto/audio/AudioSystem.cpp" />
+		<Unit filename="src/fm/proto/behaviour/Behaviour.cpp" />
+		<Unit filename="src/fm/proto/graphics/Camera.cpp" />
+		<Unit filename="src/fm/proto/graphics/MapRenderer.cpp" />
+		<Unit filename="src/fm/proto/graphics/ParticleSystem.cpp" />
+		<Unit filename="src/fm/proto/graphics/Renderer.cpp" />
+		<Unit filename="src/fm/proto/graphics/SpriteRenderer.cpp" />
+		<Unit filename="src/fm/proto/graphics/TextRenderer.cpp" />
+		<Unit filename="src/fm/proto/physics/Body.cpp" />
+		<Unit filename="src/fm/proto/physics/BoxCollider.cpp" />
+		<Unit filename="src/fm/proto/physics/Collider.cpp" />
+		<Unit filename="src/fm/proto/physics/MapCollider.cpp" />
+		<Unit filename="src/fm/sfml/AudioSource.cpp" />
+		<Unit filename="src/fm/sfml/SlicedTilemap.cpp" />
+		<Unit filename="src/fm/sfml/Tilemap.cpp" />
+		<Unit filename="src/fm/util/Color.cpp" />
+		<Unit filename="src/fm/util/Log.cpp" />
+		<Unit filename="src/fm/util/PathFinder.cpp" />
+		<Unit filename="src/fm/util/interpolation.cpp" />
+		<Unit filename="src/fm/util/noise.cpp" />
+		<Unit filename="src/fm/util/stringutils.cpp" />
+		<Extensions>
+			<DoxyBlocks>
+				<comment_style block="0" line="0" />
+				<doxyfile_project />
+				<doxyfile_build />
+				<doxyfile_warnings />
+				<doxyfile_output />
+				<doxyfile_dot />
+				<general />
+			</DoxyBlocks>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

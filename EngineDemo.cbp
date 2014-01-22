@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="EngineDemo" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/EngineDemo" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add directory="include" />
+					<Add directory="include/fm/json" />
+					<Add directory="src" />
+				</Compiler>
+				<Linker>
+					<Add library="proto" />
+					<Add library="sfml-audio" />
+					<Add library="sfml-graphics" />
+					<Add library="sfml-window" />
+					<Add library="sfml-system" />
+					<Add directory="bin/Debug" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/EngineDemo" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+		</Compiler>
+		<Unit filename="src/demo/Avatar.cpp" />
+		<Unit filename="src/demo/Avatar.hpp" />
+		<Unit filename="src/demo/Cat.cpp" />
+		<Unit filename="src/demo/Cat.hpp" />
+		<Unit filename="src/demo/Character.cpp" />
+		<Unit filename="src/demo/Character.hpp" />
+		<Unit filename="src/demo/Cursor.cpp" />
+		<Unit filename="src/demo/Cursor.hpp" />
+		<Unit filename="src/demo/Game.cpp" />
+		<Unit filename="src/demo/Game.hpp" />
+		<Unit filename="src/demo/Mover.cpp" />
+		<Unit filename="src/demo/Mover.hpp" />
+		<Unit filename="src/demo/Rotate.hpp" />
+		<Unit filename="src/demo/common.hpp" />
+		<Unit filename="src/demo/main.cpp" />
+		<Unit filename="src/test/test.hpp" />
+		<Unit filename="src/test/test_autotiler.cpp" />
+		<Unit filename="src/test/test_mazeGenerator.cpp" />
+		<Unit filename="src/test/test_pathfinder.cpp" />
+		<Unit filename="src/test/test_pathfinder.hpp" />
+		<Unit filename="src/test/test_stringutils.cpp" />
+		<Unit filename="src/test/test_stringutils.hpp" />
+		<Unit filename="src/test/test_typecheck.cpp" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<DoxyBlocks>
+				<comment_style block="0" line="0" />
+				<doxyfile_project />
+				<doxyfile_build />
+				<doxyfile_warnings />
+				<doxyfile_output />
+				<doxyfile_dot />
+				<general />
+			</DoxyBlocks>
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
