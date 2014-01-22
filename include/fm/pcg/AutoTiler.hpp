@@ -4,6 +4,7 @@
 #include <vector>
 #include <array>
 #include <unordered_map>
+#include <unordered_set>
 
 #include <fm/util/Array2D.hpp>
 
@@ -11,104 +12,102 @@ namespace zn
 {
 
 // Data-oriented auto-tiler.
-// Given a grid where each cell is a type, finds which tiles apply to them
+// Given an input grid, finds which tiles apply to them as an output grid.
 // (can handle connections, variants and default tiles)
+// The approach here is to define all possible cases instead of using
+// fixed IF block or bitwise presets. It consumes more memory, but that's
+// an acceptable tradeoff for handling almost all possible cases and being very flexible.
 class ZN_API AutoTiler
 {
 public:
 
-	typedef u32 Tile;
-	typedef u8 Type;
+	typedef u8 In_T;
+	typedef u32 Out_T;
 
-	// A neigboring is a mask containing 8 values of a grid.
-	// Each value in this grid is a lookup refering to a type.
-	// A lookup can refer up to 16 different types (4 bit values).
+	// A connection mask represents a 3x3 grid (without the center) where
+	// 1 are connecting tiles, 0 are other tiles.
 	// 0 1 2
 	// 3 x 4
 	// 5 6 7
-	typedef u32 Neighboring; // 01234567 (8 * 4bits)
+	typedef u8 ConnectionMask; // 01234567 (8 bits)
 
-	// Defines the rules applied to a type of tile depending on various neighborings,
-	// in order to choose the good center tile from a series of possible variants
-	struct TypeRules
+	// Defines the rules applied to a type of input cell depending on various neighborings,
+	// in order to choose the good output value going at the center, from a series of possible variants
+	struct RuleSet
 	{
-		// Tile used if none of the rules match
-		Tile defaultTile;
+		// Tiles used if none of the rules match
+		std::vector<Out_T> defaultOutput;
 
-		// Relation between a specific Neighboring and the tiles that can be used
-		std::unordered_map<Neighboring, std::vector<Tile>> cases; // [neighbors][variant]
+		// Relation between a specific connection neighboring and the tiles that can be used
+		std::unordered_map<ConnectionMask, std::vector<Out_T>> cases; // [neighboring][variant]
 
-		// Maps a type to its 4-bit lookup in Neighboring (kind of lightweight alias).
-		// The use of lookups is up to the user.
-		std::unordered_map<Type, u8> lookups;
-		// If the type is not found in lookups when processing, this lookup is used.
-		// Note: this converts unmapped types to a mapped one as fallback.
-		// It also allows to define some kind of "any" type.
-		u8 defaultLookup;
+		// Input values that should connect
+		std::unordered_set<In_T> connections;
 
 		// TODO add neighboring pattern option
 
-		TypeRules():
-			defaultTile(0),
-			defaultLookup(0)
-		{}
-
-		// Sets a type to be seen as the given lookup in Neighboring keys.
-		// Performs additionnal checks in debug mode.
-		void setLookup(u8 type, u8 lookup)
+		RuleSet(Out_T pDefaultOutput = 0):
+			defaultOutput(pDefaultOutput)
 		{
-#ifdef ZN_DEBUG
-			if(lookup & 0xf0)
+			defaultOutput.push_back(0);
+		}
+
+		void setDefaultOutput(Out_T singleValue)
+		{
+			if(defaultOutput.size() != 1)
 			{
-				std::cout << "W: AutoTiler::TypeRules::setLookup: "
-					"the given lookup is larger than 4 bits ! "
-					"(type=" << (u32)type << ", lookup=" << (u32)lookup << ')'
-					<< std::endl;
+				defaultOutput.resize(1);
 			}
-#endif
-			lookups[type] = lookup;
+			defaultOutput[0] = singleValue;
 		}
 
-		// Sets lookups so only cells of the same type will be seen as 1
-		// and any other will be seen as 0
-		void setLookupsAsOnly(u8 type)
-		{
-			defaultLookup = 0;
-			lookups[type] = 1;
-		}
+		// Adds a neighboring case having certain neighbors set as "don't care".
+		// This is done by specifying a bitmask where 1 means "take into account"
+		// and 0 maens "don't care". If at least one bit is 0, all possible
+		// fully-defined cases will be generated. In the end, it's like
+		// calling the addCase(neighboring,variants) function a lot of times.
+		void addCase(ConnectionMask neighboring, u8 mask, std::vector<Out_T> variants);
 
-		// Adds a neighboring case by specifying 8 neighbor aliases and the resulting center tile variants
-		void addCase(u8 v0, u8 v1, u8 v2, u8 v3, u8 v4, u8 v5, u8 v6, u8 v7, std::vector<Tile> variants)
+		// Adds a new neighboring case to the set with its resulting output variants.
+		// Every value are relevant in the neighboring.
+		// Returns true if added, false if existing (and then not added)
+		bool addCase(ConnectionMask neighboring, std::vector<Out_T> variants)
 		{
-			Neighboring n = v0; n <<= 4;
-			n |= v1; n <<= 4;
-			n |= v2; n <<= 4;
-			n |= v3; n <<= 4;
-			n |= v4; n <<= 4;
-			n |= v5; n <<= 4;
-			n |= v6; n <<= 4;
-			n |= v7;
-
-			cases.insert(std::make_pair(n, variants));
+			auto it = cases.find(neighboring);
+			if(it == cases.end())
+			{
+				cases.insert(std::make_pair(neighboring, variants));
+				return true;
+			}
+			return false;
 		}
 	};
 
-	AutoTiler() :
-		defaultTile(0),
-		defaultType(0)
-	{}
-
-	Tile defaultTile; // Tile used when no rules match
-	Type defaultType; // Type used when out of bounds
+	In_T defaultInput; // Type used when out of bounds
+	Out_T defaultOutput; // Tile used when no rules match
 
 	// Tiling rules for each type in input grids
-	std::vector<TypeRules> typeRules;
+	std::vector<RuleSet> ruleSets;
+
+	AutoTiler() :
+		defaultInput(0),
+		defaultOutput(0)
+	{}
+
+	void addRuleSet(In_T inputValue, const RuleSet & ruleset)
+	{
+		if(inputValue >= ruleSets.size())
+		{
+			ruleSets.resize(inputValue+1);
+		}
+		ruleSets[inputValue] = ruleset;
+	}
 
 	// Converts a grid of types into a grid of tiles
-	void process(const Array2D<Type> & typeGrid, Array2D<Tile> & tileGrid);
+	void process(const Array2D<In_T> & inputGrid, Array2D<Out_T> & outputGrid);
 
 	// Calculates a tile from its type at the given position
-	void processTile(const Array2D<Type> & typeGrid, Array2D<Tile> & tileGrid, u32 x, u32 y);
+	Out_T processTile(const Array2D<In_T> & inputGrid, u32 x, u32 y);
 
 };
 

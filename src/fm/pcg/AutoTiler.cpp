@@ -15,80 +15,161 @@ const s32 g_nv8[8][2] = {
 	{1, 1}
 };
 
-void AutoTiler::process(const Array2D<Type> & typeGrid, Array2D<Tile> & tileGrid)
+//------------------------------------------------------------------------------
+void AutoTiler::RuleSet::addCase(ConnectionMask neighboring, u8 mask, std::vector<Out_T> variants)
+{
+	// Is the case fully-specific?
+	if(mask == 0xf)
+	{
+		// The mask is full, no need to generate cases
+		addCase(neighboring, variants);
+		return;
+	}
+
+	// Is the mask "don't care at all"?
+	if(mask == 0x0)
+	{
+		// It means we don't even need to watch for neighboring,
+		// just use the defaultOuput
+		defaultOutput = variants;
+		return;
+	}
+
+	// mask is neither full nor empty, then some neighbors are "don't care".
+	// Generate all cases for these locations
+	// (maximum combination count is 256, but it's the case handled by
+	// defaultOutput already, so a real count would be 128, which is not so big).
+
+	// Ensure "don't care" neighbors are unset (these will be generated)
+	neighboring &= mask;
+
+	// Count zero bits in the mask and memorize their position
+	u8 bits[8]; // 1-bit masks representing the Nth variable bit
+	u8 bitCount = 0;
+	for(u8 i = 0; i < 8; ++i)
+	{
+		u8 bit = (1 << i);
+		if(!(mask & bit))
+		{
+			bits[bitCount++] = bit;
+		}
+	}
+
+	// TODO test case generation
+
+	// Generate possible neighborings :
+	// Use a number going from 0 to max, and dispatch its bits in the final neighboring where bits are variable.
+	//---------
+	// Example
+	//---------
+	// Some case:           0b10100100
+	//                          +
+	// Mask:                0b11100101
+	//                          =
+	// Means:               0b101**1*0
+	//
+	// Needed combinations: 0b10100100  n = 0b000 (0)
+	//                           ^^ ^
+	//                      0b10100110  n = 0b001 (1)
+	//                           ^^ ^
+	//                      0b10101100  n = 0b010 (2)
+	//                           ^^ ^
+	//                      0b10101110  n = 0b011 (3)
+	//                      ...
+	//                      0b10111110  n = 0b111 (7)
+	//                           ^^ ^
+	u16 max = 1 << bitCount;
+	for(u16 n = 0; n < max; ++n)
+	{
+		u8 generatedNeighboring = neighboring;
+		for(u8 i = 0; i < bitCount; ++i)
+		{
+			u8 bit = (1 << i);
+			if(n & bit)
+			{
+				generatedNeighboring |= bits[i];
+			}
+		}
+
+		addCase(generatedNeighboring, variants);
+	}
+}
+
+//------------------------------------------------------------------------------
+void AutoTiler::process(const Array2D<In_T> & inputGrid, Array2D<Out_T> & outputGrid)
 {
 	// For each cell in the grid
-	for(s32 y = 0; y < static_cast<s32>(typeGrid.sizeY()); ++y)
+	for(s32 y = 0; y < static_cast<s32>(inputGrid.sizeY()); ++y)
 	{
-		for(s32 x = 0; x < static_cast<s32>(typeGrid.sizeX()); ++x)
+		for(s32 x = 0; x < static_cast<s32>(inputGrid.sizeX()); ++x)
 		{
-			processTile(typeGrid, tileGrid, x, y);
+			outputGrid.set(x,y, processTile(inputGrid, x, y));
 		}
 	}
 }
 
-void AutoTiler::processTile(const Array2D<Type> & typeGrid, Array2D<Tile> & tileGrid, u32 x, u32 y)
+//------------------------------------------------------------------------------
+AutoTiler::Out_T AutoTiler::processTile(const Array2D<In_T> & inputGrid, u32 x, u32 y)
 {
 	// Get the type of the cell
-	Type type = typeGrid.getNoEx(x,y);
+	In_T type = inputGrid.getNoEx(x,y);
 
-	Tile tile = defaultTile;
+	Out_T outputValue = defaultOutput;
 
 	// If the type is referenced
-	if(type < typeRules.size())
+	if(type < ruleSets.size())
 	{
 		// If the type has no rules
-		const TypeRules & rules = typeRules[type];
+		const RuleSet & rules = ruleSets[type];
 		if(rules.cases.empty())
 		{
-			// Apply default tile to the cell
-			tile = rules.defaultTile;
+			// Apply default outputValue to the cell
+			outputValue = rules.defaultOutput[0];
 		}
 		else // The type has rules:
 		{
 			// Retrieve neighboring mask
-			u32 m = 0;
+			u8 m = 0;
 			for(u32 i = 0; i < 8; ++i)
 			{
 				s32 nx = x + g_nv8[i][0];
 				s32 ny = y + g_nv8[i][1];
 
-				Type ntype = typeGrid.contains(nx, ny) ? typeGrid.getNoEx(nx, ny) : defaultType;
+				// Get neighboring value
+				In_T ntype = inputGrid.contains(nx, ny) ? inputGrid.getNoEx(nx, ny) : defaultInput;
 
-				u8 lookup = rules.defaultLookup;
-				auto it = rules.lookups.find(ntype);
-				if(it != rules.lookups.end())
+				// If it connects
+				if(rules.connections.find(ntype) != rules.connections.end())
 				{
-					lookup = it->second;
+					// Add to the mask
+					m |= 1;
 				}
-
-				m |= lookup;
 
 				if(i != 7)
 				{
-					m <<= 4;
+					// Shift the mask to enter next value on next loop
+					m <<= 1;
 				}
 			}
 
-			Neighboring neighboring = m;
+			ConnectionMask neighboring = m;
 
 			// Find a rule for the given neighboring
 			auto ruleIt = rules.cases.find(neighboring);
 			if(ruleIt != rules.cases.end())
 			{
-				// Found a rule, apply a corresponding tile
-				tile = ruleIt->second[0]; // TODO choose variant at random
+				// Found a rule, apply a corresponding outputValue
+				outputValue = ruleIt->second[0]; // TODO choose variant at random
 			}
 			else
 			{
-				// No rules for this case, use type's default tile
-				tile = rules.defaultTile;
+				// No rules for this case, use type's default outputValue
+				outputValue = rules.defaultOutput[0];
 			}
 		}
 	}
 
-	// Place the tile
-	tileGrid.setNoEx(x,y, tile);
+	return outputValue;
 }
 
 
@@ -97,10 +178,10 @@ void AutoTiler::processTile(const Array2D<Type> & typeGrid, Array2D<Tile> & tile
 /*
 
 {
-	"defaultTile": 0,
+	"defaultOutput": 0,
 	"typeRules": [
 		{
-			"defaultTile": 0,
+			"defaultOutput": 0,
 			"cases": [
 				{
 					"n":[

@@ -15,10 +15,10 @@ void test_autotiler()
 	//                 |
 	//                 v
 		1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-		1, 1, 1, 0, 0, 2, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-		1, 1, 2, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, // <--
-		1, 1, 2, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-		1, 1, 0, 0, 1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1,
+		1, 1, 1, 0, 0, 3, 0, 1, 1, 1, 0, 1, 0, 0, 0, 1,
+		1, 1, 3, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, // <--
+		1, 1, 3, 0, 0, 0, 1, 1, 1, 1, 2, 0, 0, 0, 0, 1,
+		1, 1, 0, 0, 1, 0, 0, 1, 1, 1, 1, 2, 2, 0, 0, 1,
 		1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 		1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 		1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
@@ -35,35 +35,42 @@ void test_autotiler()
 	}
 
 	// The 0 type always makes the 0 tile
-	AutoTiler::TypeRules type0;
-	type0.defaultTile = 0;
+	AutoTiler::RuleSet type0;
+	type0.defaultOutput = {0};
 
 	// The 1 type makes different tiles depending on its neighbors
-	AutoTiler::TypeRules type1;
-	type1.defaultTile = 1;
-	type1.setLookupsAsOnly(1); // See all types but self as 0
-	type1.addCase(
-		0, 0, 0,
-		0,    0,
-		0, 0, 1, // 1 means self type (here walls) and 0 any other
-		{5}
-	);
-	type1.addCase(
-		1, 1, 0,
-		1,    0,
-		1, 1, 0,
-		{6}
-	);
+	AutoTiler::RuleSet type1;
+	type1.connections.insert(1);
+	type1.defaultOutput = {1};
+	// 0 0 0
+	// 0   0
+	// 0 0 1
+	type1.addCase(0b00000001, {5});
+	// 1 1 0
+	// 1   0
+	// 1 1 0
+	type1.addCase(0b11010110, {6});
+
+	// The 2 type represents the same wall corner in several cases: use of "don't care" neighbors
+	AutoTiler::RuleSet type2;
+	type2.connections.insert(1); // it connects with 1
+	type2.connections.insert(2); // and itself too
+	type2.defaultOutput = {2};
+	// * 0 *
+	// 1   0
+	// 1 1 *
+	type2.addCase(0b00010110, 0b01011110, {7});
 
 	AutoTiler tiler;
-	tiler.typeRules.push_back(type0);
-	tiler.typeRules.push_back(type1);
+	tiler.addRuleSet(0, type0);
+	tiler.addRuleSet(1, type1);
+	tiler.addRuleSet(2, type2);
 
 	// The map is surrounded by walls
-	tiler.defaultType = 1;
+	tiler.defaultInput = 1;
 
-	// There is no rules for the '2' type, then the default tile should be used
-	tiler.defaultTile = 0;
+	// There is no rules for the '3' type, then the default tile should be used
+	tiler.defaultOutput = 0;
 
 	// Calculate tiles
 	Array2D<u32> tiles(width, height, 0);
