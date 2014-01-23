@@ -3,11 +3,10 @@
 
 #include <string>
 
-#include "../types.hpp"
-#include "../json/JsonBox.h"
-#include "Object.hpp"
-#include "physics/CollisionInfo.hpp"
-#include "ComponentType.hpp"
+#include <JsonBox.h>
+#include <fm/types.hpp>
+#include <fm/proto/physics/CollisionInfo.hpp>
+#include <fm/proto/ComponentType.hpp>
 
 namespace zn
 {
@@ -25,7 +24,7 @@ enum ComponentFlags
 // if you want to implement gameplay, please derive from Behaviour instead.
 // For serialization and execution flow reasons, components must define a default
 // constructor and avoid to rely on a constructor with parameters.
-class ZN_API AComponent : public Object
+class ZN_API AComponent
 {
 public:
 

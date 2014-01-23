@@ -13,7 +13,6 @@ This file is part of the zCraft-Framework project.
 #include <fm/types.hpp>
 #include <fm/proto/animation/Animator.hpp>
 #include <fm/proto/graphics/Camera.hpp>
-#include <fm/proto/Object.hpp>
 #include <fm/proto/Transform.hpp>
 
 namespace zn
@@ -28,7 +27,7 @@ class AudioEmitter;
 
 // An entity can be anything in the scene.
 // It is composed of components that define its behavior.
-class ZN_API Entity : public Object
+class ZN_API Entity
 {
 public:
 
