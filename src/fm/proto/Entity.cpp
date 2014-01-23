@@ -55,6 +55,26 @@ bool Entity::active() const
 }
 
 //------------------------------------------------------------------------------
+bool Entity::activeInHierarchy() const
+{
+	if(active())
+	{
+		if(transform.parent() != nullptr)
+		{
+			return active() && transform.parent()->entity().activeInHierarchy();
+		}
+		else
+		{
+			return true;
+		}
+	}
+	else
+	{
+		return false;
+	}
+}
+
+//------------------------------------------------------------------------------
 void Entity::setActive(bool active)
 {
 	setFlag(ACTIVE, active);

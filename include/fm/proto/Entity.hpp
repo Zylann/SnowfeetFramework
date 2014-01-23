@@ -45,8 +45,13 @@ public:
 	// Lifecycle
 	//--------------------------------------
 
+	// Returns true if the entity alone is active, regardless of its parents
 	bool active() const;
-	void setActive(bool active); // TODO activeSelf(), activeInHierarchy()
+
+	// Returns true if the entity is active and all of its parents are active.
+	bool activeInHierarchy() const;
+
+	void setActive(bool active);
 
 	// Schedules the destruction of the entity at the end of the current frame
 	void destroyLater();

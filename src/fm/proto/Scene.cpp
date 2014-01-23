@@ -231,7 +231,7 @@ void Scene::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	for(auto cameraIt = cameras.cbegin(); cameraIt != cameras.cend(); ++cameraIt)
 	{
 	    const Camera * camera = *cameraIt;
-	    if(camera->entity().active())
+	    if(camera->entity().activeInHierarchy())
         {
             sortedCameras.push_back(camera);
         }
@@ -255,7 +255,7 @@ void Scene::draw(sf::RenderTarget& target, sf::RenderStates states) const
 			const ARenderer * renderer = *it;
 			const Entity & entity = renderer->entity();
 
-			if(entity.active() && (entity.layerMask() & layerMask))
+			if(entity.activeInHierarchy() && (entity.layerMask() & layerMask))
 			{
 				drawList.push_back(renderer);
 			}
@@ -322,7 +322,7 @@ ACollider * Scene::colliderAt(const sf::Vector2f & point, const ACollider * exce
 	for(Entity *& e : m_entities)
 	{
 		ACollider * c = e->collider();
-		if(c != nullptr && c != except)
+		if(c != nullptr && c != except && c->entity().activeInHierarchy())
 		{
 			if(c->collides(point))
 				return c;
@@ -337,7 +337,7 @@ ACollider * Scene::colliderAt(const sf::FloatRect & rect, const ACollider * exce
 	for(Entity *& e : m_entities)
 	{
 		ACollider * c = e->collider();
-		if(c != nullptr && c != except)
+		if(c != nullptr && c != except && c->entity().activeInHierarchy())
 		{
 			if(c->collides(rect))
 				return c;
