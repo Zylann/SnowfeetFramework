@@ -61,6 +61,12 @@ void Entity::setActive(bool active)
 }
 
 //------------------------------------------------------------------------------
+void Entity::setCrossScene(bool crossScene)
+{
+	setFlag(CROSS_SCENE, crossScene);
+}
+
+//------------------------------------------------------------------------------
 AComponent * Entity::addComponent(AComponent * newCmp)
 {
 #ifdef ZN_DEBUG

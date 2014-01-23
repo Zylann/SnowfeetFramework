@@ -158,6 +158,22 @@ void Scene::clear()
 }
 
 //------------------------------------------------------------------------------
+bool isNotSceneCrossThenDelete(Entity * e)
+{
+	if(!e->flag(Entity::CROSS_SCENE))
+	{
+		delete e;
+		return true;
+	}
+	return false;
+}
+
+void Scene::clearAllButCrossEntities()
+{
+	m_entities.remove_if(isNotSceneCrossThenDelete);
+}
+
+//------------------------------------------------------------------------------
 //void Scene::makeCurrent()
 //{
 //	g_currentSceneRef = this;

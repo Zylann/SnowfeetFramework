@@ -34,7 +34,8 @@ public:
 	enum Flags
 	{
 		ACTIVE       = 1,
-		DESTROY_LATE = 1 << 1
+		DESTROY_LATE = 1 << 1, // Destroy at the end of the frame
+		CROSS_SCENE  = 1 << 2 // Don't destroy the entity on scene change
 	};
 
 	Entity();
@@ -45,10 +46,13 @@ public:
 	//--------------------------------------
 
 	bool active() const;
-	void setActive(bool active);
+	void setActive(bool active); // TODO activeSelf(), activeInHierarchy()
 
 	// Schedules the destruction of the entity at the end of the current frame
 	void destroyLater();
+
+	// Sets if the entity should be destroyed when we change the scene
+	void setCrossScene(bool crossScene);
 
 	// Gets a flag of the entity by providing its mask
 	inline bool flag(u8 mask) const { return m_flags & mask; }

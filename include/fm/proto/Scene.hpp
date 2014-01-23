@@ -36,8 +36,11 @@ public:
 	// Updates the scene for a given time span
 	void update(sf::Time deltaTime);
 
-	// Erases everything in the scene
+	// Erases everything in the scene.
 	void clear();
+
+	// Erases everything in the scene but entities having the EF_SCENE_CROSS flag set.
+	void clearAllButCrossEntities();
 
 	//----------------------------
 	// State & entities
