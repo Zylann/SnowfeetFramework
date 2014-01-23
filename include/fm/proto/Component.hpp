@@ -20,7 +20,9 @@ enum ComponentFlags
 
 // A piece that composes an entity.
 // Components are a core element of the engine.
-// Note: components that derive directly from AComponent are specific to the engine.
+// Some will implement functionnality, others just wrap existing objects
+// to offer a component-friendly interface and engine-specific stuff.
+// Note: components that derive directly from AComponent are often specific to the engine.
 // if you want to implement gameplay, please derive from Behaviour instead.
 // For serialization and execution flow reasons, components must define a default
 // constructor and avoid to rely on a constructor with parameters.

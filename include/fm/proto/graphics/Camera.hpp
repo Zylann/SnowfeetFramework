@@ -7,6 +7,7 @@
 namespace zn
 {
 
+// Performs a rendering of a specific rectangular area of the scene.
 class ZN_API Camera : public AComponent
 {
 public:
@@ -29,7 +30,12 @@ public:
 	void onAdd(Entity * e) override;
 	void onDestroy() override;
 
+	// Sets the size of the rectangular view in world units
 	void setSize(const sf::Vector2f & s);
+
+	// Sets the viewport rectangle the camera should render at,
+	// with bounds specified in [0, 1] coordinates.
+	// For instance, Rect(0,0,0.5,1) is the left part of the screen.
 	void setViewport(const sf::FloatRect & r);
 
 	void onScreenResized(sf::Vector2u resolution);
