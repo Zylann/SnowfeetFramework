@@ -196,10 +196,6 @@ void Entity::onCollisionExit(const CollisionInfo & info)
 }
 
 //------------------------------------------------------------------------------
-//	sf::Transformable         m_transform;
-//	u8                        m_flags;
-//	u32                       m_layerMask;
-
 void Entity::serialize(JsonBox::Value & o)
 {
 	// Transform

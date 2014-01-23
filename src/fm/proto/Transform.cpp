@@ -190,15 +190,6 @@ const sf::Transform & Transform::localMatrix() const
 		f32 sys    = m_scale.y * sine;
 		f32 tx     = m_position.x;
 		f32 ty     = m_position.y;
-//		f32 tx     = -m_position.x * sxc - m_position.y * sys;
-//		f32 ty     =  m_position.x * sxs - m_position.y * syc;
-//		f32 tx     = -m_origin.x * sxc - m_origin.y * sys + m_position.x;
-//		f32 ty     =  m_origin.x * sxs - m_origin.y * syc + m_position.y;
-
-//		m_localMatrix = sf::Transform::Identity;
-//		m_localMatrix.translate(m_position);
-//		m_localMatrix.rotate(m_rotation);
-//		m_localMatrix.scale(m_scale);
 
 		m_localMatrix = sf::Transform(
 			sxc, sys, tx,
@@ -243,8 +234,6 @@ Transform * Transform::parent() const
 //------------------------------------------------------------------------------
 void Transform::setParent(Transform * parent)
 {
-	// TODO add "auto transform" parameter to keep the same visual position
-
 	if(parent == r_parent)
 		return;
 
