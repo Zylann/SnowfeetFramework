@@ -19,9 +19,11 @@ This file is part of the zCraft-Framework project.
 namespace zn
 {
 
-// Top-level class for every game object.
-// It contains all stuff that the player can see and interact with.
-// Only one scene should be active at a time (except for asynchronous loading).
+// A scene contains all stuff that the player can see and interact with.
+// Only one scene should be active at a time.
+// Disclaimer: despite being an sf::Drawable, the scene is not dedicated to graphics,
+// it simply manages the entity list and specialized subsystems
+// (sound, graphics, physics, behaviour...).
 class ZN_API Scene : public sf::Drawable
 {
 public:
@@ -50,7 +52,10 @@ public:
 	// Note: by default, the update and draw order are defined by their creation order.
 	Entity * createEntity(std::string name="", sf::Vector2f pos = sf::Vector2f());
 
+	// Sets the given camera as the main camera
 	inline void setMainCamera(Camera * cam) { r_mainCamera = cam; }
+
+	// Gets the main camera (if defined).
 	inline Camera * mainCamera() { return r_mainCamera; }
 
 	// Finds the entity having the given ID.
@@ -65,13 +70,17 @@ public:
 	// Events
 	//----------------------------
 
+	// Called each time the screen resolution changes
 	void onScreenResized(sf::Vector2u resolution);
 
 	//----------------------------
 	// Physics
 	//----------------------------
 
+	// Finds the first collider at the given position in world space
 	ACollider * colliderAt(const sf::Vector2f & point, const ACollider * except=nullptr);
+
+	// Finds the first collider intersecting the given rectangle in world space
 	ACollider * colliderAt(const sf::FloatRect & rect, const ACollider * except=nullptr);
 
 	//----------------------------
@@ -81,7 +90,10 @@ public:
 	// Convenient layer name associations
 	LayerMap layers;
 
+	// Returns the amount of time elapsed since the scene was loaded
 	inline sf::Time time() const { return m_time.getElapsedTime(); }
+
+	// Returns the duration between two frames
 	inline sf::Time deltaTime() const { return m_deltaTime; }
 
 	//----------------------------
@@ -98,7 +110,10 @@ public:
 	// Component systems
 	//----------------------------
 
+	// Called when a behaviour has been created
 	void registerBehaviour(ABehaviour * behaviour);
+
+	// Called just before a behaviour to be deleted
 	void unregisterBehaviour(ABehaviour * behaviour);
 
 	ComponentSystem<Camera>         cameras;

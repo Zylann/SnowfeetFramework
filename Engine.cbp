@@ -70,7 +70,6 @@
 		<Unit filename="include/fm/proto/GameApp.hpp" />
 		<Unit filename="include/fm/proto/GameSettings.hpp" />
 		<Unit filename="include/fm/proto/LayerMap.hpp" />
-		<Unit filename="include/fm/proto/Object.hpp" />
 		<Unit filename="include/fm/proto/PerformanceGraph.hpp" />
 		<Unit filename="include/fm/proto/Scene.hpp" />
 		<Unit filename="include/fm/proto/Transform.hpp" />

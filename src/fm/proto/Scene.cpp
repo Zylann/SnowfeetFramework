@@ -158,6 +158,8 @@ void Scene::clear()
 }
 
 //------------------------------------------------------------------------------
+// Deletes the given entity if its CROSS_SCENE flag is false.
+// Returns true if the entity has been deleted.
 bool isNotSceneCrossThenDelete(Entity * e)
 {
 	if(!e->flag(Entity::CROSS_SCENE))
@@ -168,6 +170,7 @@ bool isNotSceneCrossThenDelete(Entity * e)
 	return false;
 }
 
+//------------------------------------------------------------------------------
 void Scene::clearAllButCrossEntities()
 {
 	m_entities.remove_if(isNotSceneCrossThenDelete);
