@@ -46,6 +46,11 @@ Scene & Entity::scene() const
 void Entity::destroyLater()
 {
 	setFlag(DESTROY_LATE, true);
+	// Propagate to children
+	for(auto it = transform.begin(); it != transform.end(); ++it)
+	{
+		it->entity().destroyLater();
+	}
 }
 
 //------------------------------------------------------------------------------
