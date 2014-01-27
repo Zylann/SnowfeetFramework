@@ -65,6 +65,12 @@ bool AssetBank::loadFromJSON(const std::string & manifestPath)
 			return false;
 	}
 
+	if(!doc["shaders"].isNull())
+	{
+		if(!textures.loadList(doc["shaders"], m_root))
+			return false;
+	}
+
 	if(!doc["fonts"].isNull())
 	{
 		if(!fonts.loadList(doc["fonts"], m_root))

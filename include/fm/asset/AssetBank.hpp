@@ -30,6 +30,7 @@ public:
 	AssetMap<TiledMap>         maps;
 	AssetMap<sf::SoundBuffer>  soundBuffers; // TODO AssetBank: merge sound types into one
 	AssetMap<FileRef>          soundStreams;
+	AssetMap<sf::Shader>       shaders;
 
 	AssetBank();
 	~AssetBank();
