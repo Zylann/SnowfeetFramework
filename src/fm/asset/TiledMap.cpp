@@ -12,7 +12,7 @@ This file is part of the zCraftFramework project.
 
 #include <fm/util/Exception.hpp>
 #include <fm/util/stringutils.hpp>
-#include <fm/json/JsonBox.h>
+#include <fm/json/json_utils.hpp>
 #include <fm/asset/TiledMap.hpp>
 
 namespace zn
@@ -27,28 +27,12 @@ bool TiledMap::loadFromFile(const std::string & filePath)
 //------------------------------------------------------------------------------
 bool TiledMap::loadFromJSONFile(const std::string & filePath)
 {
-	std::ifstream ifs(filePath.c_str(), std::ios::in|std::ios::binary);
-	if(!ifs.good())
-	{
-		std::cout << "E: TiledMap::loadFromJSONFile: couldn't open \"" + filePath + '"' << std::endl;
-		return false;
-	}
-
-	std::cout << "I: Reading TiledMap JSON..." << std::endl;
-
 	// Parse stream
 
+	std::cout << "D: Reading TiledMap JSON..." << std::endl;
 	JsonBox::Value doc;
-	doc.loadFromStream(ifs);
-	ifs.close();
-
-	// Check document
-
-	assert(doc.isObject());
-	s32 version = doc["version"].getInt();
-	if(version != 1)
+	if(!zn::loadFromFile(doc, filePath, 1))
 	{
-		std::cout << "E: TiledMap: unsupported JSON version (" << version << ")" << std::endl;
 		return false;
 	}
 

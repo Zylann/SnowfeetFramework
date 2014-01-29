@@ -11,8 +11,7 @@ This file is part of the zCraftFramework project.
 
 #include <fm/asset/TextureAtlas.hpp>
 #include <fm/sfml/sfml2_utils.hpp>
-
-#include "fm/json/JsonBox.h"
+#include <fm/json/json_utils.hpp>
 
 namespace zn
 {
@@ -30,28 +29,12 @@ bool TextureAtlas::loadFromFile(const std::string & filePath)
 //------------------------------------------------------------------------------
 bool TextureAtlas::loadFromJSONFile(const std::string & filePath)
 {
-	std::ifstream ifs(filePath.c_str(), std::ios::in|std::ios::binary);
-	if(!ifs.good())
-	{
-		std::cout << "E: TiledMap::loadFromJSONFile: couldn't open \"" + filePath + '"' << std::endl;
-		return false;
-	}
-
-	std::cout << "D: Reading TextureAtlas..." << std::endl;
-
 	// Parse stream
 
+	std::cout << "D: Reading TextureAtlas..." << std::endl;
 	JsonBox::Value doc;
-	doc.loadFromStream(ifs);
-	ifs.close();
-
-	// Check document
-
-	assert(doc.isObject());
-	s32 version = doc["version"].getInt();
-	if(version != 1)
+	if(!zn::loadFromFile(doc, filePath, 1))
 	{
-		std::cout << "E: TextureAtlas: unsupported JSON version (" << version << ")" << std::endl;
 		return false;
 	}
 
