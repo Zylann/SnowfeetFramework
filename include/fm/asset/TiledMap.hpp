@@ -12,7 +12,6 @@ This file is part of the zCraftFramework project.
 #include <vector>
 #include "../types.hpp"
 #include "../util/Exception.hpp"
-#include "Asset.hpp"
 
 namespace zn
 {
@@ -21,7 +20,7 @@ namespace zn
 // Note: not all features of Tiled are used here.
 // Tiled is a free and open-source 2D map editor.
 // http://www.mapeditor.org/
-class ZN_API TiledMap : public IAsset
+class ZN_API TiledMap
 {
 public:
 
@@ -78,7 +77,7 @@ public:
 	// Methods
 	//-----------------------
 
-	bool loadFromFile(const std::string & filePath) override;
+	bool loadFromFile(const std::string & filePath);
 	bool loadFromJSONFile(const std::string & filePath);
 
 	void print(std::ostream & os) const;

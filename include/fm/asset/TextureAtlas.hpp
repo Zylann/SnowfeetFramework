@@ -10,12 +10,11 @@ This file is part of the zCraftFramework project.
 #include <unordered_map>
 #include <SFML/Graphics.hpp>
 #include "../types.hpp"
-#include "Asset.hpp"
 
 namespace zn
 {
 
-class ZN_API TextureAtlas : public IAsset
+class ZN_API TextureAtlas
 {
 public:
 
