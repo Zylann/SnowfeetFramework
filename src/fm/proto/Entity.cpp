@@ -49,7 +49,7 @@ void Entity::destroyLater()
 	// Propagate to children
 	for(auto it = transform.begin(); it != transform.end(); ++it)
 	{
-		it->entity().destroyLater();
+		(*it)->entity().destroyLater();
 	}
 }
 
