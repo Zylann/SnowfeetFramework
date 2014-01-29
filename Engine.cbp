@@ -42,7 +42,6 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="include/fm/asset/Asset.hpp" />
 		<Unit filename="include/fm/asset/AssetBank.hpp" />
 		<Unit filename="include/fm/asset/AssetMap.hpp" />
 		<Unit filename="include/fm/asset/FileRef.hpp" />
