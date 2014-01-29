@@ -13,15 +13,17 @@ This file is part of the zCraftFramework project.
 
 #include <fm/config.hpp>
 #include <fm/util/stringutils.hpp>
-#include <JsonBox.h>
+#include <fm/json/json_utils.hpp>
+#include <fm/asset/load.hpp>
 
 namespace zn
 {
 
 // This generic class handles the loading of specific-type assets and indexes them in a map.
 // assets with the same file path are not reloaded.
-// The template parameter must be an asset class implementing functions defined in IAsset
-// (such as bool loadFromFile(const std::string & filePath) )
+// The template parameter must be class where instances can be loaded and possibly
+// saved to a file. To be compatible, the class must have a dedicated function overload
+// in load.hpp/cpp.
 template <class T>
 class AssetMap
 {
@@ -67,7 +69,7 @@ public:
 		else
 		{
 #ifdef ZN_DEBUG
-			std::cout << "E: AssetMap::get: not found " << id << std::endl;
+			std::cout << "E: AssetMap::get: not found \"" << id << '"' << std::endl;
 #endif
 			return nullptr;
 		}
@@ -84,6 +86,8 @@ public:
 		}
 		return "";
 	}
+
+	// TODO ability to create assets managed by AssetMap at runtime
 
 	// Loads an asset from a file into the map with a name
 	bool load(std::string filePath, const std::string & id)
@@ -161,25 +165,15 @@ public:
 private:
 
 	// Internal asset loading routine.
-	// If T has a different loading method, a template specialization may be required.
-	inline bool loadAsset(T * asset, const std::string & filePath)
+	bool loadAsset(T * asset, const std::string & filePath)
 	{
-		return asset->loadFromFile(filePath);
+		return loadFromFile(asset, filePath);
 	}
 
 	std::string m_rootFolder;
 	std::unordered_map<std::string,T*> m_map;
+
 };
-
-#include <SFML/Audio.hpp>
-
-// Specialization for sf::Music
-template <>
-inline bool AssetMap<sf::Music>::loadAsset(sf::Music * asset, const std::string & filePath)
-{
-	// Music is not really loaded, it is streamed
-	return asset->openFromFile(filePath);
-}
 
 } // namespace zn
 

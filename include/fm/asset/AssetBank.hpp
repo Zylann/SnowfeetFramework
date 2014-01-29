@@ -14,6 +14,7 @@ This file is part of the zCraftFramework project.
 #include <fm/asset/TextureAtlas.hpp>
 #include <fm/asset/TiledMap.hpp>
 #include <fm/asset/FileRef.hpp>
+#include <fm/asset/Material.hpp>
 
 namespace zn
 {
@@ -25,12 +26,13 @@ class ZN_API AssetBank : public NonCopyable
 public:
 
 	AssetMap<sf::Texture>      textures;
+	AssetMap<sf::Shader>       shaders;
 	AssetMap<sf::Font>         fonts;
 	AssetMap<TextureAtlas>     atlases;
 	AssetMap<TiledMap>         maps;
 	AssetMap<sf::SoundBuffer>  soundBuffers; // TODO AssetBank: merge sound types into one
 	AssetMap<FileRef>          soundStreams;
-	AssetMap<sf::Shader>       shaders;
+	AssetMap<Material>         materials;
 
 	AssetBank();
 	~AssetBank();

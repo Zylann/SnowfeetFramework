@@ -175,6 +175,9 @@ void GameApp::start()
 		m_updateTimeGraph.pushValue(m_profileClock.getElapsedTime().asSeconds());
 		m_profileClock.restart();
 
+		// TODO option to disable render-on-each-loop and trigger renders manually
+		// This would allow still games or future editor GUI to be more efficient
+
 		render();
 
 		m_renderTimeGraph.pushValue(m_profileClock.getElapsedTime().asSeconds());

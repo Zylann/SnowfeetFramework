@@ -9,6 +9,24 @@
 		]
 	},
 
+	"shaders":
+	{
+		"root":"shaders",
+		"list":
+		[
+			{ "src":"noise.json" }
+		]
+	},
+
+	"materials":
+	{
+		"root":"materials",
+		"list":
+		[
+			{ "src":"noise.json" }
+		]
+	},
+
 	"fonts":
 	{
 		"root":"fonts",

@@ -201,6 +201,9 @@ bool f_rendererOrder(const ARenderer *&r1, const ARenderer *&r2)
 }
 
 //------------------------------------------------------------------------------
+// TODO put the code from this function to a RenderSystem component manager,
+// as it will become more sophisticated in the future (culling).
+
 void Scene::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 #ifdef ZN_DEBUG
@@ -267,8 +270,19 @@ void Scene::draw(sf::RenderTarget& target, sf::RenderStates states) const
 		{
 			const ARenderer & renderer = **it;
 
+			// Apply material if any
+			Material * material = renderer.material();
+			if(material != nullptr)
+			{
+				material->apply(states);
+			}
+			else
+			{
+				states.shader = nullptr;
+			}
+
 			// Draw renderer
-			target.draw(renderer);
+			target.draw(renderer, states);
 
 #ifdef ZN_DEBUG
 			if(drawBounds)

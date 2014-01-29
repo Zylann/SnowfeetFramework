@@ -14,6 +14,8 @@ This file is part of the zCraft-Framework project.
 
 // Shortcut macros
 
+// TODO Automatic component registration by instancing a static object + using a singleton
+
 // A behaviour is a component specific to your game, a bit like a script.
 // Behaviours are updated before all other components.
 // Place this in public in all your complete-type behaviour-components class declarations.

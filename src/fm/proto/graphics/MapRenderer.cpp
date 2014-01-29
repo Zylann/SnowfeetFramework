@@ -152,7 +152,7 @@ void MapRenderer::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 	states.transform.combine(entity().transform.matrix());
 
-	// apply the tileset texture
+	// apply the texture
 	states.texture = &r_atlas->texture();
 
 	// draw the vertex array

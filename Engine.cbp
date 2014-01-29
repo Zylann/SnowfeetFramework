@@ -46,6 +46,7 @@
 		<Unit filename="include/fm/asset/AssetBank.hpp" />
 		<Unit filename="include/fm/asset/AssetMap.hpp" />
 		<Unit filename="include/fm/asset/FileRef.hpp" />
+		<Unit filename="include/fm/asset/Material.hpp" />
 		<Unit filename="include/fm/asset/TextureAtlas.hpp" />
 		<Unit filename="include/fm/asset/TiledMap.hpp" />
 		<Unit filename="include/fm/config.hpp" />
@@ -112,6 +113,7 @@
 		<Unit filename="include/fm/util/stringutils.hpp" />
 		<Unit filename="include/fm/util/typecheck.hpp" />
 		<Unit filename="src/fm/asset/AssetBank.cpp" />
+		<Unit filename="src/fm/asset/Material.cpp" />
 		<Unit filename="src/fm/asset/TextureAtlas.cpp" />
 		<Unit filename="src/fm/asset/TiledMap.cpp" />
 		<Unit filename="src/fm/json/JsonBox/Array.cpp" />

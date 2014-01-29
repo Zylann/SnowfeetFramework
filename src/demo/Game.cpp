@@ -114,6 +114,14 @@ bool Game::onInit()
 	sprite->setPosition(-sf::Vector2f(8, 8)); // center sprite
 	rotateObj3->transform.setParent(rotateObj2->transform);
 
+	// Shader test
+
+	Entity * snowTV = m_scene.createEntity("shader_test", sf::Vector2f(65*ts, 31*ts));
+	snowTV->transform.setScale(sf::Vector2f(3,3));
+	sprite = snowTV->addComponent<SpriteRenderer>();
+	sprite->setTexture(ballTexture);
+	sprite->setMaterial(m_assets.materials.get("noise"));
+
 	return true;
 }
 

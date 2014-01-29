@@ -59,6 +59,8 @@ bool AssetBank::loadFromJSON(const std::string & manifestPath)
 	// TODO make this more generic
 	// TODO add loading parameters such as lazy loading (load a manifest instead of directly read the file)
 
+	// Note: the loading order is important
+
 	if(!doc["textures"].isNull())
 	{
 		if(!textures.loadList(doc["textures"], m_root))
@@ -67,7 +69,7 @@ bool AssetBank::loadFromJSON(const std::string & manifestPath)
 
 	if(!doc["shaders"].isNull())
 	{
-		if(!textures.loadList(doc["shaders"], m_root))
+		if(!shaders.loadList(doc["shaders"], m_root))
 			return false;
 	}
 
@@ -89,12 +91,21 @@ bool AssetBank::loadFromJSON(const std::string & manifestPath)
 			return false;
 	}
 
+	// Note: materials might depend on textures
+	if(!doc["materials"].isNull())
+	{
+		if(!materials.loadList(doc["materials"], m_root))
+			return false;
+	}
+
+	// Note: atlases might depend on textures/materials
 	if(!doc["atlases"].isNull())
 	{
 		if(!atlases.loadList(doc["atlases"], m_root))
 			return false;
 	}
 
+	// Note: maps might depend on textures or atlases
 	if(!doc["maps"].isNull())
 	{
 		if(!maps.loadList(doc["maps"], m_root))
