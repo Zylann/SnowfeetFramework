@@ -7,8 +7,8 @@ game making. Currently, it is built on top of SFML
 it may shift to SDL 2 and some external libs.
 
 The project was originally a game prototype, but I decided to put its
-engine-related files open-source. The game is still there, but now it serves as
-a testbed for the engine.
+engine-related files open-source and leave a sample as demo.
+I update the framework when I need something special or just as a hobby.
 
 Features
 --------
@@ -25,13 +25,13 @@ Features
 - TilEd JSON import http://www.mapeditor.org/
 - JSON scene dump (editor serialization preview, currently for debug)
 - Entity hierarchy (parenting)
+- Shaders + Materials as shader parameters
 
 Planned/suggested :
 
-- JSON/PropertyTree-based serialization of components
-- Scene editor
 - 2D Culling for big scenes
-- Shaders
+- Scene editor
+- JSON/PropertyTree-based serialization of components
 - Enable depth buffer as an option
 - Python, Lua or AngelScript scripting
 - Full-featured editor made using the engine
