@@ -46,6 +46,11 @@ Scene & Entity::scene() const
 void Entity::destroyLater()
 {
 	setFlag(DESTROY_LATE, true);
+	// Propagate to children
+	for(auto it = transform.begin(); it != transform.end(); ++it)
+	{
+		it->entity().destroyLater();
+	}
 }
 
 //------------------------------------------------------------------------------
@@ -172,9 +177,6 @@ void Entity::sendMessage(const std::string & msg)
 	{
 		m_components[i]->onMessage(msg);
 	}
-
-	if(r_renderer != nullptr)
-		r_renderer->onMessage(msg);
 }
 
 //------------------------------------------------------------------------------
