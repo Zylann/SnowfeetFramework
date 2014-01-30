@@ -53,7 +53,10 @@ public:
 
 	void setActive(bool active);
 
-	// Schedules the destruction of the entity at the end of the current frame
+	// Schedules the destruction of the entity at the end of the current frame.
+	// Note: this will also destroy any child entity under this one at _destruction_time_.
+	// For instance, if you unparent a child before the end of the frame, this
+	// child will not be deleted.
 	void destroyLater();
 
 	// Sets if the entity should be destroyed when we change the scene

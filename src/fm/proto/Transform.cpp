@@ -234,29 +234,50 @@ Transform * Transform::parent() const
 //------------------------------------------------------------------------------
 void Transform::setParent(Transform * parent)
 {
+	// Don't do anything if the parent is the same
 	if(parent == r_parent)
 		return;
 
+	// If the transform has a parent now
 	if(r_parent != nullptr)
 	{
 #ifdef ZN_DEBUG
-		std::cout << "D: Unparenting \"" << entity().name() << "\" from \"" << r_parent->entity().name() << '"' << std::endl;
+		std::cout << "D: Unparenting \"" << entity().name()
+			<< "\" from \"" << r_parent->entity().name() << '"' << std::endl;
 #endif
+		// Notify the parent that its child moved
 		r_parent->onRemoveChild(this);
 	}
 
+	// Set new parent
+
 	r_parent = parent;
 
+	// If the new parent is not null
 	if(r_parent != nullptr)
 	{
 #ifdef ZN_DEBUG
-		std::cout << "D: Parenting \"" << entity().name() << "\" to \"" << r_parent->entity().name() << '"' << std::endl;
+		std::cout << "D: Parenting \"" << entity().name()
+			<< "\" to \"" << r_parent->entity().name() << '"' << std::endl;
 #endif
+		// Notify the parent that it has a new child
 		r_parent->onAddChild(this);
 	}
 
 	m_globalMatrixNeedUpdate = true;
 	notifyChildrenForParentChange();
+}
+
+//------------------------------------------------------------------------------
+void Transform::unparentChildren()
+{
+	// Make a copy of the child references to avoid concurrent modification
+	// involved by setParent(). After this, m_children should be empty.
+	auto childrenCopy = m_children;
+	for(auto it = childrenCopy.begin(); it != childrenCopy.end(); ++it)
+	{
+		(*it)->setParent(nullptr);
+	}
 }
 
 //------------------------------------------------------------------------------

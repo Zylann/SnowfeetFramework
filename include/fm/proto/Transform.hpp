@@ -74,6 +74,9 @@ public:
 	// Specifying a nullptr parent means unparenting (set back to root).
 	void setParent(Transform * parent);
 
+	// Unparents every child under this transform.
+	void unparentChildren();
+
 	// Reference version of setParent(Transform*) for convenience
 	inline void setParent(Transform & parent) { setParent(&parent); }
 

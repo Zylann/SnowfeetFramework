@@ -101,16 +101,38 @@ void Scene::unregisterBehaviour(ABehaviour * behaviour)
 
 //------------------------------------------------------------------------------
 // Deletes the given entity if its DESTROY_LATE flag is true,
-// and returns the flag value
+// then returns true if that was the case, false otherwise
 bool isLateDestroyThenDelete(Entity * e)
 {
 	if(e->flag(Entity::DESTROY_LATE))
 	{
+#ifdef ZN_DEBUG
+		std::cout << "D: just before destroy entity \"" << e->name() << '"' << std::endl;
+#endif
+
+		// Remove the entity from any hierarchy
+		e->transform.setParent(nullptr);
+		e->transform.unparentChildren();
+
+		// Then delete it
 		delete e;
+
 		return true;
 	}
 	else
 		return false;
+}
+
+//------------------------------------------------------------------------------
+// Sets the DESTROY_LATE flag on the given entity and all of its children
+void propagateDestroyLate(Entity & e)
+{
+	for(auto child = e.transform.begin(); child != e.transform.end(); ++child)
+	{
+		Entity & childEntity = (*child)->entity();
+		childEntity.destroyLater();
+		propagateDestroyLate(childEntity);
+	}
 }
 
 //------------------------------------------------------------------------------
@@ -124,7 +146,18 @@ void Scene::update(sf::Time deltaTime)
 		it->second.update();
 	}
 
-	// Destroy entities with DESTROY_LATE
+	// Mark all entities that should be destroyed :
+	// If an entity has children, mark them too
+	for(auto it = m_entities.begin(); it != m_entities.end(); ++it)
+	{
+		Entity & e = **it;
+		if(e.flag(Entity::DESTROY_LATE))
+		{
+			propagateDestroyLate(e);
+		}
+	}
+
+	// Destroy entities with DESTROY_LATE flag set
 	m_entities.remove_if(isLateDestroyThenDelete);
 
 	// Update physics

@@ -134,6 +134,15 @@ void Game::onEvent(sf::Event& e)
 		{
 			stop();
 		}
+		else if(e.key.code == sf::Keyboard::Key::T)
+		{
+			// Test entity destruction with parenting
+			Entity * e = m_scene.findEntityFromName("ball3");
+			if(e)
+			{
+				e->destroyLater();
+			}
+		}
 		else if(e.key.code == sf::Keyboard::Key::F4)
 		{
 			setFullScreen(!fullScreen());
