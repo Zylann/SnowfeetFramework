@@ -4,7 +4,7 @@
 #include <sstream>
 #include <fm/config.hpp>
 
-// Place this at the beginning of a code section that may be called twice.
+// Place this at the beginning of a code section that must be called once.
 // It will raise a failing assertion if the code is called twice.
 #define ZN_CALL_ONCE                                                           \
 	static bool __callOnce = true;                                             \

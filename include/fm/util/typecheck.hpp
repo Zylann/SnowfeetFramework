@@ -21,7 +21,7 @@ inline B checked_cast(A * a)
 		// Print an error, and attempt to write runtime types information.
 		// Note that typeid(B).name() might not always return meaningful information,
 		// as typeid() only has to return different values (whatever they are)
-		// for different  types, as defined in C++ specs.
+		// for different types, as defined in C++ specs.
 		std::cout << "E: Failed to cast pointer ("
 			"from {" << (a==nullptr ? "nullptr" : typeid(a).name()) << "} "
 			"to {" << typeid(B).name() << "}" << std::endl;
