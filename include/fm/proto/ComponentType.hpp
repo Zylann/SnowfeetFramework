@@ -14,8 +14,6 @@ This file is part of the zCraft-Framework project.
 
 // Shortcut macros
 
-// TODO Automatic component registration by instancing a static object + using a singleton
-
 // This macro is useful if you are extending a engine kind of component.
 // Place this in public in all your complete-type components class declarations.
 // Components defined this way are the only ones of their group in an entity.
@@ -69,18 +67,29 @@ enum ComponentGroup
 // Note: it is fixed in the final game.
 struct ZN_API ComponentType
 {
+	// Unique numeric ID of the component.
+	// DO NOT modify (only done on type registration).
+	// The value of IDs may be generated sequentially, starting from 1.
+	// 0 means null type.
 	u32 ID;
+
+	// Unique name of the type.
 	std::string name;
+
+	// Group of the type (matters on the engine side)
 	u8 group;
-	s32 updateOrder; // only used by behaviours
-	//dependencies?
+
+	// Update order (matters for behaviours)
+	s32 updateOrder;
+
+	// TODO component dependencies?
 
 	ComponentType(
 		const std::string & p_name,
 		u8 p_group,
 		s32 p_updateOrder=0
 	) :
-		ID(0), // null ID
+		ID(0), // null ID, until the type gets registered
 		name(p_name),
 		group(p_group),
 		updateOrder(p_updateOrder)
@@ -88,7 +97,7 @@ struct ZN_API ComponentType
 
 	void print(std::ostream & os) const
 	{
-		os << "{" << name << ", group:" << (u32)group << ", updateOrder:" << updateOrder << "}";
+		os << "{[" << ID << "]" << name << ", group:" << (u32)group << ", updateOrder:" << updateOrder << "}";
 	}
 
 };

@@ -18,18 +18,6 @@ namespace zn
 using namespace std;
 
 //------------------------------------------------------------------------------
-void ComponentFactory::registerType(const string className, function<AComponent*()> factory)
-{
-#ifdef ZN_DEBUG
-	if(m_factories.find(className) != m_factories.end())
-	{
-		cout << "E: registered the same component type twice ! (" << className << ")" << endl;
-	}
-#endif
-	m_factories[className] = factory;
-}
-
-//------------------------------------------------------------------------------
 AComponent * ComponentFactory::instantiate(const string className)
 {
 	auto it = m_factories.find(className);

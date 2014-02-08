@@ -7,7 +7,8 @@
 namespace zn
 {
 
-// Singleton class that allows the creation of components from their name or ID
+// Singleton class that allows the creation of components from their name or ID.
+// It is used for serialization and component meta-identification.
 class ComponentFactory
 {
 private:
@@ -30,21 +31,41 @@ public:
 		return factory;
 	}
 
-	// Functions below allow you to register components in the factory system,
-	// which can then be created from their name as strings.
-	// This is mainly used for serialization.
-
 	// Registers a component type using ZN_COMPONENT macro in its definition.
+	// Important: it generates integer IDs from a counter, then as long as you call
+	// this function in the same order, these IDs will be the same even on different
+	// computers or platforms.
+	// However, IDs may differ if the version of the engine differ too, as there
+	// might be new components.
 	template <class Component_T>
 	void registerType()
 	{
-		const ComponentType & cmpType = Component_T::sComponentType();
-		registerType(cmpType.name, Component_T::instantiate);
-	}
+		// Get type structure from a static function defined in the component class
+		// (that's the case if it uses the ZN_COMPONENT macro)
+		ComponentType & cmpType = Component_T::sComponentType();
 
-	// Registers a component type by a name and a function that instantiates this type.
-	// You must always use the full name of the class in the C++ way of things.
-	void registerType(const std::string className, std::function<AComponent*()> factory);
+#ifdef ZN_DEBUG
+		// Check if the component has already been registered
+		if(m_factories.find(cmpType.name) != m_factories.end())
+		{
+			std::cout << "E: ComponentFactory::registerType: "
+				"registered the same component type twice ! "
+				"(" << cmpType.name << ")" << std::endl;
+		}
+#endif
+
+		// Generate component type ID
+		cmpType.ID = m_nextID++;
+
+		// Register factory function
+		m_factories[cmpType.name] = Component_T::instantiate;
+
+#ifdef ZN_DEBUG
+		std::cout << "D: Registered ";
+		cmpType.print(std::cout);
+		std::cout << std::endl;
+#endif
+	}
 
 	// Creates a new instance of a component from its name.
 	// It does the same thing as "new MyComponent()", where className = "MyComponent".
@@ -56,6 +77,7 @@ public:
 private:
 
 	std::unordered_map<std::string, std::function<AComponent*()>> m_factories;
+	u32 m_nextID;
 
 };
 

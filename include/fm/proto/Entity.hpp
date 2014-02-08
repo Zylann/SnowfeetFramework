@@ -166,9 +166,10 @@ private:
 
 	u32                       m_id;
 
+	// TODO use a map with key=componentType since now components may be unique per entity
 	std::vector<AComponent*>  m_components;
 
-	// References to engine components for quick lookup
+	// Direct references to engine components for quick lookup
 	ARenderer *               r_renderer;
 	ACollider *               r_collider;
 	Body *                    r_body;
@@ -176,7 +177,7 @@ private:
 	AAnimator *               r_animator;
 	AudioEmitter *            r_audioEmitter;
 
-	u8                        m_flags;
+	u8                        m_flags; // TODO use std::bitset
 	u32                       m_layerMask;
 
 	Scene *                   r_scene;
