@@ -8,6 +8,7 @@
 namespace zn
 {
 
+//------------------------------------------------------------------------------
 struct AudioSourceParameters
 {
 	void copyFrom(const sf::SoundSource & s)
@@ -38,7 +39,7 @@ struct AudioSourceParameters
 	f32           attenuation = 0;
 };
 
-
+//------------------------------------------------------------------------------
 void AudioSource::setBuffer(const sf::SoundBuffer & buffer)
 {
 	if(m_sound == nullptr)
@@ -61,6 +62,7 @@ void AudioSource::setBuffer(const sf::SoundBuffer & buffer)
 	m_streamed = false;
 }
 
+//------------------------------------------------------------------------------
 void AudioSource::setStreamFromFile(const std::string & filePath)
 {
 	if(m_streamedSound == nullptr)
@@ -90,6 +92,7 @@ void AudioSource::setStreamFromFile(const std::string & filePath)
 	m_streamed = true;
 }
 
+//------------------------------------------------------------------------------
 sf::Time AudioSource::getDuration() const
 {
 	if(m_streamed)
@@ -98,6 +101,7 @@ sf::Time AudioSource::getDuration() const
 		return m_sound->getBuffer()->getDuration();
 }
 
+//------------------------------------------------------------------------------
 void AudioSource::play()
 {
 	if(m_streamed)
@@ -106,6 +110,7 @@ void AudioSource::play()
 		m_sound->play();
 }
 
+//------------------------------------------------------------------------------
 void AudioSource::pause()
 {
 	if(m_streamed)
@@ -114,6 +119,7 @@ void AudioSource::pause()
 		m_sound->pause();
 }
 
+//------------------------------------------------------------------------------
 void AudioSource::stop()
 {
 	if(m_streamed)
@@ -122,6 +128,7 @@ void AudioSource::stop()
 		m_sound->pause();
 }
 
+//------------------------------------------------------------------------------
 u32 AudioSource::getChannelCount() const
 {
 	if(m_streamed)
@@ -130,6 +137,7 @@ u32 AudioSource::getChannelCount() const
 		return m_sound->getBuffer()->getChannelCount();
 }
 
+//------------------------------------------------------------------------------
 u32 AudioSource::getSampleRate() const
 {
 	if(m_streamed)
@@ -138,6 +146,7 @@ u32 AudioSource::getSampleRate() const
 		return m_sound->getBuffer()->getSampleRate();
 }
 
+//------------------------------------------------------------------------------
 void AudioSource::setPlayingOffset(sf::Time timeOffset)
 {
 	if(m_streamed)
@@ -146,6 +155,7 @@ void AudioSource::setPlayingOffset(sf::Time timeOffset)
 		m_sound->setPlayingOffset(timeOffset);
 }
 
+//------------------------------------------------------------------------------
 sf::Time AudioSource::getPlayingOffset() const
 {
 	if(m_streamed)
@@ -154,6 +164,7 @@ sf::Time AudioSource::getPlayingOffset() const
 		return m_sound->getPlayingOffset();
 }
 
+//------------------------------------------------------------------------------
 void AudioSource::setLoop(bool loop)
 {
 	if(m_streamed)
@@ -162,6 +173,7 @@ void AudioSource::setLoop(bool loop)
 		m_sound->setLoop(loop);
 }
 
+//------------------------------------------------------------------------------
 bool AudioSource::getLoop() const
 {
 	if(m_streamed)
@@ -170,6 +182,7 @@ bool AudioSource::getLoop() const
 		return m_sound->getLoop();
 }
 
+//------------------------------------------------------------------------------
 sf::SoundSource::Status AudioSource::getStatus() const
 {
 	if(m_streamed)
@@ -178,6 +191,7 @@ sf::SoundSource::Status AudioSource::getStatus() const
 		return m_sound->getStatus();
 }
 
+//------------------------------------------------------------------------------
 void AudioSource::setPitch(f32 pitch)                        { internalSource().setPitch(pitch); }
 void AudioSource::setVolume(f32 volume)                      { internalSource().setVolume(volume); }
 void AudioSource::setPosition(f32 x, f32 y, f32 z)           { internalSource().setPosition(x, y, z); }
@@ -186,6 +200,7 @@ void AudioSource::setRelativeToListener(bool relative)       { internalSource().
 void AudioSource::setMinDistance(f32 distance)               { internalSource().setMinDistance(distance); }
 void AudioSource::setAttenuation(f32 attenuation)            { internalSource().setAttenuation(attenuation); }
 
+//------------------------------------------------------------------------------
 f32 AudioSource::getPitch() const                            { return internalSource().getPitch(); }
 f32 AudioSource::getVolume() const                           { return internalSource().getVolume(); }
 sf::Vector3f AudioSource::getPosition() const                { return internalSource().getPosition(); }

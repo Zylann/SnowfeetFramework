@@ -14,14 +14,17 @@ namespace zn
 Color::Color() : r(0), g(0), b(0), a(255)
 {}
 
+//------------------------------------------------------------------------------
 Color::Color(unsigned int hex)
 {
 	setFromRGBA32(hex);
 }
 
+//------------------------------------------------------------------------------
 Color::Color(u8 r0, u8 g0, u8 b0, u8 a0) : r(r0), g(g0), b(b0), a(a0)
 {}
 
+//------------------------------------------------------------------------------
 Color::Color(const Color & other)
 {
 	r = other.r;
@@ -30,6 +33,7 @@ Color::Color(const Color & other)
 	a = other.a;
 }
 
+//------------------------------------------------------------------------------
 #if defined ZN_SFML
 Color::Color(const sf::Color & color)
 {
@@ -37,6 +41,7 @@ Color::Color(const sf::Color & color)
 }
 #endif
 
+//------------------------------------------------------------------------------
 #if defined ZN_SFML
 sf::Color Color::toSfColor() const
 {
@@ -44,6 +49,7 @@ sf::Color Color::toSfColor() const
 }
 #endif
 
+//------------------------------------------------------------------------------
 void Color::setf(float r0, float g0, float b0, float a0)
 {
 	r = 255.f * r0;
@@ -52,6 +58,7 @@ void Color::setf(float r0, float g0, float b0, float a0)
 	a = 255.f * a0;
 }
 
+//------------------------------------------------------------------------------
 void Color::set(u8 r0, u8 g0, u8 b0, u8 a0)
 {
 	r = r0;
@@ -60,6 +67,7 @@ void Color::set(u8 r0, u8 g0, u8 b0, u8 a0)
 	a = a0;
 }
 
+//------------------------------------------------------------------------------
 void Color::set(Color other)
 {
 	r = other.r;
@@ -68,6 +76,7 @@ void Color::set(Color other)
 	a = other.a;
 }
 
+//------------------------------------------------------------------------------
 void Color::setFromRGBA32(unsigned int hex)
 {
 					a = hex & 0xff;
@@ -76,6 +85,7 @@ void Color::setFromRGBA32(unsigned int hex)
 	hex = hex >> 8; r = hex & 0xff;
 }
 
+//------------------------------------------------------------------------------
 u32 Color::asRGBA32() const
 {
 	u32 hex = r;
@@ -85,6 +95,7 @@ u32 Color::asRGBA32() const
 	return hex;
 }
 
+//------------------------------------------------------------------------------
 u16 Color::asRGBA16() const
 {
 	u16 oct = r >> 4;
@@ -94,6 +105,7 @@ u16 Color::asRGBA16() const
 	return oct;
 }
 
+//------------------------------------------------------------------------------
 void Color::multiply(float s)
 {
 	r = math::min((f32)r * s, 255.f);
@@ -102,6 +114,7 @@ void Color::multiply(float s)
 	a = math::min((f32)a * s, 255.f);
 }
 
+//------------------------------------------------------------------------------
 void Color::multiplyRGB(float s)
 {
 	r = math::min((f32)r * s, 255.f);
@@ -109,6 +122,7 @@ void Color::multiplyRGB(float s)
 	b = math::min((f32)b * s, 255.f);
 }
 
+//------------------------------------------------------------------------------
 void Color::multiplyU8(u8 ku)
 {
 	const float kf = static_cast<float>(ku) / 255.f;
@@ -118,6 +132,7 @@ void Color::multiplyU8(u8 ku)
 	a = (u8)((float)a * kf);
 }
 
+//------------------------------------------------------------------------------
 std::string Color::toString() const
 {
 	std::stringstream ss;
@@ -128,6 +143,7 @@ std::string Color::toString() const
 	return ss.str();
 }
 
+//------------------------------------------------------------------------------
 Color Color::operator+(const Color & other)
 {
 	return Color(
@@ -137,6 +153,7 @@ Color Color::operator+(const Color & other)
 		math::min((u32)a + (u32)other.a, 255u));
 }
 
+//------------------------------------------------------------------------------
 Color Color::operator-(const Color & other)
 {
 	return Color(
@@ -146,6 +163,7 @@ Color Color::operator-(const Color & other)
 		a > other.a ? a - other.a : 0);
 }
 
+//------------------------------------------------------------------------------
 void Color::operator+=(const Color & other)
 {
 	r = math::min((u32)r + (u32)other.r, 255u);
@@ -154,6 +172,7 @@ void Color::operator+=(const Color & other)
 	a = math::min((u32)a + (u32)other.a, 255u);
 }
 
+//------------------------------------------------------------------------------
 void Color::operator-=(const Color & other)
 {
 	r = r > other.r ? r - other.r : 0;
@@ -162,11 +181,13 @@ void Color::operator-=(const Color & other)
 	r = a > other.a ? a - other.a : 0;
 }
 
+//------------------------------------------------------------------------------
 std::string operator+(std::string const & a, Color const & b)
 {
 	return a + b.toString();
 }
 
+//------------------------------------------------------------------------------
 std::ostream & operator<<(std::ostream & os, const Color & col)
 {
 	return os << col.toString();

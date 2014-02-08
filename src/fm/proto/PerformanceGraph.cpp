@@ -10,6 +10,7 @@ This file is part of the zCraft-Framework project.
 namespace zn
 {
 
+//------------------------------------------------------------------------------
 PerformanceGraph::PerformanceGraph() : sf::Drawable(),
 	m_valueRange(0, 100),
 	m_color(255,128,0),
@@ -29,11 +30,13 @@ PerformanceGraph::PerformanceGraph() : sf::Drawable(),
 	setSize(sf::Vector2i(200,100));
 }
 
+//------------------------------------------------------------------------------
 void PerformanceGraph::setPosition(sf::Vector2f pos)
 {
 	m_pos = pos;
 }
 
+//------------------------------------------------------------------------------
 void PerformanceGraph::setSize(sf::Vector2i size)
 {
 	if(size.x <= 2)
@@ -49,6 +52,7 @@ void PerformanceGraph::setSize(sf::Vector2i size)
 	updateMesh();
 }
 
+//------------------------------------------------------------------------------
 void PerformanceGraph::updateMesh()
 {
 	if(static_cast<s32>(m_vertices.getVertexCount()) != m_size.x*2)
@@ -70,16 +74,19 @@ void PerformanceGraph::updateMesh()
 	}
 }
 
+//------------------------------------------------------------------------------
 void PerformanceGraph::setValueRange(f32 min, f32 max)
 {
 	m_valueRange.set(min, max);
 }
 
+//------------------------------------------------------------------------------
 void PerformanceGraph::setColor(sf::Color color)
 {
 	m_color = color;
 }
 
+//------------------------------------------------------------------------------
 void PerformanceGraph::pushValue(f32 y)
 {
 	//std::cout << m_currentIndex << ", " << _values.size() << std::endl;
@@ -133,6 +140,7 @@ void PerformanceGraph::pushValue(f32 y)
 	}
 }
 
+//------------------------------------------------------------------------------
 void PerformanceGraph::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	states.transform.translate(m_pos);
