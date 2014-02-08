@@ -82,6 +82,9 @@ bool Application::init()
 	// Register components in factory
 	ComponentFactory::registerEngineComponents();
 
+	// Register native user components
+	registerNativeUserComponents(ComponentFactory::get());
+
 	// Read config file
 	const std::string settingsFileName = "game_settings.json";
 	if(!m_gameSettings.loadFromJSONFile(settingsFileName))

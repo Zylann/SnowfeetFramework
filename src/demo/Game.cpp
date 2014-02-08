@@ -14,6 +14,15 @@
 namespace demo
 {
 
+void Game::registerNativeUserComponents(zn::ComponentFactory & f)
+{
+	f.registerType<Avatar>();
+	f.registerType<Cat>();
+	f.registerType<Cursor>();
+	f.registerType<Mover>();
+	f.registerType<Rotate>();
+}
+
 bool Game::onInit()
 {
 	// Scene config

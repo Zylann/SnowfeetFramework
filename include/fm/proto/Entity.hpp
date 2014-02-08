@@ -7,7 +7,7 @@ This file is part of the zCraft-Framework project.
 #ifndef HEADER_ZN_ENTITY_HPP_INCLUDED
 #define HEADER_ZN_ENTITY_HPP_INCLUDED
 
-#include <list>
+#include <unordered_map>
 #include <SFML/Graphics.hpp>
 
 #include <fm/types.hpp>
@@ -74,32 +74,45 @@ public:
 	inline const std::string & name() const { return m_name; }
 	inline void setName(const std::string & newName) { m_name = newName; }
 
-	template <class Cmp_T>
-	Cmp_T * addComponent()
+	// Adds a native component of the given type to the entity.
+	// Note that an entity cannot have two components of the same type.
+	template <class Component_T>
+	Component_T * addComponent()
 	{
-		Cmp_T * cmp = new Cmp_T;
-		if(addComponent(cmp) != nullptr)
-			return cmp;
-		else
+		// Get metaclass
+		const ComponentType & ct = Component_T::sComponentType();
+
+		// Check if the component can be added
+		if(!checkComponentAddition(ct, "Entity::addComponent"))
 		{
-			delete cmp;
 			return nullptr;
 		}
+
+		// Create component
+		Component_T * newComponent = new Component_T();
+
+		// Call internal component adder
+		addComponent(newComponent);
+
+		return newComponent;
 	}
 
+	// Removes a component from the entity by providing a direct reference.
 	void removeComponent(AComponent * cmp);
 
-	// Finds the first behaviour matching the given type.
-	// Warning: this operation is very slow. You may use it only if it's the only way.
-	template <class Cmp_T>
-	Cmp_T * getComponent()
+	// Finds the component of the given type attached to this entity.
+	// Returns nullptr if not found.
+	template <class Component_T>
+	Component_T * getComponent()
 	{
-		Cmp_T * cmpt;
-		for(AComponent *& cmp : m_components)
+		const ComponentType & ct = Component_T::sComponentType();
+
+		auto it = m_components.find(ct.ID);
+		if(it != m_components.end())
 		{
-			if((cmpt = dynamic_cast<Cmp_T*>(cmp)) != nullptr)
-				return cmpt;
+			return it->second;
 		}
+
 		return nullptr;
 	}
 
@@ -160,14 +173,18 @@ private:
 	// Internal method for adding a component
 	AComponent * addComponent(AComponent * newCmp);
 
+	// Checks a component type before adding a component instance.
+	// Prints debug messages.
+	bool checkComponentAddition(const ComponentType & ct, const std::string & context);
+
 	//--------------------------------------
 	// Attributes
 	//--------------------------------------
 
 	u32                       m_id;
 
-	// TODO use a map with key=componentType since now components may be unique per entity
-	std::vector<AComponent*>  m_components;
+	// Components attached to this entity, stored by type.
+	std::unordered_map<ComponentTypeID, AComponent*>  m_components;
 
 	// Direct references to engine components for quick lookup
 	ARenderer *               r_renderer;

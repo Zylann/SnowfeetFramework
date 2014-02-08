@@ -18,9 +18,11 @@ public:
 
 protected:
 
-	virtual bool onInit();
-	virtual void onEvent(sf::Event & e);
-	virtual void onClose();
+	void registerNativeUserComponents(zn::ComponentFactory & f) override;
+
+	bool onInit() override;
+	void onEvent(sf::Event & e) override;
+	void onClose() override;
 
 private:
 

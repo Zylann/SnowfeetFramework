@@ -29,10 +29,11 @@ Entity::Entity() :
 
 Entity::~Entity()
 {
-	for(AComponent *& cmp : m_components)
+	for(auto it = m_components.begin(); it != m_components.end(); ++it)
 	{
-		cmp->onDestroy();
-		delete cmp;
+		AComponent * component = it->second;
+		component->onDestroy();
+		delete component;
 	}
 }
 
@@ -91,46 +92,10 @@ void Entity::setCrossScene(bool crossScene)
 //------------------------------------------------------------------------------
 AComponent * Entity::addComponent(AComponent * newCmp)
 {
-#ifdef ZN_DEBUG
-	if(newCmp == nullptr)
-		std::cout << "E: Entity::addComponent: newCmp is null !" << std::endl;
-#endif
 	assert(newCmp != nullptr);
 
 	const ComponentType & ct = newCmp->componentType();
-
-#ifdef ZN_DEBUG
-	// If the component is not a behaviour
-	if(ct.group != CG_BEHAVIOUR)
-	{
-		// Search for another component of the same group
-		AComponent * duplicate = nullptr;
-		for(u32 i = 0; i < m_components.size(); ++i)
-		{
-			if(m_components[i]->componentType().group == ct.group)
-			{
-				duplicate = m_components[i];
-				break;
-			}
-		}
-		// If another has been found
-		if(duplicate != nullptr)
-		{
-			std::cout << "E: Entity::addComponent: duplicate of same group !" << std::endl;
-
-			std::cout << "E: | adding: ";
-			newCmp->componentType().print(std::cout);
-			std::cout << std::endl;
-
-			std::cout << "E: | duplicate is: ";
-			duplicate->componentType().print(std::cout);
-			std::cout << std::endl;
-		}
-		assert(!duplicate);
-	}
-#endif
-
-	m_components.push_back(newCmp);
+	m_components[ct.ID] = newCmp;
 
 	// Assign quick lookup pointer
 	switch(ct.group)
@@ -154,45 +119,47 @@ AComponent * Entity::addComponent(AComponent * newCmp)
 //------------------------------------------------------------------------------
 void Entity::removeComponent(AComponent * cmp)
 {
-	for(auto it = m_components.begin(); it != m_components.end(); ++it)
-	{
-		if(*it == cmp)
-		{
-			delete cmp;
-			m_components.erase(it);
-			return;
-		}
-	}
+	assert(cmp != nullptr);
 
+	auto it = m_components.find(cmp->componentType().ID);
+	if(it != m_components.end())
+	{
+		m_components.erase(it);
+	}
 #ifdef ZN_DEBUG
-	std::cout << "E: Entity::removeComponnet: not found" << std::endl;
+	else
+	{
+		std::cout << "W: Entity::removeComponent: not found ";
+		cmp->componentType().print(std::cout);
+		std::cout << std::endl;
+	}
 #endif
 }
 
 //------------------------------------------------------------------------------
 void Entity::sendMessage(const std::string & msg)
 {
-	for(u32 i = 0; i < m_components.size(); ++i)
+	for(auto it = m_components.begin(); it != m_components.end(); ++it)
 	{
-		m_components[i]->onMessage(msg);
+		it->second->onMessage(msg);
 	}
 }
 
 //------------------------------------------------------------------------------
 void Entity::onCollisionEnter(const CollisionInfo & info)
 {
-	for(u32 i = 0; i < m_components.size(); ++i)
+	for(auto it = m_components.begin(); it != m_components.end(); ++it)
 	{
-		m_components[i]->onCollisionEnter(info);
+		it->second->onCollisionEnter(info);
 	}
 }
 
 //------------------------------------------------------------------------------
 void Entity::onCollisionExit(const CollisionInfo & info)
 {
-	for(u32 i = 0; i < m_components.size(); ++i)
+	for(auto it = m_components.begin(); it != m_components.end(); ++it)
 	{
-		m_components[i]->onCollisionExit(info);
+		it->second->onCollisionExit(info);
 	}
 }
 
@@ -215,10 +182,12 @@ void Entity::serialize(JsonBox::Value & o)
 
 	JsonBox::Array componentListData;
 	componentListData.resize(m_components.size());
-	for(u32 i = 0; i < m_components.size(); ++i)
+	u32 i = 0;
+	for(auto it = m_components.begin(); it != m_components.end(); ++it)
 	{
 		JsonBox::Value & componentData = componentListData[i];
-		AComponent::serialize(m_components[i], componentData);
+		AComponent::serialize(it->second, componentData);
+		++i;
 	}
 	o["components"] = componentListData;
 }
@@ -245,6 +214,13 @@ void Entity::unserialize(JsonBox::Value & o)
 	for(u32 i = 0; i < n; ++i)
 	{
 		AComponent * component = AComponent::unserialize(componentListData[i]);
+
+		if(!checkComponentAddition(component->componentType(), "Entity::unserialize"))
+		{
+			delete component;
+			continue;
+		}
+
 		addComponent(component);
 	}
 }
@@ -254,8 +230,72 @@ void Entity::postUnserialize(JsonBox::Value & o)
 {
 	for(auto it = m_components.begin(); it != m_components.end(); ++it)
 	{
-		(*it)->postUnserialize();
+		it->second->postUnserialize();
 	}
+}
+
+//------------------------------------------------------------------------------
+bool Entity::checkComponentAddition(const ComponentType & ct, const std::string & context)
+{
+	// Check component type ID
+	if(ct.ID == 0)
+	{
+		std::cout << "E: " << context << ": "
+			"The native component " << ct.name << " has no ID. "
+			"It must be registered on application start." << std::endl;
+		std::cout << "E: | on entity \"" << m_name << '"' << std::endl;
+
+		return false;
+	}
+
+	// Check duplicates
+	auto componentIt = m_components.find(ct.ID);
+	if(componentIt != m_components.end())
+	{
+		// Found duplicate
+		std::cout << "E: " << context << ": "
+			"cannot add two components of the same type ! " << std::endl;
+		std::cout << "E: | "; ct.print(std::cout); std::cout << std::endl;
+		std::cout << "E: | on entity \"" << m_name << '"' << std::endl;
+
+		return false;
+	}
+
+	// If the component is not a behaviour, test its group unicity
+	if(ct.group != CG_BEHAVIOUR)
+	{
+		// Search for another component of the same group
+		AComponent * duplicate = nullptr;
+		for(auto it = m_components.begin(); it != m_components.end(); ++it)
+		{
+			AComponent * c = it->second;
+			if(c->componentType().group == ct.group)
+			{
+				duplicate = c;
+				break;
+			}
+		}
+		// If another has been found
+		if(duplicate != nullptr)
+		{
+			std::cout << "E: " << context << ": "
+				"cannot add component, only one of its group is allowed !" << std::endl;
+
+			std::cout << "E: | adding: ";
+			ct.print(std::cout);
+			std::cout << std::endl;
+
+			std::cout << "E: | the entity already has : ";
+			duplicate->componentType().print(std::cout);
+			std::cout << std::endl;
+
+			std::cout << "E: | on entity \"" << m_name << '"' << std::endl;
+
+			return false;
+		}
+	}
+
+	return true;
 }
 
 } // namespace zn

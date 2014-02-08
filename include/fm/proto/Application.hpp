@@ -13,6 +13,7 @@ This file is part of the zCraft-Framework project.
 #include <fm/proto/Scene.hpp>
 #include <fm/proto/PerformanceGraph.hpp>
 #include <fm/proto/GameSettings.hpp>
+#include <fm/proto/ComponentFactory.hpp>
 
 namespace zn
 {
@@ -100,6 +101,9 @@ protected:
 	//-----------------------
 	// Overridable methods
 	//-----------------------
+
+	// Called first to register user-defined C++ components
+	virtual void registerNativeUserComponents(ComponentFactory & f) = 0;
 
 	// Called when the application starts, after window's creation, before main loop.
 	// The default implementation does nothing.

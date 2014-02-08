@@ -14,7 +14,9 @@ class ComponentFactory
 private:
 
 	// Private to prevent construction from the outside
-	ComponentFactory() {}
+	ComponentFactory() :
+		m_nextID(1) // IDs start at 1
+	{}
 
 	// Prevent copy-construction
 	ComponentFactory(const ComponentFactory&);

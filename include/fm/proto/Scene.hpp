@@ -7,8 +7,9 @@ This file is part of the zCraft-Framework project.
 #ifndef HEADER_ZN_SCENE_HPP_INCLUDED
 #define HEADER_ZN_SCENE_HPP_INCLUDED
 
-#include <SFML/Graphics.hpp>
+#include <list>
 #include <unordered_set>
+#include <SFML/Graphics.hpp>
 
 #include <fm/proto/Entity.hpp>
 #include <fm/proto/LayerMap.hpp>

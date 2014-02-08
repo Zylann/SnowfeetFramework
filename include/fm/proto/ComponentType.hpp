@@ -63,6 +63,8 @@ enum ComponentGroup
 	CG_AUDIO_EMITTER = 7
 };
 
+typedef u32 ComponentTypeID;
+
 // Meta-class of a component
 // Note: it is fixed in the final game.
 struct ZN_API ComponentType
@@ -71,7 +73,7 @@ struct ZN_API ComponentType
 	// DO NOT modify (only done on type registration).
 	// The value of IDs may be generated sequentially, starting from 1.
 	// 0 means null type.
-	u32 ID;
+	ComponentTypeID ID;
 
 	// Unique name of the type.
 	std::string name;
