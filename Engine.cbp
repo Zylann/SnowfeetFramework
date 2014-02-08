@@ -64,11 +64,12 @@
 		<Unit filename="include/fm/json/json_utils.hpp" />
 		<Unit filename="include/fm/pcg/AutoTiler.hpp" />
 		<Unit filename="include/fm/pcg/MazeGenerator.hpp" />
+		<Unit filename="include/fm/proto/Application.hpp" />
 		<Unit filename="include/fm/proto/Component.hpp" />
+		<Unit filename="include/fm/proto/ComponentFactory.hpp" />
 		<Unit filename="include/fm/proto/ComponentSystem.hpp" />
 		<Unit filename="include/fm/proto/ComponentType.hpp" />
 		<Unit filename="include/fm/proto/Entity.hpp" />
-		<Unit filename="include/fm/proto/GameApp.hpp" />
 		<Unit filename="include/fm/proto/GameSettings.hpp" />
 		<Unit filename="include/fm/proto/LayerMap.hpp" />
 		<Unit filename="include/fm/proto/PerformanceGraph.hpp" />
@@ -128,10 +129,10 @@
 		<Unit filename="src/fm/json/json_utils.cpp" />
 		<Unit filename="src/fm/pcg/AutoTiler.cpp" />
 		<Unit filename="src/fm/pcg/MazeGenerator.cpp" />
+		<Unit filename="src/fm/proto/Application.cpp" />
 		<Unit filename="src/fm/proto/Component.cpp" />
-		<Unit filename="src/fm/proto/ComponentType.cpp" />
+		<Unit filename="src/fm/proto/ComponentFactory.cpp" />
 		<Unit filename="src/fm/proto/Entity.cpp" />
-		<Unit filename="src/fm/proto/GameApp.cpp" />
 		<Unit filename="src/fm/proto/PerformanceGraph.cpp" />
 		<Unit filename="src/fm/proto/Scene.cpp" />
 		<Unit filename="src/fm/proto/Transform.cpp" />
