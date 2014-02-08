@@ -3,6 +3,7 @@
 
 #include <fm/config.hpp>
 #include <fm/proto/Component.hpp>
+#include <fm/proto/ComponentFactory.hpp>
 #include <fm/proto/Entity.hpp>
 
 using namespace std;
@@ -108,7 +109,7 @@ AComponent * AComponent::unserialize(JsonBox::Value & o)
 	std::string type = o["type"].getString();
 
 	// Instantiate it
-	AComponent * component = ComponentType::instantiate(type);
+	AComponent * component = ComponentFactory::get().instantiate(type);
 
 	// Deserialize properties
 	assert(component != nullptr);

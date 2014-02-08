@@ -7,7 +7,7 @@ This file is part of the zCraft-Framework project.
 #ifndef HEADER_ZN_COMPONENTTYPE_HPP_INCLUDED
 #define HEADER_ZN_COMPONENTTYPE_HPP_INCLUDED
 
-#include "../types.hpp"
+#include <fm/types.hpp>
 #include <string>
 #include <iostream>
 #include <functional>
@@ -19,9 +19,9 @@ This file is part of the zCraft-Framework project.
 // This macro is useful if you are extending a engine kind of component.
 // Place this in public in all your complete-type components class declarations.
 // Components defined this way are the only ones of their group in an entity.
-// __name: class name with full namespace
+// __name: class name with full namespace (must be unique !)
 // __group: group from enum ComponentGroup
-// __updateOrder: update order of the component
+// __updateOrder: update order of the component (only for behaviours)
 #define ZN_COMPONENT(__name, __group, __updateOrder)                           \
 	static zn::ComponentType & sComponentType()                                \
 	{                                                                          \
@@ -40,6 +40,8 @@ This file is part of the zCraft-Framework project.
 	}
 
 // Shortcut for behaviours (most likely to be user code)
+// __name: class name with full namespace (must be unique !)
+// __updateOrder: update order of the behaviour
 #define ZN_BEHAVIOUR(__name, __updateOrder) \
 	ZN_COMPONENT(__name, zn::CG_BEHAVIOUR, __updateOrder)
 
@@ -67,9 +69,9 @@ enum ComponentGroup
 // Note: it is fixed in the final game.
 struct ZN_API ComponentType
 {
+	u32 ID;
 	std::string name;
 	u8 group;
-//	u8 flags;
 	s32 updateOrder; // only used by behaviours
 	//dependencies?
 
@@ -78,6 +80,7 @@ struct ZN_API ComponentType
 		u8 p_group,
 		s32 p_updateOrder=0
 	) :
+		ID(0), // null ID
 		name(p_name),
 		group(p_group),
 		updateOrder(p_updateOrder)
@@ -87,25 +90,6 @@ struct ZN_API ComponentType
 	{
 		os << "{" << name << ", group:" << (u32)group << ", updateOrder:" << updateOrder << "}";
 	}
-
-	// -------------------
-	// Factory system
-	// -------------------
-
-	// Functions below allow you to register components in the factory system,
-	// which can then be created from their name as strings.
-	// This is mainly used for serialization.
-
-	// Registers a component type by a name and a function that instantiates this type.
-	// You must always use the full name of the class in the C++ way of things.
-	static void registerType(const std::string className, std::function<AComponent*()> factory);
-
-	// Creates a new instance of a component from its name.
-	// It does the same thing as "new MyComponent()", where className = "MyComponent".
-	static AComponent * instantiate(const std::string className);
-
-	// Registers built-in components. Must be called once.
-	static void registerEngineComponents();
 
 };
 

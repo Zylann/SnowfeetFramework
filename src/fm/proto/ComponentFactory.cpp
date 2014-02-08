@@ -1,15 +1,7 @@
-/*
-ComponentType.cpp
-Copyright (C) 2010-2013 Marc GILLERON
-This file is part of the zCraft-Framework project.
-*/
+#include <fm/proto/ComponentFactory.hpp>
 
-#include <cassert>
-#include <unordered_map>
-
-#include <fm/proto/ComponentType.hpp>
+// For engine registration
 #include <fm/util/macros.hpp>
-
 #include <fm/proto/animation/SpriteAnimator.hpp>
 #include <fm/proto/audio/AudioEmitter.hpp>
 #include <fm/proto/graphics/Camera.hpp>
@@ -20,47 +12,43 @@ This file is part of the zCraft-Framework project.
 #include <fm/proto/physics/BoxCollider.hpp>
 #include <fm/proto/physics/MapCollider.hpp>
 
-using namespace std;
-
 namespace zn
 {
 
-unordered_map<string, function<AComponent*()>> s_factories;
+using namespace std;
 
 //------------------------------------------------------------------------------
-// static
-void ComponentType::registerType(const string className, function<AComponent*()> factory)
+void ComponentFactory::registerType(const string className, function<AComponent*()> factory)
 {
 #ifdef ZN_DEBUG
-	if(s_factories.find(className) != s_factories.end())
+	if(m_factories.find(className) != m_factories.end())
 	{
 		cout << "W: registered the same component type twice ! (" << className << ")" << endl;
 	}
 #endif
-	s_factories[className] = factory;
+	m_factories[className] = factory;
 }
 
 //------------------------------------------------------------------------------
-// static
-AComponent * ComponentType::instantiate(const string className)
+AComponent * ComponentFactory::instantiate(const string className)
 {
-	auto it = s_factories.find(className);
+	auto it = m_factories.find(className);
 #ifdef ZN_DEBUG
-	if(it == s_factories.end())
+	if(it == m_factories.end())
 	{
 		cout << "E: cannot instantiate " << className << ", factory not found" << endl;
 	}
 #endif
-	assert(it != s_factories.end());
+	assert(it != m_factories.end());
 	return it->second();
 }
 
 //------------------------------------------------------------------------------
 // This macro is a shortcut that minimizes code redundancy to reduce mistype errors
 #define ZN_REGISTER_COMPONENT(__className)                                     \
-	ComponentType::registerType(#__className, __className::instantiate)
+	ComponentFactory::get().registerType(#__className, __className::instantiate)
 
-void ComponentType::registerEngineComponents()
+void ComponentFactory::registerEngineComponents()
 {
 	ZN_CALL_ONCE;
 
@@ -80,8 +68,5 @@ void ComponentType::registerEngineComponents()
 
 }
 
-
 } // namespace zn
-
-
 

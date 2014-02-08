@@ -8,6 +8,7 @@ This file is part of the zCraft-Framework project.
 
 #include <fm/proto/GameApp.hpp>
 #include <fm/util/macros.hpp>
+#include <fm/proto/ComponentFactory.hpp>
 
 namespace zn
 {
@@ -79,7 +80,7 @@ void GameApp::setFullScreen(bool fullScreen)
 bool GameApp::init()
 {
 	// Register components in factory
-	ComponentType::registerEngineComponents();
+	ComponentFactory::registerEngineComponents();
 
 	// Read config file
 	const std::string settingsFileName = "game_settings.json";
