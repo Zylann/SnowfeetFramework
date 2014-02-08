@@ -23,7 +23,7 @@ void ComponentFactory::registerType(const string className, function<AComponent*
 #ifdef ZN_DEBUG
 	if(m_factories.find(className) != m_factories.end())
 	{
-		cout << "W: registered the same component type twice ! (" << className << ")" << endl;
+		cout << "E: registered the same component type twice ! (" << className << ")" << endl;
 	}
 #endif
 	m_factories[className] = factory;
@@ -44,27 +44,32 @@ AComponent * ComponentFactory::instantiate(const string className)
 }
 
 //------------------------------------------------------------------------------
-// This macro is a shortcut that minimizes code redundancy to reduce mistype errors
-#define ZN_REGISTER_COMPONENT(__className)                                     \
-	ComponentFactory::get().registerType(#__className, __className::instantiate)
-
 void ComponentFactory::registerEngineComponents()
 {
 	ZN_CALL_ONCE;
 
-	ZN_REGISTER_COMPONENT( zn::SpriteAnimator );
+	ComponentFactory & f = ComponentFactory::get();
 
-	ZN_REGISTER_COMPONENT( zn::AudioEmitter );
+	// Animation
 
-	ZN_REGISTER_COMPONENT( zn::Camera );
+	f.registerType<zn::SpriteAnimator>();
 
-	ZN_REGISTER_COMPONENT( zn::MapRenderer );
-	ZN_REGISTER_COMPONENT( zn::ParticleSystem );
-	ZN_REGISTER_COMPONENT( zn::SpriteRenderer );
-	ZN_REGISTER_COMPONENT( zn::TextRenderer );
+	// Audio
 
-	ZN_REGISTER_COMPONENT( zn::BoxCollider );
-	ZN_REGISTER_COMPONENT( zn::MapCollider );
+	f.registerType<zn::AudioEmitter>();
+
+	// Graphics
+
+	f.registerType<zn::Camera>();
+	f.registerType<zn::MapRenderer>();
+	f.registerType<zn::ParticleSystem>();
+	f.registerType<zn::SpriteRenderer>();
+	f.registerType<zn::TextRenderer>();
+
+	// Physics
+
+	f.registerType<zn::BoxCollider>();
+	f.registerType<zn::MapCollider>();
 
 }
 

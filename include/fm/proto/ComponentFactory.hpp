@@ -34,6 +34,14 @@ public:
 	// which can then be created from their name as strings.
 	// This is mainly used for serialization.
 
+	// Registers a component type using ZN_COMPONENT macro in its definition.
+	template <class Component_T>
+	void registerType()
+	{
+		const ComponentType & cmpType = Component_T::sComponentType();
+		registerType(cmpType.name, Component_T::instantiate);
+	}
+
 	// Registers a component type by a name and a function that instantiates this type.
 	// You must always use the full name of the class in the C++ way of things.
 	void registerType(const std::string className, std::function<AComponent*()> factory);
