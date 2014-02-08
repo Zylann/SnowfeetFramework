@@ -100,9 +100,10 @@ AComponent * Entity::addComponent(AComponent * newCmp)
 	const ComponentType & ct = newCmp->componentType();
 
 #ifdef ZN_DEBUG
-	// Check component group unicity
-	if(ct.flags & CTF_UNIQUE_OF_GROUP)
+	// If the component is not a behaviour
+	if(ct.group != CG_BEHAVIOUR)
 	{
+		// Search for another component of the same group
 		AComponent * duplicate = nullptr;
 		for(u32 i = 0; i < m_components.size(); ++i)
 		{
@@ -112,6 +113,7 @@ AComponent * Entity::addComponent(AComponent * newCmp)
 				break;
 			}
 		}
+		// If another has been found
 		if(duplicate != nullptr)
 		{
 			std::cout << "E: Entity::addComponent: duplicate of same group !" << std::endl;

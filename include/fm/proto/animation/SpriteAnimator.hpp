@@ -11,7 +11,7 @@ class ZN_API SpriteAnimator : public AAnimator
 {
 public:
 
-	ZN_COMPONENT(zn::SpriteAnimator, CG_ANIMATOR)
+	ZN_COMPONENT(zn::SpriteAnimator, CG_ANIMATOR, 0)
 
 	SpriteAnimator() : AAnimator(),
 		r_sequence(0),

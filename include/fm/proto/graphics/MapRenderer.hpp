@@ -14,7 +14,7 @@ class ZN_API MapRenderer : public ARenderer
 {
 public:
 
-	ZN_COMPONENT(zn::MapRenderer, CG_RENDERER)
+	ZN_COMPONENT(zn::MapRenderer, CG_RENDERER, 0)
 
 	MapRenderer() : ARenderer(),
 		r_atlas(nullptr),

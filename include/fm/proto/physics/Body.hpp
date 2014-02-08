@@ -13,7 +13,7 @@ class ZN_API Body : public AComponent
 {
 public:
 
-	ZN_COMPONENT(zn::Body, CG_BODY)
+	ZN_COMPONENT(zn::Body, CG_BODY, 0)
 
 	void onAdd(Entity * e) override;
 	void onDestroy() override;

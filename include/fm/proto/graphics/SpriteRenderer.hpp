@@ -10,7 +10,7 @@ class ZN_API SpriteRenderer : public ARenderer
 {
 public:
 
-	ZN_COMPONENT(zn::SpriteRenderer, CG_RENDERER)
+	ZN_COMPONENT(zn::SpriteRenderer, CG_RENDERER, 0)
 
 	SpriteRenderer() : ARenderer(),
 		r_atlas(nullptr)

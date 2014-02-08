@@ -16,33 +16,32 @@ This file is part of the zCraft-Framework project.
 
 // TODO Automatic component registration by instancing a static object + using a singleton
 
-// A behaviour is a component specific to your game, a bit like a script.
-// Behaviours are updated before all other components.
-// Place this in public in all your complete-type behaviour-components class declarations.
-// __name: class name with namespace (ie: myNamespace::MyBehaviour)
-#define ZN_BEHAVIOUR(__name, __updateOrder)                                    \
-	const zn::ComponentType & componentType() const override                   \
-	{                                                                          \
-		static zn::ComponentType cmpt(                                         \
-			#__name, zn::CG_BEHAVIOUR, __updateOrder                           \
-		);                                                                     \
-		return cmpt;                                                           \
-	}                                                                          \
-	static zn::AComponent * instantiate() { return new __name(); }
-
 // This macro is useful if you are extending a engine kind of component.
 // Place this in public in all your complete-type components class declarations.
 // Components defined this way are the only ones of their group in an entity.
 // __name: class name with full namespace
 // __group: group from enum ComponentGroup
-#define ZN_COMPONENT(__name, __group)                                          \
-	const zn::ComponentType & componentType() const override                   \
+// __updateOrder: update order of the component
+#define ZN_COMPONENT(__name, __group, __updateOrder)                           \
+	static zn::ComponentType & sComponentType()                                \
 	{                                                                          \
 		static zn::ComponentType cmpt(                                         \
-			#__name, __group, 0, zn::CTF_UNIQUE_OF_GROUP);                     \
+			#__name, __group, __updateOrder                                    \
+		);                                                                     \
 		return cmpt;                                                           \
 	}                                                                          \
-	static zn::AComponent * instantiate() { return new __name(); }
+	const zn::ComponentType & componentType() const override                   \
+	{                                                                          \
+		return sComponentType();                                               \
+	}                                                                          \
+	static zn::AComponent * instantiate()                                      \
+	{                                                                          \
+		return new __name();                                                   \
+	}
+
+// Shortcut for behaviours (most likely to be user code)
+#define ZN_BEHAVIOUR(__name, __updateOrder) \
+	ZN_COMPONENT(__name, zn::CG_BEHAVIOUR, __updateOrder)
 
 namespace zn
 {
@@ -64,31 +63,23 @@ enum ComponentGroup
 	CG_AUDIO_EMITTER = 7
 };
 
-enum ComponentTypeFlags
-{
-	CTF_DEFAULT = 0,
-	CTF_UNIQUE_OF_GROUP = 1
-};
-
 // Meta-class of a component
 // Note: it is fixed in the final game.
 struct ZN_API ComponentType
 {
 	std::string name;
 	u8 group;
-	u8 flags;
+//	u8 flags;
 	s32 updateOrder; // only used by behaviours
 	//dependencies?
 
 	ComponentType(
 		const std::string & p_name,
 		u8 p_group,
-		s32 p_updateOrder=0,
-		u8 p_flags=CTF_DEFAULT
+		s32 p_updateOrder=0
 	) :
 		name(p_name),
 		group(p_group),
-		flags(p_flags),
 		updateOrder(p_updateOrder)
 	{}
 
