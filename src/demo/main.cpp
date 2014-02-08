@@ -9,7 +9,7 @@ int main(int argc, char*argv[])
 	cout << "Enter main" << endl;
 
 	int exitCode = 0;
-	exitCode = zn::GameApp::run<demo::Game>();
+	exitCode = zn::Application::run<demo::Game>();
 //	test_autotiler();
 
 	cout << "Exit main" << endl;

@@ -6,7 +6,7 @@ This file is part of the zCraft-Framework project.
 
 #include <iostream>
 
-#include <fm/proto/GameApp.hpp>
+#include <fm/proto/Application.hpp>
 #include <fm/util/macros.hpp>
 #include <fm/proto/ComponentFactory.hpp>
 
@@ -14,15 +14,15 @@ namespace zn
 {
 
 // Global game instance reference
-GameApp * g_instance = nullptr;
+Application * g_instance = nullptr;
 
-GameApp * GameApp::instance()
+Application * Application::instance()
 {
 	return g_instance;
 }
 
 //------------------------------------------------------------------------------
-GameApp::GameApp(std::string title) :
+Application::Application(std::string title) :
 	m_fullScreen(false),
 	m_runFlag(false),
 	m_title(title)
@@ -31,13 +31,13 @@ GameApp::GameApp(std::string title) :
 	g_instance = this;
 }
 
-GameApp::~GameApp()
+Application::~Application()
 {
 	g_instance = nullptr;
 }
 
 //------------------------------------------------------------------------------
-void GameApp::setFullScreen(bool fullScreen)
+void Application::setFullScreen(bool fullScreen)
 {
 	if(fullScreen != m_fullScreen)
 	{
@@ -77,7 +77,7 @@ void GameApp::setFullScreen(bool fullScreen)
 }
 
 //------------------------------------------------------------------------------
-bool GameApp::init()
+bool Application::init()
 {
 	// Register components in factory
 	ComponentFactory::registerEngineComponents();
@@ -118,7 +118,7 @@ bool GameApp::init()
 }
 
 //------------------------------------------------------------------------------
-void GameApp::start()
+void Application::start()
 {
 	if(!init())
 	{
@@ -196,7 +196,7 @@ void GameApp::start()
 }
 
 //------------------------------------------------------------------------------
-void GameApp::onScreenResize(sf::Vector2u size)
+void Application::onScreenResize(sf::Vector2u size)
 {
 //	if(!m_renderTexture.create(m_window.getSize().x*2, m_window.getSize().y*2))
 //	{
@@ -210,7 +210,7 @@ void GameApp::onScreenResize(sf::Vector2u size)
 }
 
 //------------------------------------------------------------------------------
-void GameApp::update()
+void Application::update()
 {
 	// Clamp frametime above minimal value
 	const f32 maximalFrametime = 1.f / 10.f;
@@ -225,7 +225,7 @@ void GameApp::update()
 }
 
 //------------------------------------------------------------------------------
-void GameApp::render()
+void Application::render()
 {
 //	m_renderTexture.setSmooth(true);
 //	m_renderTexture.clear(sf::Color(20,20,30));
@@ -258,7 +258,7 @@ void GameApp::render()
 }
 
 //------------------------------------------------------------------------------
-void GameApp::stop()
+void Application::stop()
 {
 	m_runFlag = false;
 }

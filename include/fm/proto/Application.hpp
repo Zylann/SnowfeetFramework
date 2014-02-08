@@ -1,11 +1,11 @@
 /*
-GameApp.hpp
+Application.hpp
 Copyright (C) 2010-2013 Marc GILLERON
 This file is part of the zCraft-Framework project.
 */
 
-#ifndef HEADER_ZN_GAMEAPP_H_INCLUDED
-#define HEADER_ZN_GAMEAPP_H_INCLUDED
+#ifndef HEADER_ZN_APPLICATION_HPP_INCLUDED
+#define HEADER_ZN_APPLICATION_HPP_INCLUDED
 
 #include <SFML/Graphics.hpp>
 
@@ -18,14 +18,14 @@ namespace zn
 {
 
 // Top-level class handling the execution of the game.
-// There must be only one GameApp (or derivated) instance created in the
+// There must be only one Application (or derivated) instance created in the
 // whole program execution.
-class ZN_API GameApp
+class ZN_API Application
 {
 public:
 
-	// Convenience routine for running a GameApp
-	template <class GameApp_T>
+	// Convenience routine for running a Application
+	template <class App_T>
 	static int run()
 	{
 		std::cout << "D: Enter run()" << std::endl;
@@ -34,7 +34,7 @@ public:
 
 		try
 		{
-			GameApp_T app;
+			App_T app;
 			app.start();
 		}
 		catch(std::exception & e)
@@ -50,13 +50,13 @@ public:
 	}
 
 	// Gets the current game instance
-	static GameApp * instance();
+	static Application * instance();
 
-	// Constructs a GameApp with an optional title.
+	// Constructs a Application with an optional title.
 	// An empty name means using the title defined in GameSettings.
-	GameApp(std::string title = "");
+	Application(std::string title = "");
 
-	virtual ~GameApp();
+	virtual ~Application();
 
 	// Init and executes the main loop
 	void start();
@@ -147,7 +147,7 @@ private:
 
 } // namespace zn
 
-#endif // HEADER_ZN_GAMEAPP_H_INCLUDED
+#endif // HEADER_ZN_APPLICATION_HPP_INCLUDED
 
 
 
