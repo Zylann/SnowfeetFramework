@@ -1,14 +1,3 @@
-//  __                      __           _
-// / _\_ __   _____      __/ _| ___  ___| |_
-// \ \| '_ \ / _ \ \ /\ / / |_ / _ \/ _ \ __|
-// _\ \ | | | (_) \ V  V /|  _|  __/  __/ |_
-// \__/_| |_|\___/ \_/\_/ |_|  \___|\___|\__|
-//         S P A C E     M A D N E S S
-//
-// This file is part of the Snowfeet Space Madness game.
-// Copyright Marc Gilleron 2013
-//
-
 #include "Cat.hpp"
 #include "fm/asset/AssetBank.hpp"
 #include "fm/proto/Scene.hpp"
