@@ -65,9 +65,9 @@
 		<Unit filename="include/fm/pcg/AutoTiler.hpp" />
 		<Unit filename="include/fm/pcg/MazeGenerator.hpp" />
 		<Unit filename="include/fm/proto/Application.hpp" />
-		<Unit filename="include/fm/proto/BasicComponentSystem.hpp" />
 		<Unit filename="include/fm/proto/Component.hpp" />
 		<Unit filename="include/fm/proto/ComponentFactory.hpp" />
+		<Unit filename="include/fm/proto/ComponentList.hpp" />
 		<Unit filename="include/fm/proto/ComponentType.hpp" />
 		<Unit filename="include/fm/proto/Entity.hpp" />
 		<Unit filename="include/fm/proto/GameSettings.hpp" />
