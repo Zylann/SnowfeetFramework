@@ -21,7 +21,7 @@ Entity::Entity() :
 	r_camera(nullptr),
 	r_animator(nullptr),
 	m_flags(ACTIVE),
-	m_layerMask(1), // default mask
+	m_layer(0), // default layer
 	r_scene(nullptr)
 {
 	setName("_entity_");
@@ -87,6 +87,12 @@ void Entity::setActive(bool active)
 void Entity::setCrossScene(bool crossScene)
 {
 	setFlag(CROSS_SCENE, crossScene);
+}
+
+//------------------------------------------------------------------------------
+void Entity::setLayer(u32 layer)
+{
+	m_layer = layer;
 }
 
 //------------------------------------------------------------------------------
@@ -173,10 +179,10 @@ void Entity::serialize(JsonBox::Value & o)
 
 	// Meta
 
-	o["id"]         = (s32)m_id;
-	o["flags"]      = m_flags;
-	o["layerMask"]  = (s32)m_layerMask; // TODO fix JsonBox so it accepts unsigned integers
-	o["name"]       = name();
+	o["id"]       = (s32)m_id;
+	o["flags"]    = m_flags;
+	o["layer"]    = (s32)m_layer; // TODO fix JsonBox so it accepts unsigned integers
+	o["name"]     = name();
 
 	// Components
 
@@ -204,7 +210,7 @@ void Entity::unserialize(JsonBox::Value & o)
 
 	m_id = o["id"].getInt();
 	m_flags = o["flags"].getInt();
-	m_layerMask = o["layerMask"].getInt();
+	m_layer = o["layer"].getInt();
 	setName(o["name"].getString());
 
 	// Components

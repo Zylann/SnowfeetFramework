@@ -1,7 +1,7 @@
 /*
 Entity.hpp
-Copyright (C) 2010-2013 Marc GILLERON
-This file is part of the zCraft-Framework project.
+Copyright (C) 2013-2014 Marc GILLERON
+This file is part of the Plane-framework project.
 */
 
 #ifndef HEADER_ZN_ENTITY_HPP_INCLUDED
@@ -137,8 +137,8 @@ public:
 	// Layers
 	//--------------------------------------
 
-	inline void setLayerMask(u32 mask) { m_layerMask = mask; }
-	inline u32 layerMask() const { return m_layerMask; }
+	void setLayer(u32 layer);
+	inline u32 layer() const { return m_layer; }
 
 	//--------------------------------------
 	// Serialization
@@ -195,7 +195,7 @@ private:
 	AudioEmitter *            r_audioEmitter;
 
 	u8                        m_flags; // TODO use std::bitset
-	u32                       m_layerMask;
+	u32                       m_layer;
 
 	Scene *                   r_scene;
 

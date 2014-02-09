@@ -282,8 +282,6 @@ void Scene::draw(sf::RenderTarget& target, sf::RenderStates states) const
 		// Set view transform
 		target.setView(camera.internalView());
 
-		u32 layerMask = camera.entity().layerMask();
-
 		// Filter and sort renderers by draw order
 		std::list<const ARenderer*> drawList;
 		for(auto it = renderers.cbegin(); it != renderers.cend(); ++it)
@@ -291,11 +289,15 @@ void Scene::draw(sf::RenderTarget& target, sf::RenderStates states) const
 			const ARenderer * renderer = *it;
 			const Entity & entity = renderer->entity();
 
-			if(entity.activeInHierarchy() && (entity.layerMask() & layerMask))
+			// If the entity is active and is on a layer seen by the camera
+			if(entity.activeInHierarchy() && ((1 << entity.layer()) & camera.layerMask))
 			{
+				// Add the entity's renderer to the draw list
 				drawList.push_back(renderer);
 			}
 		}
+
+		// Sort the list by draw order
 		drawList.sort(f_rendererOrder);
 
 		// Draw filtered renderers in the right order

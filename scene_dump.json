@@ -4,9 +4,105 @@
 			"components" : [
 				{
 					"data" : {
+						"cellSize" : 32,
+						"collisionShapes" : [
+							{
+								"h" : 1,
+								"w" : 1,
+								"x" : 0,
+								"y" : 0
+							},
+							{
+								"h" : 32,
+								"w" : 32,
+								"x" : 0,
+								"y" : 0
+							},
+							{
+								"h" : 32,
+								"w" : 16,
+								"x" : 0,
+								"y" : 0
+							},
+							{
+								"h" : 32,
+								"w" : 16,
+								"x" : 16,
+								"y" : 0
+							},
+							{
+								"h" : 16,
+								"w" : 32,
+								"x" : 0,
+								"y" : 0
+							},
+							{
+								"h" : 16,
+								"w" : 32,
+								"x" : 0,
+								"y" : 16
+							},
+							{
+								"h" : 16,
+								"w" : 16,
+								"x" : 0,
+								"y" : 0
+							},
+							{
+								"h" : 16,
+								"w" : 16,
+								"x" : 16,
+								"y" : 0
+							},
+							{
+								"h" : 16,
+								"w" : 16,
+								"x" : 0,
+								"y" : 16
+							},
+							{
+								"h" : 16,
+								"w" : 16,
+								"x" : 16,
+								"y" : 16
+							},
+							{
+								"h" : 16,
+								"w" : 16,
+								"x" : 8,
+								"y" : 8
+							},
+							{
+								"h" : 16,
+								"w" : 32,
+								"x" : 0,
+								"y" : 8
+							},
+							{
+								"h" : 32,
+								"w" : 16,
+								"x" : 8,
+								"y" : 0
+							}
+						],
+						"flags" : 1,
+						"size" : {
+							"x" : 100,
+							"y" : 50
+						},
+						"tiledMap" : "test",
+						"tiledMapLayer" : "collision",
+						"tiledMapTileset" : "collision",
+						"voidColliderShape" : 0
+					},
+					"type" : "zn::MapCollider"
+				},
+				{
+					"data" : {
 						"atlas" : "room",
 						"drawOrder" : -1,
 						"flags" : 0,
+						"material" : "",
 						"size" : {
 							"x" : 100,
 							"y" : 50
@@ -2985,7 +3081,7 @@
 							225,
 							225,
 							225,
-							225,
+							4,
 							37,
 							136,
 							32,
@@ -5022,106 +5118,11 @@
 						]
 					},
 					"type" : "zn::MapRenderer"
-				},
-				{
-					"data" : {
-						"cellSize" : 32,
-						"collisionShapes" : [
-							{
-								"h" : 1,
-								"w" : 1,
-								"x" : 0,
-								"y" : 0
-							},
-							{
-								"h" : 32,
-								"w" : 32,
-								"x" : 0,
-								"y" : 0
-							},
-							{
-								"h" : 32,
-								"w" : 16,
-								"x" : 0,
-								"y" : 0
-							},
-							{
-								"h" : 32,
-								"w" : 16,
-								"x" : 16,
-								"y" : 0
-							},
-							{
-								"h" : 16,
-								"w" : 32,
-								"x" : 0,
-								"y" : 0
-							},
-							{
-								"h" : 16,
-								"w" : 32,
-								"x" : 0,
-								"y" : 16
-							},
-							{
-								"h" : 16,
-								"w" : 16,
-								"x" : 0,
-								"y" : 0
-							},
-							{
-								"h" : 16,
-								"w" : 16,
-								"x" : 16,
-								"y" : 0
-							},
-							{
-								"h" : 16,
-								"w" : 16,
-								"x" : 0,
-								"y" : 16
-							},
-							{
-								"h" : 16,
-								"w" : 16,
-								"x" : 16,
-								"y" : 16
-							},
-							{
-								"h" : 16,
-								"w" : 16,
-								"x" : 8,
-								"y" : 8
-							},
-							{
-								"h" : 16,
-								"w" : 32,
-								"x" : 0,
-								"y" : 8
-							},
-							{
-								"h" : 32,
-								"w" : 16,
-								"x" : 8,
-								"y" : 0
-							}
-						],
-						"flags" : 1,
-						"size" : {
-							"x" : 100,
-							"y" : 50
-						},
-						"tiledMap" : "test",
-						"tiledMapLayer" : "collision",
-						"tiledMapTileset" : "collision",
-						"voidColliderShape" : 0
-					},
-					"type" : "zn::MapCollider"
 				}
 			],
 			"flags" : 1,
 			"id" : 0,
-			"layerMask" : 1,
+			"layer" : 1,
 			"name" : "map",
 			"transform" : {
 				"parent" : null,
@@ -5159,7 +5160,7 @@
 			],
 			"flags" : 1,
 			"id" : 1,
-			"layerMask" : 1,
+			"layer" : 1,
 			"name" : "main_camera",
 			"transform" : {
 				"parent" : null,
@@ -5167,7 +5168,7 @@
 					"x" : 2064,
 					"y" : 1008
 				},
-				"rotation" : 0,
+				"rotation" : 0.125241,
 				"scale" : {
 					"x" : 1,
 					"y" : 1
@@ -5197,7 +5198,7 @@
 			],
 			"flags" : 1,
 			"id" : 2,
-			"layerMask" : 2,
+			"layer" : 1,
 			"name" : "gui_camera",
 			"transform" : {
 				"parent" : null,
@@ -5216,14 +5217,9 @@
 			"components" : [
 				{
 					"data" : {
-						"flags" : 0
-					},
-					"type" : "demo::Cursor"
-				},
-				{
-					"data" : {
 						"drawOrder" : 0,
 						"flags" : 0,
+						"material" : "",
 						"origin" : {
 							"x" : 0,
 							"y" : 0
@@ -5246,17 +5242,23 @@
 						}
 					},
 					"type" : "zn::SpriteRenderer"
+				},
+				{
+					"data" : {
+						"flags" : 0
+					},
+					"type" : "demo::Cursor"
 				}
 			],
 			"flags" : 1,
 			"id" : 3,
-			"layerMask" : 2,
+			"layer" : 1,
 			"name" : "cursor",
 			"transform" : {
 				"parent" : null,
 				"position" : {
-					"x" : 49,
-					"y" : -98
+					"x" : 56,
+					"y" : -59
 				},
 				"rotation" : 0,
 				"scale" : {
@@ -5269,15 +5271,48 @@
 			"components" : [
 				{
 					"data" : {
+						"flags" : 0,
+						"frame" : "",
+						"remainingLoops" : 0,
+						"sequence" : "",
+						"sequenceFrame" : 0
+					},
+					"type" : "zn::SpriteAnimator"
+				},
+				{
+					"data" : {
+						"flags" : 1,
+						"rect" : {
+							"h" : 24,
+							"w" : 24,
+							"x" : 4,
+							"y" : 7
+						}
+					},
+					"type" : "zn::BoxCollider"
+				},
+				{
+					"data" : {
+						"attenuation" : -4.65792e-041,
+						"flags" : 0,
+						"maxRadius" : 2000,
+						"minRadius" : 1000,
+						"spatialize" : true
+					},
+					"type" : "zn::AudioEmitter"
+				},
+				{
+					"data" : {
 						"flags" : 0
 					},
-					"type" : "demo::Avatar"
+					"type" : "demo::Mover"
 				},
 				{
 					"data" : {
 						"atlas" : "avatar",
 						"drawOrder" : 0,
 						"flags" : 0,
+						"material" : "",
 						"origin" : {
 							"x" : 0,
 							"y" : 0
@@ -5304,44 +5339,12 @@
 					"data" : {
 						"flags" : 0
 					},
-					"type" : "demo::Mover"
-				},
-				{
-					"data" : {
-						"flags" : 1,
-						"rect" : {
-							"h" : 24,
-							"w" : 24,
-							"x" : 4,
-							"y" : 7
-						}
-					},
-					"type" : "zn::BoxCollider"
-				},
-				{
-					"data" : {
-						"flags" : 0,
-						"frame" : "",
-						"remainingLoops" : 0,
-						"sequence" : "",
-						"sequenceFrame" : 0
-					},
-					"type" : "zn::SpriteAnimator"
-				},
-				{
-					"data" : {
-						"attenuation" : 1.45045e-039,
-						"flags" : 0,
-						"maxRadius" : 2000,
-						"minRadius" : 1000,
-						"spatialize" : true
-					},
-					"type" : "zn::AudioEmitter"
+					"type" : "demo::Avatar"
 				}
 			],
 			"flags" : 1,
 			"id" : 4,
-			"layerMask" : 1,
+			"layer" : 1,
 			"name" : "the_bum",
 			"transform" : {
 				"parent" : null,
@@ -5360,15 +5363,38 @@
 			"components" : [
 				{
 					"data" : {
+						"flags" : 0,
+						"frame" : "",
+						"remainingLoops" : 0,
+						"sequence" : "",
+						"sequenceFrame" : 0
+					},
+					"type" : "zn::SpriteAnimator"
+				},
+				{
+					"data" : {
+						"flags" : 1,
+						"rect" : {
+							"h" : 16,
+							"w" : 16,
+							"x" : 0,
+							"y" : 0
+						}
+					},
+					"type" : "zn::BoxCollider"
+				},
+				{
+					"data" : {
 						"flags" : 0
 					},
-					"type" : "demo::Cat"
+					"type" : "demo::Mover"
 				},
 				{
 					"data" : {
 						"atlas" : "cat",
 						"drawOrder" : 0,
 						"flags" : 0,
+						"material" : "",
 						"origin" : {
 							"x" : 0,
 							"y" : 0
@@ -5395,34 +5421,12 @@
 					"data" : {
 						"flags" : 0
 					},
-					"type" : "demo::Mover"
-				},
-				{
-					"data" : {
-						"flags" : 1,
-						"rect" : {
-							"h" : 16,
-							"w" : 16,
-							"x" : 0,
-							"y" : 0
-						}
-					},
-					"type" : "zn::BoxCollider"
-				},
-				{
-					"data" : {
-						"flags" : 0,
-						"frame" : "",
-						"remainingLoops" : 0,
-						"sequence" : "",
-						"sequenceFrame" : 0
-					},
-					"type" : "zn::SpriteAnimator"
+					"type" : "demo::Cat"
 				}
 			],
 			"flags" : 1,
 			"id" : 5,
-			"layerMask" : 1,
+			"layer" : 1,
 			"name" : "snowfeet",
 			"transform" : {
 				"parent" : null,
@@ -5448,6 +5452,7 @@
 						"flags" : 0,
 						"font" : "default",
 						"g" : 192,
+						"material" : "",
 						"r" : 255,
 						"style" : 0,
 						"text" : "Hello World ! éèë"
@@ -5457,7 +5462,7 @@
 			],
 			"flags" : 1,
 			"id" : 6,
-			"layerMask" : 2,
+			"layer" : 1,
 			"name" : "text",
 			"transform" : {
 				"parent" : null,
@@ -5476,14 +5481,9 @@
 			"components" : [
 				{
 					"data" : {
-						"flags" : 0
-					},
-					"type" : "demo::Rotate"
-				},
-				{
-					"data" : {
 						"drawOrder" : 0,
 						"flags" : 0,
+						"material" : "",
 						"origin" : {
 							"x" : 0,
 							"y" : 0
@@ -5506,11 +5506,17 @@
 						}
 					},
 					"type" : "zn::SpriteRenderer"
+				},
+				{
+					"data" : {
+						"flags" : 0
+					},
+					"type" : "demo::Rotate"
 				}
 			],
 			"flags" : 1,
 			"id" : 7,
-			"layerMask" : 1,
+			"layer" : 1,
 			"name" : "ball1",
 			"transform" : {
 				"parent" : null,
@@ -5518,7 +5524,7 @@
 					"x" : 1600,
 					"y" : 992
 				},
-				"rotation" : 217.211,
+				"rotation" : 517.572,
 				"scale" : {
 					"x" : 1,
 					"y" : 1
@@ -5531,6 +5537,61 @@
 					"data" : {
 						"drawOrder" : 0,
 						"flags" : 0,
+						"material" : "",
+						"origin" : {
+							"x" : 0,
+							"y" : 0
+						},
+						"position" : {
+							"x" : -8,
+							"y" : -8
+						},
+						"rotation" : 0,
+						"scale" : {
+							"x" : 1,
+							"y" : 1
+						},
+						"texture" : "wool_ball",
+						"textureRect" : {
+							"h" : 16,
+							"w" : 16,
+							"x" : 0,
+							"y" : 0
+						}
+					},
+					"type" : "zn::SpriteRenderer"
+				},
+				{
+					"data" : {
+						"flags" : 0
+					},
+					"type" : "demo::Rotate"
+				}
+			],
+			"flags" : 1,
+			"id" : 8,
+			"layer" : 1,
+			"name" : "ball2",
+			"transform" : {
+				"parent" : 7,
+				"position" : {
+					"x" : 64,
+					"y" : 0
+				},
+				"rotation" : 517.572,
+				"scale" : {
+					"x" : 1,
+					"y" : 1
+				}
+			}
+		},
+		{
+			"components" : [
+				{
+					"data" : {
+						"drawOrder" : 0,
+						"flags" : 0,
+						"material" : "",
 						"origin" : {
 							"x" : 0,
 							"y" : 0
@@ -5556,13 +5617,13 @@
 				}
 			],
 			"flags" : 1,
-			"id" : 8,
-			"layerMask" : 1,
-			"name" : "ball2",
+			"id" : 9,
+			"layer" : 1,
+			"name" : "ball3",
 			"transform" : {
-				"parent" : 7,
+				"parent" : 8,
 				"position" : {
-					"x" : 64,
+					"x" : 32,
 					"y" : 0
 				},
 				"rotation" : 0,
@@ -5571,7 +5632,55 @@
 					"y" : 1
 				}
 			}
+		},
+		{
+			"components" : [
+				{
+					"data" : {
+						"drawOrder" : 0,
+						"flags" : 0,
+						"material" : "noise",
+						"origin" : {
+							"x" : 0,
+							"y" : 0
+						},
+						"position" : {
+							"x" : 0,
+							"y" : 0
+						},
+						"rotation" : 0,
+						"scale" : {
+							"x" : 1,
+							"y" : 1
+						},
+						"texture" : "wool_ball",
+						"textureRect" : {
+							"h" : 16,
+							"w" : 16,
+							"x" : 0,
+							"y" : 0
+						}
+					},
+					"type" : "zn::SpriteRenderer"
+				}
+			],
+			"flags" : 1,
+			"id" : 10,
+			"layer" : 1,
+			"name" : "shader_test",
+			"transform" : {
+				"parent" : null,
+				"position" : {
+					"x" : 2080,
+					"y" : 992
+				},
+				"rotation" : 0,
+				"scale" : {
+					"x" : 3,
+					"y" : 3
+				}
+			}
 		}
 	],
-	"nextID" : 9
+	"nextID" : 11
 }

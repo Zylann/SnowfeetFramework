@@ -72,13 +72,13 @@ bool Game::onInit()
 	guiCamera->setScaleMode(Camera::FIXED);
 	guiCamera->depth = 1;
 	//guiCamera->topLeftOrigin = true;
-	guiCameraObj->setLayerMask(m_scene.layers.maskFromName("gui"));
+	guiCamera->layerMask = m_scene.layers.maskFromName("gui");
 
 	// Mouse cursor
 
 	Entity * mouseCursor = m_scene.createEntity("cursor");
 	mouseCursor->addComponent<Cursor>();
-	mouseCursor->setLayerMask(m_scene.layers.maskFromName("gui"));
+	mouseCursor->setLayer(m_scene.layers.indexFromName("gui"));
 
 	// Avatar
 
@@ -93,7 +93,7 @@ bool Game::onInit()
 	// Text
 
 	Entity * textEntity = m_scene.createEntity("text", sf::Vector2f(-200, -200));
-	textEntity->setLayerMask(m_scene.layers.maskFromName("gui"));
+	textEntity->setLayer(m_scene.layers.indexFromName("gui"));
 	TextRenderer * text = textEntity->addComponent<TextRenderer>();
 	text->setText(L"Hello World ! éèë");
 	text->setFont("default");

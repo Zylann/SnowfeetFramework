@@ -7,51 +7,63 @@
 namespace zn
 {
 
+//------------------------------------------------------------------------------
 Camera::Camera() : AComponent(),
+	depth(0),
+	layerMask(1), // See first layer by default
 	m_scaleMode(FIXED)
 {
 }
 
+//------------------------------------------------------------------------------
 Camera::~Camera()
 {
 }
 
+//------------------------------------------------------------------------------
 void Camera::onAdd(Entity * e)
 {
 	AComponent::onAdd(e);
 	entity().scene().cameras.registerComponent(this);
 }
 
+//------------------------------------------------------------------------------
 void Camera::onDestroy()
 {
 	entity().scene().cameras.unregisterComponent(this);
 }
 
+//------------------------------------------------------------------------------
 void Camera::init()
 {
 }
 
+//------------------------------------------------------------------------------
 void Camera::setSize(const sf::Vector2f & s)
 {
 	m_view.setSize(s);
 }
 
+//------------------------------------------------------------------------------
 void Camera::setViewport(const sf::FloatRect & r)
 {
 	m_view.setViewport(r);
 }
 
+//------------------------------------------------------------------------------
 void Camera::onUpdate()
 {
 	m_view.setCenter(entity().transform.position());
 	m_view.setRotation(entity().transform.rotation());
 }
 
+//------------------------------------------------------------------------------
 void Camera::setScaleMode(u8 mode)
 {
 	m_scaleMode = mode;
 }
 
+//------------------------------------------------------------------------------
 void Camera::onScreenResized(sf::Vector2u resolution)
 {
 	if(m_scaleMode == FIXED)

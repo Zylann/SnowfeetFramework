@@ -57,7 +57,10 @@ public:
 	void postUnserialize() override;
 
 	// Order of rendering
-	s32 depth = 0;
+	s32 depth;
+
+	// Layers the camera can see
+	u32 layerMask;
 
 private:
 
