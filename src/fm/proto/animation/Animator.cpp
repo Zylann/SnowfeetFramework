@@ -7,12 +7,12 @@ namespace zn
 void AAnimator::onAdd(Entity * e)
 {
 	AComponent::onAdd(e);
-	entity().scene().animators.registerComponent(this);
+	entity().scene().animators.add(this);
 }
 
 void AAnimator::onDestroy()
 {
-	entity().scene().animators.unregisterComponent(this);
+	entity().scene().animators.remove(this);
 }
 
 } // namespace zn

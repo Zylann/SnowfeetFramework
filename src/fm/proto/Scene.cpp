@@ -90,13 +90,13 @@ void Scene::registerBehaviour(ABehaviour * behaviour)
 	assert(behaviour->componentType().group == CG_BEHAVIOUR);
 
 	s32 updateOrder = behaviour->componentType().updateOrder;
-	m_behaviours[updateOrder].registerComponent(behaviour);
+	m_behaviours[updateOrder].add(behaviour);
 }
 
 //------------------------------------------------------------------------------
 void Scene::unregisterBehaviour(ABehaviour * behaviour)
 {
-	m_behaviours[behaviour->componentType().updateOrder].unregisterComponent(behaviour);
+	m_behaviours[behaviour->componentType().updateOrder].remove(behaviour);
 }
 
 //------------------------------------------------------------------------------

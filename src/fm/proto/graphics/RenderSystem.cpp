@@ -15,26 +15,26 @@ namespace zn
 void RenderSystem::registerRenderer(ARenderer* renderer)
 {
 	assert(renderer != nullptr);
-	m_renderers.registerComponent(renderer);
+	m_renderers.add(renderer);
 }
 
 //------------------------------------------------------------------------------
 void RenderSystem::unregisterRenderer(ARenderer* renderer)
 {
-	m_renderers.unregisterComponent(renderer);
+	m_renderers.remove(renderer);
 }
 
 //------------------------------------------------------------------------------
 void RenderSystem::registerCamera(Camera* camera)
 {
 	assert(camera != nullptr);
-	m_cameras.registerComponent(camera);
+	m_cameras.add(camera);
 }
 
 //------------------------------------------------------------------------------
 void RenderSystem::unregisterCamera(Camera* camera)
 {
-	m_cameras.unregisterComponent(camera);
+	m_cameras.remove(camera);
 }
 
 //------------------------------------------------------------------------------

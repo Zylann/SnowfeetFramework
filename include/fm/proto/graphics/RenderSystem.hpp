@@ -1,7 +1,7 @@
 #ifndef HEADER_ZN_RENDERSYSTEM_HPP_INCLUDED
 #define HEADER_ZN_RENDERSYSTEM_HPP_INCLUDED
 
-#include <fm/proto/BasicComponentSystem.hpp>
+#include <fm/proto/ComponentList.hpp>
 #include <fm/proto/graphics/Renderer.hpp>
 #include <fm/proto/graphics/Camera.hpp>
 
@@ -26,8 +26,8 @@ public:
 
 private:
 
-	BasicComponentSystem<ARenderer> m_renderers;
-	BasicComponentSystem<Camera> m_cameras;
+	ComponentList<ARenderer> m_renderers;
+	ComponentList<Camera> m_cameras;
 
 };
 

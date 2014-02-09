@@ -13,7 +13,7 @@ This file is part of the Plane Framework project.
 
 #include <fm/proto/Entity.hpp>
 #include <fm/proto/LayerMap.hpp>
-#include <fm/proto/BasicComponentSystem.hpp>
+#include <fm/proto/ComponentList.hpp>
 #include <fm/proto/behaviour/Behaviour.hpp>
 #include <fm/proto/audio/AudioSystem.hpp>
 #include <fm/proto/graphics/RenderSystem.hpp>
@@ -118,11 +118,12 @@ public:
 	// Called just before a behaviour to be deleted
 	void unregisterBehaviour(ABehaviour * behaviour);
 
-	BasicComponentSystem<ACollider>    colliders;
-	BasicComponentSystem<Body>         bodies;
-	BasicComponentSystem<AAnimator>    animators;
-	AudioSystem                        audioSystem;
-	RenderSystem                       renderSystem;
+	ComponentList<ACollider>    colliders;
+	ComponentList<Body>         bodies;
+	ComponentList<AAnimator>    animators;
+
+	AudioSystem                 audioSystem;
+	RenderSystem                renderSystem;
 
 protected:
 
@@ -137,7 +138,7 @@ private:
 	std::list<Entity*>              m_entities; // Entities in play
 
 	// References to behaviours [updateOrder][index]
-	std::map< s32, BasicComponentSystem<ABehaviour> > m_behaviours;
+	std::map< s32, ComponentList<ABehaviour> > m_behaviours;
 
 	Camera *                        r_mainCamera;
 	sf::Clock                       m_time;
