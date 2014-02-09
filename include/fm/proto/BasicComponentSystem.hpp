@@ -1,5 +1,5 @@
-#ifndef HEADER_ZN_COMPONENTSYSTEM_HPP_INCLUDED
-#define HEADER_ZN_COMPONENTSYSTEM_HPP_INCLUDED
+#ifndef HEADER_ZN_BASICCOMPONENTSYSTEM_HPP_INCLUDED
+#define HEADER_ZN_BASICCOMPONENTSYSTEM_HPP_INCLUDED
 
 #include <iostream>
 #include <cassert>
@@ -13,21 +13,21 @@ namespace zn
 // Note: some systems may need more than one type of component (like the audio system),
 // and then will not be based on this generic one.
 template <class Cmp_T>
-class ComponentSystem
+class BasicComponentSystem
 {
 public:
 
-	ComponentSystem()
+	BasicComponentSystem()
 	{}
 
-	virtual ~ComponentSystem()
+	virtual ~BasicComponentSystem()
 	{}
 
 	void registerComponent(Cmp_T * cmp)
 	{
 #ifdef ZN_DEBUG
 		if(cmp == nullptr)
-			std::cout << "E: ComponentSystem::registerComponent: cannot register null" << std::endl;
+			std::cout << "E: BasicComponentSystem::registerComponent: cannot register null" << std::endl;
 #endif
 		assert(cmp != nullptr);
 
@@ -35,7 +35,7 @@ public:
 		auto it = m_all.find(cmp);
 		if(it != m_all.end())
 		{
-			std::cout << "E: ComponentSystem::registerComponent: already registered ("
+			std::cout << "E: BasicComponentSystem::registerComponent: already registered ("
 					  << cmp->componentType().name << ")" << std::endl;
 			return;
 		}
@@ -88,7 +88,7 @@ protected:
 
 } // namespace zn
 
-#endif // HEADER_ZN_COMPONENTSYSTEM_HPP_INCLUDED
+#endif // HEADER_ZN_BASICCOMPONENTSYSTEM_HPP_INCLUDED
 
 
 

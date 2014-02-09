@@ -13,7 +13,7 @@ This file is part of the zCraft-Framework project.
 
 #include <fm/proto/Entity.hpp>
 #include <fm/proto/LayerMap.hpp>
-#include <fm/proto/ComponentSystem.hpp>
+#include <fm/proto/BasicComponentSystem.hpp>
 #include <fm/proto/behaviour/Behaviour.hpp>
 #include <fm/proto/audio/AudioSystem.hpp>
 
@@ -117,12 +117,12 @@ public:
 	// Called just before a behaviour to be deleted
 	void unregisterBehaviour(ABehaviour * behaviour);
 
-	ComponentSystem<Camera>         cameras;
-	ComponentSystem<ACollider>      colliders;
-	ComponentSystem<ARenderer>      renderers;
-	ComponentSystem<Body>           bodies;
-	ComponentSystem<AAnimator>      animators;
-	AudioSystem                     audioSystem;
+	BasicComponentSystem<Camera>       cameras;
+	BasicComponentSystem<ACollider>    colliders;
+	BasicComponentSystem<ARenderer>    renderers;
+	BasicComponentSystem<Body>         bodies;
+	BasicComponentSystem<AAnimator>    animators;
+	AudioSystem                        audioSystem;
 
 protected:
 
@@ -137,7 +137,7 @@ private:
 	std::list<Entity*>              m_entities; // Entities in play
 
 	// References to behaviours [updateOrder][index]
-	std::map< s32, ComponentSystem<ABehaviour> > m_behaviours;
+	std::map< s32, BasicComponentSystem<ABehaviour> > m_behaviours;
 
 	Camera *                        r_mainCamera;
 	sf::Clock                       m_time;
