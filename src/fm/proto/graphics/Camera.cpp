@@ -24,13 +24,13 @@ Camera::~Camera()
 void Camera::onAdd(Entity * e)
 {
 	AComponent::onAdd(e);
-	entity().scene().cameras.registerComponent(this);
+	entity().scene().renderSystem.registerCamera(this);
 }
 
 //------------------------------------------------------------------------------
 void Camera::onDestroy()
 {
-	entity().scene().cameras.unregisterComponent(this);
+	entity().scene().renderSystem.unregisterCamera(this);
 }
 
 //------------------------------------------------------------------------------

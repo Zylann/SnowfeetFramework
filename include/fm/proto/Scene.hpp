@@ -1,7 +1,7 @@
 /*
 Scene.hpp
-Copyright (C) 2010-2013 Marc GILLERON
-This file is part of the zCraft-Framework project.
+Copyright (C) 2013-2014 Marc GILLERON
+This file is part of the Plane Framework project.
 */
 
 #ifndef HEADER_ZN_SCENE_HPP_INCLUDED
@@ -16,6 +16,7 @@ This file is part of the zCraft-Framework project.
 #include <fm/proto/BasicComponentSystem.hpp>
 #include <fm/proto/behaviour/Behaviour.hpp>
 #include <fm/proto/audio/AudioSystem.hpp>
+#include <fm/proto/graphics/RenderSystem.hpp>
 
 namespace zn
 {
@@ -117,12 +118,11 @@ public:
 	// Called just before a behaviour to be deleted
 	void unregisterBehaviour(ABehaviour * behaviour);
 
-	BasicComponentSystem<Camera>       cameras;
 	BasicComponentSystem<ACollider>    colliders;
-	BasicComponentSystem<ARenderer>    renderers;
 	BasicComponentSystem<Body>         bodies;
 	BasicComponentSystem<AAnimator>    animators;
 	AudioSystem                        audioSystem;
+	RenderSystem                       renderSystem;
 
 protected:
 

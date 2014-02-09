@@ -65,9 +65,9 @@
 		<Unit filename="include/fm/pcg/AutoTiler.hpp" />
 		<Unit filename="include/fm/pcg/MazeGenerator.hpp" />
 		<Unit filename="include/fm/proto/Application.hpp" />
+		<Unit filename="include/fm/proto/BasicComponentSystem.hpp" />
 		<Unit filename="include/fm/proto/Component.hpp" />
 		<Unit filename="include/fm/proto/ComponentFactory.hpp" />
-		<Unit filename="include/fm/proto/ComponentSystem.hpp" />
 		<Unit filename="include/fm/proto/ComponentType.hpp" />
 		<Unit filename="include/fm/proto/Entity.hpp" />
 		<Unit filename="include/fm/proto/GameSettings.hpp" />
@@ -83,6 +83,7 @@
 		<Unit filename="include/fm/proto/graphics/Camera.hpp" />
 		<Unit filename="include/fm/proto/graphics/MapRenderer.hpp" />
 		<Unit filename="include/fm/proto/graphics/ParticleSystem.hpp" />
+		<Unit filename="include/fm/proto/graphics/RenderSystem.hpp" />
 		<Unit filename="include/fm/proto/graphics/Renderer.hpp" />
 		<Unit filename="include/fm/proto/graphics/SpriteRenderer.hpp" />
 		<Unit filename="include/fm/proto/graphics/TextRenderer.hpp" />
@@ -142,6 +143,7 @@
 		<Unit filename="src/fm/proto/graphics/Camera.cpp" />
 		<Unit filename="src/fm/proto/graphics/MapRenderer.cpp" />
 		<Unit filename="src/fm/proto/graphics/ParticleSystem.cpp" />
+		<Unit filename="src/fm/proto/graphics/RenderSystem.cpp" />
 		<Unit filename="src/fm/proto/graphics/Renderer.cpp" />
 		<Unit filename="src/fm/proto/graphics/SpriteRenderer.cpp" />
 		<Unit filename="src/fm/proto/graphics/TextRenderer.cpp" />

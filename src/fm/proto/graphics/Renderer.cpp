@@ -9,13 +9,13 @@ namespace zn
 void ARenderer::onAdd(Entity * e)
 {
 	AComponent::onAdd(e);
-	entity().scene().renderers.registerComponent(this);
+	entity().scene().renderSystem.registerRenderer(this);
 }
 
 //------------------------------------------------------------------------------
 void ARenderer::onDestroy()
 {
-	entity().scene().renderers.unregisterComponent(this);
+	entity().scene().renderSystem.unregisterRenderer(this);
 }
 
 //------------------------------------------------------------------------------
