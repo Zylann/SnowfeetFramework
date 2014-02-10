@@ -146,6 +146,8 @@ void Application::start()
 	m_renderTimeGraph.setValueRange(0.0f, 2.f/60.f);
 	m_renderTimeGraph.updateMesh();
 
+	std::cout << "D: Enter main loop" << std::endl;
+
 #endif
 
 	// Main loop
@@ -192,6 +194,10 @@ void Application::start()
 
 		m_frameTime = m_frameClock.restart();
 	}
+
+#ifdef ZN_DEBUG
+	std::cout << "D: Exit main loop" << std::endl;
+#endif
 
 	m_window.close();
 
