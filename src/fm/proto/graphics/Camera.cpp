@@ -1,6 +1,7 @@
 #include <fm/proto/Entity.hpp>
 #include <fm/proto/Scene.hpp>
 #include <fm/proto/graphics/Camera.hpp>
+#include <fm/proto/Application.hpp>
 
 #include "fm/json/json_utils.hpp"
 
@@ -13,6 +14,10 @@ Camera::Camera() : AComponent(),
 	layerMask(1), // See first layer by default
 	m_scaleMode(FIXED)
 {
+	// Note: Application should never be null here, because it's the first object
+	// to be created when the engine runs
+	sf::Vector2i screenSize = Application::instance()->screenSize();
+	onScreenResized(sf::Vector2u(screenSize.x, screenSize.y));
 }
 
 //------------------------------------------------------------------------------
