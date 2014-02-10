@@ -12,7 +12,8 @@ namespace zn
 Camera::Camera() : AComponent(),
 	depth(0),
 	layerMask(1), // See first layer by default
-	m_scaleMode(FIXED)
+	m_scaleMode(FIXED),
+	m_fixedZoom(1)
 {
 	// Note: Application should never be null here, because it's the first object
 	// to be created when the engine runs
@@ -50,6 +51,26 @@ void Camera::setSize(const sf::Vector2f & s)
 }
 
 //------------------------------------------------------------------------------
+void Camera::setFixedZoom(f32 fixedZoom)
+{
+	const f32 epsilon = 0.001f;
+	if(fixedZoom < epsilon)
+	{
+		m_fixedZoom = epsilon;
+#ifdef ZN_DEBUG
+		std::cout << "W: Camera::setFixedZoom: too tiny (" << fixedZoom << ")" << std::endl;
+#endif
+	}
+	else
+	{
+		m_fixedZoom = fixedZoom;
+	}
+
+	sf::Vector2i screenSize = Application::instance()->screenSize();
+	onScreenResized(sf::Vector2u(screenSize.x, screenSize.y));
+}
+
+//------------------------------------------------------------------------------
 void Camera::setViewport(const sf::FloatRect & r)
 {
 	m_view.setViewport(r);
@@ -73,14 +94,23 @@ void Camera::onScreenResized(sf::Vector2u resolution)
 {
 	if(m_scaleMode == FIXED)
 	{
-		m_view.setSize(resolution.x, resolution.y);
+		// Take screen resolution and zoom it
+		m_view.setSize(
+			static_cast<f32>(resolution.x) / m_fixedZoom,
+			static_cast<f32>(resolution.y) / m_fixedZoom
+		);
 	}
 	else if(m_scaleMode == ADAPTED)
 	{
+		// Take the current size and modify it according to screen resolution to keep the same height
 		sf::Vector2f s = m_view.getSize();
 		f32 ratio = static_cast<f32>(resolution.y) / static_cast<f32>(resolution.x);
 		m_view.setSize(s.x, ratio*s.x);
 	}
+	//else if(m_scaleMode == STRETCHED)
+	//{
+		// Do nothing, just leave the defined view size
+	//}
 }
 
 //------------------------------------------------------------------------------

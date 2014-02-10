@@ -22,8 +22,6 @@ public:
 		ADAPTED // Keep same width but change the ratio
 	};
 
-	// TODO ADAPTED_INT ScaleMode that keeps pixels scaled by an integer factor
-
 	Camera();
 	~Camera();
 
@@ -32,6 +30,9 @@ public:
 
 	// Sets the size of the rectangular view in world units
 	void setSize(const sf::Vector2f & s);
+
+	// Sets the zoom used in FIXED mode
+	void setFixedZoom(f32 fixedZoom);
 
 	// Sets the viewport rectangle the camera should render at,
 	// with bounds specified in [0, 1] coordinates.
@@ -66,6 +67,7 @@ private:
 
 	sf::View m_view;
 	u8 m_scaleMode;
+	f32 m_fixedZoom;
 
 };
 
