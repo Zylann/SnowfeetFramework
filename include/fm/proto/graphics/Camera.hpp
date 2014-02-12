@@ -7,7 +7,7 @@
 namespace zn
 {
 
-// Performs a rendering of a specific rectangular area of the scene.
+/// \brief Performs a rendering of a specific rectangular area of the scene.
 class ZN_API Camera : public AComponent
 {
 public:
@@ -40,6 +40,9 @@ public:
 	void setViewport(const sf::FloatRect & r);
 
 	void onScreenResized(sf::Vector2u resolution);
+
+	sf::Vector2f screenToWorld(const sf::Vector2i & screenPoint) const;
+	sf::Vector2f worldToScreen(const sf::Vector2f & worldPoint) const;
 
 	inline void setInternalView(const sf::View & view) { m_view = view; }
 	inline const sf::View & internalView() const { return m_view; };

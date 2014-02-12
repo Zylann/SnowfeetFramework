@@ -77,6 +77,32 @@ void Camera::setViewport(const sf::FloatRect & r)
 }
 
 //------------------------------------------------------------------------------
+sf::Vector2f Camera::screenToWorld(const sf::Vector2i & screenPoint) const
+{
+	sf::Vector2i screenSize = Application::instance()->screenSize();
+
+	sf::Vector2f vpos(
+		2.f * (static_cast<f32>(screenPoint.x) / static_cast<f32>(screenSize.x)) - 1.f,
+		2.f * (1.f - static_cast<f32>(screenPoint.y) / static_cast<f32>(screenSize.y)) - 1.f
+	);
+
+	return m_view.getInverseTransform().transformPoint(vpos);
+}
+
+//------------------------------------------------------------------------------
+sf::Vector2f Camera::worldToScreen(const sf::Vector2f & worldPoint) const
+{
+	sf::Vector2i screenSize = Application::instance()->screenSize();
+
+	sf::Vector2f vpos = m_view.getTransform().transformPoint(worldPoint);
+
+	return sf::Vector2f(
+		(0.5f * vpos.x + 0.5f) * static_cast<f32>(screenSize.x),
+		(1.f - (0.5f * vpos.y + 0.5f)) * static_cast<f32>(screenSize.y)
+	);
+}
+
+//------------------------------------------------------------------------------
 void Camera::onUpdate()
 {
 	m_view.setCenter(entity().transform.position());
