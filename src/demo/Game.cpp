@@ -37,7 +37,7 @@ bool Game::onInit()
 	const TiledMap * mapAsset = m_assets.maps.get("test");
 	r_tilemap = map->addComponent<MapRenderer>();
 	r_tilemap->build(mapAsset, m_assets.atlases.get("room"), "background");
-	r_tilemap->drawOrder = -1; // The map is drawn first
+	r_tilemap->drawOrder = -10; // The map is drawn first
 	MapCollider * mc = map->addComponent<MapCollider>();
 	mc->setColliderType(1, sf::FloatRect(0, 0, ts, ts));
 	mc->setColliderType(2, sf::FloatRect(0, 0, ts/2, ts));
@@ -57,7 +57,7 @@ bool Game::onInit()
 
 	const sf::View & defaultView = m_window.getDefaultView();
 
-	Entity * cameraObj = m_scene.createEntity("main_camera", sf::Vector2f(500,100));
+	Entity * cameraObj = m_scene.createEntity("main_camera");
 	Camera * camera = cameraObj->addComponent<Camera>();
 	camera->setInternalView(defaultView);
 	camera->setScaleMode(Camera::ADAPTED);
@@ -70,9 +70,31 @@ bool Game::onInit()
 	Camera * guiCamera = guiCameraObj->addComponent<Camera>();
 	guiCamera->setInternalView(defaultView);
 	guiCamera->setScaleMode(Camera::FIXED);
-	guiCamera->depth = 1;
+	guiCamera->depth = 2;
 	//guiCamera->topLeftOrigin = true;
 	guiCamera->layerMask = m_scene.layers.maskFromName("gui");
+
+	// Secondary camera
+
+	if(!m_renderTexture.create(256, 256))
+	{
+		std::cout << "Failed to create render texture" << std::endl;
+		return false;
+	}
+
+	Entity * secondaryCamObj = m_scene.createEntity("secondary_camera", sf::Vector2f(64*ts,20*ts));
+	Camera * secondaryCam = secondaryCamObj->addComponent<Camera>();
+	secondaryCam->setScaleMode(Camera::FIXED);
+	secondaryCam->setFixedZoom(2);
+	secondaryCam->setRenderTexture(&m_renderTexture);
+	secondaryCam->depth = 1;
+
+	// Sprite displaying the secondary camera
+
+	Entity * monitor = m_scene.createEntity("monitor", sf::Vector2f(64*ts, 17*ts));
+	SpriteRenderer * sprite = monitor->addComponent<SpriteRenderer>();
+	sprite->setTexture(m_renderTexture.getTexture());
+	sprite->drawOrder = -1;
 
 	// Mouse cursor
 
@@ -106,7 +128,7 @@ bool Game::onInit()
 
 	Entity * rotateObj1 = m_scene.createEntity("ball1", sf::Vector2f(50*ts, 31*ts));
 	rotateObj1->addComponent<Rotate>();
-	SpriteRenderer * sprite = rotateObj1->addComponent<SpriteRenderer>();
+	sprite = rotateObj1->addComponent<SpriteRenderer>();
 	sprite->setTexture(ballTexture);
 	sprite->setPosition(-sf::Vector2f(8, 8)); // center sprite
 

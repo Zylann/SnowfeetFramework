@@ -108,10 +108,19 @@ void RenderSystem::draw(sf::RenderTarget& finalTarget, sf::RenderStates states) 
 	{
 		const Camera & camera = **cameraIt;
 
-		sf::RenderTarget & target = *(camera.renderTarget());
+		sf::RenderTexture * renderTexture = camera.renderTexture();
 
-		// Set view transform
-		target.setView(camera.internalView());
+		// If the camera has a RenderTexture target
+		if(renderTexture != nullptr)
+		{
+			// TODO add clear options to cameras
+			// Clear texture
+			renderTexture->clear(sf::Color(8,8,8));
+			// Set view transform on that texture
+			renderTexture->setView(camera.internalView());
+		}
+
+		// Set view transform on screen
 		finalTarget.setView(camera.internalView());
 
 		// Filter and sort renderers by draw order
@@ -131,6 +140,9 @@ void RenderSystem::draw(sf::RenderTarget& finalTarget, sf::RenderStates states) 
 
 		// Sort the list by draw order
 		drawList.sort(f_rendererOrder);
+
+		// Select the right render target
+		sf::RenderTarget & target = renderTexture != nullptr ? *renderTexture : finalTarget;
 
 		// Draw filtered renderers in the right order
 		for(auto it = drawList.cbegin(); it != drawList.cend(); ++it)
@@ -175,6 +187,12 @@ void RenderSystem::draw(sf::RenderTarget& finalTarget, sf::RenderStates states) 
 				}
 			}
 #endif
+		}
+
+		// After draw, update render texture if any
+		if(renderTexture != nullptr)
+		{
+			renderTexture->display();
 		}
 	}
 

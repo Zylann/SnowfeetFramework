@@ -27,6 +27,7 @@ protected:
 private:
 
 	zn::MapRenderer * r_tilemap;
+	sf::RenderTexture m_renderTexture;
 
 };
 

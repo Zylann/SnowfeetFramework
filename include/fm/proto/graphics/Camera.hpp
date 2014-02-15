@@ -41,16 +41,15 @@ public:
 	void setViewport(const sf::FloatRect & r);
 
 	/// \brief sets the render target for this camera.
+	/// \param targetTexture: texture where the camera will render.
 	/// Passing nullptr means render to screen directly.
-	void setRenderTarget(sf::RenderTarget * target);
+	void setRenderTexture(sf::RenderTexture * targetTexture);
 
 	/// \brief gets the render target of this camera.
-	/// \return the render target. It can be the one specified with setRenderTarget(),
-	/// or the application's screen otherwise.
-	inline sf::RenderTarget * renderTarget() const
+	/// \return the render texture. Can be nullptr.
+	inline sf::RenderTexture * renderTexture() const
 	{
-		assert(r_renderTarget != nullptr);
-		return r_renderTarget;
+		return r_renderTexture;
 	}
 
 	void onScreenResized(sf::Vector2u resolution);
@@ -86,7 +85,7 @@ private:
 	u8 m_scaleMode;
 	f32 m_fixedZoom;
 
-	sf::RenderTarget * r_renderTarget;
+	sf::RenderTexture * r_renderTexture;
 
 };
 
