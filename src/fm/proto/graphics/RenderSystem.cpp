@@ -164,26 +164,30 @@ void RenderSystem::draw(sf::RenderTarget& finalTarget, sf::RenderStates states) 
 			target.draw(renderer, states);
 
 #ifdef ZN_DEBUG
-			if(drawBounds)
+			// TODO draw gizmos and handles properly in a separate function
+			if(renderTexture == nullptr)
 			{
-				// Draw renderer bounds
-				// TODO use global bounds when they will be implemented
-				sf::FloatRect bounds = renderer.localBounds();
-				sf::RectangleShape rect(sf::Vector2f(bounds.width, bounds.height));
-				rect.setFillColor(sf::Color::Transparent);
-				rect.setOutlineColor(sf::Color(64,64,255));
-				rect.setPosition(renderer.entity().transform.position());
-				rect.setOutlineThickness(1);
-				finalTarget.draw(rect);
-			}
-
-			if(drawColliders)
-			{
-				// Draw collider boundaries
-				const ACollider * collider = (*it)->entity().collider();
-				if(collider != nullptr)
+				if(drawBounds)
 				{
-					collider->debug_draw(finalTarget);
+					// Draw renderer bounds
+					// TODO use global bounds when they will be implemented
+					sf::FloatRect bounds = renderer.localBounds();
+					sf::RectangleShape rect(sf::Vector2f(bounds.width, bounds.height));
+					rect.setFillColor(sf::Color::Transparent);
+					rect.setOutlineColor(sf::Color(64,64,255));
+					rect.setPosition(renderer.entity().transform.position());
+					rect.setOutlineThickness(1);
+					finalTarget.draw(rect);
+				}
+
+				if(drawColliders)
+				{
+					// Draw collider boundaries
+					const ACollider * collider = (*it)->entity().collider();
+					if(collider != nullptr)
+					{
+						collider->debug_draw(finalTarget);
+					}
 				}
 			}
 #endif
