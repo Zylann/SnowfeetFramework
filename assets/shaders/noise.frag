@@ -12,6 +12,5 @@ void main()
 
 	float c = rand(vec2(gl_FragCoord.x+time, gl_FragCoord.y));
 	gl_FragColor = vec4(c, c, c, 1.0);
-	//gl_FragColor = vec4(10.0, 10.0, 10.0, 10.0);
 }
 

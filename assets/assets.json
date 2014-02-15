@@ -14,7 +14,7 @@
 		"root":"shaders",
 		"list":
 		[
-			{ "src":"noise.json" }
+			{ "src":"noise.shader" }
 		]
 	},
 

@@ -24,6 +24,21 @@ bool loadFromFile(sf::SoundBuffer * asset, const std::string & filePath);
 bool loadFromFile(FileRef * asset, const std::string & filePath);
 bool loadFromFile(Material * asset, const std::string & filePath);
 
+/// \brief Loads a shader from a file containing both vertex and fragment programs.
+/// Line positions are preserved for easier compilation error fixes.
+/// ---------------
+/// Syntax:
+/// #vertex
+/// <put here all the usual vertex shader code>
+/// #fragment
+/// <put here all the usual fragment shader code>
+/// ---------------
+/// \param shader: shader object to load
+/// \param filePath: path to the shader file
+/// \return true if success, false if an error occurred (the shader is untouched if so).
+/// \note The required syntax is arbitrary and doesn't comes from any official specification.
+bool loadMergedShaderFromFile(sf::Shader & shader, const std::string & filePath);
+
 } // namespace zn
 
 #endif // HEADER_ZN_LOAD_HPP_INCLUDED

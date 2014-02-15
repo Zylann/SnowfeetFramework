@@ -4,6 +4,7 @@
 #include <fm/asset/FileRef.hpp>
 #include <fm/asset/TiledMap.hpp>
 #include <fm/asset/TextureAtlas.hpp>
+#include <fm/asset/load.hpp>
 
 namespace zn
 {
@@ -17,37 +18,59 @@ bool loadFromFile(sf::Texture * asset, const std::string & filePath)
 //------------------------------------------------------------------------------
 bool loadFromFile(sf::Shader * asset, const std::string & filePath)
 {
-	// Shaders are built from two files : vertex and fragment
+	std::string ext = filePath.substr(filePath.find_last_of('.'));
 
-	JsonBox::Value doc;
-	if(!zn::loadFromFile(doc, filePath))
+	if(ext == ".json")
 	{
-		return false;
+		// Load the shader from a JSON descriptor
+
+		JsonBox::Value doc;
+		if(!zn::loadFromFile(doc, filePath))
+		{
+			return false;
+		}
+
+		std::string folder = filePath.substr(0, filePath.find_last_of('/'));
+
+		std::string fragmentPath = doc["fragment"].getString();
+		std::string vertexPath = doc["vertex"].getString();
+
+		// Shaders are built from two files : vertex and fragment
+
+		if(vertexPath.empty() && fragmentPath.empty())
+		{
+			std::cout << "E: Cannot load shader from JSON descriptor: "
+				"no shader specified in \"" << filePath << '"' << std::endl;
+			return false;
+		}
+		else if(!vertexPath.empty() && fragmentPath.empty())
+		{
+			return asset->loadFromFile(folder+'/'+vertexPath, sf::Shader::Vertex);
+		}
+		else if(vertexPath.empty() && !fragmentPath.empty())
+		{
+			return asset->loadFromFile(folder+'/'+fragmentPath, sf::Shader::Fragment);
+		}
+		else
+		{
+			return asset->loadFromFile(folder+'/'+vertexPath, folder+'/'+fragmentPath);
+		}
 	}
-
-	std::string folder = filePath.substr(0, filePath.find_last_of('/'));
-
-	std::string fragmentPath = doc["fragment"].getString();
-	std::string vertexPath = doc["vertex"].getString();
-
-	if(vertexPath.empty() && fragmentPath.empty())
+	else if(ext == ".shader")
 	{
-		std::cout << "E: AssetMap<sf::Shader>::loadAsset: "
-			"no shader specified" << std::endl;
-		return false;
-	}
-	else if(!vertexPath.empty() && fragmentPath.empty())
-	{
-		return asset->loadFromFile(folder+'/'+vertexPath, sf::Shader::Vertex);
-	}
-	else if(vertexPath.empty() && !fragmentPath.empty())
-	{
-		return asset->loadFromFile(folder+'/'+fragmentPath, sf::Shader::Fragment);
+		// Load the shader from a merged file
+		return loadMergedShaderFromFile(*asset, filePath);
 	}
 	else
 	{
-		return asset->loadFromFile(folder+'/'+vertexPath, folder+'/'+fragmentPath);
+		std::cout << "E: Cannot load shader file, the \"" << ext << "\" file extension is not supported." << std::endl;
+#ifdef ZN_DEBUG
+		std::cout << "E: | use a JSON descriptor or a merged file to properly load the vertex+fragment programs." << std::endl;
+#endif
+		return false;
 	}
+
+	return true;
 }
 
 //------------------------------------------------------------------------------
@@ -92,6 +115,88 @@ bool loadFromFile(Material * asset, const std::string & filePath)
 {
 	return asset->loadFromFile(filePath);
 }
+
+//------------------------------------------------------------------------------
+bool loadMergedShaderFromFile(sf::Shader & shader, const std::string & filePath)
+{
+	std::ifstream ifs(filePath.c_str(), std::ios::in|std::ios::binary);
+	if(!ifs.good())
+	{
+		std::cout << "E: Couldn't open merged shader file \"" << filePath << '"' << std::endl;
+		return false;
+	}
+
+	const unsigned int VERTEX = 0;
+	const unsigned int FRAGMENT = 1;
+	const unsigned int NO_MODE = 2;
+
+	std::string shaderStr[2];
+
+	unsigned int mode = NO_MODE;
+
+	const std::string vertexCommand = "#vertex";
+	const std::string fragmentCommand = "#fragment";
+
+	while(!ifs.eof())
+	{
+		std::string line;
+		std::getline(ifs, line);
+		line += '\n';
+
+		if(!line.empty() && line[0] == '#')
+		{
+			if(line.find(vertexCommand) != std::string::npos)
+			{
+				// Treat next lines as a vertex program
+				mode = VERTEX;
+				shaderStr[0] += '\n';
+				shaderStr[1] += '\n';
+				continue;
+			}
+			else if(line.find(fragmentCommand) != std::string::npos)
+			{
+				// Treat next lines as a fragment program
+				mode = FRAGMENT;
+				shaderStr[0] += '\n';
+				shaderStr[1] += '\n';
+				continue;
+			}
+		}
+
+		// Append code to the right shader, and append
+		// newlines in the other to keep line numbers in sync with the
+		// merged file
+		switch(mode)
+		{
+		case VERTEX:
+			shaderStr[VERTEX] += line;
+			shaderStr[FRAGMENT] += '\n';
+			break;
+
+		case FRAGMENT:
+			shaderStr[VERTEX] += '\n';
+			shaderStr[FRAGMENT] += line;
+			break;
+
+		default:
+			shaderStr[VERTEX] += '\n';
+			shaderStr[FRAGMENT] += '\n';
+			break;
+		}
+	}
+
+	ifs.close();
+
+	if(!shader.loadFromMemory(shaderStr[VERTEX], shaderStr[FRAGMENT]))
+	{
+		std::cout << "E: An error occurred reading merged shader file "
+			"\"" << filePath << '"' << std::endl;
+		return false;
+	}
+
+	return true;
+}
+
 
 } // namespace zn
 
