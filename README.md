@@ -14,41 +14,39 @@ Features
 --------
 
 - Cross-platform (Windows, Linux, Mac)
-- Component-oriented design
-- Component-subsystems instead of Container-entities
+- Component-oriented design, using subsystems instead of Container-entities
 - Sorted rendering with dynamic draw order
 - Texture atlases with frames and animation sequences
-- Audio system based on spatialized emitters and a listener
-- Easily versionnable meta-file system using JSON
+- Simple audio system based on spatialized emitters and a listener
+- Aim to be easily versionnable by using JSON data files
 - Asset loader based on templates
 - Native interface designed for both gameplay and engine modification
 - TilEd JSON import http://www.mapeditor.org/
 - JSON scene dump (editor serialization preview, currently for debug)
 - Entity hierarchy (parenting)
-- Shaders + Materials as shader parameters
+- Shaders with merged files support (vertex+fragment in same file)
+- Layers
 
 Planned/suggested :
 
+- Layers with sorting semantic (background, GUI, overlays...)
 - 2D Culling for big scenes
+- Box2D integration
 - Scene editor
+- Tween library
 - JSON/PropertyTree-based serialization of components
 - Enable depth buffer as an option
-- Python, Lua or AngelScript scripting
+- Scripting language (Lua? Python? AngelScript? Squirrel?)
 - Full-featured editor made using the engine
-- Box2D integration
-- Scripted export pipeline
-- Highly customizable rendering pipeline
-- GUI (for both game and editor?)
+- Scriptable export pipeline
+- Easily customizable rendering pipeline
+- GUI components (for both game and editor?)
 - Scene transitions (and multi-scene?)
-- Networking
+- Networking (using enet? Need ipv6 update)
 - Asynchronous tasks
+- Audio effects (future SFML releases? FmodEx? raw OpenAL?)
 - Prefabs
 - ...
-
-Note: some "3D" stuff may be implemented in the future to ease things like
-bump-mapping, lighting or scrolling effects, but this stays a 2D engine,
-and is not aimed at rendering complex 3D models (better use a 3D engine, then !).
-Discussion is open for the far future, but this is what I think at the moment.
 
 Dependencies
 ------------
@@ -93,6 +91,14 @@ necessary.
 Notes
 -----
 
-I'm also involved into the NinjaSDK, an open-source 2D game engine.
+- Undocumented/uncommented elements are either likely to change in the future,
+may be explicit enough, or simply not done yet.
+
+- Some "3D" stuff may be implemented in the future to ease things like
+the use of normal maps, lighting or scrolling effects, but this stays a 2D engine,
+and is not aimed at rendering complex 3D models (better use a 3D engine, then !).
+Discussion is open for the far future, but this is what I think at the moment.
+
+- I'm also involved into the NinjaSDK, an open-source 2D game framework.
 Take a look ! http://ninjasdk.freeforall.fr/
 
