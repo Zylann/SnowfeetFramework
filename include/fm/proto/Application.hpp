@@ -96,6 +96,12 @@ public:
 		m_gameSettings.showSystemCursor = visible;
 	}
 
+	// Returns the final render target of the application (usually the main window)
+	inline sf::RenderTarget & renderTarget()
+	{
+		return m_window;
+	}
+
 protected:
 
 	//-----------------------

@@ -13,12 +13,9 @@ Camera::Camera() : AComponent(),
 	depth(0),
 	layerMask(1), // See first layer by default
 	m_scaleMode(FIXED),
-	m_fixedZoom(1)
+	m_fixedZoom(1),
+	r_renderTarget(nullptr)
 {
-	// Note: Application should never be null here, because it's the first object
-	// to be created when the engine runs
-	sf::Vector2i screenSize = Application::instance()->screenSize();
-	onScreenResized(sf::Vector2u(screenSize.x, screenSize.y));
 }
 
 //------------------------------------------------------------------------------
@@ -42,6 +39,13 @@ void Camera::onDestroy()
 //------------------------------------------------------------------------------
 void Camera::init()
 {
+	// Note: Application should never be null here, because it's the first object
+	// to be created when the engine runs
+	sf::RenderTarget & renderTarget = Application::instance()->renderTarget();
+	r_renderTarget = &renderTarget;
+
+	sf::Vector2u rtSize = r_renderTarget->getSize();
+	onScreenResized(sf::Vector2u(rtSize.x, rtSize.y));
 }
 
 //------------------------------------------------------------------------------
@@ -66,7 +70,9 @@ void Camera::setFixedZoom(f32 fixedZoom)
 		m_fixedZoom = fixedZoom;
 	}
 
-	sf::Vector2i screenSize = Application::instance()->screenSize();
+	assert(r_renderTarget != nullptr);
+
+	sf::Vector2u screenSize = r_renderTarget->getSize();
 	onScreenResized(sf::Vector2u(screenSize.x, screenSize.y));
 }
 
@@ -74,6 +80,17 @@ void Camera::setFixedZoom(f32 fixedZoom)
 void Camera::setViewport(const sf::FloatRect & r)
 {
 	m_view.setViewport(r);
+}
+
+//------------------------------------------------------------------------------
+void Camera::setRenderTarget(sf::RenderTarget * target)
+{
+	r_renderTarget = target;
+
+	if(r_renderTarget == nullptr)
+	{
+		r_renderTarget = &(Application::instance()->renderTarget());
+	}
 }
 
 //------------------------------------------------------------------------------
@@ -188,6 +205,9 @@ void Camera::unserializeData(JsonBox::Value & o)
 	{
 		m_scaleMode = STRETCHED;
 	}
+
+	// TODO add RenderTextures to AssetBank
+	r_renderTarget = nullptr;
 }
 
 //------------------------------------------------------------------------------

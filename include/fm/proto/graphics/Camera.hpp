@@ -1,6 +1,7 @@
 #ifndef HEADER_ZN_CAMERA_HPP_INCLUDED
 #define HEADER_ZN_CAMERA_HPP_INCLUDED
 
+#include <cassert>
 #include <SFML/Graphics.hpp>
 #include <fm/proto/Component.hpp>
 
@@ -39,6 +40,19 @@ public:
 	// For instance, Rect(0,0,0.5,1) is the left part of the screen.
 	void setViewport(const sf::FloatRect & r);
 
+	/// \brief sets the render target for this camera.
+	/// Passing nullptr means render to screen directly.
+	void setRenderTarget(sf::RenderTarget * target);
+
+	/// \brief gets the render target of this camera.
+	/// \return the render target. It can be the one specified with setRenderTarget(),
+	/// or the application's screen otherwise.
+	inline sf::RenderTarget * renderTarget() const
+	{
+		assert(r_renderTarget != nullptr);
+		return r_renderTarget;
+	}
+
 	void onScreenResized(sf::Vector2u resolution);
 
 	sf::Vector2f screenToWorld(const sf::Vector2i & screenPoint) const;
@@ -71,6 +85,8 @@ private:
 	sf::View m_view;
 	u8 m_scaleMode;
 	f32 m_fixedZoom;
+
+	sf::RenderTarget * r_renderTarget;
 
 };
 

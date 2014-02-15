@@ -22,7 +22,7 @@ public:
 
 	void update();
 
-	void draw(sf::RenderTarget & target, sf::RenderStates states) const;
+	void draw(sf::RenderTarget & finalTarget, sf::RenderStates states) const;
 
 private:
 

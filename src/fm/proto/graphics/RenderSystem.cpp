@@ -66,7 +66,7 @@ bool f_rendererOrder(const ARenderer *&r1, const ARenderer *&r2)
 }
 
 //------------------------------------------------------------------------------
-void RenderSystem::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void RenderSystem::draw(sf::RenderTarget& finalTarget, sf::RenderStates states) const
 {
 #ifdef ZN_DEBUG
 
@@ -108,8 +108,11 @@ void RenderSystem::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
 		const Camera & camera = **cameraIt;
 
+		sf::RenderTarget & target = *(camera.renderTarget());
+
 		// Set view transform
 		target.setView(camera.internalView());
+		finalTarget.setView(camera.internalView());
 
 		// Filter and sort renderers by draw order
 		std::list<const ARenderer*> drawList;
@@ -159,7 +162,7 @@ void RenderSystem::draw(sf::RenderTarget& target, sf::RenderStates states) const
 				rect.setOutlineColor(sf::Color(64,64,255));
 				rect.setPosition(renderer.entity().transform.position());
 				rect.setOutlineThickness(1);
-				target.draw(rect);
+				finalTarget.draw(rect);
 			}
 
 			if(drawColliders)
@@ -168,7 +171,7 @@ void RenderSystem::draw(sf::RenderTarget& target, sf::RenderStates states) const
 				const ACollider * collider = (*it)->entity().collider();
 				if(collider != nullptr)
 				{
-					collider->debug_draw(target);
+					collider->debug_draw(finalTarget);
 				}
 			}
 #endif
