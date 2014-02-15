@@ -31,6 +31,7 @@ Planned/suggested :
 
 - Layers with sorting semantic (background, GUI, overlays...)
 - 2D Culling for big scenes
+- Lighting and 2D shadows
 - Box2D integration
 - Scene editor
 - Tween library
