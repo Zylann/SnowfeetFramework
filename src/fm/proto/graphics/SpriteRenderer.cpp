@@ -85,6 +85,7 @@ void SpriteRenderer::serializeData(JsonBox::Value & o)
 	zn::serialize(o["position"], position());
 	zn::serialize(o["origin"], origin());
 	zn::serialize(o["scale"], scale());
+	zn::serialize(o["color"], color());
 	o["rotation"] = rotation();
 
 	zn::serialize(o["textureRect"], m_sprite.getTextureRect());
@@ -112,6 +113,10 @@ void SpriteRenderer::unserializeData(JsonBox::Value & o)
 	zn::unserialize(o["position"], v);   setPosition(v);
 	zn::unserialize(o["origin"], v);     setOrigin(v);
 	zn::unserialize(o["scale"], v);      setScale(v);
+
+	sf::Color c;
+	zn::unserialize(o["color"], c);
+	setColor(c);
 
 	setRotation(o["rotation"].getDouble());
 

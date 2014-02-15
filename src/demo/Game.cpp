@@ -95,6 +95,7 @@ bool Game::onInit()
 	SpriteRenderer * sprite = monitor->addComponent<SpriteRenderer>();
 	sprite->setTexture(m_renderTexture.getTexture());
 	sprite->drawOrder = -1;
+	sprite->setColor(sf::Color(200,200,200));
 
 	// Mouse cursor
 

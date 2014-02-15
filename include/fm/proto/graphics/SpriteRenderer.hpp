@@ -20,6 +20,7 @@ public:
 	inline void setScale(const sf::Vector2f & scale) { m_sprite.setScale(scale); }
 	inline void setOrigin(const sf::Vector2f & org) { m_sprite.setOrigin(org); }
 	inline void setRotation(float angleDeg) { m_sprite.setRotation(angleDeg); }
+	inline void setColor(sf::Color color) { m_sprite.setColor(color); }
 
 	sf::FloatRect localBounds() const override;
 
@@ -27,6 +28,7 @@ public:
 	inline const sf::Vector2f & scale() const { return m_sprite.getScale(); }
 	inline const sf::Vector2f & origin() const { return m_sprite.getOrigin(); }
 	inline float rotation() const { return m_sprite.getRotation(); }
+	inline const sf::Color & color() const { return m_sprite.getColor(); }
 
 	void setTexture(const sf::Texture & texture) { m_sprite.setTexture(texture); }
 	void setTextureRect(const sf::IntRect & rect) override;
