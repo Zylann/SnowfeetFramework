@@ -2,11 +2,14 @@
 
 #include <fm/proto/graphics/RenderSystem.hpp>
 #include <fm/proto/Entity.hpp>
+#include <fm/sfml/sfml2_utils.hpp>
 
 #ifdef ZN_DEBUG
 	// To draw colliders
 	#include <fm/proto/physics/Collider.hpp>
 #endif
+
+#define ZN_PROFILE_RENDERING
 
 namespace zn
 {
@@ -72,6 +75,8 @@ void RenderSystem::draw(sf::RenderTarget & finalTarget, sf::RenderStates states)
 	sf::Clock profileClock;
 #endif
 
+	m_drawCount = 0;
+
 	// If there is no camera to render the scene, there is nothing to draw
 	if(m_cameras.empty())
 	{
@@ -104,12 +109,13 @@ void RenderSystem::draw(sf::RenderTarget & finalTarget, sf::RenderStates states)
 		render(**cameraIt, finalTarget, states);
 	}
 
-#if defined(ZN_DEBUG) && defined(ZN_PROFILE_SCENE)
-	float renderTimeMs = profileClock.getElapsedTime().asMilliseconds();
+#if defined(ZN_DEBUG) && defined(ZN_PROFILE_RENDERING)
+	f32 renderTimeMs = profileClock.getElapsedTime().asMilliseconds();
 	static u32 renderTimes = 0;
 	if((++renderTimes) % 100 == 0)
 	{
-		std::cout << "D: RenderSystem: render time: " << renderTimeMs << "ms" << std::endl;
+		std::cout << "D: RenderSystem: " << renderTimeMs << "ms "
+			"(" << m_drawCount << " objects)" << std::endl;
 	}
 #endif
 }
@@ -139,7 +145,11 @@ void RenderSystem::render(const Camera & camera, sf::RenderTarget & finalTarget,
 	// Set view transform on screen
 	finalTarget.setView(view);
 
-	sf::FloatRect viewBounds(view.getCenter(), view.getSize());
+	sf::FloatRect viewBounds(view.getCenter()-view.getSize()*0.5f, view.getSize());
+
+	sf::Transform trans;
+	trans.rotate(camera.entity().transform.rotation(), view.getCenter());
+	viewBounds = trans.transformRect(viewBounds);
 
 	// Filter and sort renderers by draw order
 	std::list<const ARenderer*> drawList;
@@ -151,9 +161,14 @@ void RenderSystem::render(const Camera & camera, sf::RenderTarget & finalTarget,
 		// If the entity is active and is on a layer seen by the camera
 		if(entity.activeInHierarchy() && ((1 << entity.layer()) & camera.layerMask))
 		{
-			// TODO eliminate entities that are out of view bounds
-			// Add the entity's renderer to the draw list
-			drawList.push_back(renderer);
+			sf::FloatRect entityBounds = renderer->bounds();
+
+			// If the entity's renderer bounds intersect the view bounds
+			if(intersects(entityBounds, viewBounds))
+			{
+				// Add the entity's renderer to the draw list
+				drawList.push_back(renderer);
+			}
 		}
 	}
 
@@ -209,12 +224,13 @@ void RenderSystem::render(const Camera & camera, sf::RenderTarget & finalTarget,
 	{
 		renderTexture->display();
 	}
+
+	m_drawCount += drawList.size();
 }
 
 //------------------------------------------------------------------------------
 void RenderSystem::drawRendererBounds(const ARenderer & renderer, sf::RenderTarget & renderTarget) const
 {
-	// TODO use global bounds when they will be implemented
 	sf::FloatRect bounds = renderer.bounds();
 
 	const sf::Color color(64, 64, 255);

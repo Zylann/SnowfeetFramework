@@ -24,6 +24,8 @@ public:
 
 	void draw(sf::RenderTarget & finalTarget, sf::RenderStates states) const;
 
+	inline unsigned int drawCount() const { return m_drawCount; }
+
 private:
 
 	void render(const Camera & camera, sf::RenderTarget & finalTarget, sf::RenderStates states) const;
@@ -32,6 +34,9 @@ private:
 
 	ComponentList<ARenderer> m_renderers;
 	ComponentList<Camera> m_cameras;
+
+	// Counter storing how many object have been drawn on the last frame
+	mutable unsigned int m_drawCount;
 
 };
 
