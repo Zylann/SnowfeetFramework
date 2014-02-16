@@ -15,7 +15,7 @@
 namespace zn
 {
 
-// 2D orthonormal maze generator
+/// \brief 2D orthonormal maze generator
 class ZN_API MazeGenerator
 {
 public:
@@ -27,39 +27,33 @@ public:
 	u32 corridorLengthMax = 8;
 	f32 loopChance = 0.f;
 
-	// Each cell of the grid is a bitmask :
-	// the first 4 lower bits represent which directions are available,
-	// the 6th tells if the cell is unvisited,
-	// the 7th tells if the cell is disabled (note: allows non-rectangular mazes).
+	/// \brief Each cell of the grid is a bitmask :
+	/// the first 4 lower bits represent which directions are available,
+	/// the 6th tells if the cell is unvisited,
+	/// the 7th tells if the cell is disabled (note: allows non-rectangular mazes).
 	Array2D<u32> grid;
 
 	MazeGenerator(u32 width, u32 height);
 
-	/// <summary>
-	/// Generates a maze from one starting point.
+	/// \brief Generates a maze from one starting point.
 	/// All corridors will be connected to this point,
 	/// and no one will make any loop.
-	/// </summary>
-	/// <param name="seedX">Seed x.</param>
-	/// <param name="seedY">Seed y.</param>
+	/// \param seedX: Seed x.
+	/// \param seedY: Seed y.
 	void generate(u32 seedX, u32 seedY);
 
 #ifdef ZN_SFML
 
-	/// <summary>
-	/// Bakes a texture that visually represents the generated maze.
+	/// \brief Bakes a texture that visually represents the generated maze.
 	/// Useful for debug purpose.
-	/// </summary>
 	void bakeTexture(sf::Image & tex);
 
 #endif
 
 private:
 
-	/// <summary>
-	/// This function creates loops at random in the maze by joining corridors together.
-	/// </summary>
-	/// <param name="chance">Probability for a dead-end to join.</param>
+	/// \brief This function creates loops at random in the maze by joining corridors together.
+	/// \param chance: Probability for a dead-end to join.
 	void connectRandomNodes(f32 chance);
 
 	std::vector<u32> unvisitedDirections(s32 x, s32 y);
