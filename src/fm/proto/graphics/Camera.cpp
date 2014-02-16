@@ -12,6 +12,8 @@ namespace zn
 Camera::Camera() : AComponent(),
 	depth(0),
 	layerMask(1), // See first layer by default
+	doClear(true),
+	clearColor(0,0,0),
 	m_scaleMode(FIXED),
 	m_fixedZoom(1),
 	r_renderTexture(nullptr)
@@ -156,6 +158,9 @@ void Camera::serializeData(JsonBox::Value & o)
 	zn::serialize(o["size"], m_view.getSize());
 	zn::serialize(o["viewport"], m_view.getViewport());
 
+	o["doClear"] = doClear;
+	zn::serialize(o["clearColor"], clearColor);
+
 	std::string scaleModeStr;
 	switch(m_scaleMode)
 	{
@@ -181,6 +186,9 @@ void Camera::unserializeData(JsonBox::Value & o)
 	sf::FloatRect viewport;
 	zn::unserialize(o["viewport"], viewport);
 	m_view.setViewport(viewport);
+
+	doClear = o["doClear"].getBoolean();
+	zn::unserialize(o["clearColor"], clearColor);
 
 	std::string scaleModeStr = o["scaleMode"].getString();
 	if(scaleModeStr == "fixed")

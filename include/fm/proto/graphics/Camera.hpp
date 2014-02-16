@@ -76,8 +76,15 @@ public:
 	// Order of rendering
 	s32 depth;
 
-	// Layers the camera can see
+	/// \brief Layers the camera can see, as a bitmask.
+	/// the first bit means layer 0, the second bit means layer 1... and so on.
 	u32 layerMask;
+
+	/// \brief Tells if the camera should clear its render target before rendering
+	bool doClear;
+
+	/// \brief Background color used when the render target is cleared
+	sf::Color clearColor;
 
 private:
 

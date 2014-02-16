@@ -61,6 +61,7 @@ bool Game::onInit()
 	Camera * camera = cameraObj->addComponent<Camera>();
 	camera->setInternalView(defaultView);
 	camera->setScaleMode(Camera::ADAPTED);
+	camera->clearColor = sf::Color(8, 16, 32);
 	m_scene.setMainCamera(camera);
 	m_scene.audioSystem.setListener(cameraObj);
 
@@ -70,6 +71,7 @@ bool Game::onInit()
 	Camera * guiCamera = guiCameraObj->addComponent<Camera>();
 	guiCamera->setInternalView(defaultView);
 	guiCamera->setScaleMode(Camera::FIXED);
+	guiCamera->doClear = false;
 	guiCamera->depth = 2;
 	//guiCamera->topLeftOrigin = true;
 	guiCamera->layerMask = m_scene.layers.maskFromName("gui");

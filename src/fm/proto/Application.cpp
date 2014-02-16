@@ -247,7 +247,10 @@ void Application::render()
 //	m_window.setView(m_screenView);
 //	m_window.draw(screenSprite);
 
-	m_window.clear(sf::Color(20,20,30));
+	// Note: clearing here is not required anymore since it's done with
+	// cameras in the scene
+	//m_window.clear(sf::Color(20,20,30));
+
 	m_window.draw(m_scene);
 
 #ifdef ZN_DEBUG

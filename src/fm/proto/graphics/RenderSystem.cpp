@@ -130,17 +130,26 @@ void RenderSystem::render(const Camera & camera, sf::RenderTarget & finalTarget,
 
 	sf::RenderTexture * renderTexture = camera.renderTexture();
 
+	const sf::View & view = camera.internalView();
+
 	// If the camera has a RenderTexture target
 	if(renderTexture != nullptr)
 	{
-		// TODO add clear options to cameras
-		// Clear texture
-		renderTexture->clear(sf::Color(8,8,8));
+		if(camera.doClear)
+		{
+			// Clear texture
+			renderTexture->clear(camera.clearColor);
+		}
 		// Set view transform on that texture
-		renderTexture->setView(camera.internalView());
+		renderTexture->setView(view);
 	}
-
-	const sf::View & view = camera.internalView();
+	else
+	{
+		if(camera.doClear)
+		{
+			finalTarget.clear(camera.clearColor);
+		}
+	}
 
 	// Set view transform on screen
 	finalTarget.setView(view);
