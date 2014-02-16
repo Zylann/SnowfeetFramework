@@ -1,7 +1,7 @@
 /*
 Scene.cpp
-Copyright (C) 2010-2013 Marc GILLERON
-This file is part of the zCraft-Framework project.
+Copyright (C) 2013-2014 Marc GILLERON
+This file is part of the Plane Framework project.
 */
 
 #include <iostream>
@@ -14,8 +14,6 @@ This file is part of the zCraft-Framework project.
 #include <fm/proto/graphics/Renderer.hpp>
 #include <fm/proto/physics/Collider.hpp>
 #include <fm/proto/physics/Body.hpp>
-
-#define ZN_PROFILE_SCENE
 
 namespace zn
 {
