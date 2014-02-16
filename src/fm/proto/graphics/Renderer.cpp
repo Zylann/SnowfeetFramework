@@ -31,6 +31,14 @@ Material * ARenderer::material() const
 }
 
 //------------------------------------------------------------------------------
+sf::FloatRect ARenderer::bounds() const
+{
+	sf::FloatRect box = localBounds();
+	box = entity().transform.matrix().transformRect(box);
+	return box;
+}
+
+//------------------------------------------------------------------------------
 void ARenderer::serializeData(JsonBox::Value & o)
 {
 	AComponent::serializeData(o);

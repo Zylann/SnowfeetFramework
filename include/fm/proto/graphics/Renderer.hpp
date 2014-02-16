@@ -21,6 +21,9 @@ public:
 	// Returns the axis-aligned bounding box of what's being rendered in local space
 	virtual sf::FloatRect localBounds() const = 0;
 
+	/// \brief returns the axis-aligned bounding box of what's being rendered in world space
+	sf::FloatRect bounds() const;
+
 	// Serialization
 	virtual void serializeData(JsonBox::Value & o) override;
 	virtual void unserializeData(JsonBox::Value & o) override;
