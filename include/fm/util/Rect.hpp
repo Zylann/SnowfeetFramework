@@ -106,8 +106,10 @@ public :
 	// Edges are included.
 	inline bool contains(const Rect<T> & other) const
 	{
-		return min.x <= other.min.x && max.x >= other.max.x &&
-				min.y <= other.min.y && max.y >= other.max.y ;
+		return min.y <= other.min.y &&
+				max.y >= other.max.y &&
+				min.x <= other.min.x &&
+				max.x >= other.max.x ;
 	}
 
 	// Tests if the given rectangle intersects the current one.
@@ -117,7 +119,7 @@ public :
 		return max.y >= other.min.y &&
 				min.y <= other.max.y &&
 				max.x >= other.min.x &&
-				max.x <= other.max.x ;
+				min.x <= other.max.x ;
 	}
 
 	// TODO Rect: intersection
