@@ -26,6 +26,10 @@ public:
 
 private:
 
+	void render(const Camera & camera, sf::RenderTarget & finalTarget, sf::RenderStates states) const;
+
+	void drawRendererBounds(const ARenderer & renderer, sf::RenderTarget & renderTarget) const;
+
 	ComponentList<ARenderer> m_renderers;
 	ComponentList<Camera> m_cameras;
 

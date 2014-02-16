@@ -47,16 +47,16 @@ void RenderSystem::onScreenResized(sf::Vector2u resolution)
 }
 
 //------------------------------------------------------------------------------
-bool f_cameraOrder(const Camera *&cam1, const Camera *&cam2)
-{
-    return cam1->depth < cam2->depth;
-}
-
-//------------------------------------------------------------------------------
 void RenderSystem::update()
 {
 	m_cameras.update();
 	m_renderers.update();
+}
+
+//------------------------------------------------------------------------------
+bool f_cameraOrder(const Camera *&cam1, const Camera *&cam2)
+{
+    return cam1->depth < cam2->depth;
 }
 
 //------------------------------------------------------------------------------
@@ -66,15 +66,10 @@ bool f_rendererOrder(const ARenderer *&r1, const ARenderer *&r2)
 }
 
 //------------------------------------------------------------------------------
-void RenderSystem::draw(sf::RenderTarget& finalTarget, sf::RenderStates states) const
+void RenderSystem::draw(sf::RenderTarget & finalTarget, sf::RenderStates states) const
 {
 #ifdef ZN_DEBUG
-
 	sf::Clock profileClock;
-
-	bool drawBounds = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::F9);
-	bool drawColliders = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::F10);
-
 #endif
 
 	// If there is no camera to render the scene, there is nothing to draw
@@ -106,98 +101,7 @@ void RenderSystem::draw(sf::RenderTarget& finalTarget, sf::RenderStates states) 
 	// For each active camera
 	for(auto cameraIt = sortedCameras.cbegin(); cameraIt != sortedCameras.cend(); ++cameraIt)
 	{
-		const Camera & camera = **cameraIt;
-
-		sf::RenderTexture * renderTexture = camera.renderTexture();
-
-		// If the camera has a RenderTexture target
-		if(renderTexture != nullptr)
-		{
-			// TODO add clear options to cameras
-			// Clear texture
-			renderTexture->clear(sf::Color(8,8,8));
-			// Set view transform on that texture
-			renderTexture->setView(camera.internalView());
-		}
-
-		// Set view transform on screen
-		finalTarget.setView(camera.internalView());
-
-		// Filter and sort renderers by draw order
-		std::list<const ARenderer*> drawList;
-		for(auto it = m_renderers.cbegin(); it != m_renderers.cend(); ++it)
-		{
-			const ARenderer * renderer = *it;
-			const Entity & entity = renderer->entity();
-
-			// If the entity is active and is on a layer seen by the camera
-			if(entity.activeInHierarchy() && ((1 << entity.layer()) & camera.layerMask))
-			{
-				// Add the entity's renderer to the draw list
-				drawList.push_back(renderer);
-			}
-		}
-
-		// Sort the list by draw order
-		drawList.sort(f_rendererOrder);
-
-		// Select the right render target
-		sf::RenderTarget & target = renderTexture != nullptr ? *renderTexture : finalTarget;
-
-		// Draw filtered renderers in the right order
-		for(auto it = drawList.cbegin(); it != drawList.cend(); ++it)
-		{
-			const ARenderer & renderer = **it;
-
-			// Apply material if any
-			Material * material = renderer.material();
-			if(material != nullptr)
-			{
-				material->apply(states);
-			}
-			else
-			{
-				states.shader = nullptr;
-			}
-
-			// Draw renderer
-			target.draw(renderer, states);
-
-#ifdef ZN_DEBUG
-			// TODO draw gizmos and handles properly in a separate function
-			if(renderTexture == nullptr)
-			{
-				if(drawBounds)
-				{
-					// Draw renderer bounds
-					// TODO use global bounds when they will be implemented
-					sf::FloatRect bounds = renderer.localBounds();
-					sf::RectangleShape rect(sf::Vector2f(bounds.width, bounds.height));
-					rect.setFillColor(sf::Color::Transparent);
-					rect.setOutlineColor(sf::Color(64,64,255));
-					rect.setPosition(renderer.entity().transform.position());
-					rect.setOutlineThickness(1);
-					finalTarget.draw(rect);
-				}
-
-				if(drawColliders)
-				{
-					// Draw collider boundaries
-					const ACollider * collider = (*it)->entity().collider();
-					if(collider != nullptr)
-					{
-						collider->debug_draw(finalTarget);
-					}
-				}
-			}
-#endif
-		}
-
-		// After draw, update render texture if any
-		if(renderTexture != nullptr)
-		{
-			renderTexture->display();
-		}
+		render(**cameraIt, finalTarget, states);
 	}
 
 #if defined(ZN_DEBUG) && defined(ZN_PROFILE_SCENE)
@@ -208,6 +112,124 @@ void RenderSystem::draw(sf::RenderTarget& finalTarget, sf::RenderStates states) 
 		std::cout << "D: RenderSystem: render time: " << renderTimeMs << "ms" << std::endl;
 	}
 #endif
+}
+
+//------------------------------------------------------------------------------
+void RenderSystem::render(const Camera & camera, sf::RenderTarget & finalTarget, sf::RenderStates states) const
+{
+#ifdef ZN_DEBUG
+	bool drawBounds = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::F9);
+	bool drawColliders = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::F10);
+#endif
+
+	sf::RenderTexture * renderTexture = camera.renderTexture();
+
+	// If the camera has a RenderTexture target
+	if(renderTexture != nullptr)
+	{
+		// TODO add clear options to cameras
+		// Clear texture
+		renderTexture->clear(sf::Color(8,8,8));
+		// Set view transform on that texture
+		renderTexture->setView(camera.internalView());
+	}
+
+	const sf::View & view = camera.internalView();
+
+	// Set view transform on screen
+	finalTarget.setView(view);
+
+	sf::FloatRect viewBounds(view.getCenter(), view.getSize());
+
+	// Filter and sort renderers by draw order
+	std::list<const ARenderer*> drawList;
+	for(auto it = m_renderers.cbegin(); it != m_renderers.cend(); ++it)
+	{
+		const ARenderer * renderer = *it;
+		const Entity & entity = renderer->entity();
+
+		// If the entity is active and is on a layer seen by the camera
+		if(entity.activeInHierarchy() && ((1 << entity.layer()) & camera.layerMask))
+		{
+			// TODO eliminate entities that are out of view bounds
+			// Add the entity's renderer to the draw list
+			drawList.push_back(renderer);
+		}
+	}
+
+	// Sort the list by draw order
+	drawList.sort(f_rendererOrder);
+
+	// Select the right render target
+	sf::RenderTarget & target = renderTexture != nullptr ? *renderTexture : finalTarget;
+
+	// Draw filtered renderers in the right order
+	for(auto it = drawList.cbegin(); it != drawList.cend(); ++it)
+	{
+		const ARenderer & renderer = **it;
+
+		// Apply material if any
+		Material * material = renderer.material();
+		if(material != nullptr)
+		{
+			material->apply(states);
+		}
+		else
+		{
+			states.shader = nullptr;
+		}
+
+		// Draw renderer
+		target.draw(renderer, states);
+
+#ifdef ZN_DEBUG
+		// TODO draw gizmos and handles properly in a separate function
+		if(renderTexture == nullptr)
+		{
+			if(drawBounds)
+			{
+				drawRendererBounds(renderer, finalTarget);
+			}
+
+			if(drawColliders)
+			{
+				// Draw collider boundaries
+				const ACollider * collider = (*it)->entity().collider();
+				if(collider != nullptr)
+				{
+					collider->debug_draw(finalTarget);
+				}
+			}
+		}
+#endif
+	}
+
+	// After draw, update render texture if any
+	if(renderTexture != nullptr)
+	{
+		renderTexture->display();
+	}
+}
+
+//------------------------------------------------------------------------------
+void RenderSystem::drawRendererBounds(const ARenderer & renderer, sf::RenderTarget & renderTarget) const
+{
+	// TODO use global bounds when they will be implemented
+	sf::FloatRect bounds = renderer.bounds();
+
+	const sf::Color color(64, 64, 255);
+
+	sf::VertexArray rect;
+
+	rect.setPrimitiveType(sf::PrimitiveType::LinesStrip);
+
+	rect.append(sf::Vertex(sf::Vector2f(bounds.left, bounds.top), color));
+	rect.append(sf::Vertex(sf::Vector2f(bounds.left+bounds.width, bounds.top), color));
+	rect.append(sf::Vertex(sf::Vector2f(bounds.left+bounds.width, bounds.top+bounds.height), color));
+	rect.append(sf::Vertex(sf::Vector2f(bounds.left, bounds.top+bounds.height), color));
+	rect.append(sf::Vertex(sf::Vector2f(bounds.left, bounds.top), color));
+
+	renderTarget.draw(rect);
 }
 
 } // namespace zn
