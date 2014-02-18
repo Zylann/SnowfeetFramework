@@ -72,13 +72,13 @@ public:
 
 	/// \brief Called when the entity starts colliding with something
 	/// \param info: infos about the collision such as the hit point, normal etc.
-	/// \note this function is not currently called by the engine, because
+	/// \warning this function is not currently called by the engine, because
 	/// it has no integrated physics engine yet.
 	virtual void onCollisionEnter(const CollisionInfo & info) {}
 
 	/// \brief Called when the entity exits a collision
 	/// \param info: infos about the collision such as the hit point, normal etc.
-	/// \note this function is not currently called by the engine, because
+	/// \warning this function is not currently called by the engine, because
 	/// it has no integrated physics engine yet.
 	virtual void onCollisionExit(const CollisionInfo & info) {}
 
