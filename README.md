@@ -14,11 +14,11 @@ Features
 --------
 
 - Cross-platform (Windows, Linux, Mac)
-- Component-oriented design, using subsystems instead of Container-entities
+- Component-oriented design, using subsystems instead of container-entities
 - Sorted rendering with dynamic draw order
 - Texture atlases with frames and animation sequences
 - Simple audio system based on spatialized emitters and a listener
-- Aim to be easily versionnable by using JSON data files
+- Aim to be easily versionnable by using text (JSON) data files
 - Asset loader based on templates
 - Native interface designed for both gameplay and engine modification
 - TilEd JSON import http://www.mapeditor.org/
@@ -26,19 +26,20 @@ Features
 - Entity hierarchy (parenting)
 - Shaders with merged files support (vertex+fragment in same file)
 - Layers
+- Simple 2D culling
 
 Planned/suggested :
 
 - Layers with sorting semantic (background, GUI, overlays...)
-- 2D Culling for big scenes
 - Lighting and 2D shadows
 - Box2D integration
+- Better culling for BIG scenes
 - Scene editor
 - Tween library
 - JSON/PropertyTree-based serialization of components
 - Enable depth buffer as an option
 - Scripting language (Lua? Python? AngelScript? Squirrel?)
-- Full-featured editor made using the engine
+- Scene editor made using the engine
 - Scriptable export pipeline
 - Easily customizable rendering pipeline
 - GUI components (for both game and editor?)
