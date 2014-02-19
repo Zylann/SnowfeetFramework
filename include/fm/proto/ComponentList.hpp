@@ -59,7 +59,7 @@ public:
 		for(auto it = updateList.begin(); it != updateList.end(); ++it)
 		{
 			Cmp_T & cmp = **it;
-			if(cmp.entity().active())
+			if(cmp.enabled() && cmp.entity().active())
 			{
 				cmp.update();
 			}

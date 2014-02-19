@@ -17,7 +17,8 @@ class Entity;
 enum ComponentFlags
 {
 	/// \brief the component's update() function hasn't been called yet
-	CF_FIRST_UPDATE = 1
+	CF_ENABLED      = 1,
+	CF_FIRST_UPDATE = 1 << 1
 };
 
 /// \brief A piece that composes an entity.
@@ -60,6 +61,13 @@ public:
 	/// will be implemented.
 	/// \param msg: contents of the message, usually just an identifier
 	virtual void onMessage(const std::string & msg) {}
+
+	/// \brief Enables or disables the component.
+	/// \param enable: wether the component should be enabled or not.
+	virtual void setEnabled(bool enable);
+
+	/// \brief Tells if the component is enabled.
+	inline bool enabled() const { return m_flags & CF_ENABLED; }
 
 	//----------
 	// TODO make callbacks below optional by using an event system?
@@ -138,7 +146,7 @@ private:
 	Entity * r_owner;
 
 	/// \brief various flags about the state of the component.
-	/// see ComponentFlags.
+	/// \see ComponentFlags.
 	u8 m_flags;
 
 };

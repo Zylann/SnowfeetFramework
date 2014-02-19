@@ -96,7 +96,7 @@ void RenderSystem::draw(sf::RenderTarget & finalTarget, sf::RenderStates states)
 	for(auto cameraIt = m_cameras.cbegin(); cameraIt != m_cameras.cend(); ++cameraIt)
 	{
 	    const Camera * camera = *cameraIt;
-	    if(camera->entity().activeInHierarchy())
+	    if(camera->enabled() && camera->entity().activeInHierarchy())
         {
             sortedCameras.push_back(camera);
         }
@@ -167,8 +167,8 @@ void RenderSystem::render(const Camera & camera, sf::RenderTarget & finalTarget,
 		const ARenderer * renderer = *it;
 		const Entity & entity = renderer->entity();
 
-		// If the entity is active and is on a layer seen by the camera
-		if(entity.activeInHierarchy() && ((1 << entity.layer()) & camera.layerMask))
+		// If the renderer is enabled, entity is active and is on a layer seen by the camera
+		if(renderer->enabled() && entity.activeInHierarchy() && ((1 << entity.layer()) & camera.layerMask))
 		{
 			sf::FloatRect entityBounds = renderer->bounds();
 

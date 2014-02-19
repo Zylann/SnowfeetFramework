@@ -13,12 +13,27 @@ namespace zn
 
 AComponent::AComponent() :
 	r_owner(nullptr),
-	m_flags(0)
+	m_flags(CF_ENABLED | CF_FIRST_UPDATE)
 {
 }
 
 AComponent::~AComponent()
 {
+}
+
+//------------------------------------------------------------------------------
+void AComponent::setEnabled(bool enable)
+{
+	if(enable)
+	{
+		// Set flag
+		m_flags |= CF_ENABLED;
+	}
+	else
+	{
+		// Clear flag
+		m_flags &= ~CF_ENABLED;
+	}
 }
 
 //------------------------------------------------------------------------------

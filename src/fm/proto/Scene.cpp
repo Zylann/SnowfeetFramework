@@ -234,7 +234,7 @@ ACollider * Scene::colliderAt(const sf::Vector2f & point, const ACollider * exce
 	for(Entity *& e : m_entities)
 	{
 		ACollider * c = e->collider();
-		if(c != nullptr && c != except && c->entity().activeInHierarchy())
+		if(c != nullptr && c != except && c->enabled() && c->entity().activeInHierarchy())
 		{
 			if(c->collides(point))
 				return c;
@@ -249,7 +249,7 @@ ACollider * Scene::colliderAt(const sf::FloatRect & rect, const ACollider * exce
 	for(Entity *& e : m_entities)
 	{
 		ACollider * c = e->collider();
-		if(c != nullptr && c != except && c->entity().activeInHierarchy())
+		if(c != nullptr && c != except && c->enabled() && c->entity().activeInHierarchy())
 		{
 			if(c->collides(rect))
 				return c;
