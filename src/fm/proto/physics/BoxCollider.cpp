@@ -1,11 +1,25 @@
 #include <fm/proto/Entity.hpp>
 #include <fm/proto/physics/BoxCollider.hpp>
+#include <fm/proto/graphics/Renderer.hpp>
 #include <fm/sfml/sfml2_utils.hpp>
 
 #include "fm/json/json_utils.hpp"
 
 namespace zn
 {
+
+//------------------------------------------------------------------------------
+void BoxCollider::init()
+{
+	ACollider::init();
+
+	// Match the renderer bounds if any to initialize the default hitbox
+	ARenderer * r = entity().renderer();
+	if(r != nullptr)
+	{
+		m_rect = r->localBounds();
+	}
+}
 
 //------------------------------------------------------------------------------
 void BoxCollider::setRect(const sf::FloatRect& r)
