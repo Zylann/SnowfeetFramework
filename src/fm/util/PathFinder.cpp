@@ -17,7 +17,7 @@ const s8 PathFinder::s_directions[8][2] =
 	{-1,-1}
 };
 
-
+//------------------------------------------------------------------------------
 std::vector<PathFinder::Node> * PathFinder::findPath(s32 startX, s32 startY, s32 endX, s32 endY)
 {
 	bool found = false;

@@ -10,6 +10,7 @@ using namespace std;
 namespace zn
 {
 
+//------------------------------------------------------------------------------
 void SpriteAnimator::setFrame(const std::string& id)
 {
 	// Get renderer
@@ -31,6 +32,7 @@ void SpriteAnimator::setFrame(const std::string& id)
 	}
 }
 
+//------------------------------------------------------------------------------
 void SpriteAnimator::play(const std::string& id, s32 loops)
 {
 	// Ensure there is a renderer
@@ -58,24 +60,34 @@ void SpriteAnimator::play(const std::string& id, s32 loops)
 		}
 #ifdef ZN_DEBUG
 		else
-			cout << "E: SpriteAnimator::play: not found (" << id << ") on entity \"" << entity().name() << '"' << endl;
+		{
+			cout << "E: SpriteAnimator::play: "
+				"not found (" << id << ") on entity \"" << entity().name() << '"' << endl;
+
+		}
 #endif
 	}
 #ifdef ZN_DEBUG
 	else
-		cout << "E: SpriteAnimator::play: no TextureAtlas !" << endl;
+	{
+		cout << "E: SpriteAnimator::play: "
+			"no TextureAtlas ! (entity \"" << entity().name() << "\")" << endl;
+	}
 #endif
 }
 
+//------------------------------------------------------------------------------
 void SpriteAnimator::stop()
 {
 	r_sequence = nullptr;
 }
 
+//------------------------------------------------------------------------------
 void SpriteAnimator::init()
 {
 }
 
+//------------------------------------------------------------------------------
 void SpriteAnimator::onUpdate()
 {
 	ARenderer * r = entity().renderer();
@@ -112,6 +124,7 @@ void SpriteAnimator::onUpdate()
 	}
 }
 
+//------------------------------------------------------------------------------
 void SpriteAnimator::serializeData(JsonBox::Value & o)
 {
 	AAnimator::serializeData(o);
@@ -122,6 +135,7 @@ void SpriteAnimator::serializeData(JsonBox::Value & o)
 	o["frame"]           = r_sequence==nullptr ? m_frameName : "";
 }
 
+//------------------------------------------------------------------------------
 void SpriteAnimator::unserializeData(JsonBox::Value & o)
 {
 	AAnimator::unserializeData(o);
@@ -134,6 +148,7 @@ void SpriteAnimator::unserializeData(JsonBox::Value & o)
 	r_sequence = nullptr;
 }
 
+//------------------------------------------------------------------------------
 void SpriteAnimator::postUnserialize()
 {
 	// Relink sequence

@@ -5,7 +5,7 @@
 #include <fm/sfml/sfml2_utils.hpp>
 #include <fm/asset/AssetBank.hpp>
 
-#include "fm/json/json_utils.hpp"
+#include <fm/json/json_utils.hpp>
 
 using namespace std;
 
@@ -139,12 +139,14 @@ void SpriteRenderer::unserializeData(JsonBox::Value & o)
 			}
 			else
 			{
-				std::cout << "E: SpriteRenderer::unserializeData: texture not found \"" << textureName << '"' << std::endl;
+				std::cout << "E: SpriteRenderer::unserializeData: "
+					"texture not found \"" << textureName << '"' << std::endl;
 			}
 		}
 		else
 		{
-			std::cout << "E: SpriteRenderer::unserializeData: texture name is empty" << std::endl;
+			std::cout << "E: SpriteRenderer::unserializeData: "
+				"texture name is empty" << std::endl;
 		}
 	}
 
