@@ -92,6 +92,7 @@
 		<Unit filename="include/fm/proto/physics/Collider.hpp" />
 		<Unit filename="include/fm/proto/physics/CollisionInfo.hpp" />
 		<Unit filename="include/fm/proto/physics/MapCollider.hpp" />
+		<Unit filename="include/fm/proto/physics/PhysicsSystem.hpp" />
 		<Unit filename="include/fm/sfml/AudioSource.hpp" />
 		<Unit filename="include/fm/sfml/sfml2_utils.hpp" />
 		<Unit filename="include/fm/types.hpp" />
@@ -151,6 +152,7 @@
 		<Unit filename="src/fm/proto/physics/BoxCollider.cpp" />
 		<Unit filename="src/fm/proto/physics/Collider.cpp" />
 		<Unit filename="src/fm/proto/physics/MapCollider.cpp" />
+		<Unit filename="src/fm/proto/physics/PhysicsSystem.cpp" />
 		<Unit filename="src/fm/sfml/AudioSource.cpp" />
 		<Unit filename="src/fm/util/Color.cpp" />
 		<Unit filename="src/fm/util/Log.cpp" />
