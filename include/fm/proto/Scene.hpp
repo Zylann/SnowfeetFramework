@@ -17,6 +17,7 @@ This file is part of the Plane Framework project.
 #include <fm/proto/behaviour/Behaviour.hpp>
 #include <fm/proto/audio/AudioSystem.hpp>
 #include <fm/proto/graphics/RenderSystem.hpp>
+#include <fm/proto/physics/PhysicsSystem.hpp>
 
 namespace zn
 {
@@ -76,16 +77,6 @@ public:
 	void onScreenResized(sf::Vector2u resolution);
 
 	//----------------------------
-	// Physics
-	//----------------------------
-
-	// Finds the first collider at the given position in world space
-	ACollider * colliderAt(const sf::Vector2f & point, const ACollider * except=nullptr);
-
-	// Finds the first collider intersecting the given rectangle in world space
-	ACollider * colliderAt(const sf::FloatRect & rect, const ACollider * except=nullptr);
-
-	//----------------------------
 	// Metadata
 	//----------------------------
 
@@ -118,10 +109,8 @@ public:
 	// Called just before a behaviour to be deleted
 	void unregisterBehaviour(ABehaviour * behaviour);
 
-	ComponentList<ACollider>    colliders;
-	ComponentList<Body>         bodies;
 	ComponentList<AAnimator>    animators;
-
+	PhysicsSystem               physics;
 	AudioSystem                 audioSystem;
 	RenderSystem                renderSystem;
 

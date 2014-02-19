@@ -93,7 +93,7 @@ void Mover::onUpdate()
 			if(!math::isZero(motion.x))
 			{
 				rect.left += u.x;
-				otherCollider = entity().scene().colliderAt(rect, collider);
+				otherCollider = entity().scene().physics.colliderAt(rect, collider);
 				if(otherCollider != nullptr)
 				{
 					// Horizontal collision
@@ -116,7 +116,7 @@ void Mover::onUpdate()
 			if(!math::isZero(motion.y))
 			{
 				rect.top += u.y;
-				otherCollider = entity().scene().colliderAt(rect, collider);
+				otherCollider = entity().scene().physics.colliderAt(rect, collider);
 				if(otherCollider != nullptr)
 				{
 					// Vertical collision

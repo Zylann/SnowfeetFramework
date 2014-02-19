@@ -159,7 +159,7 @@ void Scene::update(sf::Time deltaTime)
 	m_entities.remove_if(isLateDestroyThenDelete);
 
 	// Update physics
-	bodies.update();
+	physics.update();
 
 	// Update animations
 	animators.update();
@@ -226,36 +226,6 @@ void Scene::draw(sf::RenderTarget& target, sf::RenderStates states) const
 void Scene::onScreenResized(sf::Vector2u resolution)
 {
 	renderSystem.onScreenResized(resolution);
-}
-
-//------------------------------------------------------------------------------
-ACollider * Scene::colliderAt(const sf::Vector2f & point, const ACollider * except)
-{
-	for(Entity *& e : m_entities)
-	{
-		ACollider * c = e->collider();
-		if(c != nullptr && c != except && c->enabled() && c->entity().activeInHierarchy())
-		{
-			if(c->collides(point))
-				return c;
-		}
-	}
-	return nullptr;
-}
-
-//------------------------------------------------------------------------------
-ACollider * Scene::colliderAt(const sf::FloatRect & rect, const ACollider * except)
-{
-	for(Entity *& e : m_entities)
-	{
-		ACollider * c = e->collider();
-		if(c != nullptr && c != except && c->enabled() && c->entity().activeInHierarchy())
-		{
-			if(c->collides(rect))
-				return c;
-		}
-	}
-	return nullptr;
 }
 
 //------------------------------------------------------------------------------

@@ -7,12 +7,12 @@ namespace zn
 void ACollider::onAdd(Entity * e)
 {
 	AComponent::onAdd(e);
-	entity().scene().colliders.add(this);
+	entity().scene().physics.registerCollider(this);
 }
 
 void ACollider::onDestroy()
 {
-	entity().scene().colliders.remove(this);
+	entity().scene().physics.unregisterCollider(this);
 }
 
 void ACollider::serializeData(JsonBox::Value & o)
