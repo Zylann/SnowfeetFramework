@@ -27,11 +27,12 @@ bool Game::onInit()
 {
 	// Scene config
 
-	m_scene.layers.setLayer(1, "gui");
+	// Setup a GUI layer over the default layer
+	m_scene.layers.setLayer(1, "gui", 1);
 
 	// Map
 
-	u32 ts = 32;
+	u32 ts = 32; // tile size
 
 	Entity * map = m_scene.createEntity("map", sf::Vector2f(0,0));
 	const TiledMap * mapAsset = m_assets.maps.get("test");
@@ -74,7 +75,7 @@ bool Game::onInit()
 	guiCamera->doClear = false;
 	guiCamera->depth = 2;
 	//guiCamera->topLeftOrigin = true;
-	guiCamera->layerMask = m_scene.layers.maskFromName("gui");
+	guiCamera->layerMask = 1 << m_scene.layers["gui"]->index;
 
 	// Secondary camera
 
@@ -103,7 +104,7 @@ bool Game::onInit()
 
 	Entity * mouseCursor = m_scene.createEntity("cursor");
 	mouseCursor->addComponent<Cursor>();
-	mouseCursor->setLayer(m_scene.layers.indexFromName("gui"));
+	mouseCursor->setLayerByName("gui");
 
 	// Avatar
 
@@ -118,7 +119,7 @@ bool Game::onInit()
 	// Text
 
 	Entity * textEntity = m_scene.createEntity("text", sf::Vector2f(-200, -200));
-	textEntity->setLayer(m_scene.layers.indexFromName("gui"));
+	textEntity->setLayerByName("gui");
 	TextRenderer * text = textEntity->addComponent<TextRenderer>();
 	text->setText(L"Hello World ! éèë");
 	text->setFont("default");

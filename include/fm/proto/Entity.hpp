@@ -14,6 +14,7 @@ This file is part of the Plane-framework project.
 #include <fm/proto/animation/Animator.hpp>
 #include <fm/proto/graphics/Camera.hpp>
 #include <fm/proto/Transform.hpp>
+#include <fm/proto/LayerMap.hpp>
 
 namespace zn
 {
@@ -177,12 +178,20 @@ public:
 	//--------------------------------------
 
 	/// \brief Moves the entity to the specified layer.
+	/// \param layer: the name of the layer
+	void setLayerByName(const std::string & layer);
+
+	/// \brief Moves the entity to the specified layer.
 	/// \param layer: the numeric index of the layer
-	void setLayer(u32 layer);
+	void setLayerByIndex(u32 layerIndex);
+
+	/// \brief Gets the index of the layer the entity belongs to.
+	/// \return The numeric index of the layer.
+	inline u32 layerIndex() const { return m_layerIndex; }
 
 	/// \brief Gets the layer the entity belongs to.
-	/// \return the numeric index of the layer
-	inline u32 layer() const { return m_layer; }
+	/// \return Reference to the layer object.
+	const Layer & layer() const;
 
 	//--------------------------------------
 	// Serialization
@@ -272,7 +281,7 @@ private:
 	u8 m_flags; // TODO use std::bitset
 
 	/// \brief Numerical index of the layer the entity belongs to
-	u32 m_layer;
+	u32 m_layerIndex;
 
 	/// \brief Scene the entity belongs to
 	Scene * r_scene;

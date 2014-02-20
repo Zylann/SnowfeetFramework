@@ -65,7 +65,21 @@ bool f_cameraOrder(const Camera *&cam1, const Camera *&cam2)
 //------------------------------------------------------------------------------
 bool f_rendererOrder(const ARenderer *&r1, const ARenderer *&r2)
 {
-    return r1->drawOrder < r2->drawOrder;
+	s32 layerOrder1 = r1->entity().layer().drawOrder;
+	s32 layerOrder2 = r2->entity().layer().drawOrder;
+
+	if(layerOrder1 < layerOrder2)
+	{
+		return true;
+	}
+	else if(layerOrder1 > layerOrder2)
+	{
+		return false;
+	}
+	else
+	{
+		return r1->drawOrder < r2->drawOrder;
+	}
 }
 
 //------------------------------------------------------------------------------
@@ -168,7 +182,9 @@ void RenderSystem::render(const Camera & camera, sf::RenderTarget & finalTarget,
 		const Entity & entity = renderer->entity();
 
 		// If the renderer is enabled, entity is active and is on a layer seen by the camera
-		if(renderer->enabled() && entity.activeInHierarchy() && ((1 << entity.layer()) & camera.layerMask))
+		if(renderer->enabled()
+			&& entity.activeInHierarchy()
+			&& ((1 << entity.layerIndex()) & camera.layerMask))
 		{
 			sf::FloatRect entityBounds = renderer->bounds();
 

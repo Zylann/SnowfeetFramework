@@ -21,7 +21,7 @@ Entity::Entity() :
 	r_camera(nullptr),
 	r_animator(nullptr),
 	m_flags(ACTIVE),
-	m_layer(0), // default layer
+	m_layerIndex(0), // default layer
 	r_scene(nullptr)
 {
 	setName("_entity_");
@@ -90,9 +90,29 @@ void Entity::setCrossScene(bool crossScene)
 }
 
 //------------------------------------------------------------------------------
-void Entity::setLayer(u32 layer)
+void Entity::setLayerByName(const std::string & layerName)
 {
-	m_layer = layer;
+	const Layer * layerObj = r_scene->layers[layerName];
+	m_layerIndex = layerObj->index;
+}
+
+//------------------------------------------------------------------------------
+void Entity::setLayerByIndex(u32 layerIndex)
+{
+#ifdef ZN_DEBUG
+	if(layerIndex >= LayerMap::COUNT)
+	{
+		std::cout << "E: Entity::setLayerByIndex: invalid index (" << layerIndex << ')' << std::endl;
+		return;
+	}
+#endif
+	m_layerIndex = layerIndex;
+}
+
+//------------------------------------------------------------------------------
+const Layer & Entity::layer() const
+{
+	return r_scene->layers[m_layerIndex];
 }
 
 //------------------------------------------------------------------------------
@@ -181,7 +201,7 @@ void Entity::serialize(JsonBox::Value & o)
 
 	o["id"]       = (s32)m_id;
 	o["flags"]    = m_flags;
-	o["layer"]    = (s32)m_layer; // TODO fix JsonBox so it accepts unsigned integers
+	o["layer"]    = (s32)m_layerIndex; // TODO fix JsonBox so it accepts unsigned integers
 	o["name"]     = name();
 
 	// Components
@@ -210,7 +230,7 @@ void Entity::unserialize(JsonBox::Value & o)
 
 	m_id = o["id"].getInt();
 	m_flags = o["flags"].getInt();
-	m_layer = o["layer"].getInt();
+	m_layerIndex = o["layer"].getInt();
 	setName(o["name"].getString());
 
 	// Components
