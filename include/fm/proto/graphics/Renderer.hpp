@@ -18,7 +18,7 @@ public:
 	void onAdd(Entity * e);
 	void onDestroy();
 
-	// Returns the axis-aligned bounding box of what's being rendered in local space
+	/// \brief Returns the axis-aligned bounding box of what's being rendered in local space
 	virtual sf::FloatRect localBounds() const = 0;
 
 	/// \brief returns the axis-aligned bounding box of what's being rendered in world space
@@ -62,7 +62,6 @@ protected:
 		r_material(nullptr)
 	{}
 
-	// TODO at the moment, this attribute is not used yet (some changes are coming)
 	Material * r_material;
 
 };
