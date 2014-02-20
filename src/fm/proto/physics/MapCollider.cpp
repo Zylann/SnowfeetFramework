@@ -2,7 +2,7 @@
 
 #include <fm/util/math.hpp>
 #include <fm/sfml/sfml2_utils.hpp>
-#include <fm/proto/Entity.hpp>
+#include <fm/proto/core/Entity.hpp>
 #include <fm/proto/physics/MapCollider.hpp>
 #include <fm/asset/AssetBank.hpp>
 

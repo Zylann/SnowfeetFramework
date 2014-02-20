@@ -6,7 +6,7 @@
 #include <JsonBox.h>
 #include <fm/types.hpp>
 #include <fm/proto/physics/CollisionInfo.hpp>
-#include <fm/proto/ComponentType.hpp>
+#include <fm/proto/core/ComponentType.hpp>
 
 namespace zn
 {

@@ -3,7 +3,7 @@
 
 #include <unordered_set>
 #include <fm/sfml/AudioSource.hpp>
-#include <fm/proto/Component.hpp>
+#include <fm/proto/core/Component.hpp>
 
 namespace zn
 {

@@ -1,7 +1,7 @@
 #include <cassert>
 
 #include <fm/proto/audio/AudioSystem.hpp>
-#include <fm/proto/Entity.hpp>
+#include <fm/proto/core/Entity.hpp>
 #include <fm/asset/AssetBank.hpp>
 
 namespace zn

@@ -3,7 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include <fm/proto/Component.hpp>
+#include <fm/proto/core/Component.hpp>
 #include <fm/asset/TextureAtlas.hpp>
 #include <fm/asset/Material.hpp>
 

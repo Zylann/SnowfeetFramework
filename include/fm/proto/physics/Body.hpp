@@ -1,7 +1,7 @@
 #ifndef HEADER_ZN_BODY_HPP_INCLUDED
 #define HEADER_ZN_BODY_HPP_INCLUDED
 
-#include "../Component.hpp"
+#include <fm/proto/core/Component.hpp>
 
 namespace zn
 {

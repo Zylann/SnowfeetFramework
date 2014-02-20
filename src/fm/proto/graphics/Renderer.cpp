@@ -1,5 +1,5 @@
 #include <fm/proto/graphics/Renderer.hpp>
-#include <fm/proto/Scene.hpp>
+#include <fm/proto/core/Scene.hpp>
 #include <fm/asset/AssetBank.hpp>
 
 namespace zn

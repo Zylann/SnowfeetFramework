@@ -1,6 +1,6 @@
 #include <fm/proto/graphics/TextRenderer.hpp>
 #include <fm/asset/AssetBank.hpp>
-#include <fm/proto/Entity.hpp>
+#include <fm/proto/core/Entity.hpp>
 
 #include "fm/json/json_utils.hpp"
 

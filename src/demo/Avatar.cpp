@@ -1,11 +1,12 @@
 #include <iostream>
-#include "fm/sfml/sfml2_utils.hpp"
-#include "fm/proto/Entity.hpp"
-#include "fm/proto/animation/SpriteAnimator.hpp"
-#include "fm/proto/physics/BoxCollider.hpp"
-#include "fm/util/Direction.hpp"
-#include "fm/proto/Scene.hpp"
-#include "fm/asset/AssetBank.hpp"
+#include <fm/sfml/sfml2_utils.hpp>
+#include <fm/proto/core/Entity.hpp>
+#include <fm/proto/animation/SpriteAnimator.hpp>
+#include <fm/proto/physics/BoxCollider.hpp>
+#include <fm/util/Direction.hpp>
+#include <fm/proto/core/Scene.hpp>
+#include <fm/asset/AssetBank.hpp>
+
 #include "Avatar.hpp"
 #include "Cat.hpp"
 

@@ -2,9 +2,9 @@
 #include <cassert>
 
 #include <fm/config.hpp>
-#include <fm/proto/Component.hpp>
-#include <fm/proto/ComponentFactory.hpp>
-#include <fm/proto/Entity.hpp>
+#include <fm/proto/core/Component.hpp>
+#include <fm/proto/core/ComponentFactory.hpp>
+#include <fm/proto/core/Entity.hpp>
 
 using namespace std;
 

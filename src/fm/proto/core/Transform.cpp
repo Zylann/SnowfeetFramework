@@ -1,7 +1,7 @@
 #include <fm/util/math.hpp>
-#include <fm/proto/Transform.hpp>
-#include <fm/proto/Entity.hpp>
-#include <fm/proto/Scene.hpp>
+#include <fm/proto/core/Transform.hpp>
+#include <fm/proto/core/Entity.hpp>
+#include <fm/proto/core/Scene.hpp>
 
 namespace zn
 {

@@ -1,7 +1,8 @@
+#include <fm/sfml/sfml2_utils.hpp>
+#include <fm/proto/core/Scene.hpp>
+#include <fm/proto/physics/Collider.hpp>
+
 #include "Mover.hpp"
-#include "fm/sfml/sfml2_utils.hpp"
-#include "fm/proto/Scene.hpp"
-#include "fm/proto/physics/Collider.hpp"
 
 namespace demo
 {

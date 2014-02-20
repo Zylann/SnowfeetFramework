@@ -1,4 +1,4 @@
-#include <fm/proto/Entity.hpp>
+#include <fm/proto/core/Entity.hpp>
 #include <fm/proto/physics/BoxCollider.hpp>
 #include <fm/proto/graphics/Renderer.hpp>
 #include <fm/sfml/sfml2_utils.hpp>

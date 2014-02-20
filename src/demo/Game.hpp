@@ -1,9 +1,10 @@
 #ifndef HEADER_DEMO_GAME_HPP_INCLUDED
 #define HEADER_DEMO_GAME_HPP_INCLUDED
 
-#include "fm/proto/Application.hpp"
+#include <fm/proto/core/Application.hpp>
+#include <fm/proto/graphics/MapRenderer.hpp>
+
 #include "common.hpp"
-#include "fm/proto/graphics/MapRenderer.hpp"
 
 namespace demo
 {

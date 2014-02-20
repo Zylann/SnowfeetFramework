@@ -1,7 +1,7 @@
-#include <fm/proto/Entity.hpp>
-#include <fm/proto/Scene.hpp>
+#include <fm/proto/core/Entity.hpp>
+#include <fm/proto/core/Scene.hpp>
 #include <fm/proto/graphics/Camera.hpp>
-#include <fm/proto/Application.hpp>
+#include <fm/proto/core/Application.hpp>
 
 #include "fm/json/json_utils.hpp"
 

@@ -1,7 +1,7 @@
 #ifndef HEADER_ZN_RENDERSYSTEM_HPP_INCLUDED
 #define HEADER_ZN_RENDERSYSTEM_HPP_INCLUDED
 
-#include <fm/proto/ComponentList.hpp>
+#include <fm/proto/core/ComponentList.hpp>
 #include <fm/proto/graphics/Renderer.hpp>
 #include <fm/proto/graphics/Camera.hpp>
 

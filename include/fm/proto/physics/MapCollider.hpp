@@ -8,9 +8,10 @@
 namespace zn
 {
 
-// Simple map collider with static square cells.
-// Each cell is associated to a simple collider primitive (square, triangle...).
-// Currently, only rectangular shapes are supported (more will come with the integration of a physics engine).
+/// \brief Simple map collider with static square cells.
+/// Each cell is associated to a simple collider primitive (square, triangle...),
+/// which is identified by integer IDs.
+/// Currently, only rectangular shapes are supported (more will come with the integration of a physics engine).
 class ZN_API MapCollider : public ACollider
 {
 public:
@@ -19,12 +20,27 @@ public:
 
 	MapCollider();
 
+    /// \brief Tests if a point is inside a blocking cell of the map
+    /// \param pos: Position in world space
+    /// \return true if it collides, false otherwise
 	bool collides(const sf::Vector2f & pos) const override;
+
+    /// \brief Tests if a rectangle intersects a blocking cell of the map
+    /// \param r0: Axis-aligned rectangle in world space
+    /// \return true if it collides, false otherwise
 	bool collides(const sf::FloatRect & r0) const override;
+
 	sf::FloatRect bounds() const override;
 
+    /// \brief rebuilds the collider
+    /// \param size: size of the collision grid
+    /// \param fillColliderType: ID of the collision type to fill in
 	void build(const sf::Vector2i & size, u8 fillColliderType=0);
 
+    /// \brief rebuilds the collider from a TiledMap (Tiles will be interpreted as collisions or not).
+    /// \param map: Tiled map to use
+    /// \param collisionLayerName: name of the collision layer within the Tiled map
+    /// \param collisionTileSetName: name of the collision tileset within the Tiled map
 	void build(
 		const TiledMap & map,
 		const std::string collisionLayerName="collision",
@@ -34,16 +50,24 @@ public:
 	void setCellSize(f32 cellSize);
 	inline f32 cellSize() const { return m_cellSize; }
 
-	// Setups a type of collider as a box.
-	// Types are internally stored in an array, index will be used to access its value.
-	// If the array is too small, it will be resized.
-	// Note: collider type 0 will always be treated as empty.
+	/// \brief Setups a type of collider as a box.
+	/// Types are internally stored in an array, index will be used to access its value.
+	/// If the array is too small, it will be resized.
+	/// \param index: ID of the collision type
+	/// \note collider ID 0 will always be treated as empty.
+	/// \param box: geometry of the collision type in a size range of 0 to 1
 	void setColliderType(u8 index, const sf::FloatRect & box);
 
-	// Setups the type of collider used out of map bounds.
+	/// \brief Setups the type of collider used out of map bounds.
+	/// \param index: ID of the collision to use. 0 means no collision.
 	void setVoidColliderType(u8 index);
 
+	/// \brief returns the hitbox of a collision ID within this map.
+	/// \param index: existing ID of the collision type
+	/// \return axis-aligned hitbox of the collider in size range of 0 to 1.
 	const sf::FloatRect & colliderType(u8 index);
+
+	/// \brief returns the hitbox of a collision ID within this map.
 	inline u32 colliderTypesCount() const { return m_colliderTypes.size(); }
 
 	void setCellCollider(const sf::Vector2i & cellPos, u8 colliderType);

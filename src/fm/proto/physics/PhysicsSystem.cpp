@@ -1,5 +1,5 @@
 #include <fm/proto/physics/PhysicsSystem.hpp>
-#include <fm/proto/Entity.hpp>
+#include <fm/proto/core/Entity.hpp>
 
 namespace zn
 {

@@ -1,4 +1,4 @@
-#include <fm/proto/ComponentFactory.hpp>
+#include <fm/proto/core/ComponentFactory.hpp>
 
 // For engine registration
 #include <fm/util/macros.hpp>

@@ -13,8 +13,8 @@ This file is part of the Plane-framework project.
 #include <fm/types.hpp>
 #include <fm/proto/animation/Animator.hpp>
 #include <fm/proto/graphics/Camera.hpp>
-#include <fm/proto/Transform.hpp>
-#include <fm/proto/LayerMap.hpp>
+#include <fm/proto/core/Transform.hpp>
+#include <fm/proto/core/LayerMap.hpp>
 
 namespace zn
 {

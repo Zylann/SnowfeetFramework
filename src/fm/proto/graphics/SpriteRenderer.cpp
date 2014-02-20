@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include <fm/proto/graphics/SpriteRenderer.hpp>
-#include <fm/proto/Entity.hpp>
+#include <fm/proto/core/Entity.hpp>
 #include <fm/sfml/sfml2_utils.hpp>
 #include <fm/asset/AssetBank.hpp>
 

@@ -1,6 +1,6 @@
 #include <fm/proto/audio/AudioEmitter.hpp>
-#include <fm/proto/Entity.hpp>
-#include <fm/proto/Scene.hpp>
+#include <fm/proto/core/Entity.hpp>
+#include <fm/proto/core/Scene.hpp>
 #include <fm/sfml/sfml2_utils.hpp>
 #include <fm/asset/AssetBank.hpp>
 

@@ -6,9 +6,9 @@ This file is part of the zCraft-Framework project.
 
 #include <iostream>
 
-#include <fm/proto/Application.hpp>
+#include <fm/proto/core/Application.hpp>
 #include <fm/util/macros.hpp>
-#include <fm/proto/ComponentFactory.hpp>
+#include <fm/proto/core/ComponentFactory.hpp>
 
 namespace zn
 {

@@ -1,11 +1,11 @@
 #include <iostream>
 
-#include <fm/proto/Entity.hpp>
-#include <fm/proto/Component.hpp>
+#include <fm/proto/core/Entity.hpp>
+#include <fm/proto/core/Component.hpp>
 #include <fm/proto/graphics/Renderer.hpp>
 #include <fm/proto/physics/Collider.hpp>
 #include <fm/proto/physics/Body.hpp>
-#include <fm/proto/Scene.hpp>
+#include <fm/proto/core/Scene.hpp>
 #include <fm/util/typecheck.hpp>
 
 #include "fm/json/json_utils.hpp"

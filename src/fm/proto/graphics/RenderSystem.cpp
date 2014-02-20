@@ -1,7 +1,7 @@
 #include <list>
 
 #include <fm/proto/graphics/RenderSystem.hpp>
-#include <fm/proto/Entity.hpp>
+#include <fm/proto/core/Entity.hpp>
 #include <fm/sfml/sfml2_utils.hpp>
 
 #ifdef ZN_DEBUG

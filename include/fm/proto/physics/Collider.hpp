@@ -2,8 +2,8 @@
 #define HEADER_ZN_ACOLLIDER_HPP_INCLUDED
 
 #include <SFML/Graphics.hpp>
-#include "../Component.hpp"
-#include "../../config.hpp"
+#include <fm/proto/core/Component.hpp>
+#include <fm/config.hpp>
 //#include "../CollisionInfo.hpp"
 
 namespace zn

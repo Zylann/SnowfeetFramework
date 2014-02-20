@@ -1,10 +1,11 @@
+#include <fm/asset/AssetBank.hpp>
+#include <fm/proto/core/Scene.hpp>
+#include <fm/proto/physics/BoxCollider.hpp>
+#include <fm/proto/animation/SpriteAnimator.hpp>
+#include <fm/util/Direction.hpp>
+#include <fm/util/math.hpp>
+
 #include "Cat.hpp"
-#include "fm/asset/AssetBank.hpp"
-#include "fm/proto/Scene.hpp"
-#include "fm/proto/physics/BoxCollider.hpp"
-#include "fm/proto/animation/SpriteAnimator.hpp"
-#include "fm/util/Direction.hpp"
-#include "fm/util/math.hpp"
 
 namespace demo
 {

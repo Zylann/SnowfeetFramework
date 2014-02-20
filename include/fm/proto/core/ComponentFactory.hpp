@@ -2,7 +2,7 @@
 #define HEADER_ZN_COMPONENTFACTORY_HPP_INCLUDED
 
 #include <unordered_map>
-#include <fm/proto/ComponentType.hpp>
+#include <fm/proto/core/ComponentType.hpp>
 
 namespace zn
 {

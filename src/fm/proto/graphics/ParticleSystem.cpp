@@ -1,8 +1,8 @@
 #include <fm/sfml/sfml2_utils.hpp>
 #include <fm/util/math.hpp>
 #include <fm/asset/AssetBank.hpp>
-#include <fm/proto/Entity.hpp>
-#include <fm/proto/Scene.hpp>
+#include <fm/proto/core/Entity.hpp>
+#include <fm/proto/core/Scene.hpp>
 #include <fm/proto/graphics/ParticleSystem.hpp>
 
 #include "fm/json/json_utils.hpp"

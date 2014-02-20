@@ -11,9 +11,9 @@ This file is part of the Plane Framework project.
 #include <unordered_set>
 #include <SFML/Graphics.hpp>
 
-#include <fm/proto/Entity.hpp>
-#include <fm/proto/LayerMap.hpp>
-#include <fm/proto/ComponentList.hpp>
+#include <fm/proto/core/Entity.hpp>
+#include <fm/proto/core/LayerMap.hpp>
+#include <fm/proto/core/ComponentList.hpp>
 #include <fm/proto/behaviour/Behaviour.hpp>
 #include <fm/proto/audio/AudioSystem.hpp>
 #include <fm/proto/graphics/RenderSystem.hpp>

@@ -10,10 +10,10 @@ This file is part of the zCraft-Framework project.
 #include <SFML/Graphics.hpp>
 
 #include <fm/asset/AssetBank.hpp>
-#include <fm/proto/Scene.hpp>
-#include <fm/proto/PerformanceGraph.hpp>
-#include <fm/proto/GameSettings.hpp>
-#include <fm/proto/ComponentFactory.hpp>
+#include <fm/proto/core/Scene.hpp>
+#include <fm/proto/core/PerformanceGraph.hpp>
+#include <fm/proto/core/GameSettings.hpp>
+#include <fm/proto/core/ComponentFactory.hpp>
 
 namespace zn
 {

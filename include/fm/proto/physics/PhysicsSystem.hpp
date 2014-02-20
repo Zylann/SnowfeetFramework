@@ -3,7 +3,7 @@
 
 #include <fm/proto/physics/Collider.hpp>
 #include <fm/proto/physics/Body.hpp>
-#include <fm/proto/ComponentList.hpp>
+#include <fm/proto/core/ComponentList.hpp>
 
 namespace zn
 {

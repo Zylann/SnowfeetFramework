@@ -4,7 +4,7 @@
 #include <fm/asset/AssetBank.hpp>
 #include <fm/json/json_utils.hpp>
 #include <fm/proto/graphics/MapRenderer.hpp>
-#include <fm/proto/Entity.hpp>
+#include <fm/proto/core/Entity.hpp>
 
 namespace zn
 {

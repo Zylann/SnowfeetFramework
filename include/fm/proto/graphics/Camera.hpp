@@ -3,7 +3,7 @@
 
 #include <cassert>
 #include <SFML/Graphics.hpp>
-#include <fm/proto/Component.hpp>
+#include <fm/proto/core/Component.hpp>
 
 namespace zn
 {
