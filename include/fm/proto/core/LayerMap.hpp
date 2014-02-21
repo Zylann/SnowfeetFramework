@@ -66,12 +66,18 @@ public:
 		m_layers[index].drawOrder = drawOrder;
 	}
 
+	/// \brief Accesses the layer from an index.
+	/// \param index: index of the layer, between 0 and 31 included.
+	/// \return reference to the layer.
 	Layer & operator[](u32 index)
 	{
 		assert(index < COUNT);
 		return m_layers[index];
 	}
 
+	/// \brief Accesses the layer having the given name.
+	/// \param name: name of the layer to search
+	/// \return pointer to the layer, or nullptr if not found.
 	Layer * operator[](const std::string & name)
 	{
 		for(u32 i = 0; i < COUNT; ++i)
@@ -87,6 +93,7 @@ public:
 		return nullptr;
 	}
 
+	/// \brief Prints the LayerMap in a human-readable form.
 	void print(std::ostream & os) const
 	{
 		for(u32 i = 0; i < COUNT; ++i)
@@ -100,6 +107,7 @@ public:
 
 private:
 
+	/// \brief All the 32 layers.
 	Layer m_layers[32];
 
 };
