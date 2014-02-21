@@ -10,7 +10,7 @@ int main(int argc, char*argv[])
 
 	int exitCode = 0;
 	exitCode = zn::Application::run<demo::Game>();
-//	test_autotiler();
+//	test_filesystem();
 
 	cout << "Exit main" << endl;
 	return exitCode;

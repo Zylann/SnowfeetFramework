@@ -1,0 +1,2 @@
+This file is in a directory where all files are placeholders,
+just to test if the filesystem functions of the framework perform well.
