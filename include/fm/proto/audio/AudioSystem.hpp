@@ -38,7 +38,7 @@ public:
 	void update(sf::Time delta);
 
 	// Set global volume in [0..1]
-	void setGlobalVolume(float volume);
+	void setGlobalVolume(f32 volume);
 
 	//MusicSystem music;
 

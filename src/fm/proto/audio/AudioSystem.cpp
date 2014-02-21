@@ -116,7 +116,7 @@ void AudioSystem::detachEmitterSources(AudioEmitter & emitter)
 }
 
 //------------------------------------------------------------------------------
-void AudioSystem::setGlobalVolume(float volume)
+void AudioSystem::setGlobalVolume(f32 volume)
 {
 	sf::Listener::setGlobalVolume(volume / 100.f);
 }
