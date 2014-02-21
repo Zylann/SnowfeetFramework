@@ -25,12 +25,11 @@ Features
 - JSON scene dump (editor serialization preview, currently for debug)
 - Entity hierarchy (parenting)
 - Shaders with merged files support (vertex+fragment in same file)
-- Layers
+- Layers with sorting semantic
 - Simple 2D culling
 
 Planned/suggested :
 
-- Layers with sorting semantic (background, GUI, overlays...)
 - Lighting and 2D shadows
 - Box2D integration
 - Better culling for BIG scenes
