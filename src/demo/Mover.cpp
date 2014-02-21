@@ -1,6 +1,5 @@
 #include <fm/sfml/sfml2_utils.hpp>
-#include <fm/proto/core/Scene.hpp>
-#include <fm/proto/physics/Collider.hpp>
+#include <fm/proto/physics.hpp>
 
 #include "Mover.hpp"
 

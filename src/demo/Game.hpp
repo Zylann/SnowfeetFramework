@@ -1,8 +1,8 @@
 #ifndef HEADER_DEMO_GAME_HPP_INCLUDED
 #define HEADER_DEMO_GAME_HPP_INCLUDED
 
-#include <fm/proto/core/Application.hpp>
-#include <fm/proto/graphics/MapRenderer.hpp>
+#include <fm/proto/core.hpp>
+#include <fm/proto/graphics.hpp>
 
 #include "common.hpp"
 

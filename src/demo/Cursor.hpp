@@ -1,7 +1,7 @@
 #ifndef HEADER_DEMO_CURSOR_HPP_INCLUDED
 #define HEADER_DEMO_CURSOR_HPP_INCLUDED
 
-#include "fm/proto/behaviour/Behaviour.hpp"
+#include <fm/proto/behaviour.hpp>
 
 namespace demo
 {

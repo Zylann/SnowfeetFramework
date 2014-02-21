@@ -1,9 +1,9 @@
 #include <fm/asset/AssetBank.hpp>
-#include <fm/proto/core/Scene.hpp>
-#include <fm/proto/physics/BoxCollider.hpp>
-#include <fm/proto/animation/SpriteAnimator.hpp>
 #include <fm/util/Direction.hpp>
 #include <fm/util/math.hpp>
+
+#include <fm/proto/physics.hpp>
+#include <fm/proto/animation.hpp>
 
 #include "Cat.hpp"
 

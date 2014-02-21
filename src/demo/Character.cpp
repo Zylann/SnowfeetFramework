@@ -1,6 +1,6 @@
 #include <iostream>
-#include <fm/proto/core/Entity.hpp>
-#include <fm/proto/physics/BoxCollider.hpp>
+
+#include <fm/proto/physics.hpp>
 
 #include "Character.hpp"
 #include "Mover.hpp"

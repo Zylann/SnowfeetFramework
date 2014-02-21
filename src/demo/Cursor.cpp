@@ -1,7 +1,6 @@
-#include <fm/proto/graphics/SpriteRenderer.hpp>
-#include <fm/proto/core/Entity.hpp>
 #include <fm/asset/AssetBank.hpp>
-#include <fm/proto/core/Application.hpp>
+
+#include <fm/proto/graphics.hpp>
 
 #include "Cursor.hpp"
 #include "common.hpp"

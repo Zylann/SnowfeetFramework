@@ -1,9 +1,6 @@
 #ifndef HEADER_DEMO_AVATAR_HPP_INCLUDED
 #define HEADER_DEMO_AVATAR_HPP_INCLUDED
 
-#include <fm/proto/core/Component.hpp>
-#include <fm/proto/graphics/SpriteRenderer.hpp>
-
 #include "Character.hpp"
 
 namespace demo

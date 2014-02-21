@@ -1,10 +1,6 @@
-#include "fm/proto/graphics/SpriteRenderer.hpp"
-//#include "fm/proto/components/SpriteAnimator.hpp"
-#include "fm/proto/graphics/MapRenderer.hpp"
-#include "fm/proto/physics/MapCollider.hpp"
-#include "fm/proto/graphics/Camera.hpp"
-#include "fm/proto/graphics/TextRenderer.hpp"
-//#include "fm/proto/components/ParticleSystem.hpp"
+#include <fm/proto/graphics.hpp>
+#include <fm/proto/physics.hpp>
+
 #include "Avatar.hpp"
 #include "Cat.hpp"
 #include "Game.hpp"
