@@ -12,12 +12,13 @@ This file is part of the Plane framework project.
 #include <fstream>
 
 #include <fm/types.hpp>
+#include <fm/util/NonCopyable.hpp>
 
 namespace zn
 {
 
 /// \brief Simple stream wrapper providing file and/or console output
-class Log
+class Log : public NonCopyable
 {
 public:
 
@@ -35,7 +36,7 @@ public:
 		m_messageType(M_INFO),
 		m_fileOutputFlags(M_ALL),
 #ifdef ZN_DEBUG
-		m_consoleOutputFlags(M_ALL)
+		m_consoleOutputFlags(M_WARNING | M_ERROR | M_DEBUG)
 #else
 		m_consoleOutputFlags(M_WARNING | M_ERROR)
 #endif
@@ -101,15 +102,11 @@ public:
 		return (*this) << "E: ";
 	}
 
-	/// \brief Marks the end of the current log message.
-	/// You can use it at the end of your message like std::endl :
-	/// log.info() << "your message" << log.endl();
-	/// \return Log itself for chaining calls.
-	/// \note Outputting the log itself in a message will do nothing.
-	inline Log & endl()
+	/// \brief Returns the end-of-line character used to mark the end of a log message.
+	/// \note use: log.info() << "Message" << log.endl();
+	inline char endl()
 	{
-		(*this) << (char)'\n';
-		return (*this);
+		return '\n';
 	}
 
 	/// \brief Outputs a message using the current message type.
