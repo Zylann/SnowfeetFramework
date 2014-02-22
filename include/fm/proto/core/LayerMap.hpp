@@ -93,6 +93,25 @@ public:
 		return nullptr;
 	}
 
+	/// \brief Get the mask corresponding to a layer.
+	/// \param name: name of the layer
+	/// \return Bitmask where one bit is set on the layer's position,
+	/// or 0 if no layer was found with the given name.
+	u32 maskFromName(const std::string & name)
+	{
+		for(u32 i = 0; i < COUNT; ++i)
+		{
+			if(m_layers[i].name == name)
+			{
+				return 1 << i;
+			}
+		}
+#ifdef ZN_DEBUG
+		std::cout << "E: LayerMap::maskFromName: layer not found \"" << name << '"' << std::endl;
+#endif
+		return 0;
+	}
+
 	/// \brief Prints the LayerMap in a human-readable form.
 	void print(std::ostream & os) const
 	{
