@@ -27,6 +27,7 @@ Features
 - Shaders with merged files support (vertex+fragment in same file)
 - Layers with sorting semantic
 - Simple 2D culling
+- Log system
 
 Planned/suggested :
 

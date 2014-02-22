@@ -90,8 +90,8 @@ void Material::serialize(JsonBox::Value & o) const
 #ifdef ZN_DEBUG
 		else
 		{
-			std::cout << "D: Material::serialize: "
-				"shader is not an asset, it will not be serialized" << std::endl;
+			log.warn() << "Material::serialize: "
+				"shader is not an asset, it will not be serialized" << log.endl();
 		}
 #endif
 	}
@@ -110,9 +110,9 @@ void Material::serializeTextureMap(JsonBox::Value & o, const ParameterMap<const 
 #ifdef ZN_DEBUG
 		else
 		{
-			std::cout << "D: Material::serializeMap: "
+			log.warn() << "Material::serializeMap: "
 				"texture parameter \"" << it->first << "\" is not an asset, "
-				"it will not be serialized" << std::endl;
+				"it will not be serialized" << log.endl();
 		}
 #endif
 	}
@@ -163,9 +163,9 @@ void Material::unserialize(JsonBox::Value & o)
 #ifdef ZN_DEBUG
 			if(texture == nullptr)
 			{
-				std::cout << "E: Material::unserialize: "
+				log.err() << "Material::unserialize: "
 					"texture not found \"" << textureName << "\""
-					"(parameter: \"" << it->first << "\")" << std::endl;
+					"(parameter: \"" << it->first << "\")" << log.endl();
 			}
 #endif
 			tex2DParams[it->first] = texture;
@@ -208,8 +208,8 @@ void Material::unserialize(JsonBox::Value & o)
 
 			default:
 #ifdef ZN_DEBUG
-				std::cout << "W: Material::unserialize: "
-					"unsupported array parameter size (" << a.size() << ")" << std::endl;
+				log.warn() << "Material::unserialize: "
+					"unsupported array parameter size (" << a.size() << ")" << log.endl();
 #endif
 				break;
 			}
@@ -247,8 +247,8 @@ void Material::unserialize(JsonBox::Value & o)
 #ifdef ZN_DEBUG
 			else
 			{
-				std::cout << "W: Material::unserialize: "
-					"unsupported object parameter \"" << it->first << '"' << std::endl;
+				log.warn() << "Material::unserialize: "
+					"unsupported object parameter \"" << it->first << '"' << log.endl();
 			}
 #endif
 		}
@@ -263,7 +263,7 @@ bool Material::loadFromFile(const std::string & filePath)
 	JsonBox::Value doc;
 	if(!zn::loadFromFile(doc, filePath))
 	{
-		std::cout << "E: Material::loadFromFile: error while reading the file." << std::endl;
+		log.err() << "Material::loadFromFile: error while reading the file." << log.endl();
 		return false;
 	}
 

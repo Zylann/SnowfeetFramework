@@ -12,6 +12,7 @@ This file is part of the zCraftFramework project.
 #include <fm/asset/TextureAtlas.hpp>
 #include <fm/sfml/sfml2_utils.hpp>
 #include <fm/json/json_utils.hpp>
+#include <fm/util/Log.hpp>
 
 namespace zn
 {
@@ -31,7 +32,7 @@ bool TextureAtlas::loadFromJSONFile(const std::string & filePath)
 {
 	// Parse stream
 
-	std::cout << "D: Reading TextureAtlas..." << std::endl;
+	log.debug() << "Reading TextureAtlas..." << log.endl();
 	JsonBox::Value doc;
 	if(!zn::loadFromFile(doc, filePath, 1))
 	{
@@ -60,7 +61,7 @@ bool TextureAtlas::loadFromJSONFile(const std::string & filePath)
 
 		if(m_frames.find(name) != m_frames.end())
 		{
-			std::cout << "W: TextureAtlas: found duplicate frame \"" << name << "\" in " << filePath << std::endl;
+			log.warn() << "TextureAtlas: found duplicate frame \"" << name << "\" in " << filePath << log.endl();
 		}
 
 		m_frames[name] = f;
@@ -92,7 +93,7 @@ bool TextureAtlas::loadFromJSONFile(const std::string & filePath)
 
 		if(m_sequences.find(name) != m_sequences.end())
 		{
-			std::cout << "W: TextureAtlas: found duplicate sequence \"" << name << "\" in " << filePath << std::endl;
+			log.warn() << "TextureAtlas: found duplicate sequence \"" << name << "\" in " << filePath << log.endl();
 		}
 
 		m_sequences[name] = seq;
@@ -104,7 +105,7 @@ bool TextureAtlas::loadFromJSONFile(const std::string & filePath)
 	std::string texturePath = localDir + '/' + textureName;
 	if(!m_texture.loadFromFile(texturePath))
 	{
-		std::cout << "E: TextureAtlas: couldn't load texture \"" << texturePath << '"' << std::endl;
+		log.err() << "TextureAtlas: couldn't load texture \"" << texturePath << '"' << log.endl();
 		return false;
 	}
 
@@ -139,7 +140,7 @@ void TextureAtlas::addFrame(std::string id, sf::IntRect rect)
 {
 #ifdef ZN_DEBUG
 	if(frame(id) != nullptr)
-		std::cout << "W: TextureAtlas::addFrame: overwrite previous ID (" << id << std::endl;
+		log.warn() << "TextureAtlas::addFrame: overwrite previous ID (" << id << ')' << log.endl();
 #endif
 	m_frames[id].rect = rect;
 }
@@ -149,7 +150,7 @@ void TextureAtlas::addSequence(std::string id, const Sequence & seq)
 {
 #ifdef ZN_DEBUG
 	if(sequence(id) != nullptr)
-		std::cout << "W: TextureAtlas::addFrame: overwrite previous ID (" << id << std::endl;
+		log.warn() << "TextureAtlas::addFrame: overwrite previous ID (" << id << ')' << log.endl();
 #endif
 	m_sequences[id] = seq;
 }

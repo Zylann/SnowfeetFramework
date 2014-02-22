@@ -1,4 +1,5 @@
 #include <fm/asset/AssetMapBase.hpp>
+#include <fm/util/Log.hpp>
 
 namespace zn
 {
@@ -9,7 +10,7 @@ void AssetMapBase::setRootFolder(const std::string & rf)
 #ifdef ZN_DEBUG
 	if(size() != 0)
 	{
-		std::cout << "W: AssetMap: root folder changed while assets are already loaded." << std::endl;
+		log.warn() << "AssetMap: root folder changed while assets are already loaded." << log.endl();
 	}
 #endif
 	m_rootFolder = rf;
@@ -42,8 +43,8 @@ void AssetMapBase::loadFileAssociations(JsonBox::Value & obj)
 #ifdef ZN_DEBUG
 		else
 		{
-			std::cout << "W: AssetMap::loadFileAssociations: "
-				"[" << tag << "] found empty string" << std::endl;
+			log.warn() << "AssetMap::loadFileAssociations: "
+				"[" << tag << "] found empty string" << log.endl();
 		}
 #endif
 	}

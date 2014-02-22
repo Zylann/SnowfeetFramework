@@ -14,6 +14,7 @@ This file is part of the zCraftFramework project.
 #include <fm/util/stringutils.hpp>
 #include <fm/json/json_utils.hpp>
 #include <fm/asset/TiledMap.hpp>
+#include <fm/util/Log.hpp>
 
 namespace zn
 {
@@ -29,7 +30,7 @@ bool TiledMap::loadFromJSONFile(const std::string & filePath)
 {
 	// Parse stream
 
-	std::cout << "D: Reading TiledMap JSON..." << std::endl;
+	log.debug() << "Reading TiledMap JSON..." << log.endl();
 	JsonBox::Value doc;
 	if(!zn::loadFromFile(doc, filePath, 1))
 	{
@@ -72,7 +73,7 @@ bool TiledMap::loadFromJSONFile(const std::string & filePath)
 
 		if(layerType == "tilelayer")
 		{
-			std::cout << "I: Reading tilelayer..." << std::endl;
+			log.debug() << "Reading tilelayer..." << log.endl();
 
 			// Get tiles data
 			JsonBox::Array jdata = (*layerIt)["data"].getArray();
@@ -82,9 +83,9 @@ bool TiledMap::loadFromJSONFile(const std::string & filePath)
 			if(layerDataSize != jdata.size())
 			{
 				// Dimensions mismatch !
-				std::cout << "E: jdata.size()(" << jdata.size() << ")"
+				log.err() << "jdata.size()(" << jdata.size() << ")"
 					" != width(" << layer.size.x << ")*height(" << layer.size.y << ")"
-					" (layer name: \"" << layer.name << "\")" << std::endl;
+					" (layer name: \"" << layer.name << "\")" << log.endl();
 				return false;
 			}
 
@@ -99,7 +100,7 @@ bool TiledMap::loadFromJSONFile(const std::string & filePath)
 		}
 		else if(layerType == "objectgroup")
 		{
-			std::cout << "I: Reading objectgroup..." << std::endl;
+			log.debug() << "Reading objectgroup..." << log.endl();
 
 			// Get objects data
 			JsonBox::Array jobjects = (*layerIt)["objects"].getArray();
@@ -133,7 +134,7 @@ bool TiledMap::loadFromJSONFile(const std::string & filePath)
 	u32 tilesetIndex = 0;
 	for(auto tilesetIt = jtilesets.begin(); tilesetIt != jtilesets.end(); ++tilesetIt, ++tilesetIndex)
 	{
-		std::cout << "I: Reading tileset " << tilesetIndex << "..." << std::endl;
+		log.debug() << "Reading tileset " << tilesetIndex << "..." << log.endl();
 
 		TileSet & tileset = tileSets[tilesetIndex];
 

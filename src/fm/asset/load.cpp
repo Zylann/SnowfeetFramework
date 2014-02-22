@@ -1,10 +1,12 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
+
 #include <fm/asset/Material.hpp>
 #include <fm/asset/FileRef.hpp>
 #include <fm/asset/TiledMap.hpp>
 #include <fm/asset/TextureAtlas.hpp>
 #include <fm/asset/load.hpp>
+#include <fm/util/Log.hpp>
 
 namespace zn
 {
@@ -39,8 +41,8 @@ bool loadFromFile(sf::Shader * asset, const std::string & filePath)
 
 		if(vertexPath.empty() && fragmentPath.empty())
 		{
-			std::cout << "E: Cannot load shader from JSON descriptor: "
-				"no shader specified in \"" << filePath << '"' << std::endl;
+			log.err() << "Cannot load shader from JSON descriptor: "
+				"no shader specified in \"" << filePath << '"' << log.endl();
 			return false;
 		}
 		else if(!vertexPath.empty() && fragmentPath.empty())
@@ -63,9 +65,9 @@ bool loadFromFile(sf::Shader * asset, const std::string & filePath)
 	}
 	else
 	{
-		std::cout << "E: Cannot load shader file, the \"" << ext << "\" file extension is not supported." << std::endl;
+		log.err() << "Cannot load shader file, the \"" << ext << "\" file extension is not supported." << log.endl();
 #ifdef ZN_DEBUG
-		std::cout << "E: | use a JSON descriptor or a merged file to properly load the vertex+fragment programs." << std::endl;
+		log.err() << "| use a JSON descriptor or a merged file to properly load the vertex+fragment programs." << log.endl();
 #endif
 		return false;
 	}
@@ -122,7 +124,7 @@ bool loadMergedShaderFromFile(sf::Shader & shader, const std::string & filePath)
 	std::ifstream ifs(filePath.c_str(), std::ios::in|std::ios::binary);
 	if(!ifs.good())
 	{
-		std::cout << "E: Couldn't open merged shader file \"" << filePath << '"' << std::endl;
+		log.err() << "Couldn't open merged shader file \"" << filePath << '"' << log.endl();
 		return false;
 	}
 
@@ -189,8 +191,8 @@ bool loadMergedShaderFromFile(sf::Shader & shader, const std::string & filePath)
 
 	if(!shader.loadFromMemory(shaderStr[VERTEX], shaderStr[FRAGMENT]))
 	{
-		std::cout << "E: An error occurred reading merged shader file "
-			"\"" << filePath << '"' << std::endl;
+		log.err() << "An error occurred reading merged shader file "
+			"\"" << filePath << '"' << log.endl();
 		return false;
 	}
 

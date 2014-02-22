@@ -14,6 +14,7 @@ This file is part of the zCraftFramework project.
 #include <fm/json/json_utils.hpp>
 #include <fm/asset/load.hpp>
 #include <fm/asset/AssetMapBase.hpp>
+#include <fm/util/Log.hpp>
 
 namespace zn
 {
@@ -60,7 +61,7 @@ public:
 		else
 		{
 #ifdef ZN_DEBUG
-			std::cout << "E: AssetMap::get: not found \"" << id << '"' << std::endl;
+			log.err() << "AssetMap::get: not found \"" << id << '"' << log.endl();
 #endif
 			return nullptr;
 		}
@@ -86,7 +87,7 @@ public:
 		if(id.empty())
 		{
 #ifdef ZN_DEBUG
-			std::cout << "E: AssetMap::load: empty ID specified !" << std::endl;
+			log.err() << "AssetMap::load: empty ID specified !" << log.endl();
 #endif
 			return false;
 		}
@@ -97,7 +98,7 @@ public:
 		if(!m_rootFolder.empty())
 			filePath = m_rootFolder + '/' + filePath;
 #ifdef ZN_DEBUG
-		std::cout << "D: AssetMap: loading \"" << filePath << "\" as \"" << id << '"' << std::endl;
+		log.debug() << "AssetMap: loading \"" << filePath << "\" as \"" << id << '"' << log.endl();
 #endif
 
 		T * asset = new T();

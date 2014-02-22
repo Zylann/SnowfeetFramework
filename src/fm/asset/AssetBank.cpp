@@ -10,6 +10,7 @@ This file is part of the zCraftFramework project.
 
 #include <fm/asset/AssetBank.hpp>
 #include <fm/system/filesystem.hpp>
+#include <fm/util/Log.hpp>
 
 namespace zn
 {
@@ -67,7 +68,7 @@ AssetBank * AssetBank::current()
 void AssetBank::setRootFolder(const std::string & rootFolder)
 {
 #ifdef ZN_DEBUG
-	std::cout << "D: AssetBank: root folder set to " << rootFolder << '.' << std::endl;
+	log.debug() << "AssetBank: root folder set to " << rootFolder << '.' << log.endl();
 #endif // ZN_DEBUG
 	m_root = rootFolder;
 }
@@ -75,7 +76,7 @@ void AssetBank::setRootFolder(const std::string & rootFolder)
 //------------------------------------------------------------------------------
 bool AssetBank::loadFileAssociations(const std::string & assocFile, bool create)
 {
-	std::cout << "I: Loading file associations..." << std::endl;
+	log.info() << "Loading file associations..." << log.endl();
 
 	JsonBox::Value doc;
 	if(!loadFromFile(doc, assocFile, -1, !create))
@@ -84,7 +85,7 @@ bool AssetBank::loadFileAssociations(const std::string & assocFile, bool create)
 
 		if(create)
 		{
-			std::cout << "I: File associations file not found. Creating a new one." << std::endl;
+			log.info() << "File associations file not found. Creating a new one." << log.endl();
 
 			// Create default associations
 
@@ -126,8 +127,8 @@ bool AssetBank::loadFileAssociations(const std::string & assocFile, bool create)
 			}
 			else
 			{
-				std::cout << "E: AssetBank::loadFileAssociations: "
-					"couldn't write file." << std::endl;
+				log.err() << "AssetBank::loadFileAssociations: "
+					"couldn't write file." << log.endl();
 			}
 		}
 		else
@@ -153,11 +154,11 @@ bool AssetBank::loadFromJSON(const std::string & manifestPath)
 	std::ifstream ifs(manifestPath.c_str(), std::ios::in|std::ios::binary);
 	if(!ifs.good())
 	{
-		std::cout << "E: AssetBank::loadFromJSON: couldn't open \"" + manifestPath + '"' << std::endl;
+		log.err() << "AssetBank::loadFromJSON: couldn't open \"" + manifestPath + '"' << log.endl();
 		return false;
 	}
 
-	std::cout << "I: Reading AssetBank " << manifestPath << "..." << std::endl;
+	log.info() << "Reading AssetBank " << manifestPath << "..." << log.endl();
 
 	// Parse stream
 
@@ -184,7 +185,7 @@ bool AssetBank::loadFromJSON(const std::string & manifestPath)
 	// Note: maps might depend on textures or atlases
 	if(!maps.loadManifestGroup(doc, m_root)) return false;
 
-	std::cout << "I: Done" << std::endl;
+	log.info() << "Done" << log.endl();
 
 	return true;
 }
