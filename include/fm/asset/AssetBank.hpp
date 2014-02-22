@@ -45,7 +45,12 @@ public:
 	// You must specify a path relative to the executable.
 	bool loadFromJSON(const std::string & manifestPath);
 
-//	bool loadFolder(const std::string & folderPath);
+	/// \brief Recursively loads all recognized assets under a folder.
+	/// Assets loaded with this method must have a file extension.
+	/// Otherwise, they will be ignored.
+	/// \param folderPath: path to the folder.
+	/// \return true if success, false otherwise.
+	//bool loadFolder(const std::string & folderPath);
 
 	// Sets this AssetBank as the current one for global access
 	void makeCurrent();
@@ -54,6 +59,29 @@ public:
 	static AssetBank * current();
 
 private:
+
+	/// \brief Loads a section of typed assets from a JSON manifest data tree.
+	/// \see AssetBank.cpp, loadFromJSON().
+	template <class T>
+	bool loadManifestGroup(JsonBox::Value & doc, AssetMap<T> & assetMap)
+	{
+		std::string tagPlural = assetMap.tag;
+		if(tagPlural[tagPlural.size()-1] == 's')
+		{
+			tagPlural += "es";
+		}
+		else
+		{
+			tagPlural += 's';
+		}
+
+		if(!doc[tagPlural].isNull())
+		{
+			return assetMap.loadList(doc[tagPlural], m_root);
+		}
+
+		return true;
+	}
 
 	std::string m_root;
 

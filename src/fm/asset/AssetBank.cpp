@@ -9,22 +9,49 @@ This file is part of the zCraftFramework project.
 #include <cstdio>
 
 #include <fm/asset/AssetBank.hpp>
+#include <fm/system/filesystem.hpp>
 
 namespace zn
 {
 
 AssetBank * g_currentRef = nullptr;
 
-AssetBank::AssetBank()
+//------------------------------------------------------------------------------
+AssetBank::AssetBank() :
+	textures("texture"),
+	shaders("shader"),
+	fonts("font"),
+	atlases("atlas"),
+	maps("map"),
+	soundBuffers("soundbuffer"),
+	soundStreams("soundstream"),
+	materials("material")
 {
 	if(g_currentRef == nullptr)
+	{
 		makeCurrent();
+	}
 }
 
+//------------------------------------------------------------------------------
 AssetBank::~AssetBank()
 {
 	if(g_currentRef == this)
+	{
 		g_currentRef = nullptr;
+	}
+}
+
+//------------------------------------------------------------------------------
+void AssetBank::makeCurrent()
+{
+	g_currentRef = this;
+}
+
+//------------------------------------------------------------------------------
+AssetBank * AssetBank::current()
+{
+	return g_currentRef;
 }
 
 //------------------------------------------------------------------------------
@@ -55,62 +82,23 @@ bool AssetBank::loadFromJSON(const std::string & manifestPath)
 	ifs.close();
 
 	// Load assets
-
-	// TODO make this more generic
 	// TODO add loading parameters such as lazy loading (load a manifest instead of directly read the file)
-
 	// Note: the loading order is important
 
-	if(!doc["textures"].isNull())
-	{
-		if(!textures.loadList(doc["textures"], m_root))
-			return false;
-	}
-
-	if(!doc["shaders"].isNull())
-	{
-		if(!shaders.loadList(doc["shaders"], m_root))
-			return false;
-	}
-
-	if(!doc["fonts"].isNull())
-	{
-		if(!fonts.loadList(doc["fonts"], m_root))
-			return false;
-	}
-
-	if(!doc["soundbuffers"].isNull())
-	{
-		if(!soundBuffers.loadList(doc["soundbuffers"], m_root))
-			return false;
-	}
-
-	if(!doc["soundstreams"].isNull())
-	{
-		if(!soundStreams.loadList(doc["soundstreams"], m_root))
-			return false;
-	}
+	if(!loadManifestGroup(doc, textures)) return false;
+	if(!loadManifestGroup(doc, shaders)) return false;
+	if(!loadManifestGroup(doc, fonts)) return false;
+	if(!loadManifestGroup(doc, soundBuffers)) return false;
+	if(!loadManifestGroup(doc, soundStreams)) return false;
 
 	// Note: materials might depend on textures
-	if(!doc["materials"].isNull())
-	{
-		if(!materials.loadList(doc["materials"], m_root))
-			return false;
-	}
+	if(!loadManifestGroup(doc, materials)) return false;
 
 	// Note: atlases might depend on textures/materials
-	if(!doc["atlases"].isNull())
-	{
-		if(!atlases.loadList(doc["atlases"], m_root))
-			return false;
-	}
+	if(!loadManifestGroup(doc, atlases)) return false;
 
 	// Note: maps might depend on textures or atlases
-	if(!doc["maps"].isNull())
-	{
-		if(!maps.loadList(doc["maps"], m_root))
-			return false;
-	}
+	if(!loadManifestGroup(doc, maps)) return false;
 
 	std::cout << "I: Done" << std::endl;
 
@@ -119,26 +107,21 @@ bool AssetBank::loadFromJSON(const std::string & manifestPath)
 
 
 //------------------------------------------------------------------------------
-/*
-bool AssetBank::loadFolder(const std::string & folderPath)
-{
-	std::cout << "AssetBank::loadFolder: not implemented yet !" << std::endl;
-	// TODO implement AssetBank::loadFolder()
-	return false;
-}
-*/
-
-//------------------------------------------------------------------------------
-void AssetBank::makeCurrent()
-{
-	g_currentRef = this;
-}
-
-//------------------------------------------------------------------------------
-AssetBank * AssetBank::current()
-{
-	return g_currentRef;
-}
+//bool AssetBank::loadFolder(const std::string & folderPath)
+//{
+//	std::cout << "I: Loading folder \"" << folderPath << '"' << std::endl;
+//
+//	std::vector<std::string> files;
+//	if(!getFiles(folderPath, files, true))
+//	{
+//		std::cout << "E: AssetBank::loadFolder: an error occurred." << std::endl;
+//		return false;
+//	}
+//
+//  WIP
+//
+//	return false;
+//}
 
 } // namespace zn
 

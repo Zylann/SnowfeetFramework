@@ -9,6 +9,7 @@ This file is part of the zCraftFramework project.
 
 #include <string>
 #include <unordered_map>
+#include <unordered_set>
 #include <iostream>
 
 #include <fm/config.hpp>
@@ -28,6 +29,10 @@ template <class T>
 class AssetMap
 {
 public:
+
+	AssetMap(std::string pTag) :
+		tag(pTag)
+	{}
 
 	~AssetMap()
 	{
@@ -161,6 +166,13 @@ public:
 
 	inline std::unordered_map<std::string,T*> begin() const { return m_map.begin(); }
 	inline std::unordered_map<std::string,T*> end() const { return m_map.end(); }
+
+	/// \brief Name of the type of asset stored in this map.
+	/// It can also be used in manifest files.
+	std::string tag;
+
+	/// \brief File extensions associated with the assets this map can store (lower case, without the dot).
+	std::unordered_set<std::string> fileExtensions;
 
 private:
 
