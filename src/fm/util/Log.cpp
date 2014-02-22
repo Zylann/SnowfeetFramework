@@ -17,12 +17,6 @@ bool Log::openFile(const std::string & fpath)
 	return true;
 }
 
-//------------------------------------------------------------------------------
-Log & endl(Log & l)
-{
-	l << '\n';
-	return l;
-}
 
 } // namespace zn
 

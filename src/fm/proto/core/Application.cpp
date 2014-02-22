@@ -9,6 +9,7 @@ This file is part of the zCraft-Framework project.
 #include <fm/proto/core/Application.hpp>
 #include <fm/util/macros.hpp>
 #include <fm/proto/core/ComponentFactory.hpp>
+#include <fm/util/Log.hpp>
 
 namespace zn
 {
@@ -16,6 +17,7 @@ namespace zn
 // Global game instance reference
 Application * g_instance = nullptr;
 
+//------------------------------------------------------------------------------
 Application * Application::instance()
 {
 	return g_instance;
@@ -31,6 +33,7 @@ Application::Application(std::string title) :
 	g_instance = this;
 }
 
+//------------------------------------------------------------------------------
 Application::~Application()
 {
 	g_instance = nullptr;
@@ -56,7 +59,7 @@ void Application::setFullScreen(bool fullScreen)
 				m_title,
 				sf::Style::Fullscreen, contextSettings
 			);
-			std::cout << "I: switched to fullscreen mode." << std::endl;
+			log.info() << "switched to fullscreen mode." << log.endl();
 		}
 		else
 		{
@@ -66,7 +69,7 @@ void Application::setFullScreen(bool fullScreen)
 				sf::Style::Titlebar | sf::Style::Resize | sf::Style::Close,
 				contextSettings
 			);
-			std::cout << "I: switched to windowed mode." << std::endl;
+			log.info() << "switched to windowed mode." << log.endl();
 		}
 
 		m_window.setVerticalSyncEnabled(m_gameSettings.verticalSync);
@@ -79,6 +82,9 @@ void Application::setFullScreen(bool fullScreen)
 //------------------------------------------------------------------------------
 bool Application::init()
 {
+	// Setup log system
+	log.openFile("log.txt");
+
 	// Register components in factory
 	ComponentFactory::registerEngineComponents();
 
@@ -89,12 +95,12 @@ bool Application::init()
 	const std::string settingsFileName = "game_settings.json";
 	if(!m_gameSettings.loadFromJSONFile(settingsFileName))
 	{
-		std::cout << "I: " << settingsFileName << " was not found, creating a new one." << std::endl;
+		log.info() << settingsFileName << " was not found, creating a new one." << log.endl();
 		m_gameSettings.saveToJSONFile(settingsFileName);
 	}
 	else
 	{
-		std::cout << "I: Reading " << settingsFileName << std::endl;
+		log.info() << "Reading " << settingsFileName << log.endl();
 	}
 
 	// If the hardcoded title is empty, use the one from the settings
@@ -131,7 +137,7 @@ void Application::start()
 {
 	if(!init())
 	{
-		std::cout << "E: Failed to initialize the game." << std::endl;
+		log.err() << "E: Failed to initialize the game." << log.endl();
 		return;
 	}
 
@@ -152,7 +158,7 @@ void Application::start()
 	m_renderTimeGraph.setValueRange(0.0f, 2.f/60.f);
 	m_renderTimeGraph.updateMesh();
 
-	std::cout << "D: Enter main loop" << std::endl;
+	log.debug() << "Enter main loop" << log.endl();
 
 #endif
 
@@ -202,7 +208,7 @@ void Application::start()
 	}
 
 #ifdef ZN_DEBUG
-	std::cout << "D: Exit main loop" << std::endl;
+	log.debug() << "Exit main loop" << log.endl();
 #endif
 
 	m_window.close();
@@ -220,7 +226,7 @@ void Application::onScreenResize(sf::Vector2u size)
 	m_screenView.setSize(m_window.getSize().x, m_window.getSize().y);
 	m_screenView.setCenter(m_window.getSize().x/2, m_window.getSize().y/2);
 
-	std::cout << "D: screen resized (" << size.x << ", " << size.y << ")" << std::endl;
+	log.info() << "screen resized (" << size.x << ", " << size.y << ")" << log.endl();
 	m_scene.onScreenResized(size);
 }
 

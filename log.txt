@@ -1,0 +1,10 @@
+
+I: Reading game_settings.json
+I: switched to windowed mode.
+I: screen resized (800, 600)
+D: Enter main loop
+I: screen resized (800, 982)
+I: screen resized (800, 600)
+I: screen resized (1680, 998)
+I: screen resized (800, 600)
+D: Exit main loop

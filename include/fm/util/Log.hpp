@@ -101,6 +101,17 @@ public:
 		return (*this) << "E: ";
 	}
 
+	/// \brief Marks the end of the current log message.
+	/// You can use it at the end of your message like std::endl :
+	/// log.info() << "your message" << log.endl();
+	/// \return Log itself for chaining calls.
+	/// \note Outputting the log itself in a message will do nothing.
+	inline Log & endl()
+	{
+		(*this) << (char)'\n';
+		return (*this);
+	}
+
 	/// \brief Outputs a message using the current message type.
 	/// \note It is recommended to use specialized output functions instead,
 	/// because each of them end up calling this one.
@@ -122,6 +133,13 @@ public:
 		return *this;
 	}
 
+	/// \brief Operator overload that does nothing for the Log object itself.
+	/// \return Log itself for chaining calls.
+	Log & operator<<(Log const & a)
+	{
+		return *this;
+	}
+
 private:
 
 	/// \brief File where messages can be output.
@@ -137,11 +155,6 @@ private:
 	u8 m_consoleOutputFlags;
 
 };
-
-/// \brief Appends an end-of-line character to a log message, also indicating the end of your message.
-/// Use this flux manipulator at the end of your log.* message calls.
-/// \note You might often specify the full namespace to use it (zn::endl).
-Log & endl(Log & l);
 
 /// \brief Global log variable, for convenience. Behaves like std::cout.
 /// \note It is not assumed to exist in Log objects, so you can create other instances without problems.
