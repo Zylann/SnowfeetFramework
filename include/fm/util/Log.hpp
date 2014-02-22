@@ -18,7 +18,7 @@ namespace zn
 {
 
 /// \brief Simple stream wrapper providing file and/or console output
-class Log : public NonCopyable
+class ZN_API Log : public NonCopyable
 {
 public:
 
@@ -124,7 +124,14 @@ public:
 
 		if(m_consoleOutputFlags & m_consoleOutputFlags)
 		{
-			std::cout << a;
+			if(m_messageType == M_ERROR)
+			{
+				std::cerr << a;
+			}
+			else
+			{
+				std::cout << a;
+			}
 		}
 
 		return *this;
