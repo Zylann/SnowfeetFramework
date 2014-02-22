@@ -4,13 +4,16 @@
 namespace zn
 {
 
-bool loadFromFile(JsonBox::Value & document, const std::string & filePath, s32 checkVersion)
+bool loadFromFile(JsonBox::Value & document, const std::string & filePath, s32 checkVersion, bool openError)
 {
 	std::ifstream ifs(filePath.c_str(), std::ios::in|std::ios::binary);
 	if(!ifs.good())
 	{
-		std::cout << "E: loadFromFile: "
-			"couldn't open JSON file \"" + filePath + '"' << std::endl;
+		if(openError)
+		{
+			std::cout << "E: loadFromFile: "
+				"couldn't open JSON file \"" + filePath + '"' << std::endl;
+		}
 		return false;
 	}
 

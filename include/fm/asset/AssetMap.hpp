@@ -7,31 +7,29 @@ This file is part of the zCraftFramework project.
 #ifndef HEADER_ZN_ASSETMAP_HPP_INCLUDED
 #define HEADER_ZN_ASSETMAP_HPP_INCLUDED
 
-#include <string>
 #include <unordered_map>
-#include <unordered_set>
 #include <iostream>
 
-#include <fm/config.hpp>
 #include <fm/util/stringutils.hpp>
 #include <fm/json/json_utils.hpp>
 #include <fm/asset/load.hpp>
+#include <fm/asset/AssetMapBase.hpp>
 
 namespace zn
 {
 
-// This generic class handles the loading of specific-type assets and indexes them in a map.
-// assets with the same file path are not reloaded.
-// The template parameter must be class where instances can be loaded and possibly
-// saved to a file. To be compatible, the class must have a dedicated function overload
-// in load.hpp/cpp.
+/// \brief This generic class handles the loading of specific-type assets and indexes them in a map.
+/// assets with the same file path are not reloaded.
+/// The template parameter must be class where instances can be loaded and possibly
+/// saved to a file. To be compatible, the class must have a dedicated function overload
+/// in load.hpp/cpp.
+/// \see load.hpp
 template <class T>
-class AssetMap
+class AssetMap : public AssetMapBase
 {
 public:
 
-	AssetMap(std::string pTag) :
-		tag(pTag)
+	AssetMap(std::string pTag) : AssetMapBase(pTag)
 	{}
 
 	~AssetMap()
@@ -39,30 +37,18 @@ public:
 		clear();
 	};
 
-	// Destroys all the assets contained in the map
+	u32 size() const override
+	{
+		return m_map.size();
+	}
+
+	/// \brief Releases all assets from this map. This effectively deletes the assets,
+	/// you must be absolutely sure that no one is in use when doing that.
 	void clear()
 	{
 		for(auto it = m_map.begin(); it != m_map.end(); ++it)
 			delete it->second;
 		m_map.clear();
-	}
-
-	// Get the root folder (without the end slash)
-	inline const std::string & rootFolder() const { return m_rootFolder; }
-
-	// Sets the root folder that will be used for loading the assets of this type
-	void setRootFolder(const std::string & rf)
-	{
-#ifdef ZN_DEBUG
-		if(!m_map.empty())
-			std::cout << "W: AssetMap: root folder changed while assets are already loaded." << std::endl;
-#endif
-		m_rootFolder = rf;
-		// Remove the '/' if it is present
-		if(!m_rootFolder.empty() && m_rootFolder[m_rootFolder.size()-1] == '/')
-		{
-			m_rootFolder = m_rootFolder.substr(0, m_rootFolder.size()-1);
-		}
 	}
 
 	// Gets an asset from its name
@@ -127,8 +113,31 @@ public:
 		}
 	}
 
+	bool loadManifestGroup(JsonBox::Value & doc, const std::string & assetsRoot) override
+	{
+		// Get plural of the tag
+		std::string tagPlural = tag;
+		if(tagPlural[tagPlural.size()-1] == 's')
+		{
+			tagPlural += "es";
+		}
+		else
+		{
+			tagPlural += 's';
+		}
+
+		// If the document has a section for me, read it
+		if(!doc[tagPlural].isNull())
+		{
+			return loadList(doc[tagPlural], assetsRoot);
+		}
+
+		// No section for me, I'm empty then
+		return true;
+	}
+
 	// Loads a list of assets from its JSON object representation
-	bool loadList(JsonBox::Value & obj, const std::string assetsRoot)
+	bool loadList(JsonBox::Value & obj, const std::string & assetsRoot)
 	{
 		if(!obj["root"].isNull())
 		{
@@ -167,13 +176,6 @@ public:
 	inline std::unordered_map<std::string,T*> begin() const { return m_map.begin(); }
 	inline std::unordered_map<std::string,T*> end() const { return m_map.end(); }
 
-	/// \brief Name of the type of asset stored in this map.
-	/// It can also be used in manifest files.
-	std::string tag;
-
-	/// \brief File extensions associated with the assets this map can store (lower case, without the dot).
-	std::unordered_set<std::string> fileExtensions;
-
 private:
 
 	// Internal asset loading routine.
@@ -182,7 +184,6 @@ private:
 		return loadFromFile(asset, filePath);
 	}
 
-	std::string m_rootFolder;
 	std::unordered_map<std::string,T*> m_map;
 
 };

@@ -31,6 +31,15 @@ AssetBank::AssetBank() :
 	{
 		makeCurrent();
 	}
+
+	m_assetMaps.push_back(&textures);
+	m_assetMaps.push_back(&shaders);
+	m_assetMaps.push_back(&fonts);
+	m_assetMaps.push_back(&atlases);
+	m_assetMaps.push_back(&maps);
+	m_assetMaps.push_back(&soundBuffers);
+	m_assetMaps.push_back(&soundStreams);
+	m_assetMaps.push_back(&materials);
 }
 
 //------------------------------------------------------------------------------
@@ -64,6 +73,81 @@ void AssetBank::setRootFolder(const std::string & rootFolder)
 }
 
 //------------------------------------------------------------------------------
+bool AssetBank::loadFileAssociations(const std::string & assocFile, bool create)
+{
+	std::cout << "I: Loading file associations..." << std::endl;
+
+	JsonBox::Value doc;
+	if(!loadFromFile(doc, assocFile, -1, !create))
+	{
+		// The file couldn't be opened
+
+		if(create)
+		{
+			std::cout << "I: File associations file not found. Creating a new one." << std::endl;
+
+			// Create default associations
+
+			// Textures
+			JsonBox::Array exts;
+			exts.push_back("png");
+			exts.push_back("jpg");
+			exts.push_back("jpeg");
+			doc[textures.tag] = exts;
+
+			// Shaders
+			exts.clear();
+			exts.push_back("shader");
+			doc[shaders.tag] = exts;
+
+			// Fonts
+			exts.clear();
+			exts.push_back("ttf");
+			doc[fonts.tag] = exts;
+
+			// Sound buffers
+			exts.clear();
+			exts.push_back("wav");
+			exts.push_back("ogg");
+			doc[soundBuffers.tag] = exts;
+
+			// Sound streams
+			exts.clear();
+			exts.push_back("wav");
+			exts.push_back("ogg");
+			doc[soundStreams.tag] = exts;
+
+			// Save file
+			std::ofstream ofs(assocFile, std::ios::out|std::ios::binary|std::ios::trunc);
+			if(ofs.good())
+			{
+				doc.writeToStream(ofs);
+				ofs.close();
+			}
+			else
+			{
+				std::cout << "E: AssetBank::loadFileAssociations: "
+					"couldn't write file." << std::endl;
+			}
+		}
+		else
+		{
+			// File not found and no create option, so error return
+			return false;
+		}
+	}
+
+	// Load file associations
+	for(auto it = m_assetMaps.begin(); it != m_assetMaps.end(); ++it)
+	{
+		AssetMapBase & m = **it;
+		m.loadFileAssociations(doc[m.tag]);
+	}
+
+	return true;
+}
+
+//------------------------------------------------------------------------------
 bool AssetBank::loadFromJSON(const std::string & manifestPath)
 {
 	std::ifstream ifs(manifestPath.c_str(), std::ios::in|std::ios::binary);
@@ -83,22 +167,22 @@ bool AssetBank::loadFromJSON(const std::string & manifestPath)
 
 	// Load assets
 	// TODO add loading parameters such as lazy loading (load a manifest instead of directly read the file)
-	// Note: the loading order is important
+	// Warning: the loading order is important
 
-	if(!loadManifestGroup(doc, textures)) return false;
-	if(!loadManifestGroup(doc, shaders)) return false;
-	if(!loadManifestGroup(doc, fonts)) return false;
-	if(!loadManifestGroup(doc, soundBuffers)) return false;
-	if(!loadManifestGroup(doc, soundStreams)) return false;
+	if(!textures.loadManifestGroup(doc, m_root)) return false;
+	if(!shaders.loadManifestGroup(doc, m_root)) return false;
+	if(!fonts.loadManifestGroup(doc, m_root)) return false;
+	if(!soundBuffers.loadManifestGroup(doc, m_root)) return false;
+	if(!soundStreams.loadManifestGroup(doc, m_root)) return false;
 
 	// Note: materials might depend on textures
-	if(!loadManifestGroup(doc, materials)) return false;
+	if(!materials.loadManifestGroup(doc, m_root)) return false;
 
 	// Note: atlases might depend on textures/materials
-	if(!loadManifestGroup(doc, atlases)) return false;
+	if(!atlases.loadManifestGroup(doc, m_root)) return false;
 
 	// Note: maps might depend on textures or atlases
-	if(!loadManifestGroup(doc, maps)) return false;
+	if(!maps.loadManifestGroup(doc, m_root)) return false;
 
 	std::cout << "I: Done" << std::endl;
 

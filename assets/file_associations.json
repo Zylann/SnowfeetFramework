@@ -1,0 +1,21 @@
+{
+	"font" : [
+		"ttf"
+	],
+	"shader" : [
+		"shader"
+	],
+	"soundbuffer" : [
+		"wav",
+		"ogg"
+	],
+	"soundstream" : [
+		"wav",
+		"ogg"
+	],
+	"texture" : [
+		"png",
+		"jpg",
+		"jpeg"
+	]
+}

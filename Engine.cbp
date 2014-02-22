@@ -44,6 +44,8 @@
 		</Compiler>
 		<Unit filename="include/fm/asset/AssetBank.hpp" />
 		<Unit filename="include/fm/asset/AssetMap.hpp" />
+		<Unit filename="include/fm/asset/AssetMapBase.cpp" />
+		<Unit filename="include/fm/asset/AssetMapBase.hpp" />
 		<Unit filename="include/fm/asset/FileRef.hpp" />
 		<Unit filename="include/fm/asset/Material.hpp" />
 		<Unit filename="include/fm/asset/TextureAtlas.hpp" />
@@ -101,6 +103,7 @@
 		<Unit filename="include/fm/proto/physics/PhysicsSystem.hpp" />
 		<Unit filename="include/fm/sfml/AudioSource.hpp" />
 		<Unit filename="include/fm/sfml/sfml2_utils.hpp" />
+		<Unit filename="include/fm/system/filesystem.hpp" />
 		<Unit filename="include/fm/types.hpp" />
 		<Unit filename="include/fm/util/Array2D.hpp" />
 		<Unit filename="include/fm/util/Color.hpp" />
@@ -160,6 +163,7 @@
 		<Unit filename="src/fm/proto/physics/MapCollider.cpp" />
 		<Unit filename="src/fm/proto/physics/PhysicsSystem.cpp" />
 		<Unit filename="src/fm/sfml/AudioSource.cpp" />
+		<Unit filename="src/fm/system/filesystem.cpp" />
 		<Unit filename="src/fm/util/Color.cpp" />
 		<Unit filename="src/fm/util/Log.cpp" />
 		<Unit filename="src/fm/util/PathFinder.cpp" />

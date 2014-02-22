@@ -109,6 +109,12 @@ bool Application::init()
 
 	m_assets.setRootFolder(m_gameSettings.assetsRoot);
 
+	// Load or create file associations file
+	if(!m_assets.loadFileAssociations(m_gameSettings.assetsRoot + "/file_associations.json", true))
+	{
+		return false;
+	}
+
 	// Load startup assets
 	// TODO asynchronous loading of assets with a progressBar
 	if(!m_assets.loadFromJSON(m_gameSettings.assetsRoot + "/assets.json"))

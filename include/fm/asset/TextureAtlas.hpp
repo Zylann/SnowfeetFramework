@@ -9,7 +9,7 @@ This file is part of the zCraftFramework project.
 
 #include <unordered_map>
 #include <SFML/Graphics.hpp>
-#include "../types.hpp"
+#include <fm/types.hpp>
 
 namespace zn
 {

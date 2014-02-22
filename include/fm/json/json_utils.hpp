@@ -17,8 +17,14 @@
 namespace zn
 {
 
-// Utility function that loads a JSON file, prints messages and checks for a version member in the document
-bool loadFromFile(JsonBox::Value & document, const std::string & filePath, s32 checkVersion=-1);
+/// \brief Utility function that loads a JSON file, prints messages and checks for a version member in the document.
+/// \param document: the JSON data tree to load
+/// \param filePath: path to the JSON file
+/// \param checkVersion: the version to check in the file. If -1, no check will be made. If >= 0, a check will be made,
+/// and an error will be generated if it doesn't matches.
+/// \param openError: should the function generate an error message if the file can't be open?
+/// \return false if the file could'nt be loaded or if the version didn't matched, true if success.
+bool loadFromFile(JsonBox::Value & document, const std::string & filePath, s32 checkVersion=-1, bool openError=true);
 
 inline void serialize(JsonBox::Value & o, f32 v)
 {

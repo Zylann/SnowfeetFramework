@@ -60,6 +60,7 @@
 		<Unit filename="src/demo/main.cpp" />
 		<Unit filename="src/test/test.hpp" />
 		<Unit filename="src/test/test_autotiler.cpp" />
+		<Unit filename="src/test/test_filesystem.cpp" />
 		<Unit filename="src/test/test_mazeGenerator.cpp" />
 		<Unit filename="src/test/test_pathfinder.cpp" />
 		<Unit filename="src/test/test_pathfinder.hpp" />

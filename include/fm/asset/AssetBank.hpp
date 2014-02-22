@@ -9,7 +9,9 @@ This file is part of the zCraftFramework project.
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+
 #include <fm/util/NonCopyable.hpp>
+
 #include <fm/asset/AssetMap.hpp>
 #include <fm/asset/TextureAtlas.hpp>
 #include <fm/asset/TiledMap.hpp>
@@ -19,8 +21,8 @@ This file is part of the zCraftFramework project.
 namespace zn
 {
 
-// Centralized asset container.
-// /!\ Not thread-safe (yet).
+/// \brief Centralized asset database.
+/// \note /!\ Not thread-safe (yet).
 class ZN_API AssetBank : public NonCopyable
 {
 public:
@@ -45,6 +47,14 @@ public:
 	// You must specify a path relative to the executable.
 	bool loadFromJSON(const std::string & manifestPath);
 
+	/// \brief Loads file-extension <--> asset-type associations from a JSON file.
+	/// \note Using a manifest file or meta-files doesn't needs to know file associations.
+	/// This function is useful if you want the engine to auto-detect your assets.
+	/// \param assocFile: path to the JSON file containing the associations.
+	/// \param create: If the file doesn't exist, create it
+	/// \return true if success, false if error.
+	bool loadFileAssociations(const std::string & assocFile, bool create);
+
 	/// \brief Recursively loads all recognized assets under a folder.
 	/// Assets loaded with this method must have a file extension.
 	/// Otherwise, they will be ignored.
@@ -60,30 +70,10 @@ public:
 
 private:
 
-	/// \brief Loads a section of typed assets from a JSON manifest data tree.
-	/// \see AssetBank.cpp, loadFromJSON().
-	template <class T>
-	bool loadManifestGroup(JsonBox::Value & doc, AssetMap<T> & assetMap)
-	{
-		std::string tagPlural = assetMap.tag;
-		if(tagPlural[tagPlural.size()-1] == 's')
-		{
-			tagPlural += "es";
-		}
-		else
-		{
-			tagPlural += 's';
-		}
-
-		if(!doc[tagPlural].isNull())
-		{
-			return assetMap.loadList(doc[tagPlural], m_root);
-		}
-
-		return true;
-	}
-
 	std::string m_root;
+
+	/// \brief References all asset containers under the same map type for bulk operations
+	std::vector<AssetMapBase*> m_assetMaps;
 
 };
 

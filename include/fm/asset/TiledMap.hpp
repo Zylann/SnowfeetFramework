@@ -7,11 +7,13 @@ This file is part of the zCraftFramework project.
 #ifndef HEADER_ZN_TILEDMAP_H_INCLUDED
 #define HEADER_ZN_TILEDMAP_H_INCLUDED
 
-#include <SFML/System.hpp>
 #include <string>
 #include <vector>
-#include "../types.hpp"
-#include "../util/Exception.hpp"
+
+#include <SFML/System.hpp>
+
+#include <fm/types.hpp>
+#include <fm/util/Exception.hpp>
 
 namespace zn
 {
