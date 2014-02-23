@@ -1,6 +1,6 @@
 {
 	"fonts":[
-		{ "src":"fonts/Grand9K Pixel.ttf", "name":"Grand9K Pixel" }
+		{ "src":"fonts/Grand9K Pixel.ttf", "name":"default" }
 	],
 	"maps":[
 		{ "src":"maps/test_map.json", "name":"test_map" }

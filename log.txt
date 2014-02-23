@@ -18,6 +18,7 @@ D: AssetMap: loading "assets/textures/wool_ball.png" as "wool_ball"
 D: AssetMap: loading "assets/shaders/light.shader" as "light"
 D: AssetMap: loading "assets/shaders/noise.shader" as "noise"
 D: AssetMap: loading "assets/fonts/Grand9K Pixel.ttf" as "Grand9K Pixel"
+D: AssetMap: loading "assets/fonts/Grand9K Pixel.ttf" as "default"
 D: AssetMap: loading "assets/sounds/cat_meow1.wav" as "cat_meow1"
 D: AssetMap: loading "assets/sounds/cat_meow2.wav" as "cat_meow2"
 D: AssetMap: loading "assets/sounds/cat_meow4.wav" as "cat_meow4"
@@ -44,6 +45,18 @@ D: Reading tileset 1...
 D: Reading tileset 2...
 D: Reading tileset 3...
 I: Done
-E: AssetMap::get: not found "default"
+D: Scene::addEntity: [0] map at (0, 0)
+D: Scene::addEntity: [1] main_camera at (0, 0)
+D: Scene::addEntity: [2] gui_camera at (0, 0)
+D: Scene::addEntity: [3] secondary_camera at (2048, 640)
+D: Scene::addEntity: [4] monitor at (2048, 544)
+D: Scene::addEntity: [5] cursor at (0, 0)
+D: Scene::addEntity: [6] avatar at (2048, 992)
+D: Scene::addEntity: [7] cat at (1984, 992)
+D: Scene::addEntity: [8] text at (-200, -200)
+D: Scene::addEntity: [9] ball1 at (1600, 992)
+D: Scene::addEntity: [10] ball2 at (64, 0)
+D: Scene::addEntity: [11] ball3 at (32, 0)
+D: Scene::addEntity: [12] shader_test at (2080, 992)
 D: Enter main loop
 D: Exit main loop
