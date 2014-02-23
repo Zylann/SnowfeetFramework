@@ -1,21 +1,34 @@
 {
+	"atlas" : [
+		"atlases/*.json",
+		"*.atlas"
+	],
 	"font" : [
-		"ttf"
+		"*.ttf"
+	],
+	"ignore" : [
+		"(*/_*)|(_*)"
+	],
+	"map" : [
+		"maps/*.json"
+	],
+	"material" : [
+		"materials/*.json"
 	],
 	"shader" : [
-		"shader"
+		"*.shader"
 	],
 	"soundbuffer" : [
-		"wav",
-		"ogg"
+		"sounds/*.wav",
+		"sounds/*.ogg"
 	],
 	"soundstream" : [
-		"wav",
-		"ogg"
+		"music/*.wav",
+		"music/*.ogg"
 	],
 	"texture" : [
-		"png",
-		"jpg",
-		"jpeg"
+		"*.png",
+		"*.jpg",
+		"*.jpeg"
 	]
 }

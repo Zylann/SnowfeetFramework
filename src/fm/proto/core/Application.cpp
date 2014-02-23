@@ -113,17 +113,8 @@ bool Application::init()
 	m_fullScreen = !m_gameSettings.fullscreen; // To make the next line work...
 	setFullScreen(m_gameSettings.fullscreen); // Creates the SFML window
 
-	m_assets.setRootFolder(m_gameSettings.assetsRoot);
-
-	// Load or create file associations file
-	if(!m_assets.loadFileAssociations(m_gameSettings.assetsRoot + "/file_associations.json", true))
-	{
-		return false;
-	}
-
-	// Load startup assets
-	// TODO asynchronous loading of assets with a progressBar
-	if(!m_assets.loadFromJSON(m_gameSettings.assetsRoot + "/assets.json"))
+	bool indexAssets = true;
+	if(!m_assets.load(m_gameSettings.assetsRoot, indexAssets))
 	{
 		return false;
 	}
@@ -137,7 +128,7 @@ void Application::start()
 {
 	if(!init())
 	{
-		log.err() << "E: Failed to initialize the game." << log.endl();
+		log.err() << "Failed to initialize the game." << log.endl();
 		return;
 	}
 

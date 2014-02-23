@@ -43,8 +43,9 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="include/fm/asset/AssetBank.hpp" />
+		<Unit filename="include/fm/asset/AssetBankManifest.hpp" />
+		<Unit filename="include/fm/asset/AssetFileMatcher.hpp" />
 		<Unit filename="include/fm/asset/AssetMap.hpp" />
-		<Unit filename="include/fm/asset/AssetMapBase.cpp" />
 		<Unit filename="include/fm/asset/AssetMapBase.hpp" />
 		<Unit filename="include/fm/asset/FileRef.hpp" />
 		<Unit filename="include/fm/asset/Material.hpp" />
@@ -123,6 +124,9 @@
 		<Unit filename="include/fm/util/stringutils.hpp" />
 		<Unit filename="include/fm/util/typecheck.hpp" />
 		<Unit filename="src/fm/asset/AssetBank.cpp" />
+		<Unit filename="src/fm/asset/AssetBankManifest.cpp" />
+		<Unit filename="src/fm/asset/AssetFileMatcher.cpp" />
+		<Unit filename="src/fm/asset/AssetMapBase.cpp" />
 		<Unit filename="src/fm/asset/Material.cpp" />
 		<Unit filename="src/fm/asset/TextureAtlas.cpp" />
 		<Unit filename="src/fm/asset/TiledMap.cpp" />

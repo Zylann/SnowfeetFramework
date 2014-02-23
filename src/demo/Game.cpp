@@ -31,7 +31,7 @@ bool Game::onInit()
 	u32 ts = 32; // tile size
 
 	Entity * map = m_scene.createEntity("map", sf::Vector2f(0,0));
-	const TiledMap * mapAsset = m_assets.maps.get("test");
+	const TiledMap * mapAsset = m_assets.maps.get("test_map");
 	r_tilemap = map->addComponent<MapRenderer>();
 	r_tilemap->build(mapAsset, m_assets.atlases.get("room"), "background");
 	r_tilemap->drawOrder = -10; // The map is drawn first
@@ -104,12 +104,12 @@ bool Game::onInit()
 
 	// Avatar
 
-	Entity * avatar = m_scene.createEntity("the_bum", sf::Vector2f(64*ts,31*ts));
+	Entity * avatar = m_scene.createEntity("avatar", sf::Vector2f(64*ts,31*ts));
 	avatar->addComponent<Avatar>();
 
 	// Cats
 
-	Entity * cat = m_scene.createEntity("snowfeet", sf::Vector2f(62*ts, 31*ts));
+	Entity * cat = m_scene.createEntity("cat", sf::Vector2f(62*ts, 31*ts));
 	cat->addComponent<Cat>();
 
 	// Text

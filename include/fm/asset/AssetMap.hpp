@@ -82,23 +82,26 @@ public:
 	// TODO ability to create assets managed by AssetMap at runtime
 
 	// Loads an asset from a file into the map with a name
-	bool load(std::string filePath, const std::string & id)
+	bool load(std::string filePath, const std::string & name)
 	{
-		if(id.empty())
+		if(name.empty())
 		{
 #ifdef ZN_DEBUG
-			log.err() << "AssetMap::load: empty ID specified !" << log.endl();
+			log.err() << "AssetMap::load: empty name specified !" << log.endl();
 #endif
 			return false;
 		}
 
-		if(m_map.find(id) != m_map.end())
+		if(m_map.find(name) != m_map.end())
 			return true; // Already loaded
 
 		if(!m_rootFolder.empty())
+		{
 			filePath = m_rootFolder + '/' + filePath;
+		}
+
 #ifdef ZN_DEBUG
-		log.debug() << "AssetMap: loading \"" << filePath << "\" as \"" << id << '"' << log.endl();
+		log.debug() << "AssetMap: loading \"" << filePath << "\" as \"" << name << '"' << log.endl();
 #endif
 
 		T * asset = new T();
@@ -109,64 +112,29 @@ public:
 		}
 		else
 		{
-			m_map[id] = asset;
+			m_map[name] = asset;
 			return true;
 		}
 	}
 
-	bool loadManifestGroup(JsonBox::Value & doc, const std::string & assetsRoot) override
+	bool loadManifestGroup(const AssetBankManifest & manifest, const std::string & assetsRoot) override
 	{
-		// Get plural of the tag
-		std::string tagPlural = tag;
-		if(tagPlural[tagPlural.size()-1] == 's')
+		// If the manifest has a section for me, read it
+		auto sectionIt = manifest.sections.find(manifestTag());
+		if(sectionIt == manifest.sections.end())
 		{
-			tagPlural += "es";
-		}
-		else
-		{
-			tagPlural += 's';
+			// No section for me, I'm empty then
+			return true;
 		}
 
-		// If the document has a section for me, read it
-		if(!doc[tagPlural].isNull())
+		const AssetBankManifest::EntryMap & entries = sectionIt->second;
+
+		for(auto it = entries.cbegin(); it != entries.cend(); ++it)
 		{
-			return loadList(doc[tagPlural], assetsRoot);
-		}
-
-		// No section for me, I'm empty then
-		return true;
-	}
-
-	// Loads a list of assets from its JSON object representation
-	bool loadList(JsonBox::Value & obj, const std::string & assetsRoot)
-	{
-		if(!obj["root"].isNull())
-		{
-			setRootFolder(assetsRoot + '/' + obj["root"].getString());
-		}
-
-		JsonBox::Array jlist = obj["list"].getArray();
-
-		std::string name, src;
-
-		for(auto it = jlist.begin(); it != jlist.end(); ++it)
-		{
-			src = (*it)["src"].getString();
-
-			// Get the user-defined name of the asset
-			// Note : JsonBox will not raise an error if the name is not specified,
-			// it reacts as an std::map
-			name = (*it)["name"].getString();
-
-			// Then if the name is empty
-			if(name.empty())
+			// load from (path, name)
+			if(!load(it->second, it->first))
 			{
-				// We use the filename directly
-				name = fileNameWithoutExtension(src);
-			}
-
-			if(!load(src, name))
-			{
+				// Failed to load an asset
 				return false;
 			}
 		}

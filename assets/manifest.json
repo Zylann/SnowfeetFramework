@@ -1,0 +1,39 @@
+{
+	"fonts":[
+		{ "src":"fonts/Grand9K Pixel.ttf", "name":"Grand9K Pixel" }
+	],
+	"maps":[
+		{ "src":"maps/test_map.json", "name":"test_map" }
+	],
+	"materials":[
+		{ "src":"materials/noise.json", "name":"noise" }
+	],
+	"soundstreams":[
+		{ "src":"music/ssm_theme.ogg", "name":"ssm_theme" }
+	],
+	"shaders":[
+		{ "src":"shaders/noise.shader", "name":"noise" },
+		{ "src":"shaders/light.shader", "name":"light" }
+	],
+	"soundbuffers":[
+		{ "src":"sounds/step.wav", "name":"step" },
+		{ "src":"sounds/gate_open.wav", "name":"gate_open" },
+		{ "src":"sounds/gate_close.wav", "name":"gate_close" },
+		{ "src":"sounds/cat_meow3.wav", "name":"cat_meow3" },
+		{ "src":"sounds/cat_meow4.wav", "name":"cat_meow4" },
+		{ "src":"sounds/cat_meow2.wav", "name":"cat_meow2" },
+		{ "src":"sounds/cat_meow1.wav", "name":"cat_meow1" }
+	],
+	"atlases":[
+		{ "src":"textures/room.atlas", "name":"room" },
+		{ "src":"textures/cat.atlas", "name":"cat" },
+		{ "src":"textures/avatar.atlas", "name":"avatar" }
+	],
+	"textures":[
+		{ "src":"textures/wool_ball.png", "name":"wool_ball" },
+		{ "src":"textures/room.png", "name":"room" },
+		{ "src":"textures/cat.png", "name":"cat" },
+		{ "src":"textures/cursor.png", "name":"cursor" },
+		{ "src":"textures/avatar.png", "name":"avatar" }
+	]
+}

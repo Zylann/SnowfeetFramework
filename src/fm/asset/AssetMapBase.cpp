@@ -5,6 +5,22 @@ namespace zn
 {
 
 //------------------------------------------------------------------------------
+AssetMapBase::AssetMapBase(const std::string & pTag) :
+	tag(pTag)
+{
+	// The tag used in manifest files is simply the plural, because its the name of a list
+	m_manifestTag = tag;
+	if(m_manifestTag[m_manifestTag.size()-1] == 's')
+	{
+		m_manifestTag += "es";
+	}
+	else
+	{
+		m_manifestTag += 's';
+	}
+}
+
+//------------------------------------------------------------------------------
 void AssetMapBase::setRootFolder(const std::string & rf)
 {
 #ifdef ZN_DEBUG
@@ -14,7 +30,7 @@ void AssetMapBase::setRootFolder(const std::string & rf)
 	}
 #endif
 	m_rootFolder = rf;
-	// Remove the '/' if it is present
+	 //Remove the '/' if it is present
 	if(!m_rootFolder.empty() && m_rootFolder[m_rootFolder.size()-1] == '/')
 	{
 		m_rootFolder = m_rootFolder.substr(0, m_rootFolder.size()-1);
@@ -33,12 +49,10 @@ void AssetMapBase::loadFileAssociations(JsonBox::Value & obj)
 	u32 arraySize = obj.getArray().size();
 	for(u32 i = 0; i < arraySize; ++i)
 	{
-		std::string ext = obj[i].getString();
-		if(!ext.empty())
+		std::string expression = obj[i].getString();
+		if(!expression.empty())
 		{
-			// Add lower case extension
-			std::transform(ext.begin(), ext.end(), ext.begin(), ::tolower);
-			fileExtensions.insert(ext);
+			matcher.addPattern(expression);
 		}
 #ifdef ZN_DEBUG
 		else

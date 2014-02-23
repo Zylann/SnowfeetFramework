@@ -306,7 +306,7 @@
         }, 
         {
          "firstgid":1025,
-         "image":"meta_collision.png",
+         "image":"_meta_collision.png",
          "imageheight":128,
          "imagewidth":128,
          "margin":0,
@@ -321,7 +321,7 @@
         }, 
         {
          "firstgid":1041,
-         "image":"meta_object.png",
+         "image":"_meta_object.png",
          "imageheight":256,
          "imagewidth":256,
          "margin":0,
@@ -336,7 +336,7 @@
         }, 
         {
          "firstgid":1105,
-         "image":"meta_zones.png",
+         "image":"_meta_zones.png",
          "imageheight":256,
          "imagewidth":256,
          "margin":0,

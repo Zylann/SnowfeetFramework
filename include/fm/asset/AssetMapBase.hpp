@@ -7,6 +7,8 @@
 
 #include <fm/types.hpp>
 #include <fm/json/json_utils.hpp>
+#include <fm/asset/AssetBankManifest.hpp>
+#include <fm/asset/AssetFileMatcher.hpp>
 
 namespace zn
 {
@@ -16,9 +18,7 @@ class AssetMapBase
 {
 public:
 
-	AssetMapBase(std::string pTag) :
-		tag(pTag)
-	{}
+	AssetMapBase(const std::string & pTag);
 
 	/// \brief Get how many assets are stored in this map.
 	virtual u32 size() const = 0;
@@ -27,7 +27,7 @@ public:
 	/// \param doc: JSON data tree
 	/// \param assetsRoot: root folder path of the assets
 	/// \see AssetBank.cpp, loadFromJSON().
-	virtual bool loadManifestGroup(JsonBox::Value & doc, const std::string & assetsRoot) = 0;
+	virtual bool loadManifestGroup(const AssetBankManifest & manifest, const std::string & assetsRoot) = 0;
 
 	/// \brief Get the root folder for this map (without the end slash)
 	inline const std::string & rootFolder() const { return m_rootFolder; }
@@ -36,20 +36,27 @@ public:
 	/// \param rf: path to the folder
 	void setRootFolder(const std::string & rf);
 
-	/// \brief Loads a list of file extensions to associate from a JSON string array.
+	/// \brief Loads a list of expressions used to match files associated with this AssetMap.
 	/// Does nothing if the given object is null or not an array.
+	/// \see AssetFileMatcher.hpp
 	void loadFileAssociations(JsonBox::Value & obj);
+
+	/// \brief Gets the tag used to name the list of assets in a manifest file
+	inline const std::string & manifestTag() const { return m_manifestTag; }
 
 	/// \brief Name of the type of asset stored in this map.
 	/// It can also be used in manifest files.
 	const std::string tag;
 
-	/// \brief File extensions associated with the assets this map can store (lower case, without the dot).
-	std::unordered_set<std::string> fileExtensions;
+	/// \brief Defines how to recognize asset files associated with this AssetMap.
+	AssetFileMatcher matcher;
 
 protected:
 
 	std::string m_rootFolder;
+
+	/// \brief Tag used to name the list of assets in a manifest file
+	std::string m_manifestTag;
 
 };
 

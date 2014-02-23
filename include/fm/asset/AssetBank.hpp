@@ -1,7 +1,7 @@
 /*
 AssetBank.hpp
-Copyright (C) 2010-2013 Marc GILLERON
-This file is part of the zCraftFramework project.
+Copyright (C) 2013-2014 Marc GILLERON
+This file is part of the Plane framework project.
 */
 
 #ifndef HEADER_ZN_ASSETBANK_HPP_INCLUDED
@@ -17,6 +17,7 @@ This file is part of the zCraftFramework project.
 #include <fm/asset/TiledMap.hpp>
 #include <fm/asset/FileRef.hpp>
 #include <fm/asset/Material.hpp>
+#include <fm/asset/AssetBankManifest.hpp>
 
 namespace zn
 {
@@ -39,13 +40,21 @@ public:
 	AssetBank();
 	~AssetBank();
 
+	/// \brief Open or creates and indexes asset manifests, then loads assets contained in a folder.
+	/// \param rootFolder: root folder of the assets
+	/// \param performAutoIndex: recursive search for files to add to the manifest, based on file associations
+	/// \return true if success, false otherwise
+	bool load(const std::string & rootFolder, bool performAutoIndex=false);
+
 	// Sets the root folder containing all the assets.
 	// This folder will be prepended to every assets to be loaded.
 	void setRootFolder(const std::string & rootFolder);
 
-	// Loads all the assets contained in a manifest JSON file.
-	// You must specify a path relative to the executable.
-	bool loadFromJSON(const std::string & manifestPath);
+	bool autoIndex(const std::string & folderPath, AssetBankManifest & manifest);
+
+	bool loadAssets(AssetBankManifest & manifest);
+
+	const AssetMapBase * findAssetType(const std::string & filePath);
 
 	/// \brief Loads file-extension <--> asset-type associations from a JSON file.
 	/// \note Using a manifest file or meta-files doesn't needs to know file associations.
@@ -55,13 +64,6 @@ public:
 	/// \return true if success, false if error.
 	bool loadFileAssociations(const std::string & assocFile, bool create);
 
-	/// \brief Recursively loads all recognized assets under a folder.
-	/// Assets loaded with this method must have a file extension.
-	/// Otherwise, they will be ignored.
-	/// \param folderPath: path to the folder.
-	/// \return true if success, false otherwise.
-	//bool loadFolder(const std::string & folderPath);
-
 	// Sets this AssetBank as the current one for global access
 	void makeCurrent();
 
@@ -70,10 +72,23 @@ public:
 
 private:
 
+	/// \brief Creates a default file-associations JSON object.
+	/// \param doc: empty JSON data.
+	void createDefaultFileAssociations(JsonBox::Value & doc);
+
+	/// \brief Files matching this will be ignored first.
+	AssetFileMatcher m_ignoredFilesMatcher;
+
 	std::string m_root;
 
 	/// \brief References all asset containers under the same map type for bulk operations
 	std::vector<AssetMapBase*> m_assetMaps;
+
+	/// \brief Name of the manifest file (including extension).
+	const std::string m_manifestFileName;
+
+	/// \brief Name of the file associations file (including extension).
+	const std::string m_assocFileName;
 
 };
 

@@ -3,27 +3,38 @@ I: switched to windowed mode.
 I: screen resized (800, 600)
 D: AssetBank: root folder set to assets.
 I: Loading file associations...
-I: Reading AssetBank assets/assets.json...
+I: Indexing folder "assets"
+W: Some asset files were not associated by the auto-indexing process. You might add them manually to the manifest, or modify file associations.
+I: | Concerned files: 
+I: | assets.json
+I: | data/autotiler.json
+I: | shaders/basic.vert
+I: | shaders/noise.frag
+I: | shaders/noise.json
+D: AssetMap: loading "assets/textures/avatar.png" as "avatar"
 D: AssetMap: loading "assets/textures/cursor.png" as "cursor"
+D: AssetMap: loading "assets/textures/cat.png" as "cat"
+D: AssetMap: loading "assets/textures/room.png" as "room"
 D: AssetMap: loading "assets/textures/wool_ball.png" as "wool_ball"
+D: AssetMap: loading "assets/shaders/light.shader" as "light"
 D: AssetMap: loading "assets/shaders/noise.shader" as "noise"
-D: AssetMap: loading "assets/fonts/Grand9K Pixel.ttf" as "default"
+D: AssetMap: loading "assets/fonts/Grand9K Pixel.ttf" as "Grand9K Pixel"
 D: AssetMap: loading "assets/sounds/cat_meow1.wav" as "cat_meow1"
 D: AssetMap: loading "assets/sounds/cat_meow2.wav" as "cat_meow2"
-D: AssetMap: loading "assets/sounds/cat_meow3.wav" as "cat_meow3"
 D: AssetMap: loading "assets/sounds/cat_meow4.wav" as "cat_meow4"
+D: AssetMap: loading "assets/sounds/cat_meow3.wav" as "cat_meow3"
 D: AssetMap: loading "assets/sounds/gate_close.wav" as "gate_close"
 D: AssetMap: loading "assets/sounds/gate_open.wav" as "gate_open"
 D: AssetMap: loading "assets/sounds/step.wav" as "step"
-D: AssetMap: loading "assets/music/ssm_theme.ogg" as "theme"
+D: AssetMap: loading "assets/music/ssm_theme.ogg" as "ssm_theme"
 D: AssetMap: loading "assets/materials/noise.json" as "noise"
-D: AssetMap: loading "assets/textures/room_atlas.json" as "room"
+D: AssetMap: loading "assets/textures/avatar.atlas" as "avatar"
 D: Reading TextureAtlas...
-D: AssetMap: loading "assets/textures/avatar_atlas.json" as "avatar"
+D: AssetMap: loading "assets/textures/cat.atlas" as "cat"
 D: Reading TextureAtlas...
-D: AssetMap: loading "assets/textures/cat_atlas.json" as "cat"
+D: AssetMap: loading "assets/textures/room.atlas" as "room"
 D: Reading TextureAtlas...
-D: AssetMap: loading "assets/maps/test_map.json" as "test"
+D: AssetMap: loading "assets/maps/test_map.json" as "test_map"
 D: Reading TiledMap JSON...
 D: Reading tilelayer...
 D: Reading tilelayer...
@@ -34,5 +45,6 @@ D: Reading tileset 1...
 D: Reading tileset 2...
 D: Reading tileset 3...
 I: Done
+E: AssetMap::get: not found "default"
 D: Enter main loop
 D: Exit main loop
