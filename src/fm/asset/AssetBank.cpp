@@ -67,7 +67,7 @@ AssetBank * AssetBank::current()
 }
 
 //------------------------------------------------------------------------------
-bool AssetBank::load(const std::string & rootFolder, bool performAutoIndex)
+bool AssetBank::load(const std::string & rootFolder, bool rescan)
 {
 	setRootFolder(rootFolder);
 
@@ -82,11 +82,11 @@ bool AssetBank::load(const std::string & rootFolder, bool performAutoIndex)
 	AssetBankManifest manifest;
 	bool foundManifest = manifest.loadFromJSONFile(manifestPath);
 
-	if(performAutoIndex)
+	if(rescan)
 	{
 		AssetBankManifest automaticManifest;
 
-		autoIndex(m_root, automaticManifest);
+		scanFolder(m_root, automaticManifest);
 
 		manifest.merge(automaticManifest, false);
 	}
@@ -110,7 +110,7 @@ bool AssetBank::load(const std::string & rootFolder, bool performAutoIndex)
 }
 
 //------------------------------------------------------------------------------
-bool AssetBank::autoIndex(const std::string & folderPath, AssetBankManifest & manifest)
+bool AssetBank::scanFolder(const std::string & folderPath, AssetBankManifest & manifest)
 {
 	log.info() << "Indexing folder \"" << folderPath << '"' << log.endl();
 
@@ -165,10 +165,12 @@ bool AssetBank::autoIndex(const std::string & folderPath, AssetBankManifest & ma
 		}
 	}
 
+	// If some files non explicitely ignored were not matched, tell about them
 	if(!unknownFiles.empty())
 	{
-		log.warn() << "Some asset files were not associated by the auto-indexing process. "
-			"You might add them manually to the manifest, or modify file associations." << log.endl();
+		log.warn() << "Some asset files were not associated by the scanning process. "
+			"If you want them to be loaded, add them manually to the manifest, "
+			"or modify file associations." << log.endl();
 
 		log.more() << "--- Concerned files: ---" << log.endl();
 
@@ -336,20 +338,20 @@ bool AssetBank::loadAssets(AssetBankManifest & manifest)
 	// TODO add loading parameters such as lazy loading (load a manifest instead of directly read the file)
 	// Warning: the loading order is important
 
-	if(!textures.loadManifestGroup(manifest, m_root)) return false;
-	if(!shaders.loadManifestGroup(manifest, m_root)) return false;
-	if(!fonts.loadManifestGroup(manifest, m_root)) return false;
-	if(!soundBuffers.loadManifestGroup(manifest, m_root)) return false;
-	if(!soundStreams.loadManifestGroup(manifest, m_root)) return false;
+	if(!textures.loadFromManifest(manifest, m_root)) return false;
+	if(!shaders.loadFromManifest(manifest, m_root)) return false;
+	if(!fonts.loadFromManifest(manifest, m_root)) return false;
+	if(!soundBuffers.loadFromManifest(manifest, m_root)) return false;
+	if(!soundStreams.loadFromManifest(manifest, m_root)) return false;
 
 	// Note: materials might depend on textures
-	if(!materials.loadManifestGroup(manifest, m_root)) return false;
+	if(!materials.loadFromManifest(manifest, m_root)) return false;
 
 	// Note: atlases might depend on textures/materials
-	if(!atlases.loadManifestGroup(manifest, m_root)) return false;
+	if(!atlases.loadFromManifest(manifest, m_root)) return false;
 
 	// Note: maps might depend on textures or atlases
-	if(!maps.loadManifestGroup(manifest, m_root)) return false;
+	if(!maps.loadFromManifest(manifest, m_root)) return false;
 
 	log.info() << "Done" << log.endl();
 

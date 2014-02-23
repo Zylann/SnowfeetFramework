@@ -30,14 +30,21 @@ class AssetMap : public AssetMapBase
 {
 public:
 
+	/// \brief constructs an empty AssetMap with a tag.
+	/// \param pTag: tag identifying the type of asset stored.
+	/// It must be unique and not empty. It will be used to identify the type of
+	/// asset in places such as data files.
 	AssetMap(std::string pTag) : AssetMapBase(pTag)
 	{}
 
+	/// \brief Destroys the AssetMap and frees the assets it contains.
 	~AssetMap()
 	{
 		clear();
 	};
 
+	/// \brief Get the number of assets stored in this AssetMap.
+	/// \return asset count.
 	u32 size() const override
 	{
 		return m_map.size();
@@ -52,23 +59,29 @@ public:
 		m_map.clear();
 	}
 
-	// Gets an asset from its name
-	T * get(const std::string & id) const
+	/// \brief Gets an asset from its name.
+	/// \param name: Unique name of the asset within the container.
+	/// \return Pointer to the asset, or nullptr if it hasn't been found.
+	T * get(const std::string & name) const
 	{
-		auto it = m_map.find(id);
+		auto it = m_map.find(name);
 		if(it != m_map.end())
+		{
 			return it->second;
+		}
 		else
 		{
 #ifdef ZN_DEBUG
-			log.err() << "AssetMap::get: not found \"" << id << '"' << log.endl();
+			log.err() << "AssetMap::get: not found \"" << name << '"' << log.endl();
 #endif
 			return nullptr;
 		}
 	}
 
-	// Finds the name of an asset from its pointer.
-	// Returns an empty string if the asset is not contained in the map.
+	/// \brief Finds the name of an asset from its pointer.
+	/// \param asset: pointer to the asset.
+	/// \return The unique name of the asset within the container,
+	/// or an empty string if the asset is not contained in the map.
 	std::string findName(const T * asset) const
 	{
 		for(auto it = m_map.cbegin(); it != m_map.cend(); ++it)
@@ -81,7 +94,12 @@ public:
 
 	// TODO ability to create assets managed by AssetMap at runtime
 
-	// Loads an asset from a file into the map with a name
+	/// \brief Loads an asset from a file into the map and gives it a unique name.
+	/// Does nothing if the name is already in use.
+	/// \param filePath: path to the asset, relative to the assets root folder.
+	/// \param name: Unique name to give to the asset.
+	/// \return true if the asset has been loaded or if the name is in use,
+	/// false if the name is empty or if the asset couldn't be loaded.
 	bool load(std::string filePath, const std::string & name)
 	{
 		if(name.empty())
@@ -93,7 +111,10 @@ public:
 		}
 
 		if(m_map.find(name) != m_map.end())
+		{
+			log.warn() << "AssetMap::load: \"" << name << "\" has been loaded twice, skipping." << log.endl();
 			return true; // Already loaded
+		}
 
 		if(!m_rootFolder.empty())
 		{
@@ -117,7 +138,7 @@ public:
 		}
 	}
 
-	bool loadManifestGroup(const AssetBankManifest & manifest, const std::string & assetsRoot) override
+	bool loadFromManifest(const AssetBankManifest & manifest, const std::string & assetsRoot) override
 	{
 		// If the manifest has a section for me, read it
 		auto sectionIt = manifest.sections.find(manifestTag());
@@ -142,17 +163,21 @@ public:
 		return true;
 	}
 
+	/// \brief begin iterator to allow iteration over the assets.
 	inline std::unordered_map<std::string,T*> begin() const { return m_map.begin(); }
+
+	/// \brief end iterator to allow iteration over the assets.
 	inline std::unordered_map<std::string,T*> end() const { return m_map.end(); }
 
 private:
 
-	// Internal asset loading routine.
+	/// \brief Internal asset loading routine.
 	bool loadAsset(T * asset, const std::string & filePath)
 	{
 		return loadFromFile(asset, filePath);
 	}
 
+	/// \brief All the assets stored by name.
 	std::unordered_map<std::string,T*> m_map;
 
 };

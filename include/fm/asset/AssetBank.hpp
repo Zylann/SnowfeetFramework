@@ -63,9 +63,9 @@ public:
 	/// Asset file recognition works with pattern matching applided on file paths.
 	/// Patterns are loaded from a second special file. If it is not found, a default one will be created.
 	/// \param rootFolder: root folder of the assets
-	/// \param performAutoIndex: enables folder scanning if no manifest is found, or if you want to update the existing one.
+	/// \param rescan: enables folder scanning if no manifest is found, or if you want to update the existing one.
 	/// \return true if success, false if an error occurred.
-	bool load(const std::string & rootFolder, bool performAutoIndex=false);
+	bool load(const std::string & rootFolder, bool rescan=false);
 
 	/// \brief Sets the root folder containing all the assets.
 	/// This folder will be prepended to every assets to be loaded.
@@ -77,7 +77,7 @@ public:
 	/// \param folderPath: the root folder to scan, usually the one from this AssetBank.
 	/// \param manifest: manifest file to fill
 	/// \return true if succeeded, false if an error occurred
-	bool autoIndex(const std::string & folderPath, AssetBankManifest & manifest);
+	bool scanFolder(const std::string & folderPath, AssetBankManifest & manifest);
 
 	/// \brief Effectively loads all assets described in the given manifest.
 	/// \param manifest: list of files to load

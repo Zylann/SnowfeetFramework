@@ -23,11 +23,11 @@ public:
 	/// \brief Get how many assets are stored in this map.
 	virtual u32 size() const = 0;
 
-	/// \brief Loads a section of typed assets from a JSON manifest data tree.
-	/// \param doc: JSON data tree
-	/// \param assetsRoot: root folder path of the assets
-	/// \see AssetBank.cpp, loadFromJSON().
-	virtual bool loadManifestGroup(const AssetBankManifest & manifest, const std::string & assetsRoot) = 0;
+	/// \brief Loads every assets from a manifest corresponding to this AssetMap's type.
+	/// \param manifest: list of assets to load.
+	/// \param assetsRoot: root folder of all the assets.
+	/// \return true if every asset has been loaded, false if at least one failed.
+	virtual bool loadFromManifest(const AssetBankManifest & manifest, const std::string & assetsRoot) = 0;
 
 	/// \brief Get the root folder for this map (without the end slash)
 	inline const std::string & rootFolder() const { return m_rootFolder; }
