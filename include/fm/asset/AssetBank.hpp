@@ -28,6 +28,8 @@ class ZN_API AssetBank : public NonCopyable
 {
 public:
 
+	// TODO complete doc
+
 	AssetMap<sf::Texture>      textures;
 	AssetMap<sf::Shader>       shaders;
 	AssetMap<sf::Font>         fonts;

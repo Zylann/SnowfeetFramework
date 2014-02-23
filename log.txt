@@ -5,12 +5,11 @@ D: AssetBank: root folder set to assets.
 I: Loading file associations...
 I: Indexing folder "assets"
 W: Some asset files were not associated by the auto-indexing process. You might add them manually to the manifest, or modify file associations.
-I: | Concerned files: 
-I: | assets.json
-I: | data/autotiler.json
-I: | shaders/basic.vert
-I: | shaders/noise.frag
-I: | shaders/noise.json
+| --- Concerned files: ---
+| shaders/basic.vert
+| shaders/noise.frag
+| shaders/noise.json
+| ---
 D: AssetMap: loading "assets/textures/avatar.png" as "avatar"
 D: AssetMap: loading "assets/textures/cursor.png" as "cursor"
 D: AssetMap: loading "assets/textures/cat.png" as "cat"

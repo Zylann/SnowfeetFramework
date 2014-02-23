@@ -170,12 +170,14 @@ bool AssetBank::autoIndex(const std::string & folderPath, AssetBankManifest & ma
 		log.warn() << "Some asset files were not associated by the auto-indexing process. "
 			"You might add them manually to the manifest, or modify file associations." << log.endl();
 
-		log.info() << "| Concerned files: " << log.endl();
+		log.more() << "--- Concerned files: ---" << log.endl();
 
 		for(auto it = unknownFiles.begin(); it != unknownFiles.end(); ++it)
 		{
-			log.info() << "| " << (*it) << log.endl();
+			log.more() << (*it) << log.endl();
 		}
+
+		log.more() << "---" << log.endl();
 	}
 
 	return true;

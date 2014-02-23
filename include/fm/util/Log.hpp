@@ -102,6 +102,15 @@ public:
 		return (*this) << "E: ";
 	}
 
+	/// \brief Outputs more lines to a previous log.* call,
+	/// making them appear as an easy-to-spot block.
+	/// Keeps last message type.
+	/// \return Log itself for chaining.
+	inline Log & more()
+	{
+		return (*this) << "| ";
+	}
+
 	/// \brief Returns the end-of-line character used to mark the end of a log message.
 	/// \note use: log.info() << "Message" << log.endl();
 	inline char endl()
