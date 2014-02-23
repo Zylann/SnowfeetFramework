@@ -4,7 +4,7 @@ I: screen resized (800, 600)
 D: AssetBank: root folder set to assets.
 I: Loading file associations...
 I: Indexing folder "assets"
-W: Some asset files were not associated by the auto-indexing process. You might add them manually to the manifest, or modify file associations.
+W: Some asset files were not associated by the scanning process. If you want them to be loaded, add them manually to the manifest, or modify file associations.
 | --- Concerned files: ---
 | shaders/basic.vert
 | shaders/noise.frag

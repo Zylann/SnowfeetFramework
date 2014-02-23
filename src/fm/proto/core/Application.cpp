@@ -5,6 +5,7 @@ This file is part of the zCraft-Framework project.
 */
 
 #include <iostream>
+#include <ctime>
 
 #include <fm/proto/core/Application.hpp>
 #include <fm/util/macros.hpp>
@@ -82,6 +83,9 @@ void Application::setFullScreen(bool fullScreen)
 //------------------------------------------------------------------------------
 bool Application::init()
 {
+	// Classic random initialization
+	srand(std::time(nullptr));
+
 	// Setup log system
 	log.openFile("log.txt");
 
