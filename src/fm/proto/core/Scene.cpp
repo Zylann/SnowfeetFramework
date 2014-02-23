@@ -14,10 +14,12 @@ This file is part of the Plane Framework project.
 #include <fm/proto/graphics/Renderer.hpp>
 #include <fm/proto/physics/Collider.hpp>
 #include <fm/proto/physics/Body.hpp>
+#include <fm/util/Log.hpp>
 
 namespace zn
 {
 
+//------------------------------------------------------------------------------
 Scene::Scene() :
 	m_nextID(0),
 	r_mainCamera(nullptr)
@@ -25,6 +27,7 @@ Scene::Scene() :
 	layers.setLayer(0, "default");
 }
 
+//------------------------------------------------------------------------------
 Scene::~Scene()
 {
 	clear();
@@ -52,8 +55,8 @@ Entity * Scene::createEntity(std::string name, sf::Vector2f pos)
 	m_entities.push_back(e);
 
 #ifdef ZN_DEBUG
-	std::cout << "D: Scene::addEntity: [" << e->id() << "] " << name
-		<< " at (" << pos.x << ", " << pos.y << ")" << std::endl;
+	log.debug() << "Scene::addEntity: [" << e->id() << "] " << name
+		<< " at (" << pos.x << ", " << pos.y << ")" << log.endl();
 #endif
 
 	return e;
@@ -105,7 +108,7 @@ bool isLateDestroyThenDelete(Entity * e)
 	if(e->flag(Entity::DESTROY_LATE))
 	{
 #ifdef ZN_DEBUG
-		std::cout << "D: just before destroy entity \"" << e->name() << '"' << std::endl;
+		log.debug() << "just before destroy entity \"" << e->name() << '"' << log.endl();
 #endif
 
 		// Remove the entity from any hierarchy
@@ -266,11 +269,11 @@ void Scene::unserialize(JsonBox::Value & o)
 		auto it = id2entity.find(id);
 		if(it != id2entity.end())
 		{
-			std::cout << "E: Conflicting entity found on scene loading : "
+			log.err() << "Conflicting entity found on scene loading : "
 				"\"" << entityData["name"] << "\"[" << id << "] "
 				"conflicts with "
 				"\"" << it->second->name() << "\"[" << it->second->id() << "]"
-				<< std::endl;
+				<< log.endl();
 			continue;
 		}
 		else
@@ -305,7 +308,7 @@ void Scene::unserialize(JsonBox::Value & o)
 bool Scene::saveToFile(const std::string & filePath)
 {
 #ifdef ZN_DEBUG
-	std::cout << "D: Saving scene as \"" << filePath << '"' << std::endl;
+	log.debug() << "Saving scene as \"" << filePath << '"' << log.endl();
 	sf::Clock timer;
 #endif
 
@@ -319,13 +322,13 @@ bool Scene::saveToFile(const std::string & filePath)
 	}
 	else
 	{
-		std::cout << "E: Failed to load scene from \"" << filePath << '"' << std::endl;
+		log.err() << "Failed to load scene from \"" << filePath << '"' << log.endl();
 		return false;
 	}
 
 #ifdef ZN_DEBUG
 	f32 timeSpent = timer.getElapsedTime().asSeconds();
-	std::cout << "D: Took " << timeSpent << "s to serialize the scene as a file." << std::endl;
+	log.debug() << "Took " << timeSpent << "s to serialize the scene as a file." << log.endl();
 #endif
 	return true;
 }
@@ -334,7 +337,7 @@ bool Scene::saveToFile(const std::string & filePath)
 bool Scene::loadFromFile(const std::string & filePath)
 {
 #ifdef ZN_DEBUG
-	std::cout << "D: Loading scene from \"" << filePath << '"' << std::endl;
+	log.debug() << "Loading scene from \"" << filePath << '"' << log.err();
 	sf::Clock timer;
 #endif
 
@@ -348,13 +351,13 @@ bool Scene::loadFromFile(const std::string & filePath)
 	}
 	else
 	{
-		std::cout << "E: Failed to save scene to \"" << filePath << '"' << std::endl;
+		log.err() << "Failed to save scene to \"" << filePath << '"' << log.endl();
 		return false;
 	}
 
 #ifdef ZN_DEBUG
 	f32 timeSpent = timer.getElapsedTime().asSeconds();
-	std::cout << "D: Took " << timeSpent << "s to serialize the scene as a file." << std::endl;
+	log.debug() << "Took " << timeSpent << "s to serialize the scene as a file." << log.endl();
 #endif
 	return true;
 }
