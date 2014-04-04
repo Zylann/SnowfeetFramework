@@ -7,6 +7,8 @@
 #include <fm/asset/TextureAtlas.hpp>
 #include <fm/asset/load.hpp>
 #include <fm/util/Log.hpp>
+#include <fm/util/stringutils.hpp>
+#include <fm/json/json_utils.hpp>
 
 namespace zn
 {
@@ -14,7 +16,19 @@ namespace zn
 //------------------------------------------------------------------------------
 bool loadFromFile(sf::Texture * asset, const std::string & filePath)
 {
-	return asset->loadFromFile(filePath);
+	if(!asset->loadFromFile(filePath))
+	{
+		return false;
+	}
+
+	JsonBox::Value doc;
+	std::string metaFilePath = filePath + ".meta";
+	if(loadFromFile(doc, metaFilePath, -1, false))
+	{
+		asset->setSmooth(doc["smooth"].getBoolean());
+	}
+
+	return true;
 }
 
 //------------------------------------------------------------------------------
