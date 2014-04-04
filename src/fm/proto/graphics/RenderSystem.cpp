@@ -120,8 +120,11 @@ void RenderSystem::draw(sf::RenderTarget & finalTarget, sf::RenderStates states)
 	// For each active camera
 	for(auto cameraIt = sortedCameras.cbegin(); cameraIt != sortedCameras.cend(); ++cameraIt)
 	{
-		render(**cameraIt, finalTarget, states);
+		r_activeCamera = *cameraIt;
+		render(*r_activeCamera, finalTarget, states);
 	}
+
+	r_activeCamera = nullptr;
 
 #if defined(ZN_DEBUG) && defined(ZN_PROFILE_RENDERING)
 	f32 renderTimeMs = profileClock.getElapsedTime().asMilliseconds();

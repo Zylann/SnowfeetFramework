@@ -9,6 +9,7 @@
 #include <fm/proto/graphics/ParticleSystem.hpp>
 #include <fm/proto/graphics/SpriteRenderer.hpp>
 #include <fm/proto/graphics/TextRenderer.hpp>
+#include <fm/proto/graphics/OverlayRenderer.hpp>
 #include <fm/proto/physics/BoxCollider.hpp>
 #include <fm/proto/physics/MapCollider.hpp>
 
@@ -53,6 +54,7 @@ void ComponentFactory::registerEngineComponents()
 	f.registerType<zn::ParticleSystem>();
 	f.registerType<zn::SpriteRenderer>();
 	f.registerType<zn::TextRenderer>();
+	f.registerType<zn::OverlayRenderer>();
 
 	// Physics
 

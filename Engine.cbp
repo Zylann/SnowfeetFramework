@@ -90,6 +90,9 @@
 		<Unit filename="include/fm/proto/graphics.hpp" />
 		<Unit filename="include/fm/proto/graphics/Camera.hpp" />
 		<Unit filename="include/fm/proto/graphics/MapRenderer.hpp" />
+		<Unit filename="include/fm/proto/graphics/OverlayRenderer.hpp">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="include/fm/proto/graphics/ParticleSystem.hpp" />
 		<Unit filename="include/fm/proto/graphics/RenderSystem.hpp" />
 		<Unit filename="include/fm/proto/graphics/Renderer.hpp" />
@@ -156,6 +159,7 @@
 		<Unit filename="src/fm/proto/core/Transform.cpp" />
 		<Unit filename="src/fm/proto/graphics/Camera.cpp" />
 		<Unit filename="src/fm/proto/graphics/MapRenderer.cpp" />
+		<Unit filename="src/fm/proto/graphics/OverlayRenderer.cpp" />
 		<Unit filename="src/fm/proto/graphics/ParticleSystem.cpp" />
 		<Unit filename="src/fm/proto/graphics/RenderSystem.cpp" />
 		<Unit filename="src/fm/proto/graphics/Renderer.cpp" />

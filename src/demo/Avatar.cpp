@@ -27,7 +27,10 @@ void Avatar::init()
 
 	r_mover->setMaxSpeed(2.5f);
 
-	e.addComponent<BoxCollider>()->setRect(sf::FloatRect(4, 7, 24, 24));
+	auto collider = e.addComponent<BoxCollider>();
+	collider->setRect(sf::FloatRect(4, 7, 24, 24));
+	//collider->enable(false);
+
 	e.addComponent<SpriteAnimator>();
 	e.addComponent<AudioEmitter>();
 

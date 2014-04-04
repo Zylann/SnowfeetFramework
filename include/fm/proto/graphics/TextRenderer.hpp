@@ -1,7 +1,7 @@
-#ifndef ZN_TEXTRENDERER_HPP_INCLUDED
-#define ZN_TEXTRENDERER_HPP_INCLUDED
+#ifndef HEADER_ZN_TEXTRENDERER_HPP_INCLUDED
+#define HEADER_ZN_TEXTRENDERER_HPP_INCLUDED
 
-#include "Renderer.hpp"
+#include <fm/proto/graphics/Renderer.hpp>
 
 namespace zn
 {
@@ -50,6 +50,6 @@ private:
 
 } // namespace zn
 
-#endif // ZN_TEXTRENDERER_HPP_INCLUDED
+#endif // HEADER_ZN_TEXTRENDERER_HPP_INCLUDED
 
 

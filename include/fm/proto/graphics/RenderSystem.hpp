@@ -15,6 +15,11 @@ class ZN_API RenderSystem
 {
 public:
 
+	RenderSystem() :
+		m_drawCount(0),
+		r_activeCamera(nullptr)
+	{}
+
 	/// \brief this function is called when a new renderer has been created.
 	/// Do not call it yourself, it's done automatically by all renderers.
 	/// \param renderer: newly created renderer
@@ -56,6 +61,10 @@ public:
 	/// \return object count
 	inline unsigned int drawCount() const { return m_drawCount; }
 
+	/// \brief returns the currently rendering camera. This is only avaliable on render time.
+	/// \return the camera from which the system is rendering now.
+	const Camera * activeCamera() const { return r_activeCamera; }
+
 private:
 
 	/// \brief performs the rendering of one camera.
@@ -77,6 +86,9 @@ private:
 
 	/// \brief Counter storing how many object have been drawn on the last frame
 	mutable unsigned int m_drawCount;
+
+	/// \brief Camera currently in use on rendering time
+	mutable const Camera * r_activeCamera;
 
 };
 

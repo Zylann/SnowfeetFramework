@@ -73,7 +73,7 @@ public:
 	void unserializeData(JsonBox::Value & o) override;
 	void postUnserialize() override;
 
-	// Order of rendering
+	/// \brief Order of rendering. The smaller the earlier, the greater the latter.
 	s32 depth;
 
 	/// \brief Layers the camera can see, as a bitmask.
