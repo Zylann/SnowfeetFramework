@@ -7,12 +7,14 @@
 #include <fm/proto/physics/Body.hpp>
 #include <fm/proto/core/Scene.hpp>
 #include <fm/util/typecheck.hpp>
+#include <fm/util/Log.hpp>
 
 #include "fm/json/json_utils.hpp"
 
 namespace zn
 {
 
+//------------------------------------------------------------------------------
 Entity::Entity() :
 	transform(*this),
 	r_renderer(nullptr),
@@ -22,18 +24,30 @@ Entity::Entity() :
 	r_animator(nullptr),
 	m_flags(ACTIVE),
 	m_layerIndex(0), // default layer
-	r_scene(nullptr)
+	r_scene(nullptr),
+	m_tags(0)
 {
 	setName("_entity_");
 }
 
+//------------------------------------------------------------------------------
 Entity::~Entity()
 {
+	// Clear components
 	for(auto it = m_components.begin(); it != m_components.end(); ++it)
 	{
 		AComponent * component = it->second;
 		component->onDestroy();
 		delete component;
+	}
+
+	// Clear tags
+	for(u8 tagIndex = 0; tagIndex < TagManager::MAX_TAGS; ++tagIndex)
+	{
+		if(hasTag(tagIndex))
+		{
+			r_scene->tagManager.onEntityUntagged(this, tagIndex);
+		}
 	}
 }
 
@@ -203,6 +217,7 @@ void Entity::serialize(JsonBox::Value & o)
 	o["flags"]    = m_flags;
 	o["layer"]    = (s32)m_layerIndex; // TODO fix JsonBox so it accepts unsigned integers
 	o["name"]     = name();
+	o["tags"]     = (s32)m_tags;
 
 	// Components
 
@@ -231,6 +246,7 @@ void Entity::unserialize(JsonBox::Value & o)
 	m_id = o["id"].getInt();
 	m_flags = o["flags"].getInt();
 	m_layerIndex = o["layer"].getInt();
+	m_tags = o["tags"].getInt();
 	setName(o["name"].getString());
 
 	// Components
@@ -322,6 +338,44 @@ bool Entity::checkComponentAddition(const ComponentType & ct, const std::string 
 	}
 
 	return true;
+}
+
+//------------------------------------------------------------------------------
+void Entity::addTag(u8 tagIndex)
+{
+	m_tags |= 1 << tagIndex;
+	r_scene->tagManager.onEntityTagged(this, tagIndex);
+}
+
+//------------------------------------------------------------------------------
+void Entity::removeTag(u8 tagIndex)
+{
+	m_tags &= ~(1 << tagIndex);
+	r_scene->tagManager.onEntityUntagged(this, tagIndex);
+}
+
+//------------------------------------------------------------------------------
+bool Entity::hasTag(u8 tagIndex) const
+{
+	return m_tags & (1 << tagIndex);
+}
+
+//------------------------------------------------------------------------------
+void Entity::addTag(const std::string & tagName)
+{
+	addTag(r_scene->tagManager.indexFromName(tagName));
+}
+
+//------------------------------------------------------------------------------
+void Entity::removeTag(const std::string & tagName)
+{
+	removeTag(r_scene->tagManager.indexFromName(tagName));
+}
+
+//------------------------------------------------------------------------------
+bool Entity::hasTag(const std::string & tagName) const
+{
+	return hasTag(r_scene->tagManager.indexFromName(tagName));
 }
 
 } // namespace zn

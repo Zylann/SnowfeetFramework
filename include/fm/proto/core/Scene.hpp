@@ -18,6 +18,7 @@ This file is part of the Plane Framework project.
 #include <fm/proto/audio/AudioSystem.hpp>
 #include <fm/proto/graphics/RenderSystem.hpp>
 #include <fm/proto/physics/PhysicsSystem.hpp>
+#include <fm/proto/core/TagManager.hpp>
 
 namespace zn
 {
@@ -83,6 +84,8 @@ public:
 	// Convenient layer name associations
 	LayerMap layers;
 
+	TagManager tagManager;
+
 	// Returns the amount of time elapsed since the scene was loaded
 	inline sf::Time time() const { return m_time.getElapsedTime(); }
 
@@ -120,18 +123,18 @@ protected:
 
 private:
 
-	u32                             m_nextID;
+	u32                 m_nextID;
 
 	// TODO add scene modes : EDIT / PLAY / RECORD
 
-	std::list<Entity*>              m_entities; // Entities in play
+	std::list<Entity*>  m_entities; // Entities in play
 
 	// References to behaviours [updateOrder][index]
 	std::map< s32, ComponentList<ABehaviour> > m_behaviours;
 
-	Camera *                        r_mainCamera;
-	sf::Clock                       m_time;
-	sf::Time                        m_deltaTime;
+	Camera *            r_mainCamera;
+	sf::Clock           m_time;
+	sf::Time            m_deltaTime;
 
 };
 

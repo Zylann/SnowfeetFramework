@@ -87,6 +87,7 @@
 		<Unit filename="include/fm/proto/core/LayerMap.hpp" />
 		<Unit filename="include/fm/proto/core/PerformanceGraph.hpp" />
 		<Unit filename="include/fm/proto/core/Scene.hpp" />
+		<Unit filename="include/fm/proto/core/TagManager.hpp" />
 		<Unit filename="include/fm/proto/core/Transform.hpp" />
 		<Unit filename="include/fm/proto/graphics.hpp" />
 		<Unit filename="include/fm/proto/graphics/Camera.hpp" />
@@ -159,6 +160,7 @@
 		<Unit filename="src/fm/proto/core/Entity.cpp" />
 		<Unit filename="src/fm/proto/core/PerformanceGraph.cpp" />
 		<Unit filename="src/fm/proto/core/Scene.cpp" />
+		<Unit filename="src/fm/proto/core/TagManager.cpp" />
 		<Unit filename="src/fm/proto/core/Transform.cpp" />
 		<Unit filename="src/fm/proto/graphics/Camera.cpp" />
 		<Unit filename="src/fm/proto/graphics/MapRenderer.cpp" />

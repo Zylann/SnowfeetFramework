@@ -194,6 +194,39 @@ public:
 	const Layer & layer() const;
 
 	//--------------------------------------
+	// Tags
+	//--------------------------------------
+
+	// Tags can be used to identify specific entities or group of entities like
+	// the avatar, the main camera, some ennemies...
+
+	/// \brief Adds a tag to the entity (faster).
+	/// \param tagIndex: index of the tag in [0,31]
+	void addTag(u8 tagIndex);
+
+	/// \brief Adds a tag to the entity.
+	/// \param tagName: name of the tag
+	void addTag(const std::string & tagName);
+
+	/// \brief Removes a tag from the entity (faster).
+	/// \param tagIndex: index of the tag in [0,31]
+	void removeTag(u8 tagIndex);
+
+	/// \brief Removes a tag from the entity.
+	/// \param tagName: name of the tag
+	void removeTag(const std::string & tagName);
+
+	/// \brief Tests if the entity has the given tag (faster).
+	/// \param tagIndex: index of the tag in [0,31]
+	/// \return true if it has the tag, false otherwise
+	bool hasTag(u8 tagIndex) const;
+
+	/// \brief Tests if the entity has the given tag.
+	/// \param tagName: name of the tag
+	/// \return true if it has the tag, false otherwise
+	bool hasTag(const std::string & tagName) const;
+
+	//--------------------------------------
 	// Serialization
 	//--------------------------------------
 
@@ -288,6 +321,11 @@ private:
 
 	/// \brief User-defined name of the entity
 	std::string m_name;
+
+	/// \brief Tags of the entity as bitset. Each bit represents a tag.
+	/// Tags have a name stored in Scene.
+	/// \see Scene
+	u32 m_tags;
 
 };
 
