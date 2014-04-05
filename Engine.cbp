@@ -120,6 +120,7 @@
 		<Unit filename="include/fm/util/PriorityQueueB.hpp" />
 		<Unit filename="include/fm/util/Range.hpp" />
 		<Unit filename="include/fm/util/Rect.hpp" />
+		<Unit filename="include/fm/util/SampledCurve.hpp" />
 		<Unit filename="include/fm/util/Vector2.hpp" />
 		<Unit filename="include/fm/util/interpolation.hpp" />
 		<Unit filename="include/fm/util/macros.hpp" />

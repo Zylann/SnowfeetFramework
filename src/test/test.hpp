@@ -12,6 +12,7 @@ void test_typecheck();
 void test_autotiler();
 void test_filesystem();
 void test_spritebatch();
+void test_sampledcurve();
 
 #endif // HEADER_ZN_TEST_HPP_INCLUDED
 
