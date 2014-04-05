@@ -11,6 +11,7 @@ void test_mazeGenerator();
 void test_typecheck();
 void test_autotiler();
 void test_filesystem();
+void test_spritebatch();
 
 #endif // HEADER_ZN_TEST_HPP_INCLUDED
 

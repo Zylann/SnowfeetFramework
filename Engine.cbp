@@ -53,6 +53,7 @@
 		<Unit filename="include/fm/asset/TiledMap.hpp" />
 		<Unit filename="include/fm/asset/load.hpp" />
 		<Unit filename="include/fm/config.hpp" />
+		<Unit filename="include/fm/graphics/SpriteBatch.hpp" />
 		<Unit filename="include/fm/json/JsonBox.h" />
 		<Unit filename="include/fm/json/JsonBox/Array.h" />
 		<Unit filename="include/fm/json/JsonBox/Convert.h" />
@@ -134,6 +135,7 @@
 		<Unit filename="src/fm/asset/TextureAtlas.cpp" />
 		<Unit filename="src/fm/asset/TiledMap.cpp" />
 		<Unit filename="src/fm/asset/load.cpp" />
+		<Unit filename="src/fm/graphics/SpriteBatch.cpp" />
 		<Unit filename="src/fm/json/JsonBox/Array.cpp" />
 		<Unit filename="src/fm/json/JsonBox/Convert.cpp" />
 		<Unit filename="src/fm/json/JsonBox/Escaper.cpp" />

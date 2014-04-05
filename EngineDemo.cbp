@@ -64,6 +64,7 @@
 		<Unit filename="src/test/test_mazeGenerator.cpp" />
 		<Unit filename="src/test/test_pathfinder.cpp" />
 		<Unit filename="src/test/test_pathfinder.hpp" />
+		<Unit filename="src/test/test_spritebatch.cpp" />
 		<Unit filename="src/test/test_stringutils.cpp" />
 		<Unit filename="src/test/test_stringutils.hpp" />
 		<Unit filename="src/test/test_typecheck.cpp" />
