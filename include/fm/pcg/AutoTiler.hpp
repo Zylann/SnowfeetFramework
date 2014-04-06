@@ -11,12 +11,12 @@
 namespace zn
 {
 
-// Data-oriented auto-tiler.
-// Given an input grid, finds which tiles apply to them as an output grid.
-// (can handle connections, variants and default tiles)
-// The approach here is to define all possible cases instead of using
-// fixed IF block or bitwise presets. It consumes more memory, but that's
-// an acceptable tradeoff for handling almost all possible cases and being very flexible.
+/// \brief Data-oriented auto-tiler.
+/// Given an input grid, finds which tiles apply to them as an output grid.
+/// (can handle connections, variants and default tiles)
+/// The approach here is to define all possible cases instead of using
+/// fixed IF block or bitwise presets. It consumes more memory, but that's
+/// an acceptable tradeoff for handling almost all possible cases and being very flexible.
 class ZN_API AutoTiler
 {
 public:

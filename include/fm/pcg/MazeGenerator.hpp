@@ -27,10 +27,11 @@ public:
 	u32 corridorLengthMax = 8;
 	f32 loopChance = 0.f;
 
-	/// \brief Each cell of the grid is a bitmask :
+	/// \brief Output of the generator.
+	/// Each cell of the grid is a bitmask :
 	/// the first 4 lower bits represent which directions are available,
 	/// the 6th tells if the cell is unvisited,
-	/// the 7th tells if the cell is disabled (note: allows non-rectangular mazes).
+	/// the 7th tells if the cell is disabled (note: you can assign it before generation to have non-rectangular mazes).
 	Array2D<u32> grid;
 
 	MazeGenerator(u32 width, u32 height);
