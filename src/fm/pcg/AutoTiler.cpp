@@ -177,12 +177,13 @@ AutoTiler::Out_T AutoTiler::processTile(const Array2D<In_T> & inputGrid, u32 x, 
 //------------------------------------------------------------------------------
 void AutoTiler::stringToCaseKey(const std::string & s, ConnectionMask & conMask, u8 & dontCareMask)
 {
+	dontCareMask = 0xff;
+
 	if(s.size() != 8)
 	{
 		log.err() << "AutoTiler::stringToCaseKey: "
 			"invalid case string \"" << s << "\", expected size of 8" << log.endl();
 		conMask = 0;
-		dontCareMask = 0;
 		return;
 	}
 
@@ -198,7 +199,7 @@ void AutoTiler::stringToCaseKey(const std::string & s, ConnectionMask & conMask,
 			break;
 
 		case '*':
-			dontCareMask |= bit;
+			dontCareMask &= ~bit;
 			break;
 
 		default:
@@ -257,4 +258,7 @@ void AutoTiler::unserialize(JsonBox::Value & o)
 }
 
 } // namespace zn
+
+
+
 
