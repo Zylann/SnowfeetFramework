@@ -1,4 +1,5 @@
 #include <fm/pcg/AutoTiler.hpp>
+#include <fm/util/Log.hpp>
 
 namespace zn
 {
@@ -58,7 +59,8 @@ void AutoTiler::RuleSet::addCase(ConnectionMask neighboring, u8 mask, std::vecto
 	// TODO test case generation
 
 	// Generate possible neighborings :
-	// Use a number going from 0 to max, and dispatch its bits in the final neighboring where bits are variable.
+	// Use a number going from 0 to max, and dispatch its bits in the final
+	// neighboring where bits are variable.
 	//---------
 	// Example
 	//---------
@@ -96,7 +98,7 @@ void AutoTiler::RuleSet::addCase(ConnectionMask neighboring, u8 mask, std::vecto
 }
 
 //------------------------------------------------------------------------------
-void AutoTiler::process(const Array2D<In_T> & inputGrid, Array2D<Out_T> & outputGrid)
+void AutoTiler::process(const Array2D<In_T> & inputGrid, Array2D<Out_T> & outputGrid) const
 {
 	// For each cell in the grid
 	for(s32 y = 0; y < static_cast<s32>(inputGrid.sizeY()); ++y)
@@ -109,7 +111,7 @@ void AutoTiler::process(const Array2D<In_T> & inputGrid, Array2D<Out_T> & output
 }
 
 //------------------------------------------------------------------------------
-AutoTiler::Out_T AutoTiler::processTile(const Array2D<In_T> & inputGrid, u32 x, u32 y)
+AutoTiler::Out_T AutoTiler::processTile(const Array2D<In_T> & inputGrid, u32 x, u32 y) const
 {
 	// Get the type of the cell
 	In_T type = inputGrid.getNoEx(x,y);
@@ -172,31 +174,87 @@ AutoTiler::Out_T AutoTiler::processTile(const Array2D<In_T> & inputGrid, u32 x, 
 	return outputValue;
 }
 
-
-// TODO JSON loader for AutoTiler
-
-/*
-
+//------------------------------------------------------------------------------
+void AutoTiler::stringToCaseKey(const std::string & s, ConnectionMask & conMask, u8 & dontCareMask)
 {
-	"defaultOutput": 0,
-	"typeRules": [
+	if(s.size() != 8)
+	{
+		log.err() << "AutoTiler::stringToCaseKey: "
+			"invalid case string \"" << s << "\", expected size of 8" << log.endl();
+		conMask = 0;
+		dontCareMask = 0;
+		return;
+	}
+
+	u8 bit = 1 << 7;
+	for(u32 i = 0; i < s.size(); ++i)
+	{
+		char c = s[i];
+
+		switch(c)
 		{
-			"defaultOutput": 0,
-			"cases": [
-				{
-					"n":[
-						1, 1, 1,
-						1,    1,
-						0, 0, 0
-					],
-					"v":[ 3, 4 ]
-				}
-			]
+		case '1':
+			conMask |= bit;
+			break;
+
+		case '*':
+			dontCareMask |= bit;
+			break;
+
+		default:
+			break;
 		}
-	]
+
+		bit >>= 1;
+	}
 }
 
-*/
+//------------------------------------------------------------------------------
+void AutoTiler::unserialize(JsonBox::Value & o)
+{
+	defaultInput = o["defaultInput"].getInt();
+	defaultOutput = o["defaultOutput"].getInt();
+
+	JsonBox::Value & jRuleSets = o["ruleSets"];
+	ruleSets.resize(jRuleSets.getArray().size());
+
+	for(u32 i = 0; i < ruleSets.size(); ++i)
+	{
+		JsonBox::Value & jrs = jRuleSets[i];
+
+		In_T input = i;
+		if(!jrs["input"].isNull())
+		{
+			input = jrs["input"].getInt();
+		}
+		RuleSet & rs = ruleSets[input];
+
+		// Default output
+		zn::unserialize(jrs["defaultOutput"], rs.defaultOutput);
+
+		// Connections
+		zn::unserialize(jrs["connections"], rs.connections);
+
+		// Cases
+		JsonBox::Value & jcases = jrs["cases"];
+		u32 jcasesSize = jcases.getArray().size();
+		for(u32 j = 0; j < jcasesSize; ++j)
+		{
+			JsonBox::Value & jcase = jcases[j];
+
+			u8 dontCareMask = 0;
+			ConnectionMask conMask = 0;
+
+			std::string s = jcase["n"].getString();
+			stringToCaseKey(s, conMask, dontCareMask);
+
+			std::vector<Out_T> variants;
+			zn::unserialize(jcase["v"], variants);
+
+			rs.addCase(conMask, dontCareMask, variants);
+		}
+	}
+}
 
 } // namespace zn
 

@@ -7,6 +7,7 @@
 #include <unordered_set>
 
 #include <fm/util/Array2D.hpp>
+#include <fm/json/json_utils.hpp>
 
 namespace zn
 {
@@ -104,10 +105,14 @@ public:
 	}
 
 	// Converts a grid of types into a grid of tiles
-	void process(const Array2D<In_T> & inputGrid, Array2D<Out_T> & outputGrid);
+	void process(const Array2D<In_T> & inputGrid, Array2D<Out_T> & outputGrid) const;
 
 	// Calculates a tile from its type at the given position
-	Out_T processTile(const Array2D<In_T> & inputGrid, u32 x, u32 y);
+	Out_T processTile(const Array2D<In_T> & inputGrid, u32 x, u32 y) const;
+
+	void unserialize(JsonBox::Value & o);
+
+	static void stringToCaseKey(const std::string & s, ConnectionMask & conMask, u8 & dontCareMask);
 
 };
 

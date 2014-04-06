@@ -3,6 +3,8 @@
 
 #include <cassert>
 #include <JsonBox.h>
+#include <vector>
+#include <unordered_set>
 #include <fm/util/Range.hpp>
 
 #ifdef ZN_SFML
@@ -26,10 +28,17 @@ namespace zn
 /// \return false if the file could'nt be loaded or if the version didn't matched, true if success.
 bool loadFromFile(JsonBox::Value & document, const std::string & filePath, s32 checkVersion=-1, bool openError=true);
 
-inline void serialize(JsonBox::Value & o, f32 v)
-{
-	o = v;
-}
+inline void serialize(JsonBox::Value & o, f32 v) { o = v; }
+inline void serialize(JsonBox::Value & o, s32 v) { o = v; }
+inline void serialize(JsonBox::Value & o, u32 v) { o = (s32)v; }
+inline void serialize(JsonBox::Value & o, u8 v) { o = (s32)v; }
+inline void serialize(JsonBox::Value & o, const std::string & s) { o = s; }
+
+inline void unserialize(const JsonBox::Value & o, f32 & v) { v = o.getDouble(); }
+inline void unserialize(const JsonBox::Value & o, s32 & v) { v = o.getInt(); }
+inline void unserialize(const JsonBox::Value & o, u32 & v) { v = o.getInt(); }
+inline void unserialize(const JsonBox::Value & o, u8 & v) { v = o.getInt(); }
+inline void unserialize(const JsonBox::Value & o, std::string & s) { s = o.getString(); }
 
 template <typename T>
 inline void serialize(JsonBox::Value & o, const Range<T> & range)
@@ -46,6 +55,45 @@ inline void unserialize(JsonBox::Value & o, Range<f32> & range)
 inline void unserialize(JsonBox::Value & o, Range<s32> & range)
 {
 	range.set(o["min"].getInt(), o["max"].getInt());
+}
+
+template <typename List_T>
+void serialize(JsonBox::Value & o, const List_T & v)
+{
+	JsonBox::Array a;
+	a.resize(v.size());
+	u32 i = 0;
+	for(auto it = v.cbegin(); it != v.cend(); ++it)
+	{
+		a[i] = *it;
+		++it;
+		++i;
+	}
+	o = a;
+}
+
+template <typename T>
+void unserialize(const JsonBox::Value & o, std::vector<T> & v)
+{
+	const JsonBox::Array & a = o.getArray();
+	v.resize(a.size());
+	for(u32 i = 0; i < a.size(); ++i)
+	{
+		const JsonBox::Value & jv = a[i];
+		unserialize(jv, v[i]);
+	}
+}
+
+template <typename T>
+void unserialize(const JsonBox::Value & o, std::unordered_set<T> & v)
+{
+	const JsonBox::Array & a = o.getArray();
+	for(u32 i = 0; i < a.size(); ++i)
+	{
+		T elem;
+		unserialize(a[i], elem);
+		v.insert(elem);
+	}
 }
 
 #ifdef ZN_SFML
