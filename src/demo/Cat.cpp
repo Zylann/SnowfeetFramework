@@ -10,9 +10,9 @@
 namespace demo
 {
 
-void Cat::init()
+void Cat::onCreate()
 {
-	Character::init();
+	Character::onCreate();
 
 	r_sprite->setAtlas(AssetBank::current()->atlases.get("cat"));
 	r_sprite->setFrame("idle.down");

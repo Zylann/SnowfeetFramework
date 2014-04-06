@@ -44,7 +44,7 @@ void AComponent::onAdd(Entity * e)
 }
 
 //------------------------------------------------------------------------------
-void AComponent::init()
+void AComponent::onCreate()
 {
 }
 

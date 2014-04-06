@@ -19,7 +19,7 @@ public:
 
 	Mover();
 
-	void init() override;
+	void onCreate() override;
 	void onUpdate() override;
 
 	void setMaxSpeed(f32 speed);

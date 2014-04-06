@@ -12,7 +12,7 @@ public:
 
 	ZN_BEHAVIOUR(demo::Avatar, 10)
 
-	void init() override;
+	void onCreate() override;
 	void onUpdate() override;
 
 	void onCollisionEnter(const CollisionInfo & info) override;

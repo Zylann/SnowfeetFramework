@@ -12,7 +12,7 @@ public:
 
 	ZN_BEHAVIOUR(demo::Cat, 10)
 
-	void init() override;
+	void onCreate() override;
 	void onUpdate() override;
 
 private:

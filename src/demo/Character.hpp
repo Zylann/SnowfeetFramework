@@ -24,7 +24,7 @@ public:
 		m_spriteDir(Direction::DOWN)
 	{}
 
-	virtual void init() override;
+	virtual void onCreate() override;
 
 	inline u8 spriteDirection() const { return m_spriteDir; }
 	void setSpriteDirection(u8 dir);

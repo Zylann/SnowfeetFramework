@@ -65,7 +65,7 @@ public:
 
 	// TODO pixelPerfect parameter
 
-	void init() override;
+	void onCreate() override;
 	void onUpdate() override;
 
 	// Serialization

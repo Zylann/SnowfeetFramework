@@ -8,7 +8,7 @@
 namespace demo
 {
 
-void Cursor::init()
+void Cursor::onCreate()
 {
 	zn::SpriteRenderer * sprite = entity().addComponent<zn::SpriteRenderer>();
 	sf::Texture * texture = zn::AssetBank::current()->textures.get("cursor");

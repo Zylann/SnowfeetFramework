@@ -33,7 +33,7 @@ public:
 
 protected:
 
-	void init() override;
+	void onCreate() override;
 	void onUpdate() override;
 
 private:

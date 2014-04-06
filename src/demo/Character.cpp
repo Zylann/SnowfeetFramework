@@ -8,7 +8,7 @@
 namespace demo
 {
 
-void Character::init()
+void Character::onCreate()
 {
 	m_spriteDir = Direction::RIGHT;
 	m_spriteDirLastFrame = Direction::RIGHT;

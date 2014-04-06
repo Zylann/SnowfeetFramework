@@ -40,7 +40,7 @@ public:
 
 protected:
 
-	void init() override;
+	void onCreate() override;
 	void onUpdate() override;
 
 	void draw(sf::RenderTarget & target, sf::RenderStates states) const override;

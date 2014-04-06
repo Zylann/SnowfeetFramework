@@ -12,7 +12,7 @@ public:
 
 	ZN_BEHAVIOUR(demo::Cursor, 0) // The cursor is updated first
 
-	void init() override;
+	void onCreate() override;
 	void onStart() override;
 	void onUpdate() override;
 

@@ -108,7 +108,7 @@ void ParticleSystem::setEmissionZone(const sf::FloatRect& rect)
 }
 
 //------------------------------------------------------------------------------
-void ParticleSystem::init()
+void ParticleSystem::onCreate()
 {
 }
 

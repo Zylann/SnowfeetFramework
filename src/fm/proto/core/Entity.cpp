@@ -151,7 +151,7 @@ AComponent * Entity::addComponent(AComponent * newCmp)
 
 	newCmp->onAdd(this);
 
-	newCmp->init();
+	newCmp->onCreate();
 
 	return newCmp;
 }

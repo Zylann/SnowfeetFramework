@@ -15,9 +15,9 @@ using namespace zn;
 namespace demo
 {
 
-void Avatar::init()
+void Avatar::onCreate()
 {
-	Character::init();
+	Character::onCreate();
 
 	Entity & e = entity();
 

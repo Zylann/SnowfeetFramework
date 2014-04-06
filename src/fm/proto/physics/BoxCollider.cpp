@@ -9,9 +9,9 @@ namespace zn
 {
 
 //------------------------------------------------------------------------------
-void BoxCollider::init()
+void BoxCollider::onCreate()
 {
-	ACollider::init();
+	ACollider::onCreate();
 
 	// Match the renderer bounds if any to initialize the default hitbox
 	ARenderer * r = entity().renderer();

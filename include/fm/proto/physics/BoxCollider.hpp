@@ -12,7 +12,7 @@ public:
 
 	ZN_COMPONENT(zn::BoxCollider, CG_COLLIDER, 0)
 
-	void init() override;
+	void onCreate() override;
 
 	bool collides(const sf::Vector2f & p) const override;
 	bool collides(const sf::FloatRect & r0) const override;

@@ -48,7 +48,7 @@ public:
 	virtual void onAdd(Entity * e);
 
 	/// \brief Called to initialize the component after being added to an entity.
-	virtual void init();
+	virtual void onCreate();
 
 	/// \brief Called just before the first update of the component.
 	virtual void onStart();

@@ -39,7 +39,7 @@ void Camera::onDestroy()
 }
 
 //------------------------------------------------------------------------------
-void Camera::init()
+void Camera::onCreate()
 {
 	// Note: Application should never be null here, because it's the first object
 	// to be created when the engine runs

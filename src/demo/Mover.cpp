@@ -25,7 +25,7 @@ void Mover::setMaxSpeed(f32 speed)
 }
 
 //------------------------------------------------------------------------------
-void Mover::init()
+void Mover::onCreate()
 {
 }
 

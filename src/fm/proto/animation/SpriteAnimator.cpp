@@ -83,7 +83,7 @@ void SpriteAnimator::stop()
 }
 
 //------------------------------------------------------------------------------
-void SpriteAnimator::init()
+void SpriteAnimator::onCreate()
 {
 }
 
