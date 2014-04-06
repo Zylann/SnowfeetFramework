@@ -47,6 +47,13 @@ void MapRenderer::setTileSize(sf::Vector2i sizePx)
 }
 
 //------------------------------------------------------------------------------
+void MapRenderer::build(u32 sizeX, u32 sizeY, u32 fillTile)
+{
+	tiles.create(sizeX, sizeY, fillTile);
+	updateMesh();
+}
+
+//------------------------------------------------------------------------------
 void MapRenderer::build(const TiledMap * map,
 						const TextureAtlas * atlas,
 						const std::string layerName,

@@ -27,6 +27,8 @@ public:
 
 	sf::FloatRect localBounds() const override;
 
+	void build(u32 sizeX, u32 sizeY, u32 fillTile=0);
+
 	// Setups the tilemap from a TiledMap
 	void build(const TiledMap * map,
 				const TextureAtlas * atlas = nullptr,
