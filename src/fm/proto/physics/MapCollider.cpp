@@ -133,7 +133,7 @@ void MapCollider::build(const TiledMap & map,
 bool MapCollider::collides(const sf::Vector2f & pos) const
 {
 	sf::Vector2f rpos = pos - entity().transform.position();
-	u8 ct = cellCollider(sf::Vector2i(rpos.x/m_cellSize, pos.y/m_cellSize));
+	u8 ct = cellAt(sf::Vector2i(rpos.x/m_cellSize, pos.y/m_cellSize));
 	if(ct == 0 || ct >= m_colliderTypes.size())
 		return false;
 	rpos.x = math::repeat(rpos.x, m_cellSize);
@@ -163,7 +163,7 @@ bool MapCollider::collides(const sf::FloatRect & r0) const
 	{
 		for(pos.x = minX; pos.x <= maxX; ++pos.x)
 		{
-			u8 ct = cellCollider(pos);
+			u8 ct = cellAt(pos);
 			if(ct != 0 && ct < m_colliderTypes.size())
 			{
 				mapRect.left = m_colliderTypes[ct].left + pos.x * m_cellSize;
@@ -206,7 +206,7 @@ const sf::FloatRect & MapCollider::colliderType(u8 index)
 }
 
 //------------------------------------------------------------------------------
-void MapCollider::setCellCollider(const sf::Vector2i & cellPos, u8 colliderType)
+void MapCollider::setCell(const sf::Vector2i & cellPos, u8 colliderType)
 {
 #ifdef ZN_DEBUG
 	if(colliderType >= m_colliderTypes.size())
@@ -230,7 +230,7 @@ void MapCollider::setCellCollider(const sf::Vector2i & cellPos, u8 colliderType)
 }
 
 //------------------------------------------------------------------------------
-u8 MapCollider::cellCollider(const sf::Vector2i & cellPos) const
+u8 MapCollider::cellAt(const sf::Vector2i & cellPos) const
 {
 	s32 i = cellIndex(cellPos);
 	if(i >= 0 && i < static_cast<s32>(m_collisionMap.size()))
@@ -352,7 +352,7 @@ void MapCollider::debug_draw(sf::RenderTarget & target) const
 	{
 		for(pos.x = 0; pos.x < m_size.x; ++pos.x)
 		{
-			u8 ct = cellCollider(pos);
+			u8 ct = cellAt(pos);
 			if(ct != 0)
 			{
 				const sf::FloatRect & r = m_colliderTypes[ct];

@@ -70,8 +70,9 @@ public:
 	/// \brief returns the hitbox of a collision ID within this map.
 	inline u32 colliderTypesCount() const { return m_colliderTypes.size(); }
 
-	void setCellCollider(const sf::Vector2i & cellPos, u8 colliderType);
-	u8 cellCollider(const sf::Vector2i & cellPos) const;
+	void setCell(const sf::Vector2i & cellPos, u8 colliderType);
+
+	u8 cellAt(const sf::Vector2i & cellPos) const;
 
 #ifdef ZN_DEBUG
 	void debug_draw(sf::RenderTarget & target) const override;
