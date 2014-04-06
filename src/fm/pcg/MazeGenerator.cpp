@@ -141,10 +141,10 @@ void MazeGenerator::connectRandomNodes(f32 chance)
 			u32 c = grid.getNoEx(x,y);
 
 			// If the cell is a dead-end
-			if(c == Direction::WEST_BIT ||
-				c == Direction::EAST_BIT ||
-				c == Direction::SOUTH_BIT ||
-				c == Direction::NORTH_BIT)
+			if(c == Direction::RIGHT_BIT ||
+				c == Direction::LEFT_BIT ||
+				c == Direction::DOWN_BIT ||
+				c == Direction::UP_BIT)
 			{
 				// Connecting can fail, so we try to do it here and at the next iteration until it works.
 				// In that case, gen is set to false.
@@ -155,21 +155,21 @@ void MazeGenerator::connectRandomNodes(f32 chance)
 				{
 					std::vector<u32> unavailableDirs;
 
-					if(c & Direction::WEST_BIT)
+					if(c & Direction::RIGHT_BIT)
 					{
-						unavailableDirs.push_back(Direction::WEST);
+						unavailableDirs.push_back(Direction::LEFT);
 					}
-					if(c & Direction::EAST_BIT)
+					if(c & Direction::LEFT_BIT)
 					{
-						unavailableDirs.push_back(Direction::EAST);
+						unavailableDirs.push_back(Direction::RIGHT);
 					}
-					if(c & Direction::SOUTH_BIT)
+					if(c & Direction::DOWN_BIT)
 					{
-						unavailableDirs.push_back(Direction::SOUTH);
+						unavailableDirs.push_back(Direction::DOWN);
 					}
-					if(c & Direction::NORTH_BIT)
+					if(c & Direction::UP_BIT)
 					{
-						unavailableDirs.push_back(Direction::NORTH_BIT);
+						unavailableDirs.push_back(Direction::UP_BIT);
 					}
 
 					if(!unavailableDirs.empty())

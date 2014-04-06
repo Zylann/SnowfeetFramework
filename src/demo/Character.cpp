@@ -10,8 +10,8 @@ namespace demo
 
 void Character::init()
 {
-	m_spriteDir = Direction::EAST;
-	m_spriteDirLastFrame = Direction::EAST;
+	m_spriteDir = Direction::RIGHT;
+	m_spriteDirLastFrame = Direction::RIGHT;
 	r_sprite = entity().addComponent<SpriteRenderer>();
 
 	r_mover = entity().addComponent<Mover>();
@@ -41,19 +41,19 @@ void Character::onUpdate()
 
 			switch(m_spriteDir)
 			{
-			case Direction::WEST:
+			case Direction::LEFT:
 				dirName = ".left";
 				break;
 
-			case Direction::EAST:
+			case Direction::RIGHT:
 				dirName = ".right";
 				break;
 
-			case Direction::NORTH:
+			case Direction::UP:
 				dirName = ".up";
 				break;
 
-			case Direction::SOUTH:
+			case Direction::DOWN:
 				dirName = ".down";
 				break;
 

@@ -21,7 +21,7 @@ public:
 	Character() : ABehaviour(),
 		r_sprite(nullptr),
 		r_mover(nullptr),
-		m_spriteDir(Direction::SOUTH)
+		m_spriteDir(Direction::DOWN)
 	{}
 
 	virtual void init() override;

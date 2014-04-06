@@ -47,25 +47,25 @@ void Avatar::onUpdate()
 		|| sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left))
 	{
 		v.x = -1;
-		setSpriteDirection(Direction::WEST);
+		setSpriteDirection(Direction::LEFT);
 	}
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)
 		|| sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
 	{
 		v.x = 1;
-		setSpriteDirection(Direction::EAST);
+		setSpriteDirection(Direction::RIGHT);
 	}
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Z)
 		|| sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
 	{
 		v.y = -1;
-		setSpriteDirection(Direction::NORTH);
+		setSpriteDirection(Direction::UP);
 	}
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)
 		|| sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
 	{
 		v.y = 1;
-		setSpriteDirection(Direction::SOUTH);
+		setSpriteDirection(Direction::DOWN);
 	}
 
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))

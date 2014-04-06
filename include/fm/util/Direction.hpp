@@ -16,32 +16,32 @@ namespace Direction
 	// Contiguous direction identifiers
 	enum
 	{
-		EAST   = 0,
-		WEST   = 1,
-		NORTH  = 2,
-		SOUTH  = 3,
-		NONE   = 4
+		RIGHT = 0,
+		LEFT  = 1,
+		UP    = 2,
+		DOWN  = 3,
+		NONE  = 4
 	};
 
 	// Bitmasks
 	enum
 	{
-		EAST_BIT  = 1 << EAST,
-		WEST_BIT  = 1 << WEST,
-		NORTH_BIT = 1 << NORTH,
-		SOUTH_BIT = 1 << SOUTH,
-		NONE_BITS = 0,
-		ANY_BITS  = EAST_BIT | WEST_BIT | NORTH_BIT | SOUTH_BIT
+		LEFT_BIT   = 1 << RIGHT,
+		RIGHT_BIT  = 1 << LEFT,
+		UP_BIT     = 1 << UP,
+		DOWN_BIT   = 1 << DOWN,
+		NONE_BITS  = 0,
+		ANY_BITS   = LEFT_BIT | RIGHT_BIT | UP_BIT | DOWN_BIT
 	};
 
 	inline u8 opposite(u8 dir)
 	{
 		switch(dir)
 		{
-		case EAST: return WEST;
-		case WEST: return EAST;
-		case NORTH: return SOUTH;
-		case SOUTH: return NORTH;
+		case RIGHT: return LEFT;
+		case LEFT: return RIGHT;
+		case UP: return DOWN;
+		case DOWN: return UP;
 		default: return NONE;
 		}
 	}
@@ -50,10 +50,10 @@ namespace Direction
 	{
 		switch(dir)
 		{
-		case EAST: return NORTH;
-		case WEST: return SOUTH;
-		case NORTH: return WEST;
-		case SOUTH: return EAST;
+		case RIGHT: return UP;
+		case LEFT: return DOWN;
+		case UP: return LEFT;
+		case DOWN: return RIGHT;
 		default: return NONE;
 		}
 	}
@@ -62,10 +62,10 @@ namespace Direction
 	{
 		switch(dir)
 		{
-		case EAST: return SOUTH;
-		case WEST: return NORTH;
-		case NORTH: return EAST;
-		case SOUTH: return WEST;
+		case RIGHT: return DOWN;
+		case LEFT: return UP;
+		case UP: return RIGHT;
+		case DOWN: return LEFT;
 		default: return NONE;
 		}
 	}
@@ -75,14 +75,14 @@ namespace Direction
 	{
 		switch(dir)
 		{
-		case EAST: return sf::Vector2<T>(1, 0);
-		case WEST: return sf::Vector2<T>(-1, 0);
+		case RIGHT: return sf::Vector2<T>(1, 0);
+		case LEFT: return sf::Vector2<T>(-1, 0);
 #ifdef ZN_Y_UP
-		case NORTH: return sf::Vector2<T>(0, 1);
-		case SOUTH: return sf::Vector2<T>(0, -1);
+		case UP: return sf::Vector2<T>(0, 1);
+		case DOWN: return sf::Vector2<T>(0, -1);
 #else
-		case NORTH: return sf::Vector2<T>(0, -1);
-		case SOUTH: return sf::Vector2<T>(0, 1);
+		case UP: return sf::Vector2<T>(0, -1);
+		case DOWN: return sf::Vector2<T>(0, 1);
 #endif
 		default: return sf::Vector2<T>(0,0);
 		}
@@ -92,19 +92,19 @@ namespace Direction
 	inline u8 toDirectionOrtho(const sf::Vector2<T> & v)
 	{
 		if(v.x > 0)
-			return EAST;
+			return RIGHT;
 		if(v.x < 0)
-			return WEST;
+			return LEFT;
 #ifdef ZN_Y_UP
 		if(v.y > 0)
-			return NORTH;
+			return UP;
 		if(v.y < 0)
-			return SOUTH;
+			return DOWN;
 #else
 		if(v.y > 0)
-			return SOUTH;
+			return DOWN;
 		if(v.y < 0)
-			return NORTH;
+			return UP;
 #endif
 		return NONE;
 	}
@@ -113,9 +113,9 @@ namespace Direction
 	inline u8 toHorizontalDirection(T x)
 	{
 		if(x > 0)
-			return Direction::EAST;
+			return Direction::RIGHT;
 		else if(x < 0)
-			return Direction::WEST;
+			return Direction::LEFT;
 		else
 			return Direction::NONE;
 	}
@@ -125,14 +125,14 @@ namespace Direction
 	{
 #ifdef ZN_Y_UP
 		if(y > 0)
-			return Direction::NORTH;
+			return Direction::UP;
 		else if(y < 0)
-			return Direction::SOUTH;
+			return Direction::DOWN;
 #else
 		if(y > 0)
-			return Direction::SOUTH;
+			return Direction::DOWN;
 		else if(y < 0)
-			return Direction::NORTH;
+			return Direction::UP;
 #endif
 		else
 			return Direction::NONE;
@@ -146,23 +146,23 @@ namespace Direction
 			if(v.y > 0)
 			{
 				if(v.x > v.y)
-					return EAST;
+					return RIGHT;
 				else
 #ifdef ZN_Y_UP
-					return NORTH;
+					return UP;
 #else
-					return SOUTH;
+					return DOWN;
 #endif
 			}
 			else if(v.y < 0)
 			{
 				if(v.x > -v.y)
-					return EAST;
+					return RIGHT;
 				else
 #ifdef ZN_Y_UP
-					return SOUTH;
+					return DOWN;
 #else
-					return NORTH;
+					return UP;
 #endif
 			}
 		}
@@ -171,23 +171,23 @@ namespace Direction
 			if(v.y > 0)
 			{
 				if(-v.x > v.y)
-					return WEST;
+					return LEFT;
 				else
 #ifdef ZN_Y_UP
-					return NORTH;
+					return UP;
 #else
-					return SOUTH;
+					return DOWN;
 #endif
 			}
 			else if(v.y < 0)
 			{
 				if(-v.x > -v.y)
-					return WEST;
+					return LEFT;
 				else
 #ifdef ZN_Y_UP
-					return SOUTH;
+					return DOWN;
 #else
-					return NORTH;
+					return UP;
 #endif
 			}
 		}
@@ -199,10 +199,10 @@ namespace Direction
 	{
 		switch(dir)
 		{
-		case EAST: return "east";
-		case WEST: return "west";
-		case NORTH: return "north";
-		case SOUTH: return "south";
+		case RIGHT: return "right";
+		case LEFT: return "left";
+		case UP: return "up";
+		case DOWN: return "down";
 		default: return "none";
 		}
 	}
