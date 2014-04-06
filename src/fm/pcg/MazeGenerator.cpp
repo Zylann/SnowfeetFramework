@@ -11,13 +11,6 @@ MazeGenerator::MazeGenerator(u32 width, u32 height)
 }
 
 //------------------------------------------------------------------------------
-/// <summary>
-/// Generates a maze from one starting point.
-/// All corridors will be connected to this point,
-/// and no one will make any loop.
-/// </summary>
-/// <param name="seedX">Seed x.</param>
-/// <param name="seedY">Seed y.</param>
 void MazeGenerator::generate(u32 seedX, u32 seedY)
 {
 	u32 iterations = 0;
@@ -138,10 +131,6 @@ std::vector<u32> MazeGenerator::unvisitedDirections(s32 x, s32 y)
 }
 
 //------------------------------------------------------------------------------
-/// <summary>
-/// This function creates loops at random in the maze by joining corridors together.
-/// </summary>
-/// <param name="chance">Probability for a dead-end to join.</param>
 void MazeGenerator::connectRandomNodes(f32 chance)
 {
 	bool gen = false;
@@ -206,10 +195,6 @@ void MazeGenerator::connectRandomNodes(f32 chance)
 //------------------------------------------------------------------------------
 #ifdef ZN_SFML
 
-/// <summary>
-/// Bakes a texture that visually represents the generated maze.
-/// Useful for debug purpose.
-/// </summary>
 void MazeGenerator::bakeTexture(sf::Image & tex)
 {
 	tex.create(3*grid.sizeX(), 3*grid.sizeY(), sf::Color(0,0,0,0));
