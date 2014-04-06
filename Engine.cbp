@@ -112,6 +112,7 @@
 		<Unit filename="include/fm/system/filesystem.hpp" />
 		<Unit filename="include/fm/types.hpp" />
 		<Unit filename="include/fm/util/Array2D.hpp" />
+		<Unit filename="include/fm/util/ArrayPainter2D.hpp" />
 		<Unit filename="include/fm/util/Color.hpp" />
 		<Unit filename="include/fm/util/Direction.hpp" />
 		<Unit filename="include/fm/util/Exception.hpp" />
