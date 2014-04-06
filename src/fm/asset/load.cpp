@@ -26,6 +26,7 @@ bool loadFromFile(sf::Texture * asset, const std::string & filePath)
 	if(loadFromFile(doc, metaFilePath, -1, false))
 	{
 		asset->setSmooth(doc["smooth"].getBoolean());
+		asset->setRepeated(doc["repeat"].getBoolean());
 	}
 
 	return true;
