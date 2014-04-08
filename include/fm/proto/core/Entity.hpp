@@ -11,6 +11,7 @@ This file is part of the Plane-framework project.
 #include <SFML/Graphics.hpp>
 
 #include <fm/types.hpp>
+#include <fm/util/typecheck.hpp>
 #include <fm/proto/animation/Animator.hpp>
 #include <fm/proto/graphics/Camera.hpp>
 #include <fm/proto/core/Transform.hpp>
@@ -133,7 +134,7 @@ public:
 		auto it = m_components.find(ct.ID);
 		if(it != m_components.end())
 		{
-			return it->second;
+			return checked_cast<Component_T*>(it->second);
 		}
 
 		return nullptr;

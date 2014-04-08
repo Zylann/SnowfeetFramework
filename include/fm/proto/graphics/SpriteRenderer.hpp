@@ -1,7 +1,7 @@
 #ifndef HEADER_ZN_SPRITERENDERER_HPP_INCLUDED
 #define HEADER_ZN_SPRITERENDERER_HPP_INCLUDED
 
-#include "Renderer.hpp"
+#include <fm/proto/graphics/Renderer.hpp>
 
 namespace zn
 {
