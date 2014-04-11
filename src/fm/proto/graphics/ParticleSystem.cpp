@@ -17,15 +17,21 @@ void ParticleSystem::setAtlas(const TextureAtlas* atlas)
 }
 
 //------------------------------------------------------------------------------
+void ParticleSystem::setTexture(const sf::Texture * texture)
+{
+	r_texture = texture;
+}
+
+//------------------------------------------------------------------------------
 void ParticleSystem::setTextureRect(const sf::IntRect& rect)
 {
-	if(r_atlas == nullptr)
+	if(r_texture == nullptr)
 		return;
 #ifdef ZN_DEBUG
-	if(!checkTextureRect(r_atlas->texture(), rect))
-		std::cout << "E: ParticleSystem::setTextureRect: invalid rectangle ("
+	if(!checkTextureRect(*r_texture, rect))
+		log.err() << "ParticleSystem::setTextureRect: invalid rectangle ("
 			<< rect.left << ", " << rect.top << "; "
-			<< rect.width << ", " << rect.height << ")" << std::endl;
+			<< rect.width << ", " << rect.height << ")" << log.endl();
 #endif
 	m_atlasRect = rect;
 }
@@ -66,9 +72,9 @@ void ParticleSystem::setMaxParticles(u32 max)
 //------------------------------------------------------------------------------
 void ParticleSystem::updateUVs(u32 i_start)
 {
-	if(r_atlas == nullptr)
+	if(r_texture == nullptr)
 	{
-		std::cout << "E: ParticleSystem::updateUVs: no atlas defined !" << std::endl;
+		log.err() << "ParticleSystem::updateUVs: no atlas defined !" << log.endl();
 		return;
 	}
 
@@ -157,11 +163,11 @@ void ParticleSystem::onUpdate()
 void ParticleSystem::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 #ifdef ZN_DEBUG
-	if(r_atlas == nullptr)
-		std::cout << "E: ParticleSystem::draw: no atlas defined !" << std::endl;
+	if(r_texture == nullptr)
+		log.err() << "ParticleSystem::draw: no atlas defined !" << log.endl();
 #endif
 	// apply texture
-	states.texture = &r_atlas->texture();
+	states.texture = r_texture;
 
 	states.transform = entity().transform.matrix();
 
@@ -188,6 +194,13 @@ void ParticleSystem::serializeData(JsonBox::Value & o)
 	zn::serialize(o["particleLifeTime"], m_particleLifeTime);
 	zn::serialize(o["emissionZone"], m_emissionZone);
 
+	std::string textureName;
+	if(r_texture != nullptr)
+	{
+		textureName = AssetBank::current()->textures.findName(r_texture);
+	}
+	o["texture"] = textureName;
+
 	std::string atlasName;
 	if(r_atlas != nullptr)
 	{
@@ -208,12 +221,20 @@ void ParticleSystem::unserializeData(JsonBox::Value & o)
 	zn::unserialize(o["particleLifeTime"], m_particleLifeTime);
 	zn::unserialize(o["emissionZone"], m_emissionZone);
 
+	std::string textureName = o["texture"].getString();
+	r_texture = AssetBank::current()->textures.get(textureName);
+	if(r_texture == nullptr)
+	{
+		log.err() << "ParticleSystem::unserializeData: texture not found \""
+			<< textureName << '"' << log.endl();
+	}
+
 	std::string atlasName = o["atlas"].getString();
 	r_atlas = AssetBank::current()->atlases.get(atlasName);
 	if(r_atlas == nullptr)
 	{
-		std::cout << "E: ParticleSystem::unserializeData: atlas not found \""
-			<< atlasName << '"' << std::endl;
+		log.err() << "ParticleSystem::unserializeData: atlas not found \""
+			<< atlasName << '"' << log.endl();
 	}
 
 	sf::IntRect atlasRect;

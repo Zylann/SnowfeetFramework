@@ -46,6 +46,7 @@ D: Reading tileset 2...
 D: Reading tileset 3...
 I: Done
 D: Scene::addEntity: [0] map at (0, 0)
+D: MapRenderer: update monolithic mesh (100x50)
 D: Scene::addEntity: [1] main_camera at (0, 0)
 D: Scene::addEntity: [2] gui_camera at (0, 0)
 D: Scene::addEntity: [3] secondary_camera at (2048, 640)
@@ -59,4 +60,5 @@ D: Scene::addEntity: [10] ball2 at (64, 0)
 D: Scene::addEntity: [11] ball3 at (32, 0)
 D: Scene::addEntity: [12] shader_test at (2080, 992)
 D: Enter main loop
+I: screen resized (1680, 998)
 D: Exit main loop

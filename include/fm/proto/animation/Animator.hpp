@@ -2,6 +2,7 @@
 #define HEADER_ZN_AANIMATOR_HPP_INCLUDED
 
 #include <fm/proto/core/Component.hpp>
+#include <fm/asset/TextureAtlas.hpp>
 
 namespace zn
 {
@@ -20,6 +21,8 @@ public:
 	// Stops all animations.
 	// Does nothing if there is no animation playing.
 	virtual void stop() = 0;
+
+	virtual void onAtlasChanged(const TextureAtlas * newAtlas) {}
 
 };
 

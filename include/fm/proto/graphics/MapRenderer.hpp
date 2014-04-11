@@ -18,6 +18,7 @@ public:
 
 	MapRenderer() : ARenderer(),
 		r_atlas(nullptr),
+		r_texture(nullptr),
 		m_tileSize(32,32),
 		r_tiledMap(nullptr)
 	{}
@@ -25,12 +26,16 @@ public:
 	void setAtlas(const TextureAtlas * atlas) override;
 	const TextureAtlas * atlas() const override { return r_atlas; }
 
+	void setTexture(const sf::Texture * texture) override;
+	const sf::Texture * texture() const override { return r_texture; }
+
 	sf::FloatRect localBounds() const override;
 
 	void build(u32 sizeX, u32 sizeY, u32 fillTile=0);
 
 	// Setups the tilemap from a TiledMap
 	void build(const TiledMap * map,
+				const sf::Texture * texture = nullptr,
 				const TextureAtlas * atlas = nullptr,
 				const std::string layerName="",
 				const std::string tilesetName="");
@@ -73,6 +78,7 @@ protected:
 private:
 
 	const TextureAtlas *   r_atlas;
+	const sf::Texture *    r_texture;
 	sf::VertexArray        m_vertices;
 	sf::Vector2i           m_tileSize;
 

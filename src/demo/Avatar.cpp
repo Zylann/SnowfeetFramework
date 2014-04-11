@@ -21,6 +21,7 @@ void Avatar::onCreate()
 
 	Entity & e = entity();
 
+	r_sprite->setTexture(AssetBank::current()->textures.get("avatar"));
 	r_sprite->setAtlas(AssetBank::current()->atlases.get("avatar"));
 	r_sprite->setFrame("idle.down");
 	//r_sprite->setScale(sf::Vector2f(100.f, 100.f));

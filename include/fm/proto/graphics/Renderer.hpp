@@ -39,12 +39,15 @@ public:
 	// Gets the current material of this renderer, if any
 	Material * material() const;
 
-	// Gets the current atlas used by this renderer, if any
-	virtual const TextureAtlas * atlas() const { return nullptr; }
+	virtual void setTexture(const sf::Texture * texture) {}
+	virtual const sf::Texture * texture() const { return nullptr; }
 
 	// Sets the atlas this renderer should use. Note that the atlas may or may
 	// not be used depending of the type of renderer.
-	virtual void setAtlas(const TextureAtlas * atlas) {}
+	virtual void setAtlas(const TextureAtlas * atlas);
+
+	// Gets the current atlas used by this renderer, if any
+	virtual const TextureAtlas * atlas() const { return nullptr; }
 
 	// Sets the rectangle within the texture to render.
 	// This function is used by animators to switch frames of a sprite.

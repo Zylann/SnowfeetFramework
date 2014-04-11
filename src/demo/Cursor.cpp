@@ -12,7 +12,7 @@ void Cursor::onCreate()
 {
 	zn::SpriteRenderer * sprite = entity().addComponent<zn::SpriteRenderer>();
 	sf::Texture * texture = zn::AssetBank::current()->textures.get("cursor");
-	sprite->setTexture(*texture);
+	sprite->setTexture(texture);
 }
 
 void Cursor::onStart()

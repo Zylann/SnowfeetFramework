@@ -35,9 +35,9 @@ void SpriteRenderer::setTextureRect(const sf::IntRect& rect)
 		return;
 #ifdef ZN_DEBUG
 	if(!checkTextureRect(*m_sprite.getTexture(), rect))
-		cout << "E: SpriteRenderer::setTextureRect: invalid rectangle ("
+		log.err() << "SpriteRenderer::setTextureRect: invalid rectangle ("
 			<< rect.left << ", " << rect.top << "; "
-			<< rect.width << ", " << rect.height << ")" << endl;
+			<< rect.width << ", " << rect.height << ")" << log.endl();
 #endif
 	m_sprite.setTextureRect(rect);
 }
@@ -48,7 +48,6 @@ void SpriteRenderer::setAtlas(const TextureAtlas * atlas)
 	if(entity().animator() != nullptr)
 		entity().animator()->stop();
 	r_atlas = atlas;
-	m_sprite.setTexture(r_atlas->texture());
 }
 
 //------------------------------------------------------------------------------
@@ -68,12 +67,12 @@ void SpriteRenderer::setFrame(const std::string& id)
 		}
 #ifdef ZN_DEBUG
 		else
-			cout << "E: SpriteRenderer::setFrame: not found \"" << id << "\")" << endl;
+			log.err() << "SpriteRenderer::setFrame: not found \"" << id << "\")" << log.endl();
 #endif
 	}
 #ifdef ZN_DEBUG
 	else
-		cout << "E: SpriteRenderer::setFrame: no TextureAtlas" << endl;
+		log.err() << "SpriteRenderer::setFrame: no TextureAtlas" << log.endl();
 #endif
 }
 
@@ -90,17 +89,12 @@ void SpriteRenderer::serializeData(JsonBox::Value & o)
 
 	zn::serialize(o["textureRect"], m_sprite.getTextureRect());
 
-	if(r_atlas != nullptr)
-	{
-		std::string atlasName = AssetBank::current()->atlases.findName(r_atlas);
-		o["atlas"] = atlasName;
-	}
-	else
-	{
-		const sf::Texture * texture = m_sprite.getTexture();
-		std::string textureName = AssetBank::current()->textures.findName(texture);
-		o["texture"] = textureName;
-	}
+	std::string atlasName = AssetBank::current()->atlases.findName(r_atlas);
+	o["atlas"] = atlasName;
+
+	const sf::Texture * texture = m_sprite.getTexture();
+	std::string textureName = AssetBank::current()->textures.findName(texture);
+	o["texture"] = textureName;
 }
 
 //------------------------------------------------------------------------------
@@ -127,27 +121,26 @@ void SpriteRenderer::unserializeData(JsonBox::Value & o)
 		const TextureAtlas * atlas = AssetBank::current()->atlases.get(atlasName);
 		setAtlas(atlas);
 	}
-	else // If there is no atlas, get simple texture
+
+	// Get texture
+	std::string textureName = o["texture"].getString();
+	if(!textureName.empty())
 	{
-		std::string textureName = o["texture"].getString();
-		if(!textureName.empty())
+		const sf::Texture * texture = AssetBank::current()->textures.get(textureName);
+		if(texture != nullptr)
 		{
-			const sf::Texture * texture = AssetBank::current()->textures.get(textureName);
-			if(texture != nullptr)
-			{
-				setTexture(*texture);
-			}
-			else
-			{
-				std::cout << "E: SpriteRenderer::unserializeData: "
-					"texture not found \"" << textureName << '"' << std::endl;
-			}
+			setTexture(texture);
 		}
 		else
 		{
-			std::cout << "E: SpriteRenderer::unserializeData: "
-				"texture name is empty" << std::endl;
+			log.err() << "SpriteRenderer::unserializeData: "
+				"texture not found \"" << textureName << '"' << log.endl();
 		}
+	}
+	else
+	{
+		log.err() << "SpriteRenderer::unserializeData: "
+			"texture name is empty" << log.endl();
 	}
 
 	// Set texture rect after the texture is being set

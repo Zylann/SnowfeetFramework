@@ -30,8 +30,9 @@ public:
 	inline float rotation() const { return m_sprite.getRotation(); }
 	inline const sf::Color & color() const { return m_sprite.getColor(); }
 
-	void setTexture(const sf::Texture & texture) { m_sprite.setTexture(texture); }
+	void setTexture(const sf::Texture * texture) override { m_sprite.setTexture(*texture); }
 	void setTextureRect(const sf::IntRect & rect) override;
+	const sf::Texture * texture() const override { return m_sprite.getTexture(); }
 
 	const TextureAtlas * atlas() const override { return r_atlas; }
 	void setAtlas(const TextureAtlas * atlas) override;

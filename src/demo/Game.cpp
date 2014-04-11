@@ -33,7 +33,7 @@ bool Game::onInit()
 	Entity * map = m_scene.createEntity("map", sf::Vector2f(0,0));
 	const TiledMap * mapAsset = m_assets.maps.get("test_map");
 	r_tilemap = map->addComponent<MapRenderer>();
-	r_tilemap->build(mapAsset, m_assets.atlases.get("room"), "background");
+	r_tilemap->build(mapAsset, m_assets.textures.get("room"), m_assets.atlases.get("room"), "background");
 	r_tilemap->drawOrder = -10; // The map is drawn first
 	MapCollider * mc = map->addComponent<MapCollider>();
 	mc->setColliderType(1, sf::FloatRect(0, 0, ts, ts));
@@ -92,7 +92,7 @@ bool Game::onInit()
 
 	Entity * monitor = m_scene.createEntity("monitor", sf::Vector2f(64*ts, 17*ts));
 	SpriteRenderer * sprite = monitor->addComponent<SpriteRenderer>();
-	sprite->setTexture(m_renderTexture.getTexture());
+	sprite->setTexture(&m_renderTexture.getTexture());
 	sprite->drawOrder = -1;
 	sprite->setColor(sf::Color(200,200,200));
 
@@ -124,7 +124,7 @@ bool Game::onInit()
 
 	// Rotating things
 
-	const sf::Texture & ballTexture = *m_assets.textures.get("wool_ball");
+	const sf::Texture * ballTexture = m_assets.textures.get("wool_ball");
 
 	Entity * rotateObj1 = m_scene.createEntity("ball1", sf::Vector2f(50*ts, 31*ts));
 	rotateObj1->addComponent<Rotate>();
