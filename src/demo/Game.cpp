@@ -93,9 +93,8 @@ bool Game::onInit()
 
 	Entity * monitor = m_scene.createEntity("monitor", sf::Vector2f(55, 17));
 	SpriteRenderer * sprite = monitor->addComponent<SpriteRenderer>();
-	sprite->scaleToPixels(false);
-	sprite->setScale(sf::Vector2f(16,10));
 	sprite->setTexture(&m_renderTexture.getTexture());
+	sprite->setScale(1.f / DEMO_TS);
 	sprite->drawOrder = -1;
 	sprite->setColor(sf::Color(200,200,200));
 
@@ -132,19 +131,19 @@ bool Game::onInit()
 	Entity * rotateObj1 = m_scene.createEntity("ball1", sf::Vector2f(50*ts, 31*ts));
 	rotateObj1->addComponent<Rotate>();
 	sprite = rotateObj1->addComponent<SpriteRenderer>();
-	sprite->scaleToPixels(false);
+	sprite->setScale(1.f / DEMO_TS);
 	sprite->setTexture(ballTexture);
 
 	Entity * rotateObj2 = m_scene.createEntity("ball2", sf::Vector2f(2*ts, 0));
 	rotateObj2->addComponent<Rotate>();
 	sprite = rotateObj2->addComponent<SpriteRenderer>();
-	sprite->scaleToPixels(false);
+	sprite->setScale(1.f / DEMO_TS);
 	sprite->setTexture(ballTexture);
 	rotateObj2->transform.setParent(rotateObj1->transform);
 
 	Entity * rotateObj3 = m_scene.createEntity("ball3", sf::Vector2f(ts, 0));
 	sprite = rotateObj3->addComponent<SpriteRenderer>();
-	sprite->scaleToPixels(false);
+	sprite->setScale(1.f / DEMO_TS);
 	sprite->setTexture(ballTexture);
 	rotateObj3->transform.setParent(rotateObj2->transform);
 
@@ -153,7 +152,7 @@ bool Game::onInit()
 	Entity * snowTV = m_scene.createEntity("shader_test", sf::Vector2f(65*ts, 31*ts));
 	snowTV->transform.setScale(sf::Vector2f(3,3));
 	sprite = snowTV->addComponent<SpriteRenderer>();
-	sprite->scaleToPixels(false);
+	sprite->setScale(1.f / DEMO_TS);
 	sprite->setTexture(ballTexture);
 	sprite->setMaterial(m_assets.materials.get("noise"));
 

@@ -15,12 +15,12 @@ namespace zn
 //------------------------------------------------------------------------------
 SpriteRenderer::SpriteRenderer() : ARenderer(),
 	r_texture(nullptr),
-	r_atlas(nullptr)
+	r_atlas(nullptr),
+	m_scale(1,1)
 {
 	m_vertices.setPrimitiveType(sf::PrimitiveType::Quads);
 	m_vertices.resize(4);
 	m_textureRect = sf::IntRect(0,0,1,1);
-	scaleToPixels(true);
 }
 
 //------------------------------------------------------------------------------
@@ -29,21 +29,13 @@ void SpriteRenderer::setTexture(const sf::Texture * texture)
 	if(r_texture == nullptr && texture != nullptr)
 	{
 		setTextureRect(sf::IntRect(0,0, texture->getSize().x, texture->getSize().y));
+		r_texture = texture;
 	}
-	r_texture = texture;
-}
-
-//------------------------------------------------------------------------------
-void SpriteRenderer::setTexture(const sf::Texture * texture, bool resetRect)
-{
-	r_texture = texture;
-	if(resetRect && r_texture != nullptr)
+	else
 	{
-		setTextureRect(sf::IntRect(0,0, texture->getSize().x, texture->getSize().y));
-	}
-
-	if(m_scaleToPixels)
+		r_texture = texture;
 		updateVertices();
+	}
 }
 
 //------------------------------------------------------------------------------
@@ -69,22 +61,27 @@ void SpriteRenderer::setScale(const sf::Vector2f & scale)
 }
 
 //------------------------------------------------------------------------------
-void SpriteRenderer::updateVertices()
+void SpriteRenderer::scaleToPixels()
 {
-	m_vertices[0].position = sf::Vector2f(0, 0);
-	m_vertices[1].position = sf::Vector2f(m_scale.x, 0);
-	m_vertices[2].position = sf::Vector2f(m_scale.x, m_scale.y);
-	m_vertices[3].position = sf::Vector2f(0, m_scale.y);
+	if(r_texture != nullptr)
+	{
+		m_scale.x = r_texture->getSize().x;
+		m_scale.y = r_texture->getSize().y;
+	}
 }
 
 //------------------------------------------------------------------------------
-void SpriteRenderer::scaleToPixels(bool enable)
+void SpriteRenderer::updateVertices()
 {
-	m_scaleToPixels = enable;
-	if(m_scaleToPixels)
-	{
-		setScale(sf::Vector2f(m_textureRect.width, m_textureRect.height));
-	}
+	f32 left = 0;
+	f32 top = 0;
+	f32 right = static_cast<f32>(m_textureRect.width) * m_scale.x;
+	f32 bottom = static_cast<f32>(m_textureRect.height) * m_scale.y;
+
+	m_vertices[0].position = sf::Vector2f(left, top);
+	m_vertices[1].position = sf::Vector2f(right, top);
+	m_vertices[2].position = sf::Vector2f(right, bottom);
+	m_vertices[3].position = sf::Vector2f(left, bottom);
 }
 
 //------------------------------------------------------------------------------
@@ -132,10 +129,7 @@ void SpriteRenderer::setTextureRect(const sf::IntRect& rect)
 	m_vertices[2].texCoords = sf::Vector2f(right, bottom);
 	m_vertices[3].texCoords = sf::Vector2f(left, bottom);
 
-	if(m_scaleToPixels)
-	{
-		setScale(sf::Vector2f(m_textureRect.width, m_textureRect.height));
-	}
+	updateVertices();
 }
 
 //------------------------------------------------------------------------------
@@ -179,7 +173,6 @@ void SpriteRenderer::serializeData(JsonBox::Value & o)
 	zn::serialize(o["color"], color());
 	zn::serialize(o["textureRect"], m_textureRect);
 	zn::serialize(o["scale"], m_scale);
-	o["scaleToPixels"] = m_scaleToPixels;
 
 	std::string atlasName = AssetBank::current()->atlases.findName(r_atlas);
 	o["atlas"] = atlasName;
@@ -230,7 +223,6 @@ void SpriteRenderer::unserializeData(JsonBox::Value & o)
 	sf::IntRect textureRect;
 	zn::unserialize(o["textureRect"], textureRect);
 	zn::unserialize(o["scale"], m_scale);
-	m_scaleToPixels = o["scaleToPixels"].getBoolean();
 	setTextureRect(textureRect);
 
 	updateVertices();

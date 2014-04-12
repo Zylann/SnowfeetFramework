@@ -17,14 +17,14 @@ public:
 	void setColor(sf::Color color);
 	const sf::Color & color() const;
 
+	inline void setScale(f32 scaleXY) { setScale(sf::Vector2f(scaleXY, scaleXY)); }
 	void setScale(const sf::Vector2f & scale);
-	void scaleToPixels(bool enable);
-	inline bool scaledToPixels() const { return m_scaleToPixels; }
+	inline const sf::Vector2f & scale() const { return m_scale; }
+	void scaleToPixels();
 
 	sf::FloatRect localBounds() const override;
 
 	void setTexture(const sf::Texture * texture) override;
-	void setTexture(const sf::Texture * texture, bool resetRect);
 	void setTextureRect(const sf::IntRect & rect) override;
 	const sf::Texture * texture() const override { return r_texture; }
 
@@ -49,7 +49,6 @@ private:
 	const sf::Texture * r_texture;
 	const TextureAtlas * r_atlas;
 	sf::Vector2f m_scale;
-	bool m_scaleToPixels;
 
 };
 
