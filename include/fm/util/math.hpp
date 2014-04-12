@@ -9,6 +9,7 @@ This file is part of the zCraft framework.
 
 #include <cmath>
 #include <cstdlib>
+#include <ctime>
 #include <fm/types.hpp>
 
 namespace zn
@@ -116,6 +117,18 @@ inline const T & clamp(const T & x, const T & min, const T & max)
 	else if(x < min)
 		return min;
 	return x;
+}
+
+/// \brief Initializes the random seed used by math random functions
+inline void randomSeed()
+{
+	std::srand(std::time(nullptr));
+}
+
+/// \brief Sets a specific seed for math random functions
+inline void randomSeed(s32 seed)
+{
+	std::srand(seed);
 }
 
 /**
