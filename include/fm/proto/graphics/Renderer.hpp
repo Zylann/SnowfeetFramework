@@ -44,7 +44,7 @@ public:
 
 	// Sets the atlas this renderer should use. Note that the atlas may or may
 	// not be used depending of the type of renderer.
-	virtual void setAtlas(const TextureAtlas * atlas);
+	virtual void setAtlas(const TextureAtlas * atlas) {}
 
 	// Gets the current atlas used by this renderer, if any
 	virtual const TextureAtlas * atlas() const { return nullptr; }
@@ -64,6 +64,8 @@ protected:
 		drawOrder(0),
 		r_material(nullptr)
 	{}
+
+	void onAtlasChanged(const TextureAtlas * atlas);
 
 	Material * r_material;
 

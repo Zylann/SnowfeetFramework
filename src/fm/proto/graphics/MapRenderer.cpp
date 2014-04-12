@@ -13,6 +13,7 @@ namespace zn
 void MapRenderer::setAtlas(const TextureAtlas * atlas)
 {
 	r_atlas = atlas;
+	onAtlasChanged(atlas);
 }
 
 //------------------------------------------------------------------------------
@@ -25,13 +26,13 @@ void MapRenderer::setTexture(const sf::Texture * texture)
 sf::FloatRect MapRenderer::localBounds() const
 {
 	return sf::FloatRect(0, 0,
-		m_tileSize.x * tiles.sizeX(),
-		m_tileSize.y * tiles.sizeY()
+		m_sceneTileSize.x * tiles.sizeX(),
+		m_sceneTileSize.y * tiles.sizeY()
 	);
 }
 
 //------------------------------------------------------------------------------
-void MapRenderer::setTileSize(sf::Vector2i sizePx)
+void MapRenderer::setTextureTileSize(sf::Vector2i sizePx)
 {
 #ifdef ZN_DEBUG
 	if(r_atlas != nullptr && r_texture != nullptr)
@@ -39,19 +40,19 @@ void MapRenderer::setTileSize(sf::Vector2i sizePx)
 		if(sizePx.x > static_cast<s32>(r_texture->getSize().x) ||
 			sizePx.y > static_cast<s32>(r_texture->getSize().y))
 		{
-			log.err() << "MapRenderer::setTileSize: "
+			log.err() << "MapRenderer::setTextureTileSize: "
 				"sizePx is too big : " << sizePx.x << "x" << sizePx.y << log.endl();
 			return;
 		}
 		else if(sizePx.x <= 0 || sizePx.y <= 0)
 		{
-			log.err() << "MapRenderer::setTileSize: "
+			log.err() << "MapRenderer::setTextureTileSize: "
 				"invalid sizePx : " << sizePx.x << "x" << sizePx.y << log.endl();
 			return;
 		}
 	}
 #endif
-	m_tileSize = sizePx;
+	m_textureTileSize = sizePx;
 }
 
 //------------------------------------------------------------------------------
@@ -162,6 +163,8 @@ void MapRenderer::build(const TiledMap * map,
 		}
 	}
 
+	setTextureTileSize(r_tiledMap->tileSize);
+
 	updateMesh();
 }
 
@@ -220,21 +223,21 @@ void MapRenderer::updateTile(u32 i, u32 j)
 
 	if(tileNumber >= 0)
 	{
-		// find its position in the tileset texture
-		s32 tu = tileNumber % (texture.getSize().x / m_tileSize.x);
-		s32 tv = tileNumber / (texture.getSize().y / m_tileSize.y);
-
 		// define its 4 corners
-		quad[0].position = sf::Vector2f(i * m_tileSize.x, j * m_tileSize.y);
-		quad[1].position = sf::Vector2f((i + 1) * m_tileSize.x, j * m_tileSize.y);
-		quad[2].position = sf::Vector2f((i + 1) * m_tileSize.x, (j + 1) * m_tileSize.y);
-		quad[3].position = sf::Vector2f(i * m_tileSize.x, (j + 1) * m_tileSize.y);
+		quad[0].position = sf::Vector2f(i * m_sceneTileSize.x, j * m_sceneTileSize.y);
+		quad[1].position = sf::Vector2f((i + 1) * m_sceneTileSize.x, j * m_sceneTileSize.y);
+		quad[2].position = sf::Vector2f((i + 1) * m_sceneTileSize.x, (j + 1) * m_sceneTileSize.y);
+		quad[3].position = sf::Vector2f(i * m_sceneTileSize.x, (j + 1) * m_sceneTileSize.y);
+
+		// find its position in the tileset texture
+		s32 tu = tileNumber % (texture.getSize().x / m_textureTileSize.x);
+		s32 tv = tileNumber / (texture.getSize().y / m_textureTileSize.y);
 
 		// define its 4 texture coordinates
-		quad[0].texCoords = sf::Vector2f(tu * m_tileSize.x + pad, tv * m_tileSize.y + pad);
-		quad[1].texCoords = sf::Vector2f((tu + 1) * m_tileSize.x - pad, tv * m_tileSize.y + pad);
-		quad[2].texCoords = sf::Vector2f((tu + 1) * m_tileSize.x - pad, (tv + 1) * m_tileSize.y - pad);
-		quad[3].texCoords = sf::Vector2f(tu * m_tileSize.x + pad, (tv + 1) * m_tileSize.y - pad);
+		quad[0].texCoords = sf::Vector2f(tu * m_textureTileSize.x + pad, tv * m_textureTileSize.y + pad);
+		quad[1].texCoords = sf::Vector2f((tu + 1) * m_textureTileSize.x - pad, tv * m_textureTileSize.y + pad);
+		quad[2].texCoords = sf::Vector2f((tu + 1) * m_textureTileSize.x - pad, (tv + 1) * m_textureTileSize.y - pad);
+		quad[3].texCoords = sf::Vector2f(tu * m_textureTileSize.x + pad, (tv + 1) * m_textureTileSize.y - pad);
 	}
 	else
 	{
@@ -295,7 +298,8 @@ void MapRenderer::serializeData(JsonBox::Value & o)
 
 	// Tiles
 
-	zn::serialize(o["tileSize"], m_tileSize);
+	zn::serialize(o["textureTileSize"], m_textureTileSize);
+	zn::serialize(o["sceneTileSize"], m_sceneTileSize);
 
 	zn::serialize(o["size"], sf::Vector2i(tiles.sizeX(), tiles.sizeY()));
 
@@ -341,7 +345,8 @@ void MapRenderer::unserializeData(JsonBox::Value & o)
 
 	// Tiles
 
-	zn::unserialize(o["tileSize"], m_tileSize);
+	zn::unserialize(o["textureTileSize"], m_textureTileSize);
+	zn::unserialize(o["sceneTileSize"], m_sceneTileSize);
 
 	sf::Vector2i size;
 	zn::unserialize(o["size"], size);
@@ -353,12 +358,6 @@ void MapRenderer::unserializeData(JsonBox::Value & o)
 	{
 		tiles[i] = data[i].getInt();
 	}
-}
-
-//------------------------------------------------------------------------------
-void MapRenderer::postUnserialize()
-{
-
 }
 
 } // namespace zn

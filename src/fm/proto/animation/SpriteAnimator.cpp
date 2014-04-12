@@ -42,6 +42,7 @@ void SpriteAnimator::onAtlasChanged(const TextureAtlas * newAtlas)
 		r_sequence = newAtlas->sequence(m_sequenceName);
 		if(r_sequence == nullptr)
 		{
+			stop();
 			m_sequenceName = "";
 		}
 	}

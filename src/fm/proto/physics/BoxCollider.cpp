@@ -76,7 +76,7 @@ void BoxCollider::debug_draw(sf::RenderTarget & target) const
 	rect.setSize(sf::Vector2f(m_rect.width, m_rect.height));
 	rect.setPosition(sf::Vector2f(m_rect.left, m_rect.top) + entity().transform.position());
 	rect.setOutlineColor(sf::Color::Green);
-	rect.setOutlineThickness(1);
+	rect.setOutlineThickness(math::min(m_rect.width,m_rect.height) * 0.02);
 	rect.setFillColor(sf::Color::Transparent);
 	target.draw(rect);
 }

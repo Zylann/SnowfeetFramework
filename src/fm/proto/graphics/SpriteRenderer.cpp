@@ -13,41 +13,136 @@ namespace zn
 {
 
 //------------------------------------------------------------------------------
+SpriteRenderer::SpriteRenderer() : ARenderer(),
+	r_texture(nullptr),
+	r_atlas(nullptr)
+{
+	m_vertices.setPrimitiveType(sf::PrimitiveType::Quads);
+	m_vertices.resize(4);
+	m_textureRect = sf::IntRect(0,0,1,1);
+	scaleToPixels(true);
+}
+
+//------------------------------------------------------------------------------
+void SpriteRenderer::setTexture(const sf::Texture * texture)
+{
+	if(r_texture == nullptr && texture != nullptr)
+	{
+		setTextureRect(sf::IntRect(0,0, texture->getSize().x, texture->getSize().y));
+	}
+	r_texture = texture;
+}
+
+//------------------------------------------------------------------------------
+void SpriteRenderer::setTexture(const sf::Texture * texture, bool resetRect)
+{
+	r_texture = texture;
+	if(resetRect && r_texture != nullptr)
+	{
+		setTextureRect(sf::IntRect(0,0, texture->getSize().x, texture->getSize().y));
+	}
+
+	if(m_scaleToPixels)
+		updateVertices();
+}
+
+//------------------------------------------------------------------------------
+void SpriteRenderer::setColor(sf::Color color)
+{
+	m_vertices[0].color = color;
+	m_vertices[1].color = color;
+	m_vertices[2].color = color;
+	m_vertices[3].color = color;
+}
+
+//------------------------------------------------------------------------------
+const sf::Color & SpriteRenderer::color() const
+{
+	return m_vertices[0].color;
+}
+
+//------------------------------------------------------------------------------
+void SpriteRenderer::setScale(const sf::Vector2f & scale)
+{
+	m_scale = scale;
+	updateVertices();
+}
+
+//------------------------------------------------------------------------------
+void SpriteRenderer::updateVertices()
+{
+	m_vertices[0].position = sf::Vector2f(0, 0);
+	m_vertices[1].position = sf::Vector2f(m_scale.x, 0);
+	m_vertices[2].position = sf::Vector2f(m_scale.x, m_scale.y);
+	m_vertices[3].position = sf::Vector2f(0, m_scale.y);
+}
+
+//------------------------------------------------------------------------------
+void SpriteRenderer::scaleToPixels(bool enable)
+{
+	m_scaleToPixels = enable;
+	if(m_scaleToPixels)
+	{
+		setScale(sf::Vector2f(m_textureRect.width, m_textureRect.height));
+	}
+}
+
+//------------------------------------------------------------------------------
 void SpriteRenderer::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	states.transform.combine(entity().transform.matrix());
-
-	target.draw(m_sprite, states);
+	states.texture = r_texture;
+	target.draw(m_vertices, states);
 }
 
 //------------------------------------------------------------------------------
 sf::FloatRect SpriteRenderer::localBounds() const
 {
-	// Note: currently, sprites have an internal transform.
-	// this is the global bounds from this transform, not the one from the entity hierarchy.
-	return m_sprite.getGlobalBounds();
+	const sf::Vector2f & o = m_vertices[0].position;
+	return sf::FloatRect(
+		o.x,
+		o.y,
+		m_vertices[2].position.x - o.x,
+		m_vertices[2].position.y - o.y
+	);
 }
 
 //------------------------------------------------------------------------------
 void SpriteRenderer::setTextureRect(const sf::IntRect& rect)
 {
-	if(m_sprite.getTexture() == nullptr)
-		return;
 #ifdef ZN_DEBUG
-	if(!checkTextureRect(*m_sprite.getTexture(), rect))
-		log.err() << "SpriteRenderer::setTextureRect: invalid rectangle ("
-			<< rect.left << ", " << rect.top << "; "
-			<< rect.width << ", " << rect.height << ")" << log.endl();
+	if(r_texture != nullptr)
+	{
+		if(!checkTextureRect(*r_texture, rect))
+			log.warn() << "SpriteRenderer::setTextureRect: invalid rectangle ("
+				<< rect.left << ", " << rect.top << "; "
+				<< rect.width << ", " << rect.height << ")" << log.endl();
+	}
 #endif
-	m_sprite.setTextureRect(rect);
+
+	m_textureRect = rect;
+
+	f32 left = rect.left;
+	f32 right = rect.left + rect.width;
+	f32 bottom = rect.top + rect.height;
+	f32 top = rect.top;
+
+	m_vertices[0].texCoords = sf::Vector2f(left, top);
+	m_vertices[1].texCoords = sf::Vector2f(right, top);
+	m_vertices[2].texCoords = sf::Vector2f(right, bottom);
+	m_vertices[3].texCoords = sf::Vector2f(left, bottom);
+
+	if(m_scaleToPixels)
+	{
+		setScale(sf::Vector2f(m_textureRect.width, m_textureRect.height));
+	}
 }
 
 //------------------------------------------------------------------------------
 void SpriteRenderer::setAtlas(const TextureAtlas * atlas)
 {
-	if(entity().animator() != nullptr)
-		entity().animator()->stop();
 	r_atlas = atlas;
+	onAtlasChanged(atlas);
 }
 
 //------------------------------------------------------------------------------
@@ -58,7 +153,7 @@ void SpriteRenderer::setFrame(const std::string& id)
 		const TextureAtlas::Frame * f = r_atlas->frame(id);
 		if(f != nullptr)
 		{
-			m_sprite.setTextureRect(f->rect);
+			setTextureRect(f->rect);
 
 			if(entity().animator() != nullptr)
 			{
@@ -81,19 +176,15 @@ void SpriteRenderer::serializeData(JsonBox::Value & o)
 {
 	ARenderer::serializeData(o);
 
-	zn::serialize(o["position"], position());
-	zn::serialize(o["origin"], origin());
-	zn::serialize(o["scale"], scale());
 	zn::serialize(o["color"], color());
-	o["rotation"] = rotation();
-
-	zn::serialize(o["textureRect"], m_sprite.getTextureRect());
+	zn::serialize(o["textureRect"], m_textureRect);
+	zn::serialize(o["scale"], m_scale);
+	o["scaleToPixels"] = m_scaleToPixels;
 
 	std::string atlasName = AssetBank::current()->atlases.findName(r_atlas);
 	o["atlas"] = atlasName;
 
-	const sf::Texture * texture = m_sprite.getTexture();
-	std::string textureName = AssetBank::current()->textures.findName(texture);
+	std::string textureName = AssetBank::current()->textures.findName(r_texture);
 	o["texture"] = textureName;
 }
 
@@ -102,17 +193,9 @@ void SpriteRenderer::unserializeData(JsonBox::Value & o)
 {
 	ARenderer::unserialize(o);
 
-	sf::Vector2f v;
-
-	zn::unserialize(o["position"], v);   setPosition(v);
-	zn::unserialize(o["origin"], v);     setOrigin(v);
-	zn::unserialize(o["scale"], v);      setScale(v);
-
 	sf::Color c;
 	zn::unserialize(o["color"], c);
 	setColor(c);
-
-	setRotation(o["rotation"].getDouble());
 
 	// Get atlas
 	std::string atlasName = o["atlas"].getString();
@@ -146,13 +229,11 @@ void SpriteRenderer::unserializeData(JsonBox::Value & o)
 	// Set texture rect after the texture is being set
 	sf::IntRect textureRect;
 	zn::unserialize(o["textureRect"], textureRect);
+	zn::unserialize(o["scale"], m_scale);
+	m_scaleToPixels = o["scaleToPixels"].getBoolean();
 	setTextureRect(textureRect);
-}
 
-//------------------------------------------------------------------------------
-void SpriteRenderer::postUnserialize()
-{
-
+	updateVertices();
 }
 
 } // namespace zn

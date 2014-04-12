@@ -81,7 +81,6 @@ public:
 	// Serialization
 	void serializeData(JsonBox::Value & o) override;
 	void unserializeData(JsonBox::Value & o) override;
-	void postUnserialize() override;
 
 private:
 

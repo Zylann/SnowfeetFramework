@@ -20,7 +20,7 @@ void Cat::onCreate()
 
 	r_mover->setMaxSpeed(1.0f);
 
-	entity().addComponent<BoxCollider>()->setRect(sf::FloatRect(0, 0, 16, 16));
+	entity().addComponent<BoxCollider>()->setRect(sf::FloatRect(0, 0, 1, 1));
 
 	entity().addComponent<SpriteAnimator>();
 

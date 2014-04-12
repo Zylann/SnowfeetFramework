@@ -26,10 +26,10 @@ void Avatar::onCreate()
 	r_sprite->setFrame("idle.down");
 	//r_sprite->setScale(sf::Vector2f(100.f, 100.f));
 
-	r_mover->setMaxSpeed(2.5f);
+	r_mover->setMaxSpeed(4.5f);
 
 	auto collider = e.addComponent<BoxCollider>();
-	collider->setRect(sf::FloatRect(4, 7, 24, 24));
+	collider->setRect(sf::FloatRect(0.125, 0.21875, 0.75, 0.75));
 	//collider->enable(false);
 
 	e.addComponent<SpriteAnimator>();
@@ -102,7 +102,7 @@ void Avatar::onUpdate()
 	// Make the camera follow
 
 	Entity & cam = entity().scene().mainCamera()->entity();
-	cam.transform.setPosition(entity().transform.position() + sf::Vector2f(16,16));
+	cam.transform.setPosition(entity().transform.position() + sf::Vector2f(0.5f,0.5f));
 	cam.transform.setRotation(sin(0.5f*entity().scene().time().asSeconds()));
 
 	// Character-specific stuff (sprite orientation...)

@@ -31,7 +31,7 @@ Material * ARenderer::material() const
 }
 
 //------------------------------------------------------------------------------
-void ARenderer::setAtlas(const TextureAtlas * atlas)
+void ARenderer::onAtlasChanged(const TextureAtlas * atlas)
 {
 	AAnimator * animator = entity().animator();
 	if(animator != nullptr)
