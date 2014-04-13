@@ -5,6 +5,7 @@
 #include <fm/proto/core/Component.hpp>
 #include <fm/proto/core/ComponentFactory.hpp>
 #include <fm/proto/core/Entity.hpp>
+#include <fm/proto/core/Scene.hpp>
 
 using namespace std;
 
@@ -19,6 +20,11 @@ AComponent::AComponent() :
 
 AComponent::~AComponent()
 {
+	if(receivesInput())
+	{
+		// Remove the event callback
+		receiveInput(false);
+	}
 }
 
 //------------------------------------------------------------------------------
@@ -33,6 +39,21 @@ void AComponent::setEnabled(bool enable)
 	{
 		// Clear flag
 		m_flags &= ~CF_ENABLED;
+	}
+}
+
+//------------------------------------------------------------------------------
+void AComponent::receiveInput(bool enableInput)
+{
+	if(enableInput && !receivesInput())
+	{
+		m_flags |= CF_INPUT_LISTENER;
+		entity().scene().guiManager.addListener(this);
+	}
+	else if(receivesInput())
+	{
+		m_flags &= ~CF_INPUT_LISTENER;
+		entity().scene().guiManager.removeListener(this);
 	}
 }
 

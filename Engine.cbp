@@ -99,6 +99,9 @@
 		<Unit filename="include/fm/proto/graphics/Renderer.hpp" />
 		<Unit filename="include/fm/proto/graphics/SpriteRenderer.hpp" />
 		<Unit filename="include/fm/proto/graphics/TextRenderer.hpp" />
+		<Unit filename="include/fm/proto/gui/GUIManager.hpp">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="include/fm/proto/physics.hpp" />
 		<Unit filename="include/fm/proto/physics/Body.hpp" />
 		<Unit filename="include/fm/proto/physics/BoxCollider.hpp" />
@@ -107,6 +110,9 @@
 		<Unit filename="include/fm/proto/physics/MapCollider.hpp" />
 		<Unit filename="include/fm/proto/physics/PhysicsSystem.hpp" />
 		<Unit filename="include/fm/sfml/AudioSource.hpp" />
+		<Unit filename="include/fm/sfml/InputListener.hpp">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="include/fm/sfml/SpriteBatch.hpp" />
 		<Unit filename="include/fm/sfml/sfml2_utils.hpp" />
 		<Unit filename="include/fm/system/filesystem.hpp" />
@@ -170,6 +176,7 @@
 		<Unit filename="src/fm/proto/graphics/Renderer.cpp" />
 		<Unit filename="src/fm/proto/graphics/SpriteRenderer.cpp" />
 		<Unit filename="src/fm/proto/graphics/TextRenderer.cpp" />
+		<Unit filename="src/fm/proto/gui/GUIManager.cpp" />
 		<Unit filename="src/fm/proto/physics/Body.cpp" />
 		<Unit filename="src/fm/proto/physics/BoxCollider.cpp" />
 		<Unit filename="src/fm/proto/physics/Collider.cpp" />

@@ -61,4 +61,6 @@ D: Scene::addEntity: [11] ball3 at (1, 0)
 D: Scene::addEntity: [12] shader_test at (65, 31)
 D: Enter main loop
 I: screen resized (1680, 998)
+I: screen resized (800, 600)
+I: screen resized (1680, 998)
 D: Exit main loop

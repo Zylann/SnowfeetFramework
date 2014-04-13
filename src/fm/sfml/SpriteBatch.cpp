@@ -1,5 +1,6 @@
-#include <fm/graphics/SpriteBatch.hpp>
+#include <fm/sfml/SpriteBatch.hpp>
 #include <iostream>
+
 namespace zn
 {
 

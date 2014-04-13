@@ -19,6 +19,7 @@ This file is part of the Plane Framework project.
 #include <fm/proto/graphics/RenderSystem.hpp>
 #include <fm/proto/physics/PhysicsSystem.hpp>
 #include <fm/proto/core/TagManager.hpp>
+#include <fm/proto/gui/GUIManager.hpp>
 
 namespace zn
 {
@@ -28,7 +29,7 @@ namespace zn
 // Disclaimer: despite being an sf::Drawable, the scene is not dedicated to graphics,
 // it simply manages the entity list and specialized subsystems
 // (sound, graphics, physics, behaviour...).
-class ZN_API Scene : public sf::Drawable
+class ZN_API Scene : public sf::Drawable, public IInputListener
 {
 public:
 
@@ -116,6 +117,8 @@ public:
 	PhysicsSystem               physics;
 	AudioSystem                 audioSystem;
 	RenderSystem                renderSystem;
+
+	GUIManager                  guiManager;
 
 protected:
 

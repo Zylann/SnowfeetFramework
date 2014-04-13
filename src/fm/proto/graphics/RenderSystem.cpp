@@ -63,22 +63,19 @@ bool f_cameraOrder(const Camera *&cam1, const Camera *&cam2)
 }
 
 //------------------------------------------------------------------------------
-bool f_rendererOrder(const ARenderer *&r1, const ARenderer *&r2)
+// Static
+bool RenderSystem::getRendererOrder(const ARenderer * const & r1, const ARenderer * const & r2)
 {
 	s32 layerOrder1 = r1->entity().layer().drawOrder;
 	s32 layerOrder2 = r2->entity().layer().drawOrder;
 
-	if(layerOrder1 < layerOrder2)
+	if(layerOrder1 == layerOrder2)
 	{
-		return true;
-	}
-	else if(layerOrder1 > layerOrder2)
-	{
-		return false;
+		return r1->drawOrder < r2->drawOrder;
 	}
 	else
 	{
-		return r1->drawOrder < r2->drawOrder;
+		return layerOrder1 < layerOrder2;
 	}
 }
 
@@ -178,7 +175,7 @@ void RenderSystem::render(const Camera & camera, sf::RenderTarget & finalTarget,
 	viewBounds = trans.transformRect(viewBounds);
 
 	// Filter and sort renderers by draw order
-	std::list<const ARenderer*> drawList;
+	std::vector<const ARenderer*> drawList;
 	for(auto it = m_renderers.cbegin(); it != m_renderers.cend(); ++it)
 	{
 		const ARenderer * renderer = *it;
@@ -201,7 +198,7 @@ void RenderSystem::render(const Camera & camera, sf::RenderTarget & finalTarget,
 	}
 
 	// Sort the list by draw order
-	drawList.sort(f_rendererOrder);
+	std::sort(drawList.begin(), drawList.end(), getRendererOrder);
 
 	// Select the right render target
 	sf::RenderTarget & target = renderTexture != nullptr ? *renderTexture : finalTarget;
