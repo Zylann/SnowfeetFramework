@@ -1,0 +1,62 @@
+--------------------------------------------------
+This is a draft of how the project should be 
+organized in the future.
+--------------------------------------------------
+
+UserDir/
+
+	-- Engine
+	Plane/
+		include/
+			fm/
+			scene/
+
+		src/
+			fm/
+			scene/
+
+		modules/
+			editor/
+				scripts/
+					Gizmo.nut
+				Editor.mod
+
+			gui/
+				scripts/
+					Button.nut
+					Slider.nut
+					Panel.nut
+					TextBox.nut
+				cpp/
+					include/
+						JSONLoader.hpp
+					src/
+						JSONLoader.cpp
+				gui.mod
+
+			pixelshadows/
+				PixelLight.nut
+				PixelLightManager.nut
+				pixel_light.shader
+				PixelShadows.mod
+
+	-- Game
+	SomeProject/
+		myproject/
+			cpp/
+				src/
+					SomeNativeTask.hpp
+					SomeNativeTask.cpp
+			CameraHandler.nut
+			Avatar.nut
+			SnowfeetGame.nut
+			myproject.mod
+
+{
+	"Dependencies":[
+		"gui",
+		"pixelshadows"
+	],
+	"Start":"SnowfeetGame"
+}
+
