@@ -13,9 +13,11 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add option="-DSFML_DYNAMIC" />
 					<Add directory="include" />
 					<Add directory="include/fm/json" />
 					<Add directory="src" />
+					<Add directory="extlibs/include" />
 				</Compiler>
 				<Linker>
 					<Add library="proto" />
@@ -24,6 +26,7 @@
 					<Add library="sfml-window" />
 					<Add library="sfml-system" />
 					<Add directory="bin/Debug" />
+					<Add directory="extlibs/bin/gcc-mingw32" />
 				</Linker>
 			</Target>
 			<Target title="Release">

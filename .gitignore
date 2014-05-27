@@ -1,8 +1,8 @@
 bin/
+!extlibs/bin/
 obj/
 build/
 *.o
-*.exe
 
 # Code::Blocks
 *.depend
