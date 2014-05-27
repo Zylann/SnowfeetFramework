@@ -67,13 +67,20 @@ inline T maxY(const sf::Rect<T> & r) { return r.top+r.height-1; }
 // JUST tests if two rectangles are intersecting.
 // This replaces the sf::Rect::intersects method, which does a few things
 // that are not necessarily wanted, like intersection rect computation.
-template <typename T>
-inline bool intersects(const sf::Rect<T> & a, const sf::Rect<T> & b)
+inline bool intersects(const sf::IntRect & a, const sf::IntRect & b)
 {
 	return a.left+a.width-1 >= b.left
 		&& a.top+a.height-1 >= b.top
 		&& b.left+b.width-1 >= a.left
 		&& b.top+b.height-1 >= a.top;
+}
+
+inline bool intersects(const sf::FloatRect & a, const sf::FloatRect & b)
+{
+	return a.left+a.width >= b.left
+		&& a.top+a.height >= b.top
+		&& b.left+b.width >= a.left
+		&& b.top+b.height >= a.top;
 }
 
 //------------------------------------------------------------------------------

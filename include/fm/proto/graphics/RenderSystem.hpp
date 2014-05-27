@@ -65,6 +65,8 @@ public:
 	/// \return the camera from which the system is rendering now.
 	const Camera * activeCamera() const { return r_activeCamera; }
 
+	static bool getRendererOrder(const ARenderer * const &r1, const ARenderer * const &r2);
+
 private:
 
 	/// \brief performs the rendering of one camera.

@@ -13,6 +13,7 @@ void Character::onCreate()
 	m_spriteDir = Direction::RIGHT;
 	m_spriteDirLastFrame = Direction::RIGHT;
 	r_sprite = entity().addComponent<SpriteRenderer>();
+	r_sprite->setScale(1.f / DEMO_TS);
 
 	r_mover = entity().addComponent<Mover>();
 

@@ -7,18 +7,19 @@
 #include <fm/types.hpp>
 #include <fm/proto/physics/CollisionInfo.hpp>
 #include <fm/proto/core/ComponentType.hpp>
+#include <fm/sfml/InputListener.hpp>
 
 namespace zn
 {
 
 class Entity;
 
-/// \brief flags that can be set on a component (bitmasks)
+/// \brief internal flags that can be set on a component (bitmasks)
 enum ComponentFlags
 {
-	/// \brief the component's update() function hasn't been called yet
-	CF_ENABLED      = 1,
-	CF_FIRST_UPDATE = 1 << 1
+	CF_ENABLED         = 1,
+	CF_FIRST_UPDATE    = 1 << 1,
+	CF_INPUT_LISTENER  = 1 << 2
 };
 
 /// \brief A piece that composes an entity.
@@ -29,7 +30,7 @@ enum ComponentFlags
 /// if you want to implement gameplay, please derive from Behaviour instead.
 /// For serialization and execution flow reasons, components must define a default
 /// constructor and avoid to rely on a constructor with parameters.
-class ZN_API AComponent
+class ZN_API AComponent : public IInputListener
 {
 public:
 
@@ -68,6 +69,12 @@ public:
 
 	/// \brief Tells if the component is enabled.
 	inline bool enabled() const { return m_flags & CF_ENABLED; }
+
+	/// \brief Enables the onEvent() callback for input events
+	void receiveInput(bool enableInput);
+
+	/// \bief Tells if the component receives input events
+	inline bool receivesInput() const { return m_flags & CF_INPUT_LISTENER; }
 
 	//----------
 	// TODO make callbacks below optional by using an event system?

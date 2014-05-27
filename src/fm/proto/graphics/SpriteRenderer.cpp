@@ -13,42 +13,130 @@ namespace zn
 {
 
 //------------------------------------------------------------------------------
+SpriteRenderer::SpriteRenderer() : ARenderer(),
+	r_texture(nullptr),
+	r_atlas(nullptr),
+	m_scale(1,1)
+{
+	m_vertices.setPrimitiveType(sf::PrimitiveType::Quads);
+	m_vertices.resize(4);
+	m_textureRect = sf::IntRect(0,0,1,1);
+}
+
+//------------------------------------------------------------------------------
+void SpriteRenderer::setTexture(const sf::Texture * texture)
+{
+	if(r_texture == nullptr && texture != nullptr)
+	{
+		setTextureRect(sf::IntRect(0,0, texture->getSize().x, texture->getSize().y));
+		r_texture = texture;
+	}
+	else
+	{
+		r_texture = texture;
+		updateVertices();
+	}
+}
+
+//------------------------------------------------------------------------------
+void SpriteRenderer::setColor(sf::Color color)
+{
+	m_vertices[0].color = color;
+	m_vertices[1].color = color;
+	m_vertices[2].color = color;
+	m_vertices[3].color = color;
+}
+
+//------------------------------------------------------------------------------
+const sf::Color & SpriteRenderer::color() const
+{
+	return m_vertices[0].color;
+}
+
+//------------------------------------------------------------------------------
+void SpriteRenderer::setScale(const sf::Vector2f & scale)
+{
+	m_scale = scale;
+	updateVertices();
+}
+
+//------------------------------------------------------------------------------
+void SpriteRenderer::scaleToPixels()
+{
+	if(r_texture != nullptr)
+	{
+		m_scale.x = r_texture->getSize().x;
+		m_scale.y = r_texture->getSize().y;
+	}
+}
+
+//------------------------------------------------------------------------------
+void SpriteRenderer::updateVertices()
+{
+	f32 left = 0;
+	f32 top = 0;
+	f32 right = static_cast<f32>(m_textureRect.width) * m_scale.x;
+	f32 bottom = static_cast<f32>(m_textureRect.height) * m_scale.y;
+
+	m_vertices[0].position = sf::Vector2f(left, top);
+	m_vertices[1].position = sf::Vector2f(right, top);
+	m_vertices[2].position = sf::Vector2f(right, bottom);
+	m_vertices[3].position = sf::Vector2f(left, bottom);
+}
+
+//------------------------------------------------------------------------------
 void SpriteRenderer::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	states.transform.combine(entity().transform.matrix());
-
-	target.draw(m_sprite, states);
+	states.texture = r_texture;
+	target.draw(m_vertices, states);
 }
 
 //------------------------------------------------------------------------------
 sf::FloatRect SpriteRenderer::localBounds() const
 {
-	// Note: currently, sprites have an internal transform.
-	// this is the global bounds from this transform, not the one from the entity hierarchy.
-	return m_sprite.getGlobalBounds();
+	const sf::Vector2f & o = m_vertices[0].position;
+	return sf::FloatRect(
+		o.x,
+		o.y,
+		m_vertices[2].position.x - o.x,
+		m_vertices[2].position.y - o.y
+	);
 }
 
 //------------------------------------------------------------------------------
 void SpriteRenderer::setTextureRect(const sf::IntRect& rect)
 {
-	if(m_sprite.getTexture() == nullptr)
-		return;
 #ifdef ZN_DEBUG
-	if(!checkTextureRect(*m_sprite.getTexture(), rect))
-		cout << "E: SpriteRenderer::setTextureRect: invalid rectangle ("
-			<< rect.left << ", " << rect.top << "; "
-			<< rect.width << ", " << rect.height << ")" << endl;
+	if(r_texture != nullptr)
+	{
+		if(!checkTextureRect(*r_texture, rect))
+			log.warn() << "SpriteRenderer::setTextureRect: invalid rectangle ("
+				<< rect.left << ", " << rect.top << "; "
+				<< rect.width << ", " << rect.height << ")" << log.endl();
+	}
 #endif
-	m_sprite.setTextureRect(rect);
+
+	m_textureRect = rect;
+
+	f32 left = rect.left;
+	f32 right = rect.left + rect.width;
+	f32 bottom = rect.top + rect.height;
+	f32 top = rect.top;
+
+	m_vertices[0].texCoords = sf::Vector2f(left, top);
+	m_vertices[1].texCoords = sf::Vector2f(right, top);
+	m_vertices[2].texCoords = sf::Vector2f(right, bottom);
+	m_vertices[3].texCoords = sf::Vector2f(left, bottom);
+
+	updateVertices();
 }
 
 //------------------------------------------------------------------------------
 void SpriteRenderer::setAtlas(const TextureAtlas * atlas)
 {
-	if(entity().animator() != nullptr)
-		entity().animator()->stop();
 	r_atlas = atlas;
-	m_sprite.setTexture(r_atlas->texture());
+	onAtlasChanged(atlas);
 }
 
 //------------------------------------------------------------------------------
@@ -59,7 +147,7 @@ void SpriteRenderer::setFrame(const std::string& id)
 		const TextureAtlas::Frame * f = r_atlas->frame(id);
 		if(f != nullptr)
 		{
-			m_sprite.setTextureRect(f->rect);
+			setTextureRect(f->rect);
 
 			if(entity().animator() != nullptr)
 			{
@@ -68,12 +156,12 @@ void SpriteRenderer::setFrame(const std::string& id)
 		}
 #ifdef ZN_DEBUG
 		else
-			cout << "E: SpriteRenderer::setFrame: not found \"" << id << "\")" << endl;
+			log.err() << "SpriteRenderer::setFrame: not found \"" << id << "\")" << log.endl();
 #endif
 	}
 #ifdef ZN_DEBUG
 	else
-		cout << "E: SpriteRenderer::setFrame: no TextureAtlas" << endl;
+		log.err() << "SpriteRenderer::setFrame: no TextureAtlas" << log.endl();
 #endif
 }
 
@@ -82,25 +170,15 @@ void SpriteRenderer::serializeData(JsonBox::Value & o)
 {
 	ARenderer::serializeData(o);
 
-	zn::serialize(o["position"], position());
-	zn::serialize(o["origin"], origin());
-	zn::serialize(o["scale"], scale());
 	zn::serialize(o["color"], color());
-	o["rotation"] = rotation();
+	zn::serialize(o["textureRect"], m_textureRect);
+	zn::serialize(o["scale"], m_scale);
 
-	zn::serialize(o["textureRect"], m_sprite.getTextureRect());
+	std::string atlasName = AssetBank::current()->atlases.findName(r_atlas);
+	o["atlas"] = atlasName;
 
-	if(r_atlas != nullptr)
-	{
-		std::string atlasName = AssetBank::current()->atlases.findName(r_atlas);
-		o["atlas"] = atlasName;
-	}
-	else
-	{
-		const sf::Texture * texture = m_sprite.getTexture();
-		std::string textureName = AssetBank::current()->textures.findName(texture);
-		o["texture"] = textureName;
-	}
+	std::string textureName = AssetBank::current()->textures.findName(r_texture);
+	o["texture"] = textureName;
 }
 
 //------------------------------------------------------------------------------
@@ -108,17 +186,9 @@ void SpriteRenderer::unserializeData(JsonBox::Value & o)
 {
 	ARenderer::unserialize(o);
 
-	sf::Vector2f v;
-
-	zn::unserialize(o["position"], v);   setPosition(v);
-	zn::unserialize(o["origin"], v);     setOrigin(v);
-	zn::unserialize(o["scale"], v);      setScale(v);
-
 	sf::Color c;
 	zn::unserialize(o["color"], c);
 	setColor(c);
-
-	setRotation(o["rotation"].getDouble());
 
 	// Get atlas
 	std::string atlasName = o["atlas"].getString();
@@ -127,39 +197,35 @@ void SpriteRenderer::unserializeData(JsonBox::Value & o)
 		const TextureAtlas * atlas = AssetBank::current()->atlases.get(atlasName);
 		setAtlas(atlas);
 	}
-	else // If there is no atlas, get simple texture
+
+	// Get texture
+	std::string textureName = o["texture"].getString();
+	if(!textureName.empty())
 	{
-		std::string textureName = o["texture"].getString();
-		if(!textureName.empty())
+		const sf::Texture * texture = AssetBank::current()->textures.get(textureName);
+		if(texture != nullptr)
 		{
-			const sf::Texture * texture = AssetBank::current()->textures.get(textureName);
-			if(texture != nullptr)
-			{
-				setTexture(*texture);
-			}
-			else
-			{
-				std::cout << "E: SpriteRenderer::unserializeData: "
-					"texture not found \"" << textureName << '"' << std::endl;
-			}
+			setTexture(texture);
 		}
 		else
 		{
-			std::cout << "E: SpriteRenderer::unserializeData: "
-				"texture name is empty" << std::endl;
+			log.err() << "SpriteRenderer::unserializeData: "
+				"texture not found \"" << textureName << '"' << log.endl();
 		}
+	}
+	else
+	{
+		log.err() << "SpriteRenderer::unserializeData: "
+			"texture name is empty" << log.endl();
 	}
 
 	// Set texture rect after the texture is being set
 	sf::IntRect textureRect;
 	zn::unserialize(o["textureRect"], textureRect);
+	zn::unserialize(o["scale"], m_scale);
 	setTextureRect(textureRect);
-}
 
-//------------------------------------------------------------------------------
-void SpriteRenderer::postUnserialize()
-{
-
+	updateVertices();
 }
 
 } // namespace zn

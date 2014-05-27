@@ -41,7 +41,7 @@ bool TextureAtlas::loadFromJSONFile(const std::string & filePath)
 
 	// Globals
 
-	std::string textureName = doc["texture"].getString();
+	//std::string textureName = doc["texture"].getString();
 	s32 prescale = doc["prescale"].getInt();
 	s32 timescale = doc["timescale"].getInt();
 
@@ -99,6 +99,7 @@ bool TextureAtlas::loadFromJSONFile(const std::string & filePath)
 		m_sequences[name] = seq;
 	}
 
+	/*
 	// Load texture
 
 	std::string localDir = filePath.substr(0, filePath.find_last_of("/\\"));
@@ -111,6 +112,7 @@ bool TextureAtlas::loadFromJSONFile(const std::string & filePath)
 
 	// TODO add JSON option for texture smooth
 	m_texture.setSmooth(false);
+	*/
 
 	return true;
 }
@@ -156,6 +158,7 @@ void TextureAtlas::addSequence(std::string id, const Sequence & seq)
 }
 
 //------------------------------------------------------------------------------
+/*
 bool TextureAtlas::checkFrame(const sf::IntRect & rect)
 {
 	//cout << " " << rect.left << ", " << rect.top << ", " << rect.width << ", " << rect.height << " ";
@@ -170,6 +173,6 @@ const sf::Vector2i TextureAtlas::frameFromNumber(u32 i, const sf::Vector2i & til
 		i/(m_texture.getSize().x / tileSize.x) * tileSize.y
 	);
 }
-
+*/
 } // namespace zn
 

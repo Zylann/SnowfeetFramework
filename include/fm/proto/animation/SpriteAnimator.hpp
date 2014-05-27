@@ -31,6 +31,8 @@ public:
 	void unserializeData(JsonBox::Value & o) override;
 	void postUnserialize() override;
 
+	void onAtlasChanged(const TextureAtlas * newAtlas) override;
+
 protected:
 
 	void onCreate() override;

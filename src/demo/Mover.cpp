@@ -50,6 +50,8 @@ void  Mover::setVelocity(const sf::Vector2f & velocity)
 //------------------------------------------------------------------------------
 void Mover::onUpdate()
 {
+	f32 dt = entity().scene().deltaTime().asSeconds();
+
 	if(isZero(m_acceleration))
 	{
 		// Braking
@@ -75,7 +77,7 @@ void Mover::onUpdate()
 
 	if(speed > 0.01f)
 	{
-		sf::Vector2f motion = m_velocity;
+		sf::Vector2f motion = m_velocity * dt;
 		const ACollider * collider = entity().collider();
 		sf::FloatRect rect = collider->bounds();
 		sf::Vector2f pos = entity().transform.position();
@@ -83,36 +85,49 @@ void Mover::onUpdate()
 		rect.left += pos.x;
 		rect.top += pos.y;
 
-		const f32 fraction = 1.f;
+		//std::cout << rect.left << ", " << rect.top << ", " << rect.width << ", " << rect.height << std::endl;
+
+		const s32 fractionCount = 4;
+		const f32 fraction = 1.f / static_cast<f32>(fractionCount);
 		sf::Vector2f u = fraction * motion;
 
 		ACollider * otherCollider;
 
-		for(u8 i=0; i<32 && !isZero(motion); ++i)
+		// While motion is not zero
+		for(u8 i=0; i<fractionCount && !isZero(motion); ++i)
 		{
+			// If motion remains on X
 			if(!math::isZero(motion.x))
 			{
+				// Advance a bit on X
 				rect.left += u.x;
 				otherCollider = entity().scene().physics.colliderAt(rect, collider);
+				// If we collide horizontally
 				if(otherCollider != nullptr)
 				{
-					// Horizontal collision
+					// Horizontal collision event
 					entity().onCollisionEnter(CollisionInfo(otherCollider));
+					// Go back
 					rect.left -= u.x;
+					// Stop motion on X
 					motion.x = 0;
 					u.x = 0;
 				}
 				else
 				{
+					// Remove the part of motion we just moved
 					motion.x -= u.x;
+					// If there is no more to advance on X
 					if(math::isZero(motion.x))
 					{
+						// Finished to advance on X
 						motion.x = 0;
 						u.x = 0;
 					}
 				}
 			}
 
+			// Same on Y
 			if(!math::isZero(motion.y))
 			{
 				rect.top += u.y;

@@ -17,13 +17,18 @@ public:
 		m_maxParticles(0),
 		m_particleRadius(1,1),
 		m_particleLifeTime(10,10),
-		r_atlas(nullptr)
+		r_atlas(nullptr),
+		r_texture(nullptr)
 	{
 		m_vertices.setPrimitiveType(sf::Quads);
 	}
 
 	const TextureAtlas * atlas() const override { return r_atlas; }
 	void setAtlas(const TextureAtlas * atlas) override;
+
+	const sf::Texture * texture() const override { return r_texture; }
+	void setTexture(const sf::Texture * texture) override;
+
 	void setTextureRect(const sf::IntRect & rect) override;
 
 	sf::FloatRect localBounds() const override;
@@ -54,6 +59,7 @@ private:
 	Range<f32>             m_particleLifeTime;
 	sf::FloatRect          m_emissionZone; // TODO more particle shapes
 	const TextureAtlas *   r_atlas;
+	const sf::Texture *    r_texture;
 	sf::IntRect            m_atlasRect;
 	sf::VertexArray        m_vertices;
 

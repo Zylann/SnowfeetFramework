@@ -9,41 +9,50 @@
 namespace zn
 {
 
+//------------------------------------------------------------------------------
 void MapRenderer::setAtlas(const TextureAtlas * atlas)
 {
 	r_atlas = atlas;
+	onAtlasChanged(atlas);
+}
+
+//------------------------------------------------------------------------------
+void MapRenderer::setTexture(const sf::Texture * texture)
+{
+	r_texture = texture;
 }
 
 //------------------------------------------------------------------------------
 sf::FloatRect MapRenderer::localBounds() const
 {
 	return sf::FloatRect(0, 0,
-		m_tileSize.x * tiles.sizeX(),
-		m_tileSize.y * tiles.sizeY()
+		m_sceneTileSize.x * tiles.sizeX(),
+		m_sceneTileSize.y * tiles.sizeY()
 	);
 }
 
 //------------------------------------------------------------------------------
-void MapRenderer::setTileSize(sf::Vector2i sizePx)
+void MapRenderer::setTextureTileSize(sf::Vector2i sizePx)
 {
 #ifdef ZN_DEBUG
-	if(r_atlas != nullptr)
+	if(r_atlas != nullptr && r_texture != nullptr)
 	{
-		if(sizePx.x > static_cast<s32>(r_atlas->texture().getSize().x) ||
-			sizePx.y > static_cast<s32>(r_atlas->texture().getSize().y))
+		if(sizePx.x > static_cast<s32>(r_texture->getSize().x) ||
+			sizePx.y > static_cast<s32>(r_texture->getSize().y))
 		{
-			std::cout << "E: MapRenderer::setAtlasTileSize: sizePx is too big : " << sizePx.x << "x" << sizePx.y << std::endl;
+			log.err() << "MapRenderer::setTextureTileSize: "
+				"sizePx is too big : " << sizePx.x << "x" << sizePx.y << log.endl();
 			return;
 		}
-		else if(sizePx.x == 0 || sizePx.y == 0)
+		else if(sizePx.x <= 0 || sizePx.y <= 0)
 		{
-			std::cout << "E: MapRenderer::setAtlasTileSize: invalid sizePx : " << sizePx.x << "x" << sizePx.y << std::endl;
+			log.err() << "MapRenderer::setTextureTileSize: "
+				"invalid sizePx : " << sizePx.x << "x" << sizePx.y << log.endl();
 			return;
 		}
 	}
 #endif
-	m_tileSize = sizePx;
-
+	m_textureTileSize = sizePx;
 }
 
 //------------------------------------------------------------------------------
@@ -55,6 +64,7 @@ void MapRenderer::build(u32 sizeX, u32 sizeY, u32 fillTile)
 
 //------------------------------------------------------------------------------
 void MapRenderer::build(const TiledMap * map,
+						const sf::Texture * texture,
 						const TextureAtlas * atlas,
 						const std::string layerName,
 						const std::string tilesetName)
@@ -76,6 +86,13 @@ void MapRenderer::build(const TiledMap * map,
 		m_tiledTilesetName = tilesetName;
 	}
 
+	// If a new texture is specified
+	if(texture != nullptr)
+	{
+		// Set texture
+		r_texture = texture;
+	}
+
 	// If a new atlas is specified
 	if(atlas != nullptr)
 	{
@@ -86,14 +103,14 @@ void MapRenderer::build(const TiledMap * map,
 	// Check existence of a layer
 	if(r_tiledMap->layers.empty())
 	{
-		std::cout << "E: MapRenderer::setMap: no layer in TiledMap !" << std::endl;
+		log.err() << "MapRenderer::build: no layer in TiledMap !" << log.endl();
 		return;
 	}
 
 	// Check existence of a tileset
 	if(r_tiledMap->tileSets.empty())
 	{
-		std::cout << "E: MapRenderer::setMap: no tileset in TiledMap !" << std::endl;
+		log.err() << "MapRenderer::build: no tileset in TiledMap !" << log.endl();
 		return;
 	}
 
@@ -109,8 +126,8 @@ void MapRenderer::build(const TiledMap * map,
 #ifdef ZN_DEBUG
 		if(layer == nullptr)
 		{
-			std::cout << "E: MapRenderer::setMap: TiledMap layer not found : \""
-				<< m_tiledLayerName << '"' << std::endl;
+			log.err() << "MapRenderer::build: TiledMap layer not found : \""
+				<< m_tiledLayerName << '"' << log.endl();
 		}
 #endif
 	}
@@ -146,6 +163,8 @@ void MapRenderer::build(const TiledMap * map,
 		}
 	}
 
+	setTextureTileSize(r_tiledMap->tileSize);
+
 	updateMesh();
 }
 
@@ -153,14 +172,14 @@ void MapRenderer::build(const TiledMap * map,
 void MapRenderer::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 #ifdef ZN_DEBUG
-	if(r_atlas == nullptr)
-		std::cout << "E: MapRenderer::draw: no atlas defined !" << std::endl;
+	if(r_texture == nullptr)
+		log.err() << "MapRenderer::draw: no atlas defined !" << log.endl();
 #endif
 
 	states.transform.combine(entity().transform.matrix());
 
 	// apply the texture
-	states.texture = &r_atlas->texture();
+	states.texture = r_texture;
 
 	// draw the vertex array
 	target.draw(m_vertices, states);
@@ -173,9 +192,8 @@ void MapRenderer::updateMesh()
 	m_vertices.resize(tiles.sizeX() * tiles.sizeY() * 4);
 
 #ifdef ZN_DEBUG
-	std::cout << "D: MapRenderer: update monolithic mesh ("
-		<< tiles.sizeX() << "x" << tiles.sizeY() << ")"
-		<< std::endl;
+	log.debug() << "MapRenderer: update monolithic mesh ("
+		<< tiles.sizeX() << "x" << tiles.sizeY() << ")" << log.endl();
 #endif
 
 	// populate the vertex array, with one quad per tile
@@ -195,7 +213,7 @@ void MapRenderer::updateTile(u32 i, u32 j)
 	// when the map is not rendered on an integer scale (or rotated)
 	const f32 pad = 0.01f;
 
-	const sf::Texture & texture = r_atlas->texture();
+	const sf::Texture & texture = *r_texture;
 
 	// get the current tile number
 	s32 tileNumber = tiles.getNoEx(i, j);
@@ -205,21 +223,21 @@ void MapRenderer::updateTile(u32 i, u32 j)
 
 	if(tileNumber >= 0)
 	{
-		// find its position in the tileset texture
-		s32 tu = tileNumber % (texture.getSize().x / m_tileSize.x);
-		s32 tv = tileNumber / (texture.getSize().y / m_tileSize.y);
-
 		// define its 4 corners
-		quad[0].position = sf::Vector2f(i * m_tileSize.x, j * m_tileSize.y);
-		quad[1].position = sf::Vector2f((i + 1) * m_tileSize.x, j * m_tileSize.y);
-		quad[2].position = sf::Vector2f((i + 1) * m_tileSize.x, (j + 1) * m_tileSize.y);
-		quad[3].position = sf::Vector2f(i * m_tileSize.x, (j + 1) * m_tileSize.y);
+		quad[0].position = sf::Vector2f(i * m_sceneTileSize.x, j * m_sceneTileSize.y);
+		quad[1].position = sf::Vector2f((i + 1) * m_sceneTileSize.x, j * m_sceneTileSize.y);
+		quad[2].position = sf::Vector2f((i + 1) * m_sceneTileSize.x, (j + 1) * m_sceneTileSize.y);
+		quad[3].position = sf::Vector2f(i * m_sceneTileSize.x, (j + 1) * m_sceneTileSize.y);
+
+		// find its position in the tileset texture
+		s32 tu = tileNumber % (texture.getSize().x / m_textureTileSize.x);
+		s32 tv = tileNumber / (texture.getSize().y / m_textureTileSize.y);
 
 		// define its 4 texture coordinates
-		quad[0].texCoords = sf::Vector2f(tu * m_tileSize.x + pad, tv * m_tileSize.y + pad);
-		quad[1].texCoords = sf::Vector2f((tu + 1) * m_tileSize.x - pad, tv * m_tileSize.y + pad);
-		quad[2].texCoords = sf::Vector2f((tu + 1) * m_tileSize.x - pad, (tv + 1) * m_tileSize.y - pad);
-		quad[3].texCoords = sf::Vector2f(tu * m_tileSize.x + pad, (tv + 1) * m_tileSize.y - pad);
+		quad[0].texCoords = sf::Vector2f(tu * m_textureTileSize.x + pad, tv * m_textureTileSize.y + pad);
+		quad[1].texCoords = sf::Vector2f((tu + 1) * m_textureTileSize.x - pad, tv * m_textureTileSize.y + pad);
+		quad[2].texCoords = sf::Vector2f((tu + 1) * m_textureTileSize.x - pad, (tv + 1) * m_textureTileSize.y - pad);
+		quad[3].texCoords = sf::Vector2f(tu * m_textureTileSize.x + pad, (tv + 1) * m_textureTileSize.y - pad);
 	}
 	else
 	{
@@ -267,11 +285,21 @@ void MapRenderer::serializeData(JsonBox::Value & o)
 	{
 		atlasName = AssetBank::current()->atlases.findName(r_atlas);
 	}
-	o["atlas"]         = atlasName;
+	o["atlas"] = atlasName;
+
+	// Texture
+
+	std::string textureName;
+	if(r_texture != nullptr)
+	{
+		textureName = AssetBank::current()->textures.findName(r_texture);
+	}
+	o["texture"] = textureName;
 
 	// Tiles
 
-	zn::serialize(o["tileSize"], m_tileSize);
+	zn::serialize(o["textureTileSize"], m_textureTileSize);
+	zn::serialize(o["sceneTileSize"], m_sceneTileSize);
 
 	zn::serialize(o["size"], sf::Vector2i(tiles.sizeX(), tiles.sizeY()));
 
@@ -302,14 +330,23 @@ void MapRenderer::unserializeData(JsonBox::Value & o)
 	std::string atlasName = o["atlas"].getString();
 #ifdef ZN_DEBUG
 	if(atlasName.empty())
-		std::cout << "W: MapRenderer::unserializeData: atlasName is empty" << std::endl;
+		log.warn() << "MapRenderer::unserializeData: atlas is empty" << log.endl();
 #endif
-	TextureAtlas * atlas = AssetBank::current()->atlases.get(atlasName);
-	r_atlas = atlas;
+	r_atlas = AssetBank::current()->atlases.get(atlasName);
+
+	// Atlas
+
+	std::string textureName = o["texture"].getString();
+#ifdef ZN_DEBUG
+	if(textureName.empty())
+		log.warn() << "MapRenderer::unserializeData: texture is empty" << log.endl();
+#endif
+	r_texture = AssetBank::current()->textures.get(textureName);
 
 	// Tiles
 
-	zn::unserialize(o["tileSize"], m_tileSize);
+	zn::unserialize(o["textureTileSize"], m_textureTileSize);
+	zn::unserialize(o["sceneTileSize"], m_sceneTileSize);
 
 	sf::Vector2i size;
 	zn::unserialize(o["size"], size);
@@ -321,12 +358,6 @@ void MapRenderer::unserializeData(JsonBox::Value & o)
 	{
 		tiles[i] = data[i].getInt();
 	}
-}
-
-//------------------------------------------------------------------------------
-void MapRenderer::postUnserialize()
-{
-
 }
 
 } // namespace zn

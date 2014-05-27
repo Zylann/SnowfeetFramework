@@ -60,7 +60,6 @@
 		<Unit filename="include/fm/asset/TiledMap.hpp" />
 		<Unit filename="include/fm/asset/load.hpp" />
 		<Unit filename="include/fm/config.hpp" />
-		<Unit filename="include/fm/graphics/SpriteBatch.hpp" />
 		<Unit filename="include/fm/json/JsonBox.h" />
 		<Unit filename="include/fm/json/JsonBox/Array.h" />
 		<Unit filename="include/fm/json/JsonBox/Convert.h" />
@@ -107,6 +106,9 @@
 		<Unit filename="include/fm/proto/graphics/Renderer.hpp" />
 		<Unit filename="include/fm/proto/graphics/SpriteRenderer.hpp" />
 		<Unit filename="include/fm/proto/graphics/TextRenderer.hpp" />
+		<Unit filename="include/fm/proto/gui/GUIManager.hpp">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="include/fm/proto/physics.hpp" />
 		<Unit filename="include/fm/proto/physics/Body.hpp" />
 		<Unit filename="include/fm/proto/physics/BoxCollider.hpp" />
@@ -115,6 +117,10 @@
 		<Unit filename="include/fm/proto/physics/MapCollider.hpp" />
 		<Unit filename="include/fm/proto/physics/PhysicsSystem.hpp" />
 		<Unit filename="include/fm/sfml/AudioSource.hpp" />
+		<Unit filename="include/fm/sfml/InputListener.hpp">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="include/fm/sfml/SpriteBatch.hpp" />
 		<Unit filename="include/fm/sfml/sfml2_utils.hpp" />
 		<Unit filename="include/fm/system/filesystem.hpp" />
 		<Unit filename="include/fm/types.hpp" />
@@ -145,7 +151,6 @@
 		<Unit filename="src/fm/asset/TextureAtlas.cpp" />
 		<Unit filename="src/fm/asset/TiledMap.cpp" />
 		<Unit filename="src/fm/asset/load.cpp" />
-		<Unit filename="src/fm/graphics/SpriteBatch.cpp" />
 		<Unit filename="src/fm/json/JsonBox/Array.cpp" />
 		<Unit filename="src/fm/json/JsonBox/Convert.cpp" />
 		<Unit filename="src/fm/json/JsonBox/Escaper.cpp" />
@@ -178,12 +183,14 @@
 		<Unit filename="src/fm/proto/graphics/Renderer.cpp" />
 		<Unit filename="src/fm/proto/graphics/SpriteRenderer.cpp" />
 		<Unit filename="src/fm/proto/graphics/TextRenderer.cpp" />
+		<Unit filename="src/fm/proto/gui/GUIManager.cpp" />
 		<Unit filename="src/fm/proto/physics/Body.cpp" />
 		<Unit filename="src/fm/proto/physics/BoxCollider.cpp" />
 		<Unit filename="src/fm/proto/physics/Collider.cpp" />
 		<Unit filename="src/fm/proto/physics/MapCollider.cpp" />
 		<Unit filename="src/fm/proto/physics/PhysicsSystem.cpp" />
 		<Unit filename="src/fm/sfml/AudioSource.cpp" />
+		<Unit filename="src/fm/sfml/SpriteBatch.cpp" />
 		<Unit filename="src/fm/system/filesystem.cpp" />
 		<Unit filename="src/fm/util/Color.cpp" />
 		<Unit filename="src/fm/util/Log.cpp" />

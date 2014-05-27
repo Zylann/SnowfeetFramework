@@ -14,12 +14,13 @@ void Cat::onCreate()
 {
 	Character::onCreate();
 
+	r_sprite->setTexture(AssetBank::current()->textures.get("cat"));
 	r_sprite->setAtlas(AssetBank::current()->atlases.get("cat"));
 	r_sprite->setFrame("idle.down");
 
 	r_mover->setMaxSpeed(1.0f);
 
-	entity().addComponent<BoxCollider>()->setRect(sf::FloatRect(0, 0, 16, 16));
+	entity().addComponent<BoxCollider>()->setRect(sf::FloatRect(0, 0, 1, 1));
 
 	entity().addComponent<SpriteAnimator>();
 

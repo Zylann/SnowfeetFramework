@@ -33,6 +33,22 @@ void SpriteAnimator::setFrame(const std::string& id)
 }
 
 //------------------------------------------------------------------------------
+void SpriteAnimator::onAtlasChanged(const TextureAtlas * newAtlas)
+{
+	if(newAtlas == nullptr)
+		stop();
+	if(r_sequence != nullptr)
+	{
+		r_sequence = newAtlas->sequence(m_sequenceName);
+		if(r_sequence == nullptr)
+		{
+			stop();
+			m_sequenceName = "";
+		}
+	}
+}
+
+//------------------------------------------------------------------------------
 void SpriteAnimator::play(const std::string& id, s32 loops)
 {
 	// Ensure there is a renderer

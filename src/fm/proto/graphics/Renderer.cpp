@@ -31,6 +31,16 @@ Material * ARenderer::material() const
 }
 
 //------------------------------------------------------------------------------
+void ARenderer::onAtlasChanged(const TextureAtlas * atlas)
+{
+	AAnimator * animator = entity().animator();
+	if(animator != nullptr)
+	{
+		animator->onAtlasChanged(atlas);
+	}
+}
+
+//------------------------------------------------------------------------------
 sf::FloatRect ARenderer::bounds() const
 {
 	sf::FloatRect box = localBounds();

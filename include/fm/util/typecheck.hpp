@@ -3,13 +3,14 @@
 
 #include <typeinfo>
 #include <fm/config.hpp>
+#include <fm/util/Log.hpp>
 
 namespace zn
 {
 
-// Performs a dynamic_cast with a meaningful error in debug mode,
-// and a static_cast in release.
-// Note: B may be a pointer type.
+/// \brief Performs a dynamic_cast with a meaningful error in debug mode,
+/// and a static_cast in release.
+/// Note: B may be a pointer type.
 template <typename B, typename A>
 inline B checked_cast(A * a)
 {
@@ -22,9 +23,9 @@ inline B checked_cast(A * a)
 		// Note that typeid(B).name() might not always return meaningful information,
 		// as typeid() only has to return different values (whatever they are)
 		// for different types, as defined in C++ specs.
-		std::cout << "E: Failed to cast pointer ("
+		log.err() << "E: Failed to cast pointer ("
 			"from {" << (a==nullptr ? "nullptr" : typeid(a).name()) << "} "
-			"to {" << typeid(B).name() << "}" << std::endl;
+			"to {" << typeid(B).name() << "}" << log.endl();
 	}
 	// Note: no crash here, because debugging would always lead to this file
 	// and wouldn't be helpful.

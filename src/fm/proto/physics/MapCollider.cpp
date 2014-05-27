@@ -53,14 +53,14 @@ void MapCollider::build(const TiledMap & map,
 	std::cout << "D: Building MapCollider from TiledMap..." << std::endl;
 #endif
 
-	if(map.tileSize.x != map.tileSize.y)
-	{
-		std::cout << "E: MapCollider::build: "
-			"non-square tile size is not supported ! ("
-			<< map.tileSize.x << ", " << map.tileSize.y << ")" << std::endl;
-		return;
-	}
-	m_cellSize = map.tileSize.x;
+//	if(map.tileSize.x != map.tileSize.y)
+//	{
+//		std::cout << "E: MapCollider::build: "
+//			"non-square tile size is not supported ! ("
+//			<< map.tileSize.x << ", " << map.tileSize.y << ")" << std::endl;
+//		return;
+//	}
+//	m_cellSize = map.tileSize.x;
 
 	const TiledMap::Layer * collisionLayer = map.layerFromName(collisionLayerName);
 	if(collisionLayer == nullptr)
@@ -145,16 +145,19 @@ bool MapCollider::collides(const sf::Vector2f & pos) const
 //------------------------------------------------------------------------------
 bool MapCollider::collides(const sf::FloatRect & r0) const
 {
+	// Calculate rectangle relative to the map
 	sf::FloatRect r;
-	r.left = r0.left - entity().transform.position().x;
-	r.top = r0.top - entity().transform.position().y;
+	sf::Vector2f myPos = entity().transform.position();
+	r.left = r0.left - myPos.x;
+	r.top = r0.top - myPos.y;
 	r.width = r0.width;
 	r.height = r0.height;
 
+	// Calculate concerned cell area
 	s32 minX = math::clamp(static_cast<s32>(r.left / m_cellSize), 0, m_size.x-1);
 	s32 minY = math::clamp(static_cast<s32>(r.top / m_cellSize), 0, m_size.y-1);
-	s32 maxX = math::clamp(static_cast<s32>((r.left+r.width-1) / m_cellSize), 0, m_size.x-1);
-	s32 maxY = math::clamp(static_cast<s32>((r.top+r.height-1) / m_cellSize), 0, m_size.y-1);
+	s32 maxX = math::clamp(static_cast<s32>((r.left+r.width) / m_cellSize), 0, m_size.x-1);
+	s32 maxY = math::clamp(static_cast<s32>((r.top+r.height) / m_cellSize), 0, m_size.y-1);
 
 	sf::Vector2i pos;
 	sf::FloatRect mapRect;
@@ -326,12 +329,6 @@ void MapCollider::unserializeData(JsonBox::Value & o)
 }
 
 //------------------------------------------------------------------------------
-void MapCollider::postUnserialize()
-{
-
-}
-
-//------------------------------------------------------------------------------
 void MapCollider::setVoidColliderType(u8 index)
 {
 	m_voidColliderType = index;
@@ -345,7 +342,7 @@ void MapCollider::debug_draw(sf::RenderTarget & target) const
 	sf::Vector2i pos;
 
 	rect.setOutlineColor(sf::Color::Green);
-	rect.setOutlineThickness(1);
+	rect.setOutlineThickness(m_cellSize*0.02);
 	rect.setFillColor(sf::Color::Transparent);
 
 	for(pos.y = 0; pos.y < m_size.y; ++pos.y)
