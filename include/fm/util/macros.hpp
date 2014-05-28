@@ -1,5 +1,5 @@
-#ifndef MACROS_HPP_INCLUDED
-#define MACROS_HPP_INCLUDED
+#ifndef HEADER_ZN_MACROS_HPP_INCLUDED
+#define HEADER_ZN_MACROS_HPP_INCLUDED
 
 #include <sstream>
 #include <fm/config.hpp>
@@ -14,12 +14,23 @@
 		assert(__callOnce)
 
 // Assertion-like call that raises an exception instead of exit the program.
-#define xassert(__test)                                                        \
+#define ZN_XASSERT(__test)                                                     \
 	if(!__test) {                                                              \
 		std::stringstream ss;                                                  \
 		ss << __FILE__ << ", line " << __LINE__ << ": " << #__test;            \
 		throw Exception(ss.str());                                             \
 	}
+
+// Logs a message once. Subsequent executions do nothing.
+// Usage: ZN_LOG_ONCE(warn, "This is a warning")
+#define ZN_LOG_ONCE(__logtype, __msg)                                          \
+	do {                                                                       \
+		static bool __once = true;                                             \
+		if(__once) {                                                           \
+			log.__logtype() << __msg << log.endl();                            \
+		}                                                                      \
+	}while(false)
+
 
 #endif // MACROS_HPP_INCLUDED
 
