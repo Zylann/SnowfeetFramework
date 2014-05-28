@@ -9,5 +9,5 @@
 
 using namespace zn;
 
-#endif // HEADER_SSM_COMMON_HPP_INCLUDED
+#endif // HEADER_DEMO_COMMON_HPP_INCLUDED
 
