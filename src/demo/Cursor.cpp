@@ -15,10 +15,10 @@ void Cursor::onCreate()
 	sprite->setTexture(texture);
 }
 
-void Cursor::onStart()
-{
-	Application::instance()->setSystemCursorVisible(false);
-}
+//void Cursor::onStart()
+//{
+//	Application::instance()->setSystemCursorVisible(false);
+//}
 
 void Cursor::onUpdate()
 {
