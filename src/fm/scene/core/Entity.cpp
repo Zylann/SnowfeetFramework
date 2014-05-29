@@ -1,4 +1,4 @@
-#include <iostream>
+#include <sstream>
 
 #include <fm/scene/core/Entity.hpp>
 #include <fm/scene/core/Component.hpp>
@@ -119,7 +119,7 @@ void Entity::setLayerByIndex(u32 layerIndex)
 #ifdef ZN_DEBUG
 	if(layerIndex >= LayerMap::COUNT)
 	{
-		std::cout << "E: Entity::setLayerByIndex: invalid index (" << layerIndex << ')' << std::endl;
+		log.err() << "Entity::setLayerByIndex: invalid index (" << layerIndex << ')' << log.endl();
 		return;
 	}
 #endif
@@ -172,9 +172,9 @@ void Entity::removeComponent(AComponent * cmp)
 #ifdef ZN_DEBUG
 	else
 	{
-		std::cout << "W: Entity::removeComponent: not found ";
-		cmp->componentType().print(std::cout);
-		std::cout << std::endl;
+		std::stringstream ss;
+		cmp->componentType().print(ss);
+		log.warn() << "Entity::removeComponent: not found " << ss.str() << log.endl();
 	}
 #endif
 }
@@ -285,10 +285,10 @@ bool Entity::checkComponentAddition(const ComponentType & ct, const std::string 
 	// Check component type ID
 	if(ct.ID == 0)
 	{
-		std::cout << "E: " << context << ": "
+		log.err() << context << ": "
 			"The native component " << ct.name << " has no ID. "
-			"It must be registered on application start." << std::endl;
-		std::cout << "E: | on entity \"" << m_name << '"' << std::endl;
+			"It must be registered on application start." << log.endl();
+		log.more() << "on entity \"" << m_name << '"' << log.endl();
 
 		return false;
 	}
@@ -298,10 +298,12 @@ bool Entity::checkComponentAddition(const ComponentType & ct, const std::string 
 	if(componentIt != m_components.end())
 	{
 		// Found duplicate
-		std::cout << "E: " << context << ": "
-			"cannot add two components of the same type ! " << std::endl;
-		std::cout << "E: | "; ct.print(std::cout); std::cout << std::endl;
-		std::cout << "E: | on entity \"" << m_name << '"' << std::endl;
+		log.err() << context << ": "
+			"cannot add two components of the same type ! " << log.endl();
+		std::stringstream ss;
+		ct.print(ss);
+		log.more() << ss.str() << log.endl();
+		log.more() << "on entity \"" << m_name << '"' << log.endl();
 
 		return false;
 	}
@@ -323,18 +325,18 @@ bool Entity::checkComponentAddition(const ComponentType & ct, const std::string 
 		// If another has been found
 		if(duplicate != nullptr)
 		{
-			std::cout << "E: " << context << ": "
-				"cannot add component, only one of its group is allowed !" << std::endl;
+			log.err() << context << ": "
+				"cannot add component, only one of its group is allowed !" << log.endl();
 
-			std::cout << "E: | adding: ";
-			ct.print(std::cout);
-			std::cout << std::endl;
+			std::stringstream ss;
+			ct.print(ss);
+			log.more() << "adding: " << ss.str() << log.endl();
 
-			std::cout << "E: | the entity already has : ";
-			duplicate->componentType().print(std::cout);
-			std::cout << std::endl;
+			std::stringstream ss2;
+			duplicate->componentType().print(ss2);
+			log.more() << "the entity already has: " << ss2.str() << log.endl();
 
-			std::cout << "E: | on entity \"" << m_name << '"' << std::endl;
+			log.more() << "on entity \"" << m_name << '"' << log.endl();
 
 			return false;
 		}
