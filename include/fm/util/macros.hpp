@@ -27,7 +27,7 @@
 	do {                                                                       \
 		static bool __once = true;                                             \
 		if(__once) {                                                           \
-			log.__logtype() << __msg << log.endl();                            \
+			zn::log.__logtype() << __msg << zn::log.endl();                    \
 		}                                                                      \
 	}while(false)
 
