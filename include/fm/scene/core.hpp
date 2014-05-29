@@ -6,7 +6,6 @@
 #include <fm/scene/core/ComponentList.hpp>
 #include <fm/scene/core/Entity.hpp>
 #include <fm/scene/core/LayerMap.hpp>
-#include <fm/scene/core/PerformanceGraph.hpp>
 #include <fm/scene/core/Scene.hpp>
 #include <fm/scene/core/Transform.hpp>
 
