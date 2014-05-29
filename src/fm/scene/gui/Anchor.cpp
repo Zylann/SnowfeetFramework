@@ -1,4 +1,8 @@
 #include <fm/scene/gui/Anchor.hpp>
+#include <fm/util/math.hpp>
+#include <fm/util/macros.hpp>
+#include <fm/util/Log.hpp>
+#include <fm/json/json_utils.hpp>
 
 namespace zn
 {
@@ -10,10 +14,7 @@ bool Anchor::onEvent(const sf::Event& event)
 	{
 		apply();
 	}
-	else
-	{
-		return false;
-	}
+	return false;
 }
 
 //------------------------------------------------------------------------------
@@ -37,14 +38,14 @@ void Anchor::apply()
 //------------------------------------------------------------------------------
 void Anchor::serializeData(JsonBox::Value& o)
 {
-	ABehaviour::serialize(o);
+	ABehaviour::serializeData(o);
 	zn::serialize(o["align"], m_align);
 }
 
 //------------------------------------------------------------------------------
 void Anchor::unserializeData(JsonBox::Value& o)
 {
-	ABehaviour::unserialize(o);
+	ABehaviour::unserializeData(o);
 	zn::serialize(o["align"], m_align);
 }
 
