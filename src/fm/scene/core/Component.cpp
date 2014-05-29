@@ -12,12 +12,15 @@ using namespace std;
 namespace zn
 {
 
+//------------------------------------------------------------------------------
 AComponent::AComponent() :
-	r_owner(nullptr),
-	m_flags(CF_ENABLED | CF_FIRST_UPDATE)
+	r_owner(nullptr)
 {
+	m_flags.set(CF_ENABLED);
+	m_flags.set(CF_FIRST_UPDATE);
 }
 
+//------------------------------------------------------------------------------
 AComponent::~AComponent()
 {
 	if(receivesInput())
@@ -30,16 +33,7 @@ AComponent::~AComponent()
 //------------------------------------------------------------------------------
 void AComponent::setEnabled(bool enable)
 {
-	if(enable)
-	{
-		// Set flag
-		m_flags |= CF_ENABLED;
-	}
-	else
-	{
-		// Clear flag
-		m_flags &= ~CF_ENABLED;
-	}
+	m_flags.set(CF_ENABLED, enable);
 }
 
 //------------------------------------------------------------------------------
@@ -47,12 +41,12 @@ void AComponent::receiveInput(bool enableInput)
 {
 	if(enableInput && !receivesInput())
 	{
-		m_flags |= CF_INPUT_LISTENER;
+		m_flags.set(CF_INPUT_LISTENER, true);
 		entity().scene().guiManager.addListener(this);
 	}
 	else if(receivesInput())
 	{
-		m_flags &= ~CF_INPUT_LISTENER;
+		m_flags.set(CF_INPUT_LISTENER, false);
 		entity().scene().guiManager.removeListener(this);
 	}
 }
@@ -61,7 +55,7 @@ void AComponent::receiveInput(bool enableInput)
 void AComponent::onAdd(Entity * e)
 {
 	r_owner = e;
-	m_flags |= CF_FIRST_UPDATE;
+	m_flags.set(CF_FIRST_UPDATE);
 }
 
 //------------------------------------------------------------------------------
@@ -77,11 +71,11 @@ void AComponent::onStart()
 //------------------------------------------------------------------------------
 void AComponent::update()
 {
-	if(m_flags && CF_FIRST_UPDATE)
+	if(m_flags.test(CF_FIRST_UPDATE))
 	{
 		onStart();
 		onUpdate();
-		m_flags &= ~CF_FIRST_UPDATE;
+		m_flags.set(CF_FIRST_UPDATE, false);
 	}
 	else
 	{
@@ -114,12 +108,12 @@ Entity & AComponent::entity() const
 
 void AComponent::serializeData(JsonBox::Value & o)
 {
-	o["flags"] = m_flags;
+	o["flags"] = (u8)(m_flags.to_ulong());
 }
 
 void AComponent::unserializeData(JsonBox::Value & o)
 {
-	m_flags = o["flags"].getInt();
+	m_flags = std::bitset<8>((u8)(o["flags"].getInt()));
 }
 
 //------------------------------------------------------------------------------

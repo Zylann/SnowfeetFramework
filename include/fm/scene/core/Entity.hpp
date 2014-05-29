@@ -8,6 +8,7 @@ This file is part of the Plane-framework project.
 #define HEADER_ZN_ENTITY_HPP_INCLUDED
 
 #include <unordered_map>
+#include <bitset>
 #include <SFML/Graphics.hpp>
 
 #include <fm/types.hpp>
@@ -27,19 +28,19 @@ class Body;
 class Scene;
 class AudioEmitter;
 
+/// \brief Flags that can be set on the entity, as bitmasks.
+enum Flags
+{
+	EF_ACTIVE       = 0,
+	EF_DESTROY_LATE = 1, // Destroy at the end of the frame
+	EF_CROSS_SCENE  = 2 // Don't destroy the entity on scene change
+};
+
 /// \brief An entity can be anything in the scene.
 /// It is composed of components that define its appearance, interactions and behavior.
 class ZN_API Entity
 {
 public:
-
-	/// \brief Flags that can be set on the entity, as bitmasks.
-	enum Flags
-	{
-		ACTIVE       = 1,
-		DESTROY_LATE = 1 << 1, // Destroy at the end of the frame
-		CROSS_SCENE  = 1 << 2 // Don't destroy the entity on scene change
-	};
 
 	/// \brief Constructs a new empty entity, with no link to a scene.
 	/// \warning You usually shouldn't call this constructor, use Scene::createEntity() instead.
@@ -76,14 +77,11 @@ public:
 
 	/// \brief Gets the value of a flag on the entity by providing its mask.
 	/// \return wether the flag is set or not
-	inline bool flag(u8 mask) const { return m_flags & mask; }
+	inline bool flag(u8 flagIndex) const { return m_flags.test(flagIndex); }
 
 	//--------------------------------------
 	// Structure & behavior
 	//--------------------------------------
-
-	/// \brief The position, rotation, scale and hierarchy of the entity is stored here.
-	Transform transform;
 
 	/// \brief gets the name of the entity.
 	/// \return name of the entity.
@@ -248,6 +246,13 @@ public:
 	/// \return Numerical ID of the entity
 	inline u32 id() const { return m_id; }
 
+	//-----------------------------------------
+	// Public attributes
+	//-----------------------------------------
+
+	/// \brief The position, rotation, scale and hierarchy of the entity is stored here.
+	Transform transform;
+
 private:
 
 	friend class Scene;
@@ -257,16 +262,6 @@ private:
 	inline void setScene(Scene * scene)
 	{
 		r_scene = scene;
-	}
-
-	/// \brief Internal flag setter.
-	/// \warning this function may be removed in the future (using std::bitset).
-	inline void setFlag(u8 mask, bool flag)
-	{
-		if(flag)
-			m_flags |= mask;
-		else
-			m_flags &= ~mask;
 	}
 
 	/// \brief Adds a component to the entity. Internal use.
@@ -312,7 +307,7 @@ private:
 	AudioEmitter * r_audioEmitter;
 
 	/// \brief Bitset containing boolean states of the entity
-	u8 m_flags; // TODO use std::bitset
+	std::bitset<8> m_flags;
 
 	/// \brief Numerical index of the layer the entity belongs to
 	u32 m_layerIndex;

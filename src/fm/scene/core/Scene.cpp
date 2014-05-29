@@ -105,7 +105,7 @@ void Scene::unregisterBehaviour(ABehaviour * behaviour)
 // then returns true if that was the case, false otherwise
 bool isLateDestroyThenDelete(Entity * e)
 {
-	if(e->flag(Entity::DESTROY_LATE))
+	if(e->flag(EF_DESTROY_LATE))
 	{
 #ifdef ZN_DEBUG
 		log.debug() << "just before destroy entity \"" << e->name() << '"' << log.endl();
@@ -152,7 +152,7 @@ void Scene::update(sf::Time deltaTime)
 	for(auto it = m_entities.begin(); it != m_entities.end(); ++it)
 	{
 		Entity & e = **it;
-		if(e.flag(Entity::DESTROY_LATE))
+		if(e.m_flags[EF_DESTROY_LATE])
 		{
 			propagateDestroyLate(e);
 		}
@@ -193,7 +193,7 @@ void Scene::clear()
 // Returns true if the entity has been deleted.
 bool isNotSceneCrossThenDelete(Entity * e)
 {
-	if(!e->flag(Entity::CROSS_SCENE))
+	if(!e->flag(EF_CROSS_SCENE))
 	{
 		delete e;
 		return true;

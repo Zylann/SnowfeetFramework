@@ -22,12 +22,15 @@ Entity::Entity() :
 	r_body(nullptr),
 	r_camera(nullptr),
 	r_animator(nullptr),
-	m_flags(ACTIVE),
 	m_layerIndex(0), // default layer
 	r_scene(nullptr),
 	m_tags(0)
 {
+#ifdef ZN_DEBUG
 	setName("_entity_");
+#endif
+
+	m_flags.set(EF_ACTIVE);
 }
 
 //------------------------------------------------------------------------------
@@ -60,7 +63,7 @@ Scene & Entity::scene() const
 //------------------------------------------------------------------------------
 void Entity::destroyLater()
 {
-	setFlag(DESTROY_LATE, true);
+	m_flags.set(EF_DESTROY_LATE, true);
 	// Note: when an entity is marked as DESTROY_LATE,
 	// its children will be destroyed too. See Scene.cpp for implementation details.
 }
@@ -68,7 +71,7 @@ void Entity::destroyLater()
 //------------------------------------------------------------------------------
 bool Entity::active() const
 {
-	return m_flags & ACTIVE;
+	return m_flags[EF_ACTIVE];
 }
 
 //------------------------------------------------------------------------------
@@ -94,13 +97,13 @@ bool Entity::activeInHierarchy() const
 //------------------------------------------------------------------------------
 void Entity::setActive(bool active)
 {
-	setFlag(ACTIVE, active);
+	m_flags.set(EF_ACTIVE, active);
 }
 
 //------------------------------------------------------------------------------
 void Entity::setCrossScene(bool crossScene)
 {
-	setFlag(CROSS_SCENE, crossScene);
+	m_flags.set(EF_CROSS_SCENE, crossScene);
 }
 
 //------------------------------------------------------------------------------
@@ -214,7 +217,7 @@ void Entity::serialize(JsonBox::Value & o)
 	// Meta
 
 	o["id"]       = (s32)m_id;
-	o["flags"]    = m_flags;
+	o["flags"]    = (u8)(m_flags.to_ulong());
 	o["layer"]    = (s32)m_layerIndex; // TODO fix JsonBox so it accepts unsigned integers
 	o["name"]     = name();
 	o["tags"]     = (s32)m_tags;
@@ -244,7 +247,7 @@ void Entity::unserialize(JsonBox::Value & o)
 	// Meta
 
 	m_id = o["id"].getInt();
-	m_flags = o["flags"].getInt();
+	m_flags = std::bitset<8>((u8)(o["flags"].getInt()));
 	m_layerIndex = o["layer"].getInt();
 	m_tags = o["tags"].getInt();
 	setName(o["name"].getString());

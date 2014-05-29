@@ -2,6 +2,7 @@
 #define HEADER_ZN_COMPONENT_HPP_INCLUDED
 
 #include <string>
+#include <bitset>
 
 #include <JsonBox.h>
 #include <fm/types.hpp>
@@ -17,9 +18,9 @@ class Entity;
 /// \brief internal flags that can be set on a component (bitmasks)
 enum ComponentFlags
 {
-	CF_ENABLED         = 1,
-	CF_FIRST_UPDATE    = 1 << 1,
-	CF_INPUT_LISTENER  = 1 << 2
+	CF_ENABLED         = 0,
+	CF_FIRST_UPDATE    = 1,
+	CF_INPUT_LISTENER  = 2
 };
 
 /// \brief A piece that composes an entity.
@@ -68,13 +69,13 @@ public:
 	virtual void setEnabled(bool enable);
 
 	/// \brief Tells if the component is enabled.
-	inline bool enabled() const { return m_flags & CF_ENABLED; }
+	inline bool enabled() const { return m_flags[CF_ENABLED]; }
 
 	/// \brief Enables the onEvent() callback for input events
 	void receiveInput(bool enableInput);
 
 	/// \bief Tells if the component receives input events
-	inline bool receivesInput() const { return m_flags & CF_INPUT_LISTENER; }
+	inline bool receivesInput() const { return m_flags[CF_INPUT_LISTENER]; }
 
 	//----------
 	// TODO make callbacks below optional by using an event system?
@@ -154,7 +155,7 @@ private:
 
 	/// \brief various flags about the state of the component.
 	/// \see ComponentFlags.
-	u8 m_flags;
+	std::bitset<8> m_flags;
 
 };
 
