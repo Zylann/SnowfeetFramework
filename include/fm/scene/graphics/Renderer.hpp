@@ -15,6 +15,8 @@ class ZN_API ARenderer : public AComponent, public sf::Drawable
 {
 public:
 
+	ZN_ABSTRACT_COMPONENT(zn::ARenderer, zn::AComponent, 0)
+
 	void onAdd(Entity * e);
 	void onDestroy();
 

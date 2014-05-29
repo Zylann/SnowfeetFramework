@@ -10,7 +10,7 @@ class Cursor : public zn::ABehaviour
 {
 public:
 
-	ZN_BEHAVIOUR(demo::Cursor, 0) // The cursor is updated first
+	ZN_COMPONENT(demo::Cursor, zn::ABehaviour, 0) // The cursor is updated first
 
 	void onCreate() override;
 //	void onStart() override;

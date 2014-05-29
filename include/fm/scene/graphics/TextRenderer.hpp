@@ -10,7 +10,7 @@ class ZN_API TextRenderer : public ARenderer
 {
 public:
 
-	ZN_COMPONENT(zn::TextRenderer, CG_RENDERER, 0)
+	ZN_COMPONENT(zn::TextRenderer, zn::ARenderer, 0)
 
 	TextRenderer() : ARenderer(),
 		r_font(nullptr)

@@ -15,8 +15,7 @@ class Character : public zn::ABehaviour
 {
 public:
 
-	// Character is not a complete component type, it's only a base
-//	ZN_BEHAVIOUR(demo::Character)
+	ZN_COMPONENT(demo::Character, zn::ABehaviour, 0)
 
 	Character() : ABehaviour(),
 		r_sprite(nullptr),

@@ -13,6 +13,8 @@ class ZN_API ACollider : public AComponent
 {
 public:
 
+	ZN_ABSTRACT_COMPONENT(zn::ACollider, zn::AComponent, 0)
+
 	void onAdd(Entity * e) override;
 	void onDestroy() override;
 

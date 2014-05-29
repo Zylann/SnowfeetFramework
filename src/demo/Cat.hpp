@@ -10,7 +10,7 @@ class Cat : public Character
 {
 public:
 
-	ZN_BEHAVIOUR(demo::Cat, 10)
+	ZN_COMPONENT(demo::Cat, demo::Character, 10)
 
 	void onCreate() override;
 	void onUpdate() override;

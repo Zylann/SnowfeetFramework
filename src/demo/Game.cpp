@@ -12,6 +12,7 @@ namespace demo
 
 void Game::registerNativeUserComponents(zn::ComponentFactory & f)
 {
+	f.registerType<Character>();
 	f.registerType<Avatar>();
 	f.registerType<Cat>();
 	f.registerType<Cursor>();

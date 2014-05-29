@@ -11,7 +11,7 @@ class ZN_API ParticleSystem : public ARenderer
 {
 public:
 
-	ZN_COMPONENT(zn::ParticleSystem, CG_RENDERER, 0)
+	ZN_COMPONENT(zn::ParticleSystem, zn::ARenderer, 0)
 
 	ParticleSystem() : ARenderer(),
 		m_maxParticles(0),

@@ -11,7 +11,7 @@ class ZN_API OverlayRenderer : public ARenderer
 {
 public:
 
-	ZN_COMPONENT(zn::OverlayRenderer, CG_RENDERER, 0)
+	ZN_COMPONENT(zn::OverlayRenderer, zn::ARenderer, 0)
 
 	OverlayRenderer();
 

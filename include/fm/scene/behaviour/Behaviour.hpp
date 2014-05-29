@@ -11,6 +11,8 @@ class ZN_API ABehaviour : public AComponent
 {
 public:
 
+	ZN_COMPONENT(zn::ABehaviour, zn::AComponent, 0)
+
 	virtual void onAdd(Entity * e) override;
 	virtual void onDestroy() override;
 

@@ -9,5 +9,6 @@
 #include <fm/scene/graphics/RenderSystem.hpp>
 #include <fm/scene/graphics/SpriteRenderer.hpp>
 #include <fm/scene/graphics/TextRenderer.hpp>
+#include <fm/scene/graphics/OverlayRenderer.hpp>
 
 #endif // HEADER_ZN_GRAPHICSINCLUDES_HPP_INCLUDED

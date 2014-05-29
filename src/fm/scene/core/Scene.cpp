@@ -87,8 +87,10 @@ Entity * Scene::findEntityFromName(const std::string & name)
 //------------------------------------------------------------------------------
 void Scene::registerBehaviour(ABehaviour * behaviour)
 {
+	#ifdef ZN_DEBUG
 	assert(behaviour != nullptr);
-	assert(behaviour->componentType().group == CG_BEHAVIOUR);
+	assert(behaviour->componentType().is(ABehaviour::sComponentType()));
+	#endif
 
 	s32 updateOrder = behaviour->componentType().updateOrder;
 	m_behaviours[updateOrder].add(behaviour);

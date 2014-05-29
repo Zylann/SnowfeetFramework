@@ -10,7 +10,7 @@ class Avatar : public Character
 {
 public:
 
-	ZN_BEHAVIOUR(demo::Avatar, 10)
+	ZN_COMPONENT(demo::Avatar, demo::Character, 10)
 
 	void onCreate() override;
 	void onUpdate() override;

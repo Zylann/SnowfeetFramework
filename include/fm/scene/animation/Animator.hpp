@@ -11,6 +11,8 @@ class ZN_API AAnimator : public AComponent
 {
 public:
 
+	ZN_ABSTRACT_COMPONENT(zn::AAnimator, zn::AComponent, 0)
+
 	void onAdd(Entity * e) override;
 	void onDestroy() override;
 

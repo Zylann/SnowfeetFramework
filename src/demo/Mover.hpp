@@ -15,7 +15,7 @@ class Mover : public ABehaviour
 {
 public:
 
-	ZN_BEHAVIOUR(demo::Mover, 10)
+	ZN_COMPONENT(demo::Mover, zn::ABehaviour, 10)
 
 	Mover();
 

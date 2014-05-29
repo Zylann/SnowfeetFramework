@@ -2,16 +2,11 @@
 
 // For engine registration
 #include <fm/util/macros.hpp>
-#include <fm/scene/animation/SpriteAnimator.hpp>
-#include <fm/scene/audio/AudioEmitter.hpp>
-#include <fm/scene/graphics/Camera.hpp>
-#include <fm/scene/graphics/MapRenderer.hpp>
-#include <fm/scene/graphics/ParticleSystem.hpp>
-#include <fm/scene/graphics/SpriteRenderer.hpp>
-#include <fm/scene/graphics/TextRenderer.hpp>
-#include <fm/scene/graphics/OverlayRenderer.hpp>
-#include <fm/scene/physics/BoxCollider.hpp>
-#include <fm/scene/physics/MapCollider.hpp>
+#include <fm/scene/animation.hpp>
+#include <fm/scene/audio.hpp>
+#include <fm/scene/graphics.hpp>
+#include <fm/scene/physics.hpp>
+#include <fm/scene/behaviour.hpp>
 
 namespace zn
 {
@@ -33,6 +28,24 @@ AComponent * ComponentFactory::instantiate(const string className)
 }
 
 //------------------------------------------------------------------------------
+ComponentType * ComponentFactory::getType(const std::string & typeName)
+{
+	auto it = m_nameToID.find(typeName);
+	if(it != m_nameToID.end())
+	{
+		return m_registeredTypes[it->second];
+	}
+	else
+	{
+//		#ifdef ZN_DEBUG
+//		log.warn() << "ComponentFactory::getType: "
+//			"type not found '" << typeName << "'" << log.endl();
+//		#endif
+		return nullptr;
+	}
+}
+
+//------------------------------------------------------------------------------
 void ComponentFactory::registerEngineComponents()
 {
 	ZN_CALL_ONCE;
@@ -41,6 +54,7 @@ void ComponentFactory::registerEngineComponents()
 
 	// Animation
 
+	f.registerType<zn::AAnimator>();
 	f.registerType<zn::SpriteAnimator>();
 
 	// Audio
@@ -50,6 +64,7 @@ void ComponentFactory::registerEngineComponents()
 	// Graphics
 
 	f.registerType<zn::Camera>();
+	f.registerType<zn::ARenderer>();
 	f.registerType<zn::MapRenderer>();
 	f.registerType<zn::ParticleSystem>();
 	f.registerType<zn::SpriteRenderer>();
@@ -58,8 +73,14 @@ void ComponentFactory::registerEngineComponents()
 
 	// Physics
 
+	f.registerType<zn::ACollider>();
 	f.registerType<zn::BoxCollider>();
 	f.registerType<zn::MapCollider>();
+	f.registerType<zn::Body>();
+
+	// Behaviours
+
+	f.registerType<zn::ABehaviour>();
 
 }
 

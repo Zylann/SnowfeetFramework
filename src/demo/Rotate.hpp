@@ -10,7 +10,7 @@ class Rotate : public zn::ABehaviour
 {
 public:
 
-	ZN_BEHAVIOUR(demo::Rotate, 10)
+	ZN_COMPONENT(demo::Rotate, zn::ABehaviour, 10)
 
 	void onUpdate() override
 	{

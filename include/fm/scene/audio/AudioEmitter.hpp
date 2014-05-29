@@ -13,7 +13,7 @@ class ZN_API AudioEmitter : public AComponent
 {
 public:
 
-	ZN_COMPONENT(zn::AudioEmitter, CG_AUDIO_EMITTER, 0)
+	ZN_COMPONENT(zn::AudioEmitter, zn::AComponent, 0)
 
 	AudioEmitter() : AComponent(),
 		m_spatialize(true),

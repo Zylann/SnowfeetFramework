@@ -9,6 +9,7 @@
 #include <fm/scene/physics/CollisionInfo.hpp>
 #include <fm/scene/core/ComponentType.hpp>
 #include <fm/sfml/InputListener.hpp>
+#include <fm/scene/core/ComponentFactory.hpp>
 
 namespace zn
 {
@@ -44,6 +45,15 @@ public:
 	/// \brief Returns the meta-class of the component
 	/// \return meta-class
 	virtual const ComponentType & componentType() const = 0;
+
+	/// \brief Tests if the component is an instance of the given component type.
+	/// It also works for inherited types.
+	template <class Component_T>
+	bool isInstanceOf()
+	{
+		ComponentType & expectedType = Component_T::sComponentType();
+		return componentType().is(expectedType);
+	}
 
 	/// \brief Called immediately after the component to be added to an entity.
 	/// This method is responsible for referencing the entity.

@@ -123,20 +123,27 @@ public:
 	void removeComponent(AComponent * cmp);
 
 	/// \brief Finds the component of the given type attached to this entity.
+	/// \param includeInheritance: if set to true, the inheritance tree of components
+	/// will be tested too in order to find by parent types. However, it makes the search slower.
 	/// \return the component, or nullptr if not found.
 	template <class Component_T>
-	Component_T * getComponent()
+	Component_T * getComponent(bool includeInheritance=true)
 	{
 		const ComponentType & ct = Component_T::sComponentType();
-
-		auto it = m_components.find(ct.ID);
-		if(it != m_components.end())
+		AComponent * cmp = getComponent(ct, includeInheritance);
+		if(cmp)
 		{
-			return checked_cast<Component_T*>(it->second);
+			return checked_cast<Component_T*>(cmp);
 		}
-
 		return nullptr;
 	}
+
+	/// \brief Finds the component of the given type attached to this entity.
+	/// \param cmpType: metaclass of the component to search
+	/// \param includeInheritance: if set to true, the inheritance tree of components
+	/// will be tested too in order to find by parent types. However, it makes the search slower.
+	/// \return the component, or nullptr if not found.
+	AComponent * getComponent(const ComponentType & cmpType, bool includeInheritance=true);
 
 	/// \brief Returns the entity's renderer, if any.
 	inline ARenderer * renderer() const  { return r_renderer; }

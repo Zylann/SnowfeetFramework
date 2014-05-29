@@ -133,6 +133,30 @@ const Layer & Entity::layer() const
 }
 
 //------------------------------------------------------------------------------
+AComponent * Entity::getComponent(const ComponentType & cmpType, bool includeInheritance)
+{
+	// Test final types first (quick)
+	auto it = m_components.find(cmpType.ID);
+	if(it != m_components.end())
+	{
+		return it->second;
+	}
+	else if(includeInheritance)
+	{
+		// Test inheritance tree (slow)
+		for(auto it = m_components.begin(); it != m_components.end(); ++it)
+		{
+			AComponent * cmp = it->second;
+			if(cmp->componentType().is(cmpType))
+			{
+				return cmp;
+			}
+		}
+	}
+	return nullptr;
+}
+
+//------------------------------------------------------------------------------
 AComponent * Entity::addComponent(AComponent * newCmp)
 {
 	assert(newCmp != nullptr);
@@ -141,15 +165,34 @@ AComponent * Entity::addComponent(AComponent * newCmp)
 	m_components[ct.ID] = newCmp;
 
 	// Assign quick lookup pointer
-	switch(ct.group)
+
+	// TODO remove these lookups in the future, because users should have to reference them anyway
+	if(!newCmp->isInstanceOf<zn::ABehaviour>())
 	{
-	case CG_RENDERER:       r_renderer     = checked_cast<ARenderer*>(newCmp); break;
-	case CG_COLLIDER:       r_collider     = checked_cast<ACollider*>(newCmp); break;
-	case CG_CAMERA:         r_camera       = checked_cast<Camera*>(newCmp); break;
-	case CG_BODY:           r_body         = checked_cast<Body*>(newCmp); break;
-	case CG_ANIMATOR:       r_animator     = checked_cast<AAnimator*>(newCmp); break;
-	case CG_AUDIO_EMITTER:  r_audioEmitter = checked_cast<AudioEmitter*>(newCmp); break;
-	default: break;
+		if(newCmp->isInstanceOf<zn::ARenderer>())
+		{
+			r_renderer = checked_cast<zn::ARenderer*>(newCmp);
+		}
+		else if(newCmp->isInstanceOf<zn::ACollider>())
+		{
+			r_collider = checked_cast<zn::ACollider*>(newCmp);
+		}
+		else if(newCmp->isInstanceOf<zn::Camera>())
+		{
+			r_camera = checked_cast<zn::Camera*>(newCmp);
+		}
+		else if(newCmp->isInstanceOf<zn::Body>())
+		{
+			r_body = checked_cast<zn::Body*>(newCmp);
+		}
+		else if(newCmp->isInstanceOf<zn::AAnimator>())
+		{
+			r_animator = checked_cast<zn::AAnimator*>(newCmp);
+		}
+		else if(newCmp->isInstanceOf<zn::AudioEmitter>())
+		{
+			r_audioEmitter = checked_cast<zn::AudioEmitter*>(newCmp);
+		}
 	}
 
 	newCmp->onAdd(this);
@@ -172,9 +215,7 @@ void Entity::removeComponent(AComponent * cmp)
 #ifdef ZN_DEBUG
 	else
 	{
-		std::stringstream ss;
-		cmp->componentType().print(ss);
-		log.warn() << "Entity::removeComponent: not found " << ss.str() << log.endl();
+		log.warn() << "Entity::removeComponent: not found " << cmp->componentType().toString() << log.endl();
 	}
 #endif
 }
@@ -300,42 +341,25 @@ bool Entity::checkComponentAddition(const ComponentType & ct, const std::string 
 		// Found duplicate
 		log.err() << context << ": "
 			"cannot add two components of the same type ! " << log.endl();
-		std::stringstream ss;
-		ct.print(ss);
-		log.more() << ss.str() << log.endl();
+		log.more() << ct.toString() << log.endl();
 		log.more() << "on entity \"" << m_name << '"' << log.endl();
 
 		return false;
 	}
 
-	// If the component is not a behaviour, test its group unicity
-	if(ct.group != CG_BEHAVIOUR)
+	// If the component is not a behaviour, test its unicity within the entity
+	if(!ct.is(ABehaviour::sComponentType()))
 	{
 		// Search for another component of the same group
-		AComponent * duplicate = nullptr;
-		for(auto it = m_components.begin(); it != m_components.end(); ++it)
-		{
-			AComponent * c = it->second;
-			if(c->componentType().group == ct.group)
-			{
-				duplicate = c;
-				break;
-			}
-		}
+		AComponent * duplicate = getComponent(ct);
+
 		// If another has been found
 		if(duplicate != nullptr)
 		{
 			log.err() << context << ": "
 				"cannot add component, only one of its group is allowed !" << log.endl();
-
-			std::stringstream ss;
-			ct.print(ss);
-			log.more() << "adding: " << ss.str() << log.endl();
-
-			std::stringstream ss2;
-			duplicate->componentType().print(ss2);
-			log.more() << "the entity already has: " << ss2.str() << log.endl();
-
+			log.more() << "adding: " << ct.toString() << log.endl();
+			log.more() << "the entity already has: " << duplicate->componentType().toString() << log.endl();
 			log.more() << "on entity \"" << m_name << '"' << log.endl();
 
 			return false;
