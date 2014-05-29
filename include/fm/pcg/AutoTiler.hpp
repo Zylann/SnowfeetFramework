@@ -110,6 +110,7 @@ public:
 	// Calculates a tile from its type at the given position
 	Out_T processTile(const Array2D<In_T> & inputGrid, u32 x, u32 y) const;
 
+	// Loads pattern data from a JSON file
 	void unserialize(JsonBox::Value & o);
 
 	static void stringToCaseKey(const std::string & s, ConnectionMask & conMask, u8 & dontCareMask);

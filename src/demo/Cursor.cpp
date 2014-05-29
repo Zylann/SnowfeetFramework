@@ -1,6 +1,6 @@
 #include <fm/asset/AssetBank.hpp>
 
-#include <fm/proto/graphics.hpp>
+#include <fm/scene/graphics.hpp>
 
 #include "Cursor.hpp"
 #include "common.hpp"

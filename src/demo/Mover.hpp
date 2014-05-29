@@ -1,7 +1,7 @@
 #ifndef HEADER_DEMO_MOVER_HPP_INCLUDED
 #define HEADER_DEMO_MOVER_HPP_INCLUDED
 
-#include <fm/proto/behaviour.hpp>
+#include <fm/scene/behaviour.hpp>
 
 #include "common.hpp"
 

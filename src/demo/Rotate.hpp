@@ -1,7 +1,7 @@
 #ifndef HEADER_DEMO_ROTATE_HPP_INCLUDED
 #define HEADER_DEMO_ROTATE_HPP_INCLUDED
 
-#include "fm/proto/behaviour/Behaviour.hpp"
+#include "fm/scene/behaviour/Behaviour.hpp"
 
 namespace demo
 {

@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include <fm/proto/physics.hpp>
+#include <fm/scene/physics.hpp>
 
 #include "Character.hpp"
 #include "Mover.hpp"

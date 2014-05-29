@@ -1,5 +1,5 @@
 #include <fm/sfml/sfml2_utils.hpp>
-#include <fm/proto/physics.hpp>
+#include <fm/scene/physics.hpp>
 
 #include "Mover.hpp"
 

@@ -1,8 +1,9 @@
 #ifndef HEADER_DEMO_GAME_HPP_INCLUDED
 #define HEADER_DEMO_GAME_HPP_INCLUDED
 
-#include <fm/proto/core.hpp>
-#include <fm/proto/graphics.hpp>
+#include <fm/scene/core.hpp>
+#include <fm/app/Application.hpp>
+#include <fm/scene/graphics.hpp>
 
 #include "common.hpp"
 

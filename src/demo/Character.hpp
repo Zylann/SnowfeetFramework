@@ -1,7 +1,7 @@
 #ifndef HEADER_DEMO_CHARACTER_HPP_INCLUDED
 #define HEADER_DEMO_CHARACTER_HPP_INCLUDED
 
-#include <fm/proto/graphics.hpp>
+#include <fm/scene/graphics.hpp>
 #include <fm/util/Direction.hpp>
 
 #include "common.hpp"

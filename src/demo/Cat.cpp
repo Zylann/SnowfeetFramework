@@ -2,8 +2,8 @@
 #include <fm/util/Direction.hpp>
 #include <fm/util/math.hpp>
 
-#include <fm/proto/physics.hpp>
-#include <fm/proto/animation.hpp>
+#include <fm/scene/physics.hpp>
+#include <fm/scene/animation.hpp>
 
 #include "Cat.hpp"
 

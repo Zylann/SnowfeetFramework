@@ -1,5 +1,5 @@
-#include <fm/proto/graphics.hpp>
-#include <fm/proto/physics.hpp>
+#include <fm/scene/graphics.hpp>
+#include <fm/scene/physics.hpp>
 
 #include "Avatar.hpp"
 #include "Cat.hpp"
@@ -213,5 +213,3 @@ void Game::onClose()
 
 
 } // namespace demo
-
-
