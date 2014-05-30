@@ -211,7 +211,7 @@ void MapRenderer::updateTile(u32 i, u32 j)
 {
 	// Note: slight padding of tile texture coordinates eliminates artifacts
 	// when the map is not rendered on an integer scale (or rotated)
-	const f32 pad = 0.01f;
+	const f32 pad = 0.45f;
 
 	const sf::Texture & texture = *r_texture;
 
