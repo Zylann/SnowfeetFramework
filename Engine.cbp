@@ -171,6 +171,7 @@
 		<Unit filename="src/fm/scene/behaviour/Behaviour.cpp" />
 		<Unit filename="src/fm/scene/core/Component.cpp" />
 		<Unit filename="src/fm/scene/core/ComponentFactory.cpp" />
+		<Unit filename="src/fm/scene/core/ComponentType.cpp" />
 		<Unit filename="src/fm/scene/core/Entity.cpp" />
 		<Unit filename="src/fm/scene/core/Scene.cpp" />
 		<Unit filename="src/fm/scene/core/TagManager.cpp" />

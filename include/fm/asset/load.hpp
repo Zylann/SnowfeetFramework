@@ -5,6 +5,7 @@ namespace zn
 {
 
 // Asset loading overloads:
+// Each of these routines load a specific type of asset.
 // They are required to not enforce function signature, especially for external classes.
 // Note: this can't be done with template specialization, because it would require
 // template code to be specialized in a CPP file (to avoid redefinition issues)

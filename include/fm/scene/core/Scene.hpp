@@ -24,11 +24,11 @@ This file is part of the Plane Framework project.
 namespace zn
 {
 
-// A scene contains all stuff that the player can see and interact with.
-// Only one scene should be active at a time.
-// Disclaimer: despite being an sf::Drawable, the scene is not dedicated to graphics,
-// it simply manages the entity list and specialized subsystems
-// (sound, graphics, physics, behaviour...).
+/// \brief A scene contains all stuff that the player can see and interact with.
+/// Only one scene should be active at a time.
+/// Disclaimer: despite being an sf::Drawable, the scene is not dedicated to graphics,
+/// it simply manages the entity list and specialized subsystems
+/// (sound, graphics, physics, behaviour...).
 class ZN_API Scene : public sf::Drawable, public IInputListener
 {
 public:
@@ -40,104 +40,128 @@ public:
 	// Lifecycle
 	//----------------------------
 
-	// Updates the scene for a given time span
+	// TODO add scene modes : EDIT / PLAY / RECORD
+
+	/// \brief Updates the scene for a given time span.
 	void update(sf::Time deltaTime);
 
-	// Erases everything in the scene.
+	/// \brief Erases everything in the scene.
 	void clear();
 
-	// Erases everything in the scene but entities having the EF_SCENE_CROSS flag set.
+	/// \brief Erases everything in the scene but entities having the EF_SCENE_CROSS flag set.
 	void clearAllButCrossEntities();
 
 	//----------------------------
 	// State & entities
 	//----------------------------
 
-	// Creates an empty entity, adds it to the scene and returns it.
-	// Note: by default, the update and draw order are defined by their creation order.
+	/// \brief Creates an empty entity, adds it to the scene and returns it.
+	/// \note: by default, the update and draw order are defined by their creation order.
 	Entity * createEntity(std::string name="", sf::Vector2f pos = sf::Vector2f());
 
-	// Sets the given camera as the main camera
+	/// \brief Sets the given camera as the main camera
 	inline void setMainCamera(Camera * cam) { r_mainCamera = cam; }
 
-	// Gets the main camera (if defined).
+	/// \brief Gets the main camera (if defined).
 	inline Camera * mainCamera() { return r_mainCamera; }
 
-	// Finds the entity having the given ID.
-	// Returns nullptr when not found.
+	/// \brief Finds the entity having the given ID.
+	/// \param id: numeric unique identifier of the entity within the scene
+	/// \return Returns nullptr when not found.
 	Entity * findEntityFromID(u32 id) const;
 
-	// Finds the first encountered entity having the given name.
-	// Returns nullptr when not found.
+	/// \brief Finds the first encountered entity having the given name.
+	/// \param name: name to search
+	/// \return nullptr when not found.
 	Entity * findEntityFromName(const std::string & name);
 
 	//----------------------------
 	// Events
 	//----------------------------
 
-	// Called each time the screen resolution changes
+	/// \brief Called each time the screen resolution changes
+	/// \param resolution: new resolution in pixels
 	void onScreenResized(sf::Vector2u resolution);
 
 	//----------------------------
 	// Metadata
 	//----------------------------
 
-	// Convenient layer name associations
+	/// \brief Convenient layer name associations
 	LayerMap layers;
 
+	/// \brief Tag definitions
 	TagManager tagManager;
 
-	// Returns the amount of time elapsed since the scene was loaded
+	/// \brief Returns the amount of time elapsed since the scene was loaded
 	inline sf::Time time() const { return m_time.getElapsedTime(); }
 
-	// Returns the duration between two frames
+	/// \brief Returns the duration between two frames
 	inline sf::Time deltaTime() const { return m_deltaTime; }
 
 	//----------------------------
 	// Serialization
 	//----------------------------
 
+	/// \brief saves the scene in a JSON data tree.
 	void serialize(JsonBox::Value & o);
+	/// \brief loads the scene from a JSON data tree.
 	void unserialize(JsonBox::Value & o);
 
+	/// \brief saves the scene in a JSON file.
+	/// \param filePath: path to the file. If it exists, it is overwritten. If it doesn't exists, it is created.
+	/// \return true if success, false if an error occurred.
 	bool saveToFile(const std::string & filePath);
+	/// \brief loads the scene from a JSON file.
+	/// \param filePath: path to the file.
+	/// \return true if success, false if the file didn't exist or had invalid structure.
 	bool loadFromFile(const std::string & filePath);
 
 	//----------------------------
 	// Component systems
 	//----------------------------
 
-	// Called when a behaviour has been created
+	/// \brief Internal: called when a behaviour has been created
 	void registerBehaviour(ABehaviour * behaviour);
 
-	// Called just before a behaviour to be deleted
+	/// \brief Internal: called just before a behaviour to be deleted
 	void unregisterBehaviour(ABehaviour * behaviour);
 
-	ComponentList<AAnimator>    animators;
-	PhysicsSystem               physics;
-	AudioSystem                 audioSystem;
-	RenderSystem                renderSystem;
-
-	GUIManager                  guiManager;
+	/// \brief All the animators in the scene.
+	ComponentList<AAnimator> animators;
+	/// \brief Manages physics in the scene (all colliders, all bodies).
+	PhysicsSystem physics;
+	/// \brief Controls global audio in the scene (also references AudioEmitters).
+	AudioSystem audioSystem;
+	/// \brief Everything visual (list of renderers and cameras).
+	RenderSystem renderSystem;
+	/// \brief GUI system.
+	GUIManager guiManager;
 
 protected:
 
+	/// \brief draws the entire scene on the given target.
 	void draw(sf::RenderTarget & target, sf::RenderStates states) const override;
 
 private:
 
-	u32                 m_nextID;
+	/// \brief counter used to generate entity UIDs
+	u32 m_nextID;
 
-	// TODO add scene modes : EDIT / PLAY / RECORD
+	/// \brief list of all entities in the scene.
+	std::list<Entity*> m_entities;
 
-	std::list<Entity*>  m_entities; // Entities in play
-
-	// References to behaviours [updateOrder][index]
+	/// \brief References to all behaviours [updateOrder][index]
 	std::map< s32, ComponentList<ABehaviour> > m_behaviours;
 
-	Camera *            r_mainCamera;
-	sf::Clock           m_time;
-	sf::Time            m_deltaTime;
+	/// \brief reference to the main camera
+	Camera * r_mainCamera;
+
+	/// \brief time elapsed since the scene was loaded
+	sf::Clock m_time;
+
+	/// \brief Cached current frame delta time
+	sf::Time m_deltaTime;
 
 };
 
