@@ -11,11 +11,11 @@ namespace zn
 {
 
 // Base component responsible for drawing things.
-class ZN_API ARenderer : public AComponent, public sf::Drawable
+class ZN_API Renderer : public Component, public sf::Drawable
 {
 public:
 
-	ZN_ABSTRACT_COMPONENT(zn::ARenderer, zn::AComponent, 0)
+	ZN_ABSTRACT_COMPONENT(zn::Renderer, zn::Component, 0)
 
 	void onAdd(Entity * e);
 	void onDestroy();
@@ -62,7 +62,7 @@ public:
 
 protected:
 
-	ARenderer() : AComponent(),
+	Renderer() : Component(),
 		drawOrder(0),
 		r_material(nullptr)
 	{}

@@ -14,7 +14,7 @@ namespace zn
 void SpriteAnimator::setFrame(const std::string& id)
 {
 	// Get renderer
-	ARenderer * r = entity().renderer();
+	Renderer * r = entity().renderer();
 	// If there is a renderer with an atlas
 	if(r != nullptr && r->atlas() != nullptr)
 	{
@@ -52,7 +52,7 @@ void SpriteAnimator::onAtlasChanged(const TextureAtlas * newAtlas)
 void SpriteAnimator::play(const std::string& id, s32 loops)
 {
 	// Ensure there is a renderer
-	ARenderer * r = entity().renderer();
+	Renderer * r = entity().renderer();
 	if(r == nullptr)
 		return;
 
@@ -106,7 +106,7 @@ void SpriteAnimator::onCreate()
 //------------------------------------------------------------------------------
 void SpriteAnimator::onUpdate()
 {
-	ARenderer * r = entity().renderer();
+	Renderer * r = entity().renderer();
 	if(r == nullptr)
 		return;
 
@@ -143,7 +143,7 @@ void SpriteAnimator::onUpdate()
 //------------------------------------------------------------------------------
 void SpriteAnimator::serializeData(JsonBox::Value & o)
 {
-	AAnimator::serializeData(o);
+	Animator::serializeData(o);
 
 	o["sequence"]        = r_sequence!=nullptr ? m_sequenceName : "";
 	o["sequenceFrame"]   = r_sequence!=nullptr ? (s32)m_sequenceFrame : (s32)0;
@@ -154,7 +154,7 @@ void SpriteAnimator::serializeData(JsonBox::Value & o)
 //------------------------------------------------------------------------------
 void SpriteAnimator::unserializeData(JsonBox::Value & o)
 {
-	AAnimator::unserializeData(o);
+	Animator::unserializeData(o);
 
 	m_sequenceName    = o["sequence"].getString();
 	m_sequenceFrame   = o["sequenceFrame"].getInt();
@@ -170,7 +170,7 @@ void SpriteAnimator::postUnserialize()
 	// Relink sequence
 	if(!m_sequenceName.empty() && r_sequence == nullptr)
 	{
-		ARenderer * r = entity().renderer();
+		Renderer * r = entity().renderer();
 		r_sequence = r->atlas()->sequence(m_sequenceName);
 	}
 }

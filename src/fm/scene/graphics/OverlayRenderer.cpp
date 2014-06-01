@@ -6,7 +6,7 @@ namespace zn
 {
 
 //------------------------------------------------------------------------------
-OverlayRenderer::OverlayRenderer() : ARenderer(),
+OverlayRenderer::OverlayRenderer() : Renderer(),
 	r_texture(nullptr),
 	m_color(255,255,255)
 {
@@ -33,7 +33,7 @@ sf::FloatRect OverlayRenderer::localBounds() const
 //------------------------------------------------------------------------------
 void OverlayRenderer::serializeData(JsonBox::Value& o)
 {
-	ARenderer::serializeData(o);
+	Renderer::serializeData(o);
 
 	zn::serialize(o["color"], m_color);
 
@@ -51,7 +51,7 @@ void OverlayRenderer::serializeData(JsonBox::Value& o)
 //------------------------------------------------------------------------------
 void OverlayRenderer::unserializeData(JsonBox::Value& o)
 {
-	ARenderer::unserialize(o);
+	Renderer::unserialize(o);
 
 	zn::unserialize(o["color"], m_color);
 

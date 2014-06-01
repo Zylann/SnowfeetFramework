@@ -6,13 +6,13 @@ namespace zn
 {
 
 //------------------------------------------------------------------------------
-void GUIManager::addListener(AComponent* listener)
+void GUIManager::addListener(Component* listener)
 {
 	m_inputListeners.push_back(listener);
 }
 
 //------------------------------------------------------------------------------
-void GUIManager::removeListener(AComponent* listener)
+void GUIManager::removeListener(Component* listener)
 {
 	for(auto it = m_inputListeners.begin(); it != m_inputListeners.end(); ++it)
 	{
@@ -31,7 +31,7 @@ bool GUIManager::onEvent(const sf::Event& event)
 	// For each input listener
 	for(auto it = m_inputListeners.begin(); it != m_inputListeners.end(); ++it)
 	{
-		AComponent & cmp = **it;
+		Component & cmp = **it;
 		// Notify of the event
 		if(cmp.entity().activeInHierarchy() && cmp.enabled() && cmp.onEvent(event))
 		{
@@ -44,7 +44,7 @@ bool GUIManager::onEvent(const sf::Event& event)
 }
 
 //------------------------------------------------------------------------------
-bool f_listenerOrder(const AComponent * const& a, const AComponent * const& b)
+bool f_listenerOrder(const Component * const& a, const Component * const& b)
 {
 	if(a->entity().renderer() != nullptr && a->entity().renderer() != nullptr)
 	{

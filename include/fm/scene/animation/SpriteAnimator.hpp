@@ -7,13 +7,13 @@
 namespace zn
 {
 
-class ZN_API SpriteAnimator : public AAnimator
+class ZN_API SpriteAnimator : public Animator
 {
 public:
 
-	ZN_COMPONENT(zn::SpriteAnimator, zn::AAnimator, 0)
+	ZN_COMPONENT(zn::SpriteAnimator, zn::Animator, 0)
 
-	SpriteAnimator() : AAnimator(),
+	SpriteAnimator() : Animator(),
 		r_sequence(0),
 		m_sequenceFrame(0),
 		m_remainingLoops(0)

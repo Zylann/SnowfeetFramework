@@ -34,7 +34,7 @@ void Character::onUpdate()
 		m_spriteDirLastFrame = m_spriteDir;
 		m_movingLastFrame = moving;
 
-		AAnimator * anim = entity().animator();
+		Animator * anim = entity().animator();
 
 		if(anim != nullptr)
 		{

@@ -6,13 +6,13 @@
 namespace zn
 {
 
-class ZN_API TextRenderer : public ARenderer
+class ZN_API TextRenderer : public Renderer
 {
 public:
 
-	ZN_COMPONENT(zn::TextRenderer, zn::ARenderer, 0)
+	ZN_COMPONENT(zn::TextRenderer, zn::Renderer, 0)
 
-	TextRenderer() : ARenderer(),
+	TextRenderer() : Renderer(),
 		r_font(nullptr)
 	{}
 

@@ -15,14 +15,14 @@ namespace zn
 {
 
 //------------------------------------------------------------------------------
-void RenderSystem::registerRenderer(ARenderer* renderer)
+void RenderSystem::registerRenderer(Renderer* renderer)
 {
 	assert(renderer != nullptr);
 	m_renderers.add(renderer);
 }
 
 //------------------------------------------------------------------------------
-void RenderSystem::unregisterRenderer(ARenderer* renderer)
+void RenderSystem::unregisterRenderer(Renderer* renderer)
 {
 	m_renderers.remove(renderer);
 }
@@ -64,7 +64,7 @@ bool f_cameraOrder(const Camera *&cam1, const Camera *&cam2)
 
 //------------------------------------------------------------------------------
 // Static
-bool RenderSystem::getRendererOrder(const ARenderer * const & r1, const ARenderer * const & r2)
+bool RenderSystem::getRendererOrder(const Renderer * const & r1, const Renderer * const & r2)
 {
 	s32 layerOrder1 = r1->entity().layer().drawOrder;
 	s32 layerOrder2 = r2->entity().layer().drawOrder;
@@ -175,10 +175,10 @@ void RenderSystem::render(const Camera & camera, sf::RenderTarget & finalTarget,
 	viewBounds = trans.transformRect(viewBounds);
 
 	// Filter and sort renderers by draw order
-	std::vector<const ARenderer*> drawList;
+	std::vector<const Renderer*> drawList;
 	for(auto it = m_renderers.cbegin(); it != m_renderers.cend(); ++it)
 	{
-		const ARenderer * renderer = *it;
+		const Renderer * renderer = *it;
 		const Entity & entity = renderer->entity();
 
 		// If the renderer is enabled, entity is active and is on a layer seen by the camera
@@ -206,7 +206,7 @@ void RenderSystem::render(const Camera & camera, sf::RenderTarget & finalTarget,
 	// Draw filtered renderers in the right order
 	for(auto it = drawList.cbegin(); it != drawList.cend(); ++it)
 	{
-		const ARenderer & renderer = **it;
+		const Renderer & renderer = **it;
 
 		// Apply material if any
 		Material * material = renderer.material();
@@ -234,7 +234,7 @@ void RenderSystem::render(const Camera & camera, sf::RenderTarget & finalTarget,
 			if(drawColliders)
 			{
 				// Draw collider boundaries
-				const ACollider * collider = (*it)->entity().collider();
+				const Collider * collider = (*it)->entity().collider();
 				if(collider != nullptr)
 				{
 					collider->debug_draw(finalTarget);
@@ -254,7 +254,7 @@ void RenderSystem::render(const Camera & camera, sf::RenderTarget & finalTarget,
 }
 
 //------------------------------------------------------------------------------
-void RenderSystem::drawRendererBounds(const ARenderer & renderer, sf::RenderTarget & renderTarget) const
+void RenderSystem::drawRendererBounds(const Renderer & renderer, sf::RenderTarget & renderTarget) const
 {
 	sf::FloatRect bounds = renderer.bounds();
 

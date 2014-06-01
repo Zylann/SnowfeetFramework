@@ -6,11 +6,11 @@
 namespace zn
 {
 
-class ZN_API SpriteRenderer : public ARenderer
+class ZN_API SpriteRenderer : public Renderer
 {
 public:
 
-	ZN_COMPONENT(zn::SpriteRenderer, zn::ARenderer, 0)
+	ZN_COMPONENT(zn::SpriteRenderer, zn::Renderer, 0)
 
 	SpriteRenderer();
 

@@ -265,7 +265,7 @@ void MapRenderer::setTile(u32 x, u32 y, s32 tileNumber)
 //------------------------------------------------------------------------------
 void MapRenderer::serializeData(JsonBox::Value & o)
 {
-	ARenderer::serializeData(o);
+	Renderer::serializeData(o);
 
 	// Tiled data
 
@@ -316,7 +316,7 @@ void MapRenderer::serializeData(JsonBox::Value & o)
 //------------------------------------------------------------------------------
 void MapRenderer::unserializeData(JsonBox::Value & o)
 {
-	ARenderer::unserializeData(o);
+	Renderer::unserializeData(o);
 
 	// Tiled data
 

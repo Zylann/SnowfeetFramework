@@ -19,14 +19,14 @@ bool GUIRoot::onEvent(const sf::Event& event)
 //------------------------------------------------------------------------------
 void GUIRoot::serializeData(JsonBox::Value& o)
 {
-	AComponent::serializeData(o);
+	Component::serializeData(o);
 	zn::serialize(o["rect"], m_rect);
 }
 
 //------------------------------------------------------------------------------
 void GUIRoot::unserializeData(JsonBox::Value& o)
 {
-	AComponent::unserializeData(o);
+	Component::unserializeData(o);
 	zn::unserialize(o["rect"], m_rect);
 }
 

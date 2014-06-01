@@ -4,13 +4,13 @@
 namespace zn
 {
 
-void ABehaviour::onAdd(Entity * e)
+void Behaviour::onAdd(Entity * e)
 {
-	AComponent::onAdd(e);
+	Component::onAdd(e);
 	entity().scene().registerBehaviour(this);
 }
 
-void ABehaviour::onDestroy()
+void Behaviour::onDestroy()
 {
 	entity().scene().unregisterBehaviour(this);
 }

@@ -80,7 +80,7 @@ public:
 
 	/// \brief Creates a new instance of a component from its name.
 	/// It does the same thing as "new MyComponent()", where className = "MyComponent".
-	AComponent * instantiate(const std::string className);
+	Component * instantiate(const std::string className);
 
 	/// \brief Gets a component metaclass from its name
 	ComponentType * getType(const std::string & typeName);
@@ -92,7 +92,7 @@ private:
 
 	std::vector<ComponentType*> m_registeredTypes;
 	std::unordered_map<std::string,ComponentTypeID> m_nameToID;
-	std::unordered_map<std::string, std::function<AComponent*()>> m_factories;
+	std::unordered_map<std::string, std::function<Component*()>> m_factories;
 	u32 m_nextID;
 
 };

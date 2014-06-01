@@ -6,34 +6,34 @@ namespace zn
 {
 
 //------------------------------------------------------------------------------
-void ARenderer::onAdd(Entity * e)
+void Renderer::onAdd(Entity * e)
 {
-	AComponent::onAdd(e);
+	Component::onAdd(e);
 	entity().scene().renderSystem.registerRenderer(this);
 }
 
 //------------------------------------------------------------------------------
-void ARenderer::onDestroy()
+void Renderer::onDestroy()
 {
 	entity().scene().renderSystem.unregisterRenderer(this);
 }
 
 //------------------------------------------------------------------------------
-void ARenderer::setMaterial(Material * newMaterial)
+void Renderer::setMaterial(Material * newMaterial)
 {
 	r_material = newMaterial;
 }
 
 //------------------------------------------------------------------------------
-Material * ARenderer::material() const
+Material * Renderer::material() const
 {
 	return r_material;
 }
 
 //------------------------------------------------------------------------------
-void ARenderer::onAtlasChanged(const TextureAtlas * atlas)
+void Renderer::onAtlasChanged(const TextureAtlas * atlas)
 {
-	AAnimator * animator = entity().animator();
+	Animator * animator = entity().animator();
 	if(animator != nullptr)
 	{
 		animator->onAtlasChanged(atlas);
@@ -41,7 +41,7 @@ void ARenderer::onAtlasChanged(const TextureAtlas * atlas)
 }
 
 //------------------------------------------------------------------------------
-sf::FloatRect ARenderer::bounds() const
+sf::FloatRect Renderer::bounds() const
 {
 	sf::FloatRect box = localBounds();
 	box = entity().transform.matrix().transformRect(box);
@@ -49,17 +49,17 @@ sf::FloatRect ARenderer::bounds() const
 }
 
 //------------------------------------------------------------------------------
-void ARenderer::serializeData(JsonBox::Value & o)
+void Renderer::serializeData(JsonBox::Value & o)
 {
-	AComponent::serializeData(o);
+	Component::serializeData(o);
 	o["drawOrder"] = drawOrder;
 	o["material"] = AssetBank::current()->materials.findName(r_material);
 }
 
 //------------------------------------------------------------------------------
-void ARenderer::unserializeData(JsonBox::Value & o)
+void Renderer::unserializeData(JsonBox::Value & o)
 {
-	AComponent::unserializeData(o);
+	Component::unserializeData(o);
 	drawOrder = o["drawOrder"].getInt();
 
 	std::string materialName = o["material"].getString();
@@ -70,7 +70,7 @@ void ARenderer::unserializeData(JsonBox::Value & o)
 }
 
 //------------------------------------------------------------------------------
-void ARenderer::postUnserialize()
+void Renderer::postUnserialize()
 {
 
 }

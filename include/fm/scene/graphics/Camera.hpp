@@ -9,11 +9,11 @@ namespace zn
 {
 
 /// \brief Performs a rendering of a specific rectangular area of the scene.
-class ZN_API Camera : public AComponent
+class ZN_API Camera : public Component
 {
 public:
 
-	ZN_COMPONENT(zn::Camera, zn::AComponent, 0)
+	ZN_COMPONENT(zn::Camera, zn::Component, 0)
 
 	// Which method should be used when the screen's resolution changes
 	enum ScaleMode

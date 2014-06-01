@@ -38,14 +38,14 @@ void Anchor::apply()
 //------------------------------------------------------------------------------
 void Anchor::serializeData(JsonBox::Value& o)
 {
-	ABehaviour::serializeData(o);
+	Behaviour::serializeData(o);
 	zn::serialize(o["align"], m_align);
 }
 
 //------------------------------------------------------------------------------
 void Anchor::unserializeData(JsonBox::Value& o)
 {
-	ABehaviour::unserializeData(o);
+	Behaviour::unserializeData(o);
 	zn::serialize(o["align"], m_align);
 }
 

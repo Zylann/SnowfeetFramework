@@ -7,11 +7,11 @@ namespace zn
 {
 
 // Base class for user-defined gameplay components
-class ZN_API ABehaviour : public AComponent
+class ZN_API Behaviour : public Component
 {
 public:
 
-	ZN_COMPONENT(zn::ABehaviour, zn::AComponent, 0)
+	ZN_COMPONENT(zn::Behaviour, zn::Component, 0)
 
 	virtual void onAdd(Entity * e) override;
 	virtual void onDestroy() override;

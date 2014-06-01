@@ -39,7 +39,7 @@ Entity::~Entity()
 	// Clear components
 	for(auto it = m_components.begin(); it != m_components.end(); ++it)
 	{
-		AComponent * component = it->second;
+		Component * component = it->second;
 		component->onDestroy();
 		delete component;
 	}
@@ -133,7 +133,7 @@ const Layer & Entity::layer() const
 }
 
 //------------------------------------------------------------------------------
-AComponent * Entity::getComponent(const ComponentType & cmpType, bool includeInheritance)
+Component * Entity::getComponent(const ComponentType & cmpType, bool includeInheritance)
 {
 	// Test final types first (quick)
 	auto it = m_components.find(cmpType.ID);
@@ -146,7 +146,7 @@ AComponent * Entity::getComponent(const ComponentType & cmpType, bool includeInh
 		// Test inheritance tree (slow)
 		for(auto it = m_components.begin(); it != m_components.end(); ++it)
 		{
-			AComponent * cmp = it->second;
+			Component * cmp = it->second;
 			if(cmp->componentType().is(cmpType))
 			{
 				return cmp;
@@ -157,7 +157,7 @@ AComponent * Entity::getComponent(const ComponentType & cmpType, bool includeInh
 }
 
 //------------------------------------------------------------------------------
-AComponent * Entity::addComponent(AComponent * newCmp)
+Component * Entity::addComponent(Component * newCmp)
 {
 	assert(newCmp != nullptr);
 
@@ -167,15 +167,15 @@ AComponent * Entity::addComponent(AComponent * newCmp)
 	// Assign quick lookup pointer
 
 	// TODO remove these lookups in the future, because users should have to reference them anyway
-	if(!newCmp->isInstanceOf<zn::ABehaviour>())
+	if(!newCmp->isInstanceOf<zn::Behaviour>())
 	{
-		if(newCmp->isInstanceOf<zn::ARenderer>())
+		if(newCmp->isInstanceOf<zn::Renderer>())
 		{
-			r_renderer = checked_cast<zn::ARenderer*>(newCmp);
+			r_renderer = checked_cast<zn::Renderer*>(newCmp);
 		}
-		else if(newCmp->isInstanceOf<zn::ACollider>())
+		else if(newCmp->isInstanceOf<zn::Collider>())
 		{
-			r_collider = checked_cast<zn::ACollider*>(newCmp);
+			r_collider = checked_cast<zn::Collider*>(newCmp);
 		}
 		else if(newCmp->isInstanceOf<zn::Camera>())
 		{
@@ -185,9 +185,9 @@ AComponent * Entity::addComponent(AComponent * newCmp)
 		{
 			r_body = checked_cast<zn::Body*>(newCmp);
 		}
-		else if(newCmp->isInstanceOf<zn::AAnimator>())
+		else if(newCmp->isInstanceOf<zn::Animator>())
 		{
-			r_animator = checked_cast<zn::AAnimator*>(newCmp);
+			r_animator = checked_cast<zn::Animator*>(newCmp);
 		}
 		else if(newCmp->isInstanceOf<zn::AudioEmitter>())
 		{
@@ -203,7 +203,7 @@ AComponent * Entity::addComponent(AComponent * newCmp)
 }
 
 //------------------------------------------------------------------------------
-void Entity::removeComponent(AComponent * cmp)
+void Entity::removeComponent(Component * cmp)
 {
 	assert(cmp != nullptr);
 
@@ -271,7 +271,7 @@ void Entity::serialize(JsonBox::Value & o)
 	for(auto it = m_components.begin(); it != m_components.end(); ++it)
 	{
 		JsonBox::Value & componentData = componentListData[i];
-		AComponent::serialize(it->second, componentData);
+		Component::serialize(it->second, componentData);
 		++i;
 	}
 	o["components"] = componentListData;
@@ -299,7 +299,7 @@ void Entity::unserialize(JsonBox::Value & o)
 	u32 n = componentListData.getArray().size();
 	for(u32 i = 0; i < n; ++i)
 	{
-		AComponent * component = AComponent::unserialize(componentListData[i]);
+		Component * component = Component::unserialize(componentListData[i]);
 
 		if(!checkComponentAddition(component->componentType(), "Entity::unserialize"))
 		{
@@ -348,10 +348,10 @@ bool Entity::checkComponentAddition(const ComponentType & ct, const std::string 
 	}
 
 	// If the component is not a behaviour, test its unicity within the entity
-	if(!ct.is(ABehaviour::sComponentType()))
+	if(!ct.is(Behaviour::sComponentType()))
 	{
 		// Search for another component of the same group
-		AComponent * duplicate = getComponent(ct);
+		Component * duplicate = getComponent(ct);
 
 		// If another has been found
 		if(duplicate != nullptr)

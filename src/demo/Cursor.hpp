@@ -6,11 +6,11 @@
 namespace demo
 {
 
-class Cursor : public zn::ABehaviour
+class Cursor : public zn::Behaviour
 {
 public:
 
-	ZN_COMPONENT(demo::Cursor, zn::ABehaviour, 0) // The cursor is updated first
+	ZN_COMPONENT(demo::Cursor, zn::Behaviour, 0) // The cursor is updated first
 
 	void onCreate() override;
 //	void onStart() override;

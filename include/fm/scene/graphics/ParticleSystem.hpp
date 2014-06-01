@@ -7,13 +7,13 @@
 namespace zn
 {
 
-class ZN_API ParticleSystem : public ARenderer
+class ZN_API ParticleSystem : public Renderer
 {
 public:
 
-	ZN_COMPONENT(zn::ParticleSystem, zn::ARenderer, 0)
+	ZN_COMPONENT(zn::ParticleSystem, zn::Renderer, 0)
 
-	ParticleSystem() : ARenderer(),
+	ParticleSystem() : Renderer(),
 		m_maxParticles(0),
 		m_particleRadius(1,1),
 		m_particleLifeTime(10,10),

@@ -23,13 +23,13 @@ public:
 	/// \brief this function is called when a new renderer has been created.
 	/// Do not call it yourself, it's done automatically by all renderers.
 	/// \param renderer: newly created renderer
-	void registerRenderer(ARenderer * renderer);
+	void registerRenderer(Renderer * renderer);
 
 	/// \brief this function is called just before a renderer to be destroyed.
 	/// Do not call it yourself, it's done automatically by all renderers.
 	/// After that call, the system won't be aware of this renderer.
 	/// \param renderer: the renderer that will be destroyed
-	void unregisterRenderer(ARenderer * renderer);
+	void unregisterRenderer(Renderer * renderer);
 
 	/// \brief this function is called when a new camera has been created.
 	/// Do not call it yourself, it's done automatically by all cameras.
@@ -65,7 +65,7 @@ public:
 	/// \return the camera from which the system is rendering now.
 	const Camera * activeCamera() const { return r_activeCamera; }
 
-	static bool getRendererOrder(const ARenderer * const &r1, const ARenderer * const &r2);
+	static bool getRendererOrder(const Renderer * const &r1, const Renderer * const &r2);
 
 private:
 
@@ -78,10 +78,10 @@ private:
 	/// \brief draws the axis-aligned bounding box of a renderer. Used for debug or editor stuff.
 	/// \param renderer: the renderer
 	/// \param renderTarget: the target where to draw the bounding box
-	void drawRendererBounds(const ARenderer & renderer, sf::RenderTarget & renderTarget) const;
+	void drawRendererBounds(const Renderer & renderer, sf::RenderTarget & renderTarget) const;
 
 	/// \brief holds a reference to every renderer in the scene
-	ComponentList<ARenderer> m_renderers;
+	ComponentList<Renderer> m_renderers;
 
 	/// \brief holds a reference to every camera in the scene
 	ComponentList<Camera> m_cameras;

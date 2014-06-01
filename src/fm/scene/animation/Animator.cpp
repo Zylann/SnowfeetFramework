@@ -4,13 +4,13 @@
 namespace zn
 {
 
-void AAnimator::onAdd(Entity * e)
+void Animator::onAdd(Entity * e)
 {
-	AComponent::onAdd(e);
+	Component::onAdd(e);
 	entity().scene().animators.add(this);
 }
 
-void AAnimator::onDestroy()
+void Animator::onDestroy()
 {
 	entity().scene().animators.remove(this);
 }

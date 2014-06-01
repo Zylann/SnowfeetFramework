@@ -7,11 +7,11 @@ namespace zn
 {
 
 /// \brief Draws a quad matching the whole screen regardless of the transform.
-class ZN_API OverlayRenderer : public ARenderer
+class ZN_API OverlayRenderer : public Renderer
 {
 public:
 
-	ZN_COMPONENT(zn::OverlayRenderer, zn::ARenderer, 0)
+	ZN_COMPONENT(zn::OverlayRenderer, zn::Renderer, 0)
 
 	OverlayRenderer();
 

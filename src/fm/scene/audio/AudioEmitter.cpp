@@ -9,7 +9,7 @@ namespace zn
 
 void AudioEmitter::onAdd(Entity* e)
 {
-	AComponent::onAdd(e);
+	Component::onAdd(e);
 	entity().scene().audioSystem.registerSource(this);
 }
 
@@ -224,7 +224,7 @@ AudioSource * AudioEmitter::getFreeSource()
 //------------------------------------------------------------------------------
 void AudioEmitter::serializeData(JsonBox::Value & o)
 {
-	AComponent::serializeData(o);
+	Component::serializeData(o);
 
 	o["spatialize"] = m_spatialize;
 	o["minRadius"] = m_minRadius;
@@ -235,7 +235,7 @@ void AudioEmitter::serializeData(JsonBox::Value & o)
 //------------------------------------------------------------------------------
 void AudioEmitter::unserializeData(JsonBox::Value & o)
 {
-	AComponent::unserializeData(o);
+	Component::unserializeData(o);
 
 	m_spatialize = o["spatialize"].getBoolean();
 	m_minRadius = o["minRadius"].getDouble();

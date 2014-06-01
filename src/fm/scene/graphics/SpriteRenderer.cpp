@@ -13,7 +13,7 @@ namespace zn
 {
 
 //------------------------------------------------------------------------------
-SpriteRenderer::SpriteRenderer() : ARenderer(),
+SpriteRenderer::SpriteRenderer() : Renderer(),
 	r_texture(nullptr),
 	r_atlas(nullptr),
 	m_scale(1,1)
@@ -168,7 +168,7 @@ void SpriteRenderer::setFrame(const std::string& id)
 //------------------------------------------------------------------------------
 void SpriteRenderer::serializeData(JsonBox::Value & o)
 {
-	ARenderer::serializeData(o);
+	Renderer::serializeData(o);
 
 	zn::serialize(o["color"], color());
 	zn::serialize(o["textureRect"], m_textureRect);
@@ -184,7 +184,7 @@ void SpriteRenderer::serializeData(JsonBox::Value & o)
 //------------------------------------------------------------------------------
 void SpriteRenderer::unserializeData(JsonBox::Value & o)
 {
-	ARenderer::unserialize(o);
+	Renderer::unserialize(o);
 
 	sf::Color c;
 	zn::unserialize(o["color"], c);

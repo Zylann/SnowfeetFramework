@@ -13,19 +13,19 @@ This file is part of the zCraft-Framework project.
 namespace zn
 {
 
-class ZN_API ACollider;
+class ZN_API Collider;
 
 struct CollisionInfo
 {
-	ACollider * collider;
+	Collider * collider;
 	sf::Vector2f motion;
 
-	CollisionInfo(ACollider * c, const sf::Vector2f & pmotion) :
+	CollisionInfo(Collider * c, const sf::Vector2f & pmotion) :
 		collider(c),
 		motion(pmotion)
 	{}
 
-	CollisionInfo(ACollider * c) :
+	CollisionInfo(Collider * c) :
 		collider(c)
 	{}
 

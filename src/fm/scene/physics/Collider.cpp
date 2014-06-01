@@ -4,30 +4,30 @@
 namespace zn
 {
 
-void ACollider::onAdd(Entity * e)
+void Collider::onAdd(Entity * e)
 {
-	AComponent::onAdd(e);
+	Component::onAdd(e);
 	entity().scene().physics.registerCollider(this);
 }
 
-void ACollider::onDestroy()
+void Collider::onDestroy()
 {
 	entity().scene().physics.unregisterCollider(this);
 }
 
-void ACollider::serializeData(JsonBox::Value & o)
+void Collider::serializeData(JsonBox::Value & o)
 {
-	AComponent::serializeData(o);
+	Component::serializeData(o);
 }
 
-void ACollider::unserializeData(JsonBox::Value & o)
+void Collider::unserializeData(JsonBox::Value & o)
 {
-	AComponent::unserializeData(o);
+	Component::unserializeData(o);
 }
 
-void ACollider::postUnserialize()
+void Collider::postUnserialize()
 {
-	AComponent::postUnserialize();
+	Component::postUnserialize();
 }
 
 } // namespace zn

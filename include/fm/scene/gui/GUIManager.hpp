@@ -12,8 +12,8 @@ class GUIManager : public IInputListener
 {
 public:
 
-	void addListener(AComponent * listener);
-	void removeListener(AComponent * listener);
+	void addListener(Component * listener);
+	void removeListener(Component * listener);
 
 	bool onEvent(const sf::Event & event) override;
 
@@ -21,7 +21,7 @@ public:
 
 private:
 
-	std::vector<AComponent*> m_inputListeners;
+	std::vector<Component*> m_inputListeners;
 
 };
 

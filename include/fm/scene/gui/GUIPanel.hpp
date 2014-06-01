@@ -6,11 +6,11 @@
 namespace zn
 {
 
-class GUIPanel : public ABehaviour
+class GUIPanel : public Behaviour
 {
 public:
 
-	ZN_COMPONENT(zn::GUIPanel, zn::ABehaviour, 0)
+	ZN_COMPONENT(zn::GUIPanel, zn::Behaviour, 0)
 
 	void serializeData(JsonBox::Value & o) override;
 	void unserializeData(JsonBox::Value & o) override;

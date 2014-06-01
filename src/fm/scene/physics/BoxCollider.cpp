@@ -11,10 +11,10 @@ namespace zn
 //------------------------------------------------------------------------------
 void BoxCollider::onCreate()
 {
-	ACollider::onCreate();
+	Collider::onCreate();
 
 	// Match the renderer bounds if any to initialize the default hitbox
-	ARenderer * r = entity().renderer();
+	Renderer * r = entity().renderer();
 	if(r != nullptr)
 	{
 		m_rect = r->localBounds();
@@ -51,21 +51,21 @@ sf::FloatRect BoxCollider::bounds() const
 //------------------------------------------------------------------------------
 void BoxCollider::serializeData(JsonBox::Value & o)
 {
-	ACollider::serializeData(o);
+	Collider::serializeData(o);
 	zn::serialize(o["rect"], m_rect);
 }
 
 //------------------------------------------------------------------------------
 void BoxCollider::unserializeData(JsonBox::Value & o)
 {
-	ACollider::unserializeData(o);
+	Collider::unserializeData(o);
 	zn::unserialize(o["rect"], m_rect);
 }
 
 //------------------------------------------------------------------------------
 void BoxCollider::postUnserialize()
 {
-	ACollider::postUnserialize();
+	Collider::postUnserialize();
 }
 
 //------------------------------------------------------------------------------

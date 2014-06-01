@@ -6,11 +6,11 @@
 namespace zn
 {
 
-class ZN_API BoxCollider : public ACollider
+class ZN_API BoxCollider : public Collider
 {
 public:
 
-	ZN_COMPONENT(zn::BoxCollider, zn::ACollider, 0)
+	ZN_COMPONENT(zn::BoxCollider, zn::Collider, 0)
 
 	void onCreate() override;
 

@@ -11,11 +11,11 @@ namespace demo
 // The engine doesn't supports physics yet.
 // This component adds simple movement to an entity, with AABB physics.
 // Does not work with non-AABB colliders.
-class Mover : public ABehaviour
+class Mover : public Behaviour
 {
 public:
 
-	ZN_COMPONENT(demo::Mover, zn::ABehaviour, 10)
+	ZN_COMPONENT(demo::Mover, zn::Behaviour, 10)
 
 	Mover();
 

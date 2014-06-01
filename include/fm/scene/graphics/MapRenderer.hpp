@@ -10,13 +10,13 @@ namespace zn
 
 // 2D orthographic map renderer.
 // It renders only one layer of tiles.
-class ZN_API MapRenderer : public ARenderer
+class ZN_API MapRenderer : public Renderer
 {
 public:
 
-	ZN_COMPONENT(zn::MapRenderer, zn::ARenderer, 0)
+	ZN_COMPONENT(zn::MapRenderer, zn::Renderer, 0)
 
-	MapRenderer() : ARenderer(),
+	MapRenderer() : Renderer(),
 		r_atlas(nullptr),
 		r_texture(nullptr),
 		m_textureTileSize(32,32),

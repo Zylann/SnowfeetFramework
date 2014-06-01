@@ -28,15 +28,15 @@ enum ComponentFlags
 /// Components are a core element of the engine.
 /// Some will implement functionnality, others just wrap existing objects
 /// to offer a component-friendly interface and engine-specific stuff.
-/// Note: components that derive directly from AComponent are often specific to the engine.
+/// Note: components that derive directly from Component are often specific to the engine.
 /// if you want to implement gameplay, please derive from Behaviour instead.
 /// For serialization and execution flow reasons, components must define a default
 /// constructor and avoid to rely on a constructor with parameters.
-class ZN_API AComponent : public IInputListener
+class ZN_API Component : public IInputListener
 {
 public:
 
-	virtual ~AComponent();
+	virtual ~Component();
 
 	/// \brief Returns the entity the component belongs to.
 	/// \return the entity
@@ -127,13 +127,13 @@ public:
 	/// Automatically adds type information from componentType().
 	/// \param component: component to serialize
 	/// \param o: output JSON data tree
-	static void serialize(AComponent * component, JsonBox::Value & o);
+	static void serialize(Component * component, JsonBox::Value & o);
 
 	/// \brief Creates a component from its JSON representation
 	/// Retrieves type information and use ComponentType factory to instantiate the component.
 	/// \param o: input JSON data tree
 	/// \return newly created component, or nullptr if something went wrong
-	static AComponent * unserialize(JsonBox::Value & o);
+	static Component * unserialize(JsonBox::Value & o);
 
 	/// \brief Saves component's properties to JSON (no need to save the class ID).
 	/// When subclassing, you need to call superclass' version.
@@ -156,7 +156,7 @@ protected:
 	/// \brief Called on each frame to update realtime behaviour.
 	virtual void onUpdate();
 
-	AComponent();
+	Component();
 
 private:
 

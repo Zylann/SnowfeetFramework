@@ -122,13 +122,13 @@ public:
 	//----------------------------
 
 	/// \brief Internal: called when a behaviour has been created
-	void registerBehaviour(ABehaviour * behaviour);
+	void registerBehaviour(Behaviour * behaviour);
 
 	/// \brief Internal: called just before a behaviour to be deleted
-	void unregisterBehaviour(ABehaviour * behaviour);
+	void unregisterBehaviour(Behaviour * behaviour);
 
 	/// \brief All the animators in the scene.
-	ComponentList<AAnimator> animators;
+	ComponentList<Animator> animators;
 	/// \brief Manages physics in the scene (all colliders, all bodies).
 	PhysicsSystem physics;
 	/// \brief Controls global audio in the scene (also references AudioEmitters).
@@ -152,7 +152,7 @@ private:
 	std::list<Entity*> m_entities;
 
 	/// \brief References to all behaviours [updateOrder][index]
-	std::map< s32, ComponentList<ABehaviour> > m_behaviours;
+	std::map< s32, ComponentList<Behaviour> > m_behaviours;
 
 	/// \brief reference to the main camera
 	Camera * r_mainCamera;

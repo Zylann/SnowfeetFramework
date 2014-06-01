@@ -7,11 +7,11 @@
 namespace zn
 {
 
-class GUIRoot : public ABehaviour
+class GUIRoot : public Behaviour
 {
 public:
 
-	ZN_COMPONENT(zn::GUIRoot, zn::ABehaviour, 0)
+	ZN_COMPONENT(zn::GUIRoot, zn::Behaviour, 0)
 
 	GUIRoot() :
 		r_guiCamera(nullptr)

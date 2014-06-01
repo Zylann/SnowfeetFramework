@@ -42,7 +42,7 @@ sf::FloatRect TextRenderer::localBounds() const
 //------------------------------------------------------------------------------
 void TextRenderer::serializeData(JsonBox::Value & o)
 {
-	ARenderer::serializeData(o);
+	Renderer::serializeData(o);
 
 	std::string fontName = AssetBank::current()->fonts.findName(r_font);
 	o["font"] = fontName;
@@ -59,7 +59,7 @@ void TextRenderer::serializeData(JsonBox::Value & o)
 //------------------------------------------------------------------------------
 void TextRenderer::unserializeData(JsonBox::Value & o)
 {
-	ARenderer::unserializeData(o);
+	Renderer::unserializeData(o);
 
 	std::string fontName = o["font"].getString();
 	if(!fontName.empty())

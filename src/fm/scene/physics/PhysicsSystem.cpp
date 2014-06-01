@@ -5,14 +5,14 @@ namespace zn
 {
 
 //------------------------------------------------------------------------------
-void PhysicsSystem::registerCollider(ACollider* collider)
+void PhysicsSystem::registerCollider(Collider* collider)
 {
 	assert(collider != nullptr);
 	m_colliders.add(collider);
 }
 
 //------------------------------------------------------------------------------
-void PhysicsSystem::unregisterCollider(ACollider* collider)
+void PhysicsSystem::unregisterCollider(Collider* collider)
 {
 	m_colliders.remove(collider);
 }
@@ -38,11 +38,11 @@ void PhysicsSystem::update()
 }
 
 //------------------------------------------------------------------------------
-ACollider * PhysicsSystem::colliderAt(const sf::Vector2f & point, const ACollider * except) const
+Collider * PhysicsSystem::colliderAt(const sf::Vector2f & point, const Collider * except) const
 {
 	for(auto it = m_colliders.cbegin(); it != m_colliders.cend(); ++it)
 	{
-		ACollider * c = *it;
+		Collider * c = *it;
 		if(c != except && c->enabled() && c->entity().activeInHierarchy())
 		{
 			if(c->collides(point))
@@ -53,11 +53,11 @@ ACollider * PhysicsSystem::colliderAt(const sf::Vector2f & point, const ACollide
 }
 
 //------------------------------------------------------------------------------
-ACollider * PhysicsSystem::colliderAt(const sf::FloatRect & rect, const ACollider * except) const
+Collider * PhysicsSystem::colliderAt(const sf::FloatRect & rect, const Collider * except) const
 {
 	for(auto it = m_colliders.cbegin(); it != m_colliders.cend(); ++it)
 	{
-		ACollider * c = *it;
+		Collider * c = *it;
 		if(c != except && c->enabled() && c->entity().activeInHierarchy())
 		{
 			if(c->collides(rect))

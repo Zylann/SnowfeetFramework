@@ -9,7 +9,7 @@ namespace zn
 {
 
 //------------------------------------------------------------------------------
-Camera::Camera() : AComponent(),
+Camera::Camera() : Component(),
 	depth(0),
 	layerMask(1), // See first layer by default
 	doClear(true),
@@ -28,7 +28,7 @@ Camera::~Camera()
 //------------------------------------------------------------------------------
 void Camera::onAdd(Entity * e)
 {
-	AComponent::onAdd(e);
+	Component::onAdd(e);
 	entity().scene().renderSystem.registerCamera(this);
 }
 
@@ -151,7 +151,7 @@ void Camera::onScreenResized(sf::Vector2u resolution)
 //------------------------------------------------------------------------------
 void Camera::serializeData(JsonBox::Value & o)
 {
-	AComponent::serializeData(o);
+	Component::serializeData(o);
 
 	o["depth"] = depth;
 
@@ -175,7 +175,7 @@ void Camera::serializeData(JsonBox::Value & o)
 //------------------------------------------------------------------------------
 void Camera::unserializeData(JsonBox::Value & o)
 {
-	AComponent::unserializeData(o);
+	Component::unserializeData(o);
 
 	depth = o["depth"].getInt();
 

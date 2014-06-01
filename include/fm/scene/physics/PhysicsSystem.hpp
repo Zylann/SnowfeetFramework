@@ -19,13 +19,13 @@ public:
 	/// \brief this function is called when a new collider has been created.
 	/// Do not call it yourself, it's done automatically by all colliders.
 	/// \param collider: newly created collider
-	void registerCollider(ACollider * collider);
+	void registerCollider(Collider * collider);
 
 	/// \brief this function is called just before a collider to be destroyed.
 	/// Do not call it yourself, it's done automatically by all colliders.
 	/// After that call, the system won't be aware of this collider.
 	/// \param collider: the collider that will be destroyed
-	void unregisterCollider(ACollider * collider);
+	void unregisterCollider(Collider * collider);
 
 	/// \brief this function is called when a new rigidbody has been created.
 	/// Do not call it yourself, it's done automatically by all rigidbodies.
@@ -45,18 +45,18 @@ public:
 	/// \param point: point that something might collide with
 	/// \param except: a collider to exclude, nullptr to not ignore
 	/// \return the first collider found.
-	ACollider * colliderAt(const sf::Vector2f & point, const ACollider * except=nullptr) const;
+	Collider * colliderAt(const sf::Vector2f & point, const Collider * except=nullptr) const;
 
 	/// \brief Finds the first collider intersecting the given rectangle in world space
 	/// \param rect: hitbox that something might collide with
 	/// \param except: a collider to exclude, nullptr to not ignore. Useful if the specified hitbox is a collider itself.
 	/// \return the first collider found.
-	ACollider * colliderAt(const sf::FloatRect & rect, const ACollider * except=nullptr) const;
+	Collider * colliderAt(const sf::FloatRect & rect, const Collider * except=nullptr) const;
 
 private:
 
 	/// \brief All colliders in the scene.
-	ComponentList<ACollider> m_colliders;
+	ComponentList<Collider> m_colliders;
 
 	/// \brief All rigidbodies in the scene.
 	ComponentList<Body> m_bodies;

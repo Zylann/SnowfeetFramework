@@ -85,11 +85,11 @@ Entity * Scene::findEntityFromName(const std::string & name)
 }
 
 //------------------------------------------------------------------------------
-void Scene::registerBehaviour(ABehaviour * behaviour)
+void Scene::registerBehaviour(Behaviour * behaviour)
 {
 	#ifdef ZN_DEBUG
 	assert(behaviour != nullptr);
-	assert(behaviour->componentType().is(ABehaviour::sComponentType()));
+	assert(behaviour->componentType().is(Behaviour::sComponentType()));
 	#endif
 
 	s32 updateOrder = behaviour->componentType().updateOrder;
@@ -97,7 +97,7 @@ void Scene::registerBehaviour(ABehaviour * behaviour)
 }
 
 //------------------------------------------------------------------------------
-void Scene::unregisterBehaviour(ABehaviour * behaviour)
+void Scene::unregisterBehaviour(Behaviour * behaviour)
 {
 	m_behaviours[behaviour->componentType().updateOrder].remove(behaviour);
 }

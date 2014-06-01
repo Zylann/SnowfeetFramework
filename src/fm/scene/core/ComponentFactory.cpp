@@ -14,7 +14,7 @@ namespace zn
 using namespace std;
 
 //------------------------------------------------------------------------------
-AComponent * ComponentFactory::instantiate(const string className)
+Component * ComponentFactory::instantiate(const string className)
 {
 	auto it = m_factories.find(className);
 #ifdef ZN_DEBUG
@@ -54,7 +54,7 @@ void ComponentFactory::registerEngineComponents()
 
 	// Animation
 
-	f.registerType<zn::AAnimator>();
+	f.registerType<zn::Animator>();
 	f.registerType<zn::SpriteAnimator>();
 
 	// Audio
@@ -64,7 +64,7 @@ void ComponentFactory::registerEngineComponents()
 	// Graphics
 
 	f.registerType<zn::Camera>();
-	f.registerType<zn::ARenderer>();
+	f.registerType<zn::Renderer>();
 	f.registerType<zn::MapRenderer>();
 	f.registerType<zn::ParticleSystem>();
 	f.registerType<zn::SpriteRenderer>();
@@ -73,14 +73,14 @@ void ComponentFactory::registerEngineComponents()
 
 	// Physics
 
-	f.registerType<zn::ACollider>();
+	f.registerType<zn::Collider>();
 	f.registerType<zn::BoxCollider>();
 	f.registerType<zn::MapCollider>();
 	f.registerType<zn::Body>();
 
 	// Behaviours
 
-	f.registerType<zn::ABehaviour>();
+	f.registerType<zn::Behaviour>();
 
 }
 

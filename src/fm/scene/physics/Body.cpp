@@ -6,7 +6,7 @@ namespace zn
 
 void Body::onAdd(Entity * e)
 {
-	AComponent::onAdd(e);
+	Component::onAdd(e);
 	entity().scene().physics.registerBody(this);
 }
 

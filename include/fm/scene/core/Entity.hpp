@@ -21,9 +21,9 @@ This file is part of the Plane-framework project.
 namespace zn
 {
 
-class AComponent;
-class ARenderer;
-class ACollider;
+class Component;
+class Renderer;
+class Collider;
 class Body;
 class Scene;
 class AudioEmitter;
@@ -120,7 +120,7 @@ public:
 
 	/// \brief Removes a component from the entity by providing a direct reference to it.
 	/// \param cmp: pointer on the component to remove.
-	void removeComponent(AComponent * cmp);
+	void removeComponent(Component * cmp);
 
 	/// \brief Finds the component of the given type attached to this entity.
 	/// \param includeInheritance: if set to true, the inheritance tree of components
@@ -130,7 +130,7 @@ public:
 	Component_T * getComponent(bool includeInheritance=true)
 	{
 		const ComponentType & ct = Component_T::sComponentType();
-		AComponent * cmp = getComponent(ct, includeInheritance);
+		Component * cmp = getComponent(ct, includeInheritance);
 		if(cmp)
 		{
 			return checked_cast<Component_T*>(cmp);
@@ -143,19 +143,19 @@ public:
 	/// \param includeInheritance: if set to true, the inheritance tree of components
 	/// will be tested too in order to find by parent types. However, it makes the search slower.
 	/// \return the component, or nullptr if not found.
-	AComponent * getComponent(const ComponentType & cmpType, bool includeInheritance=true);
+	Component * getComponent(const ComponentType & cmpType, bool includeInheritance=true);
 
 	/// \brief Returns the entity's renderer, if any.
-	inline ARenderer * renderer() const  { return r_renderer; }
+	inline Renderer * renderer() const  { return r_renderer; }
 
 	/// \brief Returns the entity's animator, if any.
-	inline AAnimator * animator() const  { return r_animator; }
+	inline Animator * animator() const  { return r_animator; }
 
 	/// \brief Returns the entity's camera, if any.
 	inline Camera * camera() const       { return r_camera; }
 
 	/// \brief Returns the entity's collider, if any.
-	inline ACollider * collider() const  { return r_collider; }
+	inline Collider * collider() const  { return r_collider; }
 
 	/// \brief Returns the entity's rigidbody, if any.
 	inline Body * body() const           { return r_body; }
@@ -274,7 +274,7 @@ private:
 	/// \brief Adds a component to the entity. Internal use.
 	/// \param newCmp: newly created component
 	/// \return the component passed in parameter.
-	AComponent * addComponent(AComponent * newCmp);
+	Component * addComponent(Component * newCmp);
 
 	/// \brief Checks a component type before adding a component instance.
 	/// Prints debug messages if the check fails.
@@ -293,13 +293,13 @@ private:
 	u32 m_id;
 
 	/// \brief Components attached to this entity, stored by type.
-	std::unordered_map<ComponentTypeID, AComponent*>  m_components;
+	std::unordered_map<ComponentTypeID, Component*>  m_components;
 
 	/// \brief direct reference to the renderer for quick lookup
-	ARenderer * r_renderer;
+	Renderer * r_renderer;
 
 	/// \brief direct reference to the collider for quick lookup
-	ACollider * r_collider;
+	Collider * r_collider;
 
 	/// \brief direct reference to the rigidbody for quick lookup
 	Body * r_body;
@@ -308,7 +308,7 @@ private:
 	Camera * r_camera;
 
 	/// \brief direct reference to the animator for quick lookup
-	AAnimator * r_animator;
+	Animator * r_animator;
 
 	/// \brief direct reference to the audio emitter for quick lookup
 	AudioEmitter * r_audioEmitter;

@@ -6,7 +6,7 @@
 namespace zn
 {
 
-class ZN_API Anchor : public ABehaviour
+class ZN_API Anchor : public Behaviour
 {
 public:
 

@@ -9,11 +9,11 @@ namespace zn
 // Physics
 // Note: the engine doesn't supports physics yet.
 // TODO Body: interface with Box2D
-class ZN_API Body : public AComponent
+class ZN_API Body : public Component
 {
 public:
 
-	ZN_COMPONENT(zn::Body, zn::AComponent, 0)
+	ZN_COMPONENT(zn::Body, zn::Component, 0)
 
 	void onAdd(Entity * e) override;
 	void onDestroy() override;

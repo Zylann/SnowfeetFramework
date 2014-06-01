@@ -6,11 +6,11 @@
 namespace demo
 {
 
-class Rotate : public zn::ABehaviour
+class Rotate : public zn::Behaviour
 {
 public:
 
-	ZN_COMPONENT(demo::Rotate, zn::ABehaviour, 10)
+	ZN_COMPONENT(demo::Rotate, zn::Behaviour, 10)
 
 	void onUpdate() override
 	{

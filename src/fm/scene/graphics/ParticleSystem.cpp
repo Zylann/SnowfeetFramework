@@ -186,7 +186,7 @@ void ParticleSystem::draw(sf::RenderTarget& target, sf::RenderStates states) con
 //------------------------------------------------------------------------------
 void ParticleSystem::serializeData(JsonBox::Value & o)
 {
-	ARenderer::serializeData(o);
+	Renderer::serializeData(o);
 
 	o["maxParticles"] = (s32)m_maxParticles;
 
@@ -213,7 +213,7 @@ void ParticleSystem::serializeData(JsonBox::Value & o)
 //------------------------------------------------------------------------------
 void ParticleSystem::unserializeData(JsonBox::Value & o)
 {
-	ARenderer::unserializeData(o);
+	Renderer::unserializeData(o);
 
 	setMaxParticles(o["maxParticles"].getInt());
 

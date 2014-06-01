@@ -13,7 +13,7 @@ namespace zn
 {
 
 //------------------------------------------------------------------------------
-AComponent::AComponent() :
+Component::Component() :
 	r_owner(nullptr)
 {
 	m_flags.set(CF_ENABLED);
@@ -21,7 +21,7 @@ AComponent::AComponent() :
 }
 
 //------------------------------------------------------------------------------
-AComponent::~AComponent()
+Component::~Component()
 {
 	if(receivesInput())
 	{
@@ -31,13 +31,13 @@ AComponent::~AComponent()
 }
 
 //------------------------------------------------------------------------------
-void AComponent::setEnabled(bool enable)
+void Component::setEnabled(bool enable)
 {
 	m_flags.set(CF_ENABLED, enable);
 }
 
 //------------------------------------------------------------------------------
-void AComponent::receiveInput(bool enableInput)
+void Component::receiveInput(bool enableInput)
 {
 	if(enableInput && !receivesInput())
 	{
@@ -52,24 +52,24 @@ void AComponent::receiveInput(bool enableInput)
 }
 
 //------------------------------------------------------------------------------
-void AComponent::onAdd(Entity * e)
+void Component::onAdd(Entity * e)
 {
 	r_owner = e;
 	m_flags.set(CF_FIRST_UPDATE);
 }
 
 //------------------------------------------------------------------------------
-void AComponent::onCreate()
+void Component::onCreate()
 {
 }
 
 //------------------------------------------------------------------------------
-void AComponent::onStart()
+void Component::onStart()
 {
 }
 
 //------------------------------------------------------------------------------
-void AComponent::update()
+void Component::update()
 {
 	if(m_flags.test(CF_FIRST_UPDATE))
 	{
@@ -84,21 +84,21 @@ void AComponent::update()
 }
 
 //------------------------------------------------------------------------------
-void AComponent::onUpdate()
+void Component::onUpdate()
 {
 }
 
 //------------------------------------------------------------------------------
-void AComponent::onDestroy()
+void Component::onDestroy()
 {
 }
 
 //------------------------------------------------------------------------------
-Entity & AComponent::entity() const
+Entity & Component::entity() const
 {
 #ifdef ZN_DEBUG
 	if(r_owner == nullptr)
-		cout << "E: AComponent::entity: _owner is null !" << endl;
+		cout << "E: Component::entity: _owner is null !" << endl;
 #endif
 	return *r_owner;
 }
@@ -106,12 +106,12 @@ Entity & AComponent::entity() const
 //------------------------------------------------------------------------------
 // Serialization (member)
 
-void AComponent::serializeData(JsonBox::Value & o)
+void Component::serializeData(JsonBox::Value & o)
 {
 	o["flags"] = (u8)(m_flags.to_ulong());
 }
 
-void AComponent::unserializeData(JsonBox::Value & o)
+void Component::unserializeData(JsonBox::Value & o)
 {
 	m_flags = std::bitset<8>((u8)(o["flags"].getInt()));
 }
@@ -122,7 +122,7 @@ void AComponent::unserializeData(JsonBox::Value & o)
 // TODO use a PropertyTree instead of directly JsonBox::Object?
 // It would solve the problem about which serialization format to choose...
 
-void AComponent::serialize(AComponent * component, JsonBox::Value & o)
+void Component::serialize(Component * component, JsonBox::Value & o)
 {
 	// Serialize type
 	o["type"] = JsonBox::Value(component->componentType().name);
@@ -133,13 +133,13 @@ void AComponent::serialize(AComponent * component, JsonBox::Value & o)
 }
 
 //------------------------------------------------------------------------------
-AComponent * AComponent::unserialize(JsonBox::Value & o)
+Component * Component::unserialize(JsonBox::Value & o)
 {
 	// Get type of the component
 	std::string type = o["type"].getString();
 
 	// Instantiate it
-	AComponent * component = ComponentFactory::get().instantiate(type);
+	Component * component = ComponentFactory::get().instantiate(type);
 
 	// Deserialize properties
 	assert(component != nullptr);

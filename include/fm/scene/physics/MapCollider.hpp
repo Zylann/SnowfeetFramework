@@ -12,11 +12,11 @@ namespace zn
 /// Each cell is associated to a simple collider primitive (square, triangle...),
 /// which is identified by integer IDs.
 /// Currently, only rectangular shapes are supported (more will come with the integration of a physics engine).
-class ZN_API MapCollider : public ACollider
+class ZN_API MapCollider : public Collider
 {
 public:
 
-	ZN_COMPONENT(zn::MapCollider, zn::ACollider, 0)
+	ZN_COMPONENT(zn::MapCollider, zn::Collider, 0)
 
 	MapCollider();
 

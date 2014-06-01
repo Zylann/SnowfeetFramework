@@ -30,7 +30,7 @@ This file is part of the zCraft-Framework project.
 	const zn::ComponentType & componentType() const override {                 \
 		return sComponentType();                                               \
 	}                                                                          \
-	static zn::AComponent * instantiate() {                                    \
+	static zn::Component * instantiate() {                                    \
 		return new __name();                                                   \
 	}
 
@@ -44,14 +44,14 @@ This file is part of the zCraft-Framework project.
 	const zn::ComponentType & componentType() const override {                 \
 		return sComponentType();                                               \
 	}                                                                          \
-	static zn::AComponent * instantiate() {                                    \
+	static zn::Component * instantiate() {                                    \
 		return nullptr;                                                        \
 	}
 
 namespace zn
 {
 
-class AComponent;
+class Component;
 
 typedef u32 ComponentTypeID;
 

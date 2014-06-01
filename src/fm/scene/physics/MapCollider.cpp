@@ -15,7 +15,7 @@
 namespace zn
 {
 
-MapCollider::MapCollider() : ACollider(),
+MapCollider::MapCollider() : Collider(),
 	m_cellSize(1), // Default
 	m_voidColliderType(0), // Default
 	r_tiledMap(nullptr)
@@ -245,7 +245,7 @@ u8 MapCollider::cellAt(const sf::Vector2i & cellPos) const
 //------------------------------------------------------------------------------
 void MapCollider::serializeData(JsonBox::Value & o)
 {
-	ACollider::serializeData(o);
+	Collider::serializeData(o);
 
 	o["cellSize"] = m_cellSize;
 	zn::serialize(o["size"], m_size);
@@ -285,7 +285,7 @@ void MapCollider::serializeData(JsonBox::Value & o)
 //------------------------------------------------------------------------------
 void MapCollider::unserializeData(JsonBox::Value & o)
 {
-	ACollider::unserializeData(o);
+	Collider::unserializeData(o);
 
 	m_cellSize = o["cellSize"].getDouble();
 	zn::unserialize(o["size"], m_size);

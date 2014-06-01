@@ -7,11 +7,11 @@
 namespace zn
 {
 
-class ZN_API AAnimator : public AComponent
+class ZN_API Animator : public Component
 {
 public:
 
-	ZN_ABSTRACT_COMPONENT(zn::AAnimator, zn::AComponent, 0)
+	ZN_ABSTRACT_COMPONENT(zn::Animator, zn::Component, 0)
 
 	void onAdd(Entity * e) override;
 	void onDestroy() override;

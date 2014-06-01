@@ -11,13 +11,13 @@ namespace demo
 {
 
 // Base component for characters that can move and animate
-class Character : public zn::ABehaviour
+class Character : public zn::Behaviour
 {
 public:
 
-	ZN_COMPONENT(demo::Character, zn::ABehaviour, 0)
+	ZN_COMPONENT(demo::Character, zn::Behaviour, 0)
 
-	Character() : ABehaviour(),
+	Character() : Behaviour(),
 		r_sprite(nullptr),
 		r_mover(nullptr),
 		m_spriteDir(Direction::DOWN)
