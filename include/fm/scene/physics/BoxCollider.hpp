@@ -10,7 +10,7 @@ class ZN_API BoxCollider : public Collider
 {
 public:
 
-	ZN_COMPONENT(zn::BoxCollider, zn::Collider, 0)
+	ZN_OBJECT(zn::BoxCollider, zn::Collider)
 
 	void onCreate() override;
 

@@ -10,7 +10,9 @@ class Cat : public Character
 {
 public:
 
-	ZN_COMPONENT(demo::Cat, demo::Character, 10)
+	ZN_OBJECT(demo::Cat, demo::Character)
+
+	s32 getUpdateOrder() const override { return 10; }
 
 	void onCreate() override;
 	void onUpdate() override;

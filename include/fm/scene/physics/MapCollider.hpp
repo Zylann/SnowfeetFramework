@@ -16,7 +16,7 @@ class ZN_API MapCollider : public Collider
 {
 public:
 
-	ZN_COMPONENT(zn::MapCollider, zn::Collider, 0)
+	ZN_OBJECT(zn::MapCollider, zn::Collider)
 
 	MapCollider();
 

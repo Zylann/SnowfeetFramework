@@ -89,17 +89,18 @@ void Scene::registerBehaviour(Behaviour * behaviour)
 {
 	#ifdef ZN_DEBUG
 	assert(behaviour != nullptr);
-	assert(behaviour->componentType().is(Behaviour::sComponentType()));
+	assert(behaviour->objectType().is(Behaviour::sObjectType()));
 	#endif
 
-	s32 updateOrder = behaviour->componentType().updateOrder;
+	s32 updateOrder = behaviour->getUpdateOrder();
 	m_behaviours[updateOrder].add(behaviour);
 }
 
 //------------------------------------------------------------------------------
 void Scene::unregisterBehaviour(Behaviour * behaviour)
 {
-	m_behaviours[behaviour->componentType().updateOrder].remove(behaviour);
+	s32 updateOrder = behaviour->getUpdateOrder();
+	m_behaviours[updateOrder].remove(behaviour);
 }
 
 //------------------------------------------------------------------------------

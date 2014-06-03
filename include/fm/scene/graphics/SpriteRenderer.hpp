@@ -10,7 +10,7 @@ class ZN_API SpriteRenderer : public Renderer
 {
 public:
 
-	ZN_COMPONENT(zn::SpriteRenderer, zn::Renderer, 0)
+	ZN_OBJECT(zn::SpriteRenderer, zn::Renderer)
 
 	SpriteRenderer();
 

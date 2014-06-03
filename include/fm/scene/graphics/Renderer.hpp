@@ -15,10 +15,10 @@ class ZN_API Renderer : public Component, public sf::Drawable
 {
 public:
 
-	ZN_ABSTRACT_COMPONENT(zn::Renderer, zn::Component, 0)
+	ZN_ABSTRACT_OBJECT(zn::Renderer, zn::Component)
 
-	void onAdd(Entity * e);
-	void onDestroy();
+	void onAdd(Entity * e) override;
+	void onDestroy() override;
 
 	/// \brief Returns the axis-aligned bounding box of what's being rendered in local space
 	virtual sf::FloatRect localBounds() const = 0;

@@ -133,7 +133,7 @@ const Layer & Entity::layer() const
 }
 
 //------------------------------------------------------------------------------
-Component * Entity::getComponent(const ComponentType & cmpType, bool includeInheritance)
+Component * Entity::getComponent(const ObjectType & cmpType, bool includeInheritance)
 {
 	// Test final types first (quick)
 	auto it = m_components.find(cmpType.ID);
@@ -147,7 +147,7 @@ Component * Entity::getComponent(const ComponentType & cmpType, bool includeInhe
 		for(auto it = m_components.begin(); it != m_components.end(); ++it)
 		{
 			Component * cmp = it->second;
-			if(cmp->componentType().is(cmpType))
+			if(cmp->objectType().is(cmpType))
 			{
 				return cmp;
 			}
@@ -161,7 +161,7 @@ Component * Entity::addComponent(Component * newCmp)
 {
 	assert(newCmp != nullptr);
 
-	const ComponentType & ct = newCmp->componentType();
+	const ObjectType & ct = newCmp->objectType();
 	m_components[ct.ID] = newCmp;
 
 	// Assign quick lookup pointer
@@ -207,7 +207,7 @@ void Entity::removeComponent(Component * cmp)
 {
 	assert(cmp != nullptr);
 
-	auto it = m_components.find(cmp->componentType().ID);
+	auto it = m_components.find(cmp->objectType().ID);
 	if(it != m_components.end())
 	{
 		m_components.erase(it);
@@ -215,7 +215,7 @@ void Entity::removeComponent(Component * cmp)
 #ifdef ZN_DEBUG
 	else
 	{
-		log.warn() << "Entity::removeComponent: not found " << cmp->componentType().toString() << log.endl();
+		log.warn() << "Entity::removeComponent: not found " << cmp->objectType().toString() << log.endl();
 	}
 #endif
 }
@@ -301,7 +301,7 @@ void Entity::unserialize(JsonBox::Value & o)
 	{
 		Component * component = Component::unserialize(componentListData[i]);
 
-		if(!checkComponentAddition(component->componentType(), "Entity::unserialize"))
+		if(!checkComponentAddition(component->objectType(), "Entity::unserialize"))
 		{
 			delete component;
 			continue;
@@ -321,8 +321,16 @@ void Entity::postUnserialize(JsonBox::Value & o)
 }
 
 //------------------------------------------------------------------------------
-bool Entity::checkComponentAddition(const ComponentType & ct, const std::string & context)
+bool Entity::checkComponentAddition(const ObjectType & ct, const std::string & context)
 {
+	// Check component derivation
+	if(!ct.is(zn::Component::sObjectType()))
+	{
+		log.err() << context << ": "
+			"Cannot add a non-component object (" << ct.toString() << ")" << log.endl();
+		return false;
+	}
+
 	// Check component type ID
 	if(ct.ID == 0)
 	{
@@ -348,7 +356,7 @@ bool Entity::checkComponentAddition(const ComponentType & ct, const std::string 
 	}
 
 	// If the component is not a behaviour, test its unicity within the entity
-	if(!ct.is(Behaviour::sComponentType()))
+	if(!ct.is(Behaviour::sObjectType()))
 	{
 		// Search for another component of the same group
 		Component * duplicate = getComponent(ct);
@@ -359,7 +367,7 @@ bool Entity::checkComponentAddition(const ComponentType & ct, const std::string 
 			log.err() << context << ": "
 				"cannot add component, only one of its group is allowed !" << log.endl();
 			log.more() << "adding: " << ct.toString() << log.endl();
-			log.more() << "the entity already has: " << duplicate->componentType().toString() << log.endl();
+			log.more() << "the entity already has: " << duplicate->objectType().toString() << log.endl();
 			log.more() << "on entity \"" << m_name << '"' << log.endl();
 
 			return false;

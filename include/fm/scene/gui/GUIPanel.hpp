@@ -10,7 +10,7 @@ class GUIPanel : public Behaviour
 {
 public:
 
-	ZN_COMPONENT(zn::GUIPanel, zn::Behaviour, 0)
+	ZN_OBJECT(zn::GUIPanel, zn::Behaviour, 0)
 
 	void serializeData(JsonBox::Value & o) override;
 	void unserializeData(JsonBox::Value & o) override;

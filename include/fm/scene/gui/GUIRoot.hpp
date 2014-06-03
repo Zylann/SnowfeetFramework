@@ -11,7 +11,7 @@ class GUIRoot : public Behaviour
 {
 public:
 
-	ZN_COMPONENT(zn::GUIRoot, zn::Behaviour, 0)
+	ZN_OBJECT(zn::GUIRoot, zn::Behaviour)
 
 	GUIRoot() :
 		r_guiCamera(nullptr)

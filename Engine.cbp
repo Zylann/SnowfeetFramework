@@ -77,6 +77,9 @@
 		<Unit filename="include/fm/json/json_utils.hpp" />
 		<Unit filename="include/fm/pcg/AutoTiler.hpp" />
 		<Unit filename="include/fm/pcg/MazeGenerator.hpp" />
+		<Unit filename="include/fm/reflect/Object.hpp" />
+		<Unit filename="include/fm/reflect/ObjectType.hpp" />
+		<Unit filename="include/fm/reflect/ObjectTypeDatabase.hpp" />
 		<Unit filename="include/fm/scene/animation.hpp" />
 		<Unit filename="include/fm/scene/animation/Animator.hpp" />
 		<Unit filename="include/fm/scene/animation/SpriteAnimator.hpp" />
@@ -87,9 +90,7 @@
 		<Unit filename="include/fm/scene/behaviour/Behaviour.hpp" />
 		<Unit filename="include/fm/scene/core.hpp" />
 		<Unit filename="include/fm/scene/core/Component.hpp" />
-		<Unit filename="include/fm/scene/core/ComponentFactory.hpp" />
 		<Unit filename="include/fm/scene/core/ComponentList.hpp" />
-		<Unit filename="include/fm/scene/core/ComponentType.hpp" />
 		<Unit filename="include/fm/scene/core/Entity.hpp" />
 		<Unit filename="include/fm/scene/core/LayerMap.hpp" />
 		<Unit filename="include/fm/scene/core/Scene.hpp" />
@@ -116,6 +117,7 @@
 		<Unit filename="include/fm/scene/physics/CollisionInfo.hpp" />
 		<Unit filename="include/fm/scene/physics/MapCollider.hpp" />
 		<Unit filename="include/fm/scene/physics/PhysicsSystem.hpp" />
+		<Unit filename="include/fm/scene/register_components.hpp" />
 		<Unit filename="include/fm/sfml/AudioSource.hpp" />
 		<Unit filename="include/fm/sfml/InputListener.hpp">
 			<Option target="&lt;{~None~}&gt;" />
@@ -164,14 +166,14 @@
 		<Unit filename="src/fm/json/json_utils.cpp" />
 		<Unit filename="src/fm/pcg/AutoTiler.cpp" />
 		<Unit filename="src/fm/pcg/MazeGenerator.cpp" />
+		<Unit filename="src/fm/reflect/ObjectType.cpp" />
+		<Unit filename="src/fm/reflect/ObjectTypeDatabase.cpp" />
 		<Unit filename="src/fm/scene/animation/Animator.cpp" />
 		<Unit filename="src/fm/scene/animation/SpriteAnimator.cpp" />
 		<Unit filename="src/fm/scene/audio/AudioEmitter.cpp" />
 		<Unit filename="src/fm/scene/audio/AudioSystem.cpp" />
 		<Unit filename="src/fm/scene/behaviour/Behaviour.cpp" />
 		<Unit filename="src/fm/scene/core/Component.cpp" />
-		<Unit filename="src/fm/scene/core/ComponentFactory.cpp" />
-		<Unit filename="src/fm/scene/core/ComponentType.cpp" />
 		<Unit filename="src/fm/scene/core/Entity.cpp" />
 		<Unit filename="src/fm/scene/core/Scene.cpp" />
 		<Unit filename="src/fm/scene/core/TagManager.cpp" />
@@ -192,6 +194,7 @@
 		<Unit filename="src/fm/scene/physics/Collider.cpp" />
 		<Unit filename="src/fm/scene/physics/MapCollider.cpp" />
 		<Unit filename="src/fm/scene/physics/PhysicsSystem.cpp" />
+		<Unit filename="src/fm/scene/register_components.cpp" />
 		<Unit filename="src/fm/sfml/AudioSource.cpp" />
 		<Unit filename="src/fm/sfml/SpriteBatch.cpp" />
 		<Unit filename="src/fm/system/filesystem.cpp" />

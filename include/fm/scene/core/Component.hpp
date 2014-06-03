@@ -7,9 +7,8 @@
 #include <JsonBox.h>
 #include <fm/types.hpp>
 #include <fm/scene/physics/CollisionInfo.hpp>
-#include <fm/scene/core/ComponentType.hpp>
 #include <fm/sfml/InputListener.hpp>
-#include <fm/scene/core/ComponentFactory.hpp>
+#include <fm/reflect/Object.hpp>
 
 namespace zn
 {
@@ -32,28 +31,17 @@ enum ComponentFlags
 /// if you want to implement gameplay, please derive from Behaviour instead.
 /// For serialization and execution flow reasons, components must define a default
 /// constructor and avoid to rely on a constructor with parameters.
-class ZN_API Component : public IInputListener
+class ZN_API Component : public Object, public IInputListener
 {
 public:
+
+	ZN_OBJECT(zn::Component, zn::Object)
 
 	virtual ~Component();
 
 	/// \brief Returns the entity the component belongs to.
 	/// \return the entity
 	Entity & entity() const;
-
-	/// \brief Returns the meta-class of the component
-	/// \return meta-class
-	virtual const ComponentType & componentType() const = 0;
-
-	/// \brief Tests if the component is an instance of the given component type.
-	/// It also works for inherited types.
-	template <class Component_T>
-	bool isInstanceOf()
-	{
-		ComponentType & expectedType = Component_T::sComponentType();
-		return componentType().is(expectedType);
-	}
 
 	/// \brief Called immediately after the component to be added to an entity.
 	/// This method is responsible for referencing the entity.
@@ -94,6 +82,10 @@ public:
 	/// this function is not aimed at being override, use onUpdate() instead.
 	void update();
 
+	/// \brief Returns the static update order of the component.
+	/// (only applies to updatable components)
+	virtual s32 getUpdateOrder() const { return 0; }
+
 	// TODO intergate a physics engine?
 
 	/// \brief Called when the entity starts colliding with something
@@ -124,7 +116,7 @@ public:
 	// Doing that in "play state" might be useful as a debug dump.
 
 	/// \brief Saves the component as JSON data.
-	/// Automatically adds type information from componentType().
+	/// Automatically adds type information from objectType().
 	/// \param component: component to serialize
 	/// \param o: output JSON data tree
 	static void serialize(Component * component, JsonBox::Value & o);

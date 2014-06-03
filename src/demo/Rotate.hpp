@@ -10,7 +10,9 @@ class Rotate : public zn::Behaviour
 {
 public:
 
-	ZN_COMPONENT(demo::Rotate, zn::Behaviour, 10)
+	ZN_OBJECT(demo::Rotate, zn::Behaviour)
+
+	s32 getUpdateOrder() const override { return 10; }
 
 	void onUpdate() override
 	{
@@ -23,3 +25,4 @@ public:
 } // namespace demo
 
 #endif // HEADER_DEMO_ROTATE_HPP_INCLUDED
+

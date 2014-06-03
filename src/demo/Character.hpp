@@ -15,7 +15,7 @@ class Character : public zn::Behaviour
 {
 public:
 
-	ZN_COMPONENT(demo::Character, zn::Behaviour, 0)
+	ZN_OBJECT(demo::Character, zn::Behaviour)
 
 	Character() : Behaviour(),
 		r_sprite(nullptr),

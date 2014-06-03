@@ -13,7 +13,7 @@ This file is part of the zCraft-Framework project.
 #include <fm/app/PerformanceGraph.hpp>
 #include <fm/app/GameSettings.hpp>
 #include <fm/scene/core/Scene.hpp>
-#include <fm/scene/core/ComponentFactory.hpp>
+#include <fm/reflect/ObjectTypeDatabase.hpp>
 
 namespace zn
 {
@@ -109,7 +109,7 @@ protected:
 	//-----------------------
 
 	// Called first to register user-defined C++ components
-	virtual void registerNativeUserComponents(ComponentFactory & f) = 0;
+	virtual void registerNativeUserComponents(ObjectTypeDatabase & odb) = 0;
 
 	// Called when the application starts, after window's creation, before main loop.
 	// The default implementation does nothing.

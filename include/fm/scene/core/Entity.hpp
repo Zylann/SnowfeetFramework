@@ -99,7 +99,7 @@ public:
 	Component_T * addComponent()
 	{
 		// Get metaclass
-		const ComponentType & ct = Component_T::sComponentType();
+		const ObjectType & ct = Component_T::sObjectType();
 
 		// Check if the component can be added
 		if(!checkComponentAddition(ct, "Entity::addComponent"))
@@ -129,7 +129,7 @@ public:
 	template <class Component_T>
 	Component_T * getComponent(bool includeInheritance=true)
 	{
-		const ComponentType & ct = Component_T::sComponentType();
+		const ObjectType & ct = Component_T::sObjectType();
 		Component * cmp = getComponent(ct, includeInheritance);
 		if(cmp)
 		{
@@ -143,7 +143,7 @@ public:
 	/// \param includeInheritance: if set to true, the inheritance tree of components
 	/// will be tested too in order to find by parent types. However, it makes the search slower.
 	/// \return the component, or nullptr if not found.
-	Component * getComponent(const ComponentType & cmpType, bool includeInheritance=true);
+	Component * getComponent(const ObjectType & cmpType, bool includeInheritance=true);
 
 	/// \brief Returns the entity's renderer, if any.
 	inline Renderer * renderer() const  { return r_renderer; }
@@ -281,7 +281,7 @@ private:
 	/// \param ct: meta-class of the component to add
 	/// \param context: contextual information to give if an error occurs (ie. the calling function).
 	/// \return true if the component can be added, false otherwise
-	bool checkComponentAddition(const ComponentType & ct, const std::string & context);
+	bool checkComponentAddition(const ObjectType & ct, const std::string & context);
 
 	//--------------------------------------
 	// Attributes
@@ -293,7 +293,7 @@ private:
 	u32 m_id;
 
 	/// \brief Components attached to this entity, stored by type.
-	std::unordered_map<ComponentTypeID, Component*>  m_components;
+	std::unordered_map<ObjectTypeID, Component*>  m_components;
 
 	/// \brief direct reference to the renderer for quick lookup
 	Renderer * r_renderer;

@@ -3,9 +3,9 @@
 
 #include <fm/config.hpp>
 #include <fm/scene/core/Component.hpp>
-#include <fm/scene/core/ComponentFactory.hpp>
 #include <fm/scene/core/Entity.hpp>
 #include <fm/scene/core/Scene.hpp>
+#include <fm/reflect/ObjectTypeDatabase.hpp>
 
 using namespace std;
 
@@ -98,7 +98,7 @@ Entity & Component::entity() const
 {
 #ifdef ZN_DEBUG
 	if(r_owner == nullptr)
-		cout << "E: Component::entity: _owner is null !" << endl;
+		cout << "E: Component::entity: r_owner is null !" << endl;
 #endif
 	return *r_owner;
 }
@@ -125,7 +125,7 @@ void Component::unserializeData(JsonBox::Value & o)
 void Component::serialize(Component * component, JsonBox::Value & o)
 {
 	// Serialize type
-	o["type"] = JsonBox::Value(component->componentType().name);
+	o["type"] = JsonBox::Value(component->objectType().name);
 
 	// Serialize properties
 	JsonBox::Value & properties = o["data"];
@@ -139,10 +139,11 @@ Component * Component::unserialize(JsonBox::Value & o)
 	std::string type = o["type"].getString();
 
 	// Instantiate it
-	Component * component = ComponentFactory::get().instantiate(type);
+	Object * componentObj = ObjectTypeDatabase::get().instantiate(type);
 
 	// Deserialize properties
-	assert(component != nullptr);
+	assert(componentObj != nullptr);
+	Component * component = static_cast<Component*>(componentObj);
 	component->unserializeData(o["data"]);
 
 	return component;

@@ -10,7 +10,7 @@ class ZN_API Anchor : public Behaviour
 {
 public:
 
-	ZN_COMPONENT(zn::Anchor, zn::Behaviour, 0)
+	ZN_OBJECT(zn::Anchor, zn::Behaviour)
 
 	bool onEvent(const sf::Event & event) override;
 

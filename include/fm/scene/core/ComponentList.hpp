@@ -30,7 +30,7 @@ public:
 		if(it != m_all.end())
 		{
 			std::cout << "E: ComponentList::add: already contains ("
-					  << cmp->componentType().name << ")" << std::endl;
+					  << cmp->objectType().name << ")" << std::endl;
 			return;
 		}
 #endif
@@ -45,7 +45,7 @@ public:
 		if(m_all.erase(cmp) == 0)
 		{
 			std::cout << "E: ComponentList::remove: "
-				<< cmp->componentType().name << " was not found." << std::endl;
+				<< cmp->objectType().name << " was not found." << std::endl;
 		}
 	}
 

@@ -9,8 +9,8 @@ This file is part of the zCraft-Framework project.
 
 #include <fm/app/Application.hpp>
 #include <fm/util/macros.hpp>
-#include <fm/scene/core/ComponentFactory.hpp>
 #include <fm/util/Log.hpp>
+#include <fm/scene/register_components.hpp>
 
 namespace zn
 {
@@ -90,10 +90,10 @@ bool Application::init()
 	log.openFile("log.txt");
 
 	// Register components in factory
-	ComponentFactory::registerEngineComponents();
+	registerEngineComponentTypes();
 
 	// Register native user components
-	registerNativeUserComponents(ComponentFactory::get());
+	registerNativeUserComponents(ObjectTypeDatabase::get());
 
 	// Read config file
 	const std::string settingsFileName = "game_settings.json";

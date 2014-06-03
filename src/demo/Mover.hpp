@@ -15,7 +15,9 @@ class Mover : public Behaviour
 {
 public:
 
-	ZN_COMPONENT(demo::Mover, zn::Behaviour, 10)
+	ZN_OBJECT(demo::Mover, zn::Behaviour)
+
+	s32 getUpdateOrder() const override { return 10; }
 
 	Mover();
 

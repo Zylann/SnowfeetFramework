@@ -20,7 +20,7 @@ public:
 
 protected:
 
-	void registerNativeUserComponents(zn::ComponentFactory & f) override;
+	void registerNativeUserComponents(zn::ObjectTypeDatabase & odb) override;
 
 	bool onInit() override;
 	void onEvent(sf::Event & e) override;

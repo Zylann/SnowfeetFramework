@@ -14,7 +14,7 @@ class ZN_API MapRenderer : public Renderer
 {
 public:
 
-	ZN_COMPONENT(zn::MapRenderer, zn::Renderer, 0)
+	ZN_OBJECT(zn::MapRenderer, zn::Renderer)
 
 	MapRenderer() : Renderer(),
 		r_atlas(nullptr),

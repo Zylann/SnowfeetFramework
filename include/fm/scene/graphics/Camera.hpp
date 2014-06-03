@@ -13,7 +13,7 @@ class ZN_API Camera : public Component
 {
 public:
 
-	ZN_COMPONENT(zn::Camera, zn::Component, 0)
+	ZN_OBJECT(zn::Camera, zn::Component)
 
 	// Which method should be used when the screen's resolution changes
 	enum ScaleMode
