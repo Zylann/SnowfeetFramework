@@ -8,7 +8,7 @@
 namespace zn
 {
 
-typedef u32 ObjectTypeID;
+typedef u16 ObjectTypeID;
 
 
 /// \brief You can derive this class to store additional information when registering an ObjectType.
@@ -48,7 +48,8 @@ struct ObjectType
 	) :
 		ID(0), // null ID, until the type gets registered
 		name(p_name),
-		baseName(p_baseName)
+		baseName(p_baseName),
+		userData(nullptr)
 	{}
 
 	~ObjectType()
