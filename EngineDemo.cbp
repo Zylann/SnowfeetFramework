@@ -58,6 +58,7 @@
 		<Unit filename="src/demo/Game.hpp" />
 		<Unit filename="src/demo/Mover.cpp" />
 		<Unit filename="src/demo/Mover.hpp" />
+		<Unit filename="src/demo/Rotate.cpp" />
 		<Unit filename="src/demo/Rotate.hpp" />
 		<Unit filename="src/demo/common.hpp" />
 		<Unit filename="src/demo/main.cpp" />
