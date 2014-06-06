@@ -7,6 +7,8 @@
 namespace zn
 {
 
+ZN_OBJECT_IMPL(zn::TextRenderer)
+
 //------------------------------------------------------------------------------
 const std::wstring TextRenderer::text() const
 {

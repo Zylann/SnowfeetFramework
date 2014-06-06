@@ -6,6 +6,9 @@
 namespace demo
 {
 
+ZN_OBJECT_IMPL(demo::Mover)
+
+//------------------------------------------------------------------------------
 Mover::Mover() : Behaviour(),
 	m_maxSpeed(4)
 {

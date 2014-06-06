@@ -10,6 +10,8 @@
 namespace zn
 {
 
+ZN_OBJECT_IMPL(zn::ParticleSystem)
+
 //------------------------------------------------------------------------------
 void ParticleSystem::setAtlas(const TextureAtlas* atlas)
 {

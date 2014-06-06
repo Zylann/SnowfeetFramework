@@ -4,6 +4,8 @@
 namespace zn
 {
 
+ZN_OBJECT_IMPL(zn::Body)
+
 void Body::onAdd(Entity * e)
 {
 	Component::onAdd(e);

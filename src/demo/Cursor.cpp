@@ -8,6 +8,8 @@
 namespace demo
 {
 
+ZN_OBJECT_IMPL(demo::Cursor)
+
 void Cursor::onCreate()
 {
 	zn::SpriteRenderer * sprite = entity().addComponent<zn::SpriteRenderer>();

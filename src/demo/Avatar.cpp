@@ -15,6 +15,8 @@ using namespace zn;
 namespace demo
 {
 
+ZN_OBJECT_IMPL(demo::Avatar)
+
 void Avatar::onCreate()
 {
 	Character::onCreate();

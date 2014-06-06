@@ -4,6 +4,8 @@
 namespace zn
 {
 
+ZN_OBJECT_IMPL(zn::Collider)
+
 void Collider::onAdd(Entity * e)
 {
 	Component::onAdd(e);

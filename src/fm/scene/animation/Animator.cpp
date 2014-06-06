@@ -4,6 +4,8 @@
 namespace zn
 {
 
+ZN_OBJECT_IMPL(zn::Animator)
+
 void Animator::onAdd(Entity * e)
 {
 	Component::onAdd(e);

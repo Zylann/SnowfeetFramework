@@ -5,6 +5,14 @@ namespace zn
 {
 
 //------------------------------------------------------------------------------
+// Static
+ObjectTypeDatabase & ObjectTypeDatabase::get()
+{
+	static ObjectTypeDatabase s_instance;
+	return s_instance;
+}
+
+//------------------------------------------------------------------------------
 Object * ObjectTypeDatabase::instantiate(const std::string className)
 {
 	auto it = m_factories.find(className);

@@ -1,7 +1,7 @@
 #ifndef HEADER_DEMO_ROTATE_HPP_INCLUDED
 #define HEADER_DEMO_ROTATE_HPP_INCLUDED
 
-#include "fm/scene/behaviour/Behaviour.hpp"
+#include <fm/scene/behaviour/Behaviour.hpp>
 
 namespace demo
 {
@@ -12,13 +12,9 @@ public:
 
 	ZN_OBJECT(demo::Rotate, zn::Behaviour)
 
-	s32 getUpdateOrder() const override { return 10; }
+	zn::s32 getUpdateOrder() const override { return 10; }
 
-	void onUpdate() override
-	{
-		f32 delta = entity().scene().deltaTime().asSeconds();
-		entity().transform.rotate(90.f * delta);
-	}
+	void onUpdate() override;
 
 };
 

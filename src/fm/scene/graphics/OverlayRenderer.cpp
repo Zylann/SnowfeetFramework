@@ -5,6 +5,8 @@
 namespace zn
 {
 
+ZN_OBJECT_IMPL(zn::OverlayRenderer)
+
 //------------------------------------------------------------------------------
 OverlayRenderer::OverlayRenderer() : Renderer(),
 	r_texture(nullptr),

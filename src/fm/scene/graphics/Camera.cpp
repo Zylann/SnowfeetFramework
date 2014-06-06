@@ -8,6 +8,8 @@
 namespace zn
 {
 
+ZN_OBJECT_IMPL(zn::Camera)
+
 //------------------------------------------------------------------------------
 Camera::Camera() : Component(),
 	depth(0),

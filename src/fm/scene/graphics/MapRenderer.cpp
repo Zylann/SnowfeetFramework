@@ -9,6 +9,8 @@
 namespace zn
 {
 
+ZN_OBJECT_IMPL(zn::MapRenderer)
+
 //------------------------------------------------------------------------------
 void MapRenderer::setAtlas(const TextureAtlas * atlas)
 {

@@ -10,6 +10,8 @@
 namespace demo
 {
 
+ZN_OBJECT_IMPL(demo::Cat)
+
 void Cat::onCreate()
 {
 	Character::onCreate();

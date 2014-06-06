@@ -15,6 +15,9 @@
 namespace zn
 {
 
+ZN_OBJECT_IMPL(zn::MapCollider)
+
+//------------------------------------------------------------------------------
 MapCollider::MapCollider() : Collider(),
 	m_cellSize(1), // Default
 	m_voidColliderType(0), // Default

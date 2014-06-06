@@ -8,6 +8,8 @@
 namespace zn
 {
 
+ZN_OBJECT_IMPL(zn::BoxCollider)
+
 //------------------------------------------------------------------------------
 void BoxCollider::onCreate()
 {

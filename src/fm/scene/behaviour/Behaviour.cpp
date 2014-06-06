@@ -4,6 +4,8 @@
 namespace zn
 {
 
+ZN_OBJECT_IMPL(zn::Behaviour)
+
 void Behaviour::onAdd(Entity * e)
 {
 	Component::onAdd(e);

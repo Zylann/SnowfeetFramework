@@ -8,6 +8,8 @@
 namespace demo
 {
 
+ZN_OBJECT_IMPL(demo::Character)
+
 void Character::onCreate()
 {
 	m_spriteDir = Direction::RIGHT;

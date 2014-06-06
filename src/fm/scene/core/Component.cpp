@@ -12,6 +12,8 @@ using namespace std;
 namespace zn
 {
 
+ZN_OBJECT_IMPL(zn::Component)
+
 //------------------------------------------------------------------------------
 Component::Component() :
 	r_owner(nullptr)

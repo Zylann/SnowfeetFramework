@@ -7,6 +7,8 @@
 namespace zn
 {
 
+ZN_OBJECT_IMPL(zn::Anchor)
+
 //------------------------------------------------------------------------------
 bool Anchor::onEvent(const sf::Event& event)
 {

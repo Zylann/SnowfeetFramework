@@ -4,6 +4,8 @@
 namespace zn
 {
 
+ZN_OBJECT_IMPL(zn::GUIRoot)
+
 //------------------------------------------------------------------------------
 void GUIRoot::setCamera(Camera* guiCamera)
 {

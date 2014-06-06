@@ -12,6 +12,8 @@ using namespace std;
 namespace zn
 {
 
+ZN_OBJECT_IMPL(zn::SpriteRenderer)
+
 //------------------------------------------------------------------------------
 SpriteRenderer::SpriteRenderer() : Renderer(),
 	r_texture(nullptr),

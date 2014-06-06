@@ -30,11 +30,7 @@ private:
 public:
 
 	/// \brief Returns singleton
-	static ObjectTypeDatabase & get()
-	{
-		static ObjectTypeDatabase db; // statically allocated to ensure destruction
-		return db;
-	}
+	static ObjectTypeDatabase & get();
 
 	/// \brief Registers an object type that uses ZN_OBJECT macro in its definition.
 	/// \param userData: optional type information (ObjectType will take the ownership on it!)

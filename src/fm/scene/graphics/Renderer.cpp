@@ -5,6 +5,8 @@
 namespace zn
 {
 
+ZN_OBJECT_IMPL(zn::Renderer)
+
 //------------------------------------------------------------------------------
 void Renderer::onAdd(Entity * e)
 {

@@ -10,6 +10,8 @@ using namespace std;
 namespace zn
 {
 
+ZN_OBJECT_IMPL(zn::SpriteAnimator)
+
 //------------------------------------------------------------------------------
 void SpriteAnimator::setFrame(const std::string& id)
 {
