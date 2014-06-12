@@ -1,0 +1,94 @@
+D: Registered {[1]zn::Component : zn::Object}
+D: Registered {[2]zn::Animator : zn::Component}
+D: Registered {[3]zn::SpriteAnimator : zn::Animator}
+D: Registered {[4]zn::AudioEmitter : zn::Component}
+D: Registered {[5]zn::Camera : zn::Component}
+D: Registered {[6]zn::Renderer : zn::Component}
+D: Registered {[7]zn::MapRenderer : zn::Renderer}
+D: Registered {[8]zn::ParticleSystem : zn::Renderer}
+D: Registered {[9]zn::SpriteRenderer : zn::Renderer}
+D: Registered {[10]zn::TextRenderer : zn::Renderer}
+D: Registered {[11]zn::OverlayRenderer : zn::Renderer}
+D: Registered {[12]zn::Collider : zn::Component}
+D: Registered {[13]zn::BoxCollider : zn::Collider}
+D: Registered {[14]zn::MapCollider : zn::Collider}
+D: Registered {[15]zn::Body : zn::Component}
+D: Registered {[16]zn::Behaviour : zn::Component}
+D: Registered {[17]demo::Character : zn::Behaviour}
+D: Registered {[18]demo::Avatar : demo::Character}
+D: Registered {[19]demo::Cat : demo::Character}
+D: Registered {[20]demo::Cursor : zn::Behaviour}
+D: Registered {[21]demo::Mover : zn::Behaviour}
+D: Registered {[22]demo::Rotate : zn::Behaviour}
+I: Reading game_settings.json
+I: switched to windowed mode.
+I: screen resized (800, 600)
+D: AssetBank: root folder set to assets.
+I: Loading file associations...
+I: Indexing folder "assets"
+W: Some asset files were not associated by the scanning process. If you want them to be loaded, add them manually to the manifest, or modify file associations.
+| --- Concerned files: ---
+| demo.mod.json
+| shaders/basic.vert
+| shaders/noise.frag
+| shaders/noise.json
+| textures/room.png.meta
+| ---
+D: AssetMap: loading "assets/textures/avatar.png" as "avatar"
+D: AssetMap: loading "assets/textures/cursor.png" as "cursor"
+D: AssetMap: loading "assets/textures/cat.png" as "cat"
+D: AssetMap: loading "assets/textures/room.png" as "room"
+D: AssetMap: loading "assets/textures/wool_ball.png" as "wool_ball"
+D: AssetMap: loading "assets/shaders/light.shader" as "light"
+D: AssetMap: loading "assets/shaders/noise.shader" as "noise"
+D: AssetMap: loading "assets/fonts/Grand9K Pixel.ttf" as "Grand9K Pixel"
+D: AssetMap: loading "assets/fonts/Grand9K Pixel.ttf" as "default"
+D: AssetMap: loading "assets/sounds/cat_meow1.wav" as "cat_meow1"
+D: AssetMap: loading "assets/sounds/cat_meow2.wav" as "cat_meow2"
+D: AssetMap: loading "assets/sounds/cat_meow4.wav" as "cat_meow4"
+D: AssetMap: loading "assets/sounds/cat_meow3.wav" as "cat_meow3"
+D: AssetMap: loading "assets/sounds/gate_close.wav" as "gate_close"
+D: AssetMap: loading "assets/sounds/gate_open.wav" as "gate_open"
+D: AssetMap: loading "assets/sounds/step.wav" as "step"
+D: AssetMap: loading "assets/music/ssm_theme.ogg" as "ssm_theme"
+D: AssetMap: loading "assets/materials/noise.json" as "noise"
+D: AssetMap: loading "assets/textures/avatar.atlas" as "avatar"
+D: Reading TextureAtlas...
+D: AssetMap: loading "assets/textures/cat.atlas" as "cat"
+D: Reading TextureAtlas...
+D: AssetMap: loading "assets/textures/room.atlas" as "room"
+D: Reading TextureAtlas...
+D: AssetMap: loading "assets/maps/test_map.json" as "test_map"
+D: Reading TiledMap JSON...
+D: Reading tilelayer...
+D: Reading tilelayer...
+D: Reading objectgroup...
+D: Reading tilelayer...
+D: Reading tileset 0...
+D: Reading tileset 1...
+D: Reading tileset 2...
+D: Reading tileset 3...
+I: Done
+I: Size of Entity: 252
+I: Size of Transform: 172
+D: Scene::addEntity: [0] map at (0, 0)
+D: MapRenderer: update monolithic mesh (100x50)
+D: Scene::addEntity: [1] main_camera at (0, 0)
+D: Scene::addEntity: [2] gui_camera at (0, 0)
+D: Scene::addEntity: [3] secondary_camera at (64, 20)
+D: Scene::addEntity: [4] monitor at (55, 17)
+D: Scene::addEntity: [5] cursor at (0, 0)
+D: Scene::addEntity: [6] avatar at (64, 31)
+D: Scene::addEntity: [7] cat at (62, 31)
+D: Scene::addEntity: [8] text at (-200, -200)
+D: Scene::addEntity: [9] ball1 at (50, 31)
+D: Scene::addEntity: [10] ball2 at (2, 0)
+D: Scene::addEntity: [11] ball3 at (1, 0)
+D: Scene::addEntity: [12] shader_test at (65, 31)
+D: Enter main loop
+I: screen resized (1680, 998)
+I: screen resized (800, 600)
+I: screen resized (1680, 998)
+I: screen resized (800, 600)
+I: screen resized (1680, 998)
+D: Exit main loop

@@ -1,12 +1,14 @@
 #include <fm/asset/AssetBank.hpp>
-
-#include <fm/proto/graphics.hpp>
+#include <fm/scene/graphics.hpp>
+#include <fm/app/Application.hpp>
 
 #include "Cursor.hpp"
 #include "common.hpp"
 
 namespace demo
 {
+
+ZN_OBJECT_IMPL(demo::Cursor)
 
 void Cursor::onCreate()
 {
@@ -15,10 +17,10 @@ void Cursor::onCreate()
 	sprite->setTexture(texture);
 }
 
-void Cursor::onStart()
-{
-	Application::instance()->setSystemCursorVisible(false);
-}
+//void Cursor::onStart()
+//{
+//	Application::instance()->setSystemCursorVisible(false);
+//}
 
 void Cursor::onUpdate()
 {

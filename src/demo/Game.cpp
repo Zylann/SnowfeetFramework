@@ -1,5 +1,5 @@
-#include <fm/proto/graphics.hpp>
-#include <fm/proto/physics.hpp>
+#include <fm/scene/graphics.hpp>
+#include <fm/scene/physics.hpp>
 
 #include "Avatar.hpp"
 #include "Cat.hpp"
@@ -10,17 +10,21 @@
 namespace demo
 {
 
-void Game::registerNativeUserComponents(zn::ComponentFactory & f)
+void Game::registerNativeUserComponents(zn::ObjectTypeDatabase & odb)
 {
-	f.registerType<Avatar>();
-	f.registerType<Cat>();
-	f.registerType<Cursor>();
-	f.registerType<Mover>();
-	f.registerType<Rotate>();
+	odb.registerType<Character>();
+	odb.registerType<Avatar>();
+	odb.registerType<Cat>();
+	odb.registerType<Cursor>();
+	odb.registerType<Mover>();
+	odb.registerType<Rotate>();
 }
 
 bool Game::onInit()
 {
+	zn::log.info() << "Size of Entity: " << sizeof(zn::Entity) << zn::log.endl();
+	zn::log.info() << "Size of Transform: " << sizeof(zn::Transform) << zn::log.endl();
+
 	// Scene config
 
 	// Setup a GUI layer over the default layer
@@ -211,7 +215,4 @@ void Game::onClose()
 
 }
 
-
 } // namespace demo
-
-

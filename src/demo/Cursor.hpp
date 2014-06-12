@@ -1,19 +1,19 @@
 #ifndef HEADER_DEMO_CURSOR_HPP_INCLUDED
 #define HEADER_DEMO_CURSOR_HPP_INCLUDED
 
-#include <fm/proto/behaviour.hpp>
+#include <fm/scene/behaviour.hpp>
 
 namespace demo
 {
 
-class Cursor : public zn::ABehaviour
+class Cursor : public zn::Behaviour
 {
 public:
 
-	ZN_BEHAVIOUR(demo::Cursor, 0) // The cursor is updated first
+	ZN_OBJECT(demo::Cursor, zn::Behaviour)
 
 	void onCreate() override;
-	void onStart() override;
+//	void onStart() override;
 	void onUpdate() override;
 
 };

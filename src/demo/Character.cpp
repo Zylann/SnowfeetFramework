@@ -1,12 +1,14 @@
 #include <iostream>
 
-#include <fm/proto/physics.hpp>
+#include <fm/scene/physics.hpp>
 
 #include "Character.hpp"
 #include "Mover.hpp"
 
 namespace demo
 {
+
+ZN_OBJECT_IMPL(demo::Character)
 
 void Character::onCreate()
 {
@@ -34,7 +36,7 @@ void Character::onUpdate()
 		m_spriteDirLastFrame = m_spriteDir;
 		m_movingLastFrame = moving;
 
-		AAnimator * anim = entity().animator();
+		Animator * anim = entity().animator();
 
 		if(anim != nullptr)
 		{

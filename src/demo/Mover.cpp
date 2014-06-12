@@ -1,12 +1,15 @@
 #include <fm/sfml/sfml2_utils.hpp>
-#include <fm/proto/physics.hpp>
+#include <fm/scene/physics.hpp>
 
 #include "Mover.hpp"
 
 namespace demo
 {
 
-Mover::Mover() : ABehaviour(),
+ZN_OBJECT_IMPL(demo::Mover)
+
+//------------------------------------------------------------------------------
+Mover::Mover() : Behaviour(),
 	m_maxSpeed(4)
 {
 }
@@ -78,7 +81,7 @@ void Mover::onUpdate()
 	if(speed > 0.01f)
 	{
 		sf::Vector2f motion = m_velocity * dt;
-		const ACollider * collider = entity().collider();
+		const Collider * collider = entity().collider();
 		sf::FloatRect rect = collider->bounds();
 		sf::Vector2f pos = entity().transform.position();
 		sf::Vector2f boxOffset(rect.left, rect.top);
@@ -91,7 +94,7 @@ void Mover::onUpdate()
 		const f32 fraction = 1.f / static_cast<f32>(fractionCount);
 		sf::Vector2f u = fraction * motion;
 
-		ACollider * otherCollider;
+		Collider * otherCollider;
 
 		// While motion is not zero
 		for(u8 i=0; i<fractionCount && !isZero(motion); ++i)

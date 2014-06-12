@@ -1,7 +1,7 @@
 #ifndef HEADER_DEMO_MOVER_HPP_INCLUDED
 #define HEADER_DEMO_MOVER_HPP_INCLUDED
 
-#include <fm/proto/behaviour.hpp>
+#include <fm/scene/behaviour.hpp>
 
 #include "common.hpp"
 
@@ -11,11 +11,13 @@ namespace demo
 // The engine doesn't supports physics yet.
 // This component adds simple movement to an entity, with AABB physics.
 // Does not work with non-AABB colliders.
-class Mover : public ABehaviour
+class Mover : public Behaviour
 {
 public:
 
-	ZN_BEHAVIOUR(demo::Mover, 10)
+	ZN_OBJECT(demo::Mover, zn::Behaviour)
+
+	s32 getUpdateOrder() const override { return 10; }
 
 	Mover();
 

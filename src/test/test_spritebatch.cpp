@@ -1,6 +1,6 @@
 #include <iostream>
 #include "test.hpp"
-#include "fm/graphics/SpriteBatch.hpp"
+#include "fm/sfml/SpriteBatch.hpp"
 
 using namespace std;
 using namespace zn;

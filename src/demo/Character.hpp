@@ -1,7 +1,7 @@
 #ifndef HEADER_DEMO_CHARACTER_HPP_INCLUDED
 #define HEADER_DEMO_CHARACTER_HPP_INCLUDED
 
-#include <fm/proto/graphics.hpp>
+#include <fm/scene/graphics.hpp>
 #include <fm/util/Direction.hpp>
 
 #include "common.hpp"
@@ -11,14 +11,13 @@ namespace demo
 {
 
 // Base component for characters that can move and animate
-class Character : public zn::ABehaviour
+class Character : public zn::Behaviour
 {
 public:
 
-	// Character is not a complete component type, it's only a base
-//	ZN_BEHAVIOUR(demo::Character)
+	ZN_OBJECT(demo::Character, zn::Behaviour)
 
-	Character() : ABehaviour(),
+	Character() : Behaviour(),
 		r_sprite(nullptr),
 		r_mover(nullptr),
 		m_spriteDir(Direction::DOWN)
