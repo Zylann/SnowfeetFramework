@@ -1,6 +1,7 @@
 #include <list>
 #include <fm/pcg/MazeGenerator.hpp>
 #include <fm/util/Vector2.hpp>
+#include <fm/util/Log.hpp>
 
 namespace zn
 {
@@ -94,7 +95,7 @@ void MazeGenerator::generate(u32 seedX, u32 seedY)
 		++iterations;
 		if(iterations >= maxIterations)
 		{
-			std::cout << "E: MazeGenerator: Reached max iterations" << std::endl;
+			log.err() << "MazeGenerator: Reached max iterations" << log.endl();
 			break;
 		}
 	}

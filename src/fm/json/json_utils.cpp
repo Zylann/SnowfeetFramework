@@ -1,5 +1,6 @@
 #include <fstream>
 #include <fm/json/json_utils.hpp>
+#include <fm/util/Log.hpp>
 
 namespace zn
 {
@@ -11,8 +12,8 @@ bool loadFromFile(JsonBox::Value & document, const std::string & filePath, s32 c
 	{
 		if(openError)
 		{
-			std::cout << "E: loadFromFile: "
-				"couldn't open JSON file \"" + filePath + '"' << std::endl;
+			log.err() << "loadFromFile: "
+				"couldn't open JSON file \"" + filePath + '"' << log.endl();
 		}
 		return false;
 	}
@@ -35,11 +36,11 @@ bool loadFromFile(JsonBox::Value & document, const std::string & filePath, s32 c
 		s32 version = document["version"].getInt();
 		if(version != checkVersion)
 		{
-			std::cout << "E: loadFromFile: JSON not compatible "
+			log.err() << "loadFromFile: JSON not compatible "
 				"(version=" << version << ", expected " << version << ") "
 				"into file \"" << filePath << ". "
 				"Maybe this file is from another version of the program?"
-				<< std::endl;
+				<< log.endl();
 			return false;
 		}
 	}
