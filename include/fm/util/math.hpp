@@ -101,14 +101,12 @@ inline const T & max(const T & a, const T & b)
 	return a < b ? b : a;
 }
 
-/**
- * @brief Clamps x to the given interval. If x is greater or lesser than
- * min or max, it will be backed to min or max.
- * @param x : value to clamp.
- * @param min
- * @param max
- * @return clamped value
- */
+/// \brief Clamps x to the given interval. If x is greater or lesser than
+/// min or max, it will be backed to min or max.
+/// \param x : value to clamp.
+/// \param min
+/// \param max
+/// \return clamped value
 template<class T>
 inline const T & clamp(const T & x, const T & min, const T & max)
 {
@@ -131,26 +129,22 @@ inline void randomSeed(s32 seed)
 	std::srand(seed);
 }
 
-/**
- * @brief Generates random numbers in [min, max]
- * @note This function uses C rand().
- * @param min : minimum value. Assumed to be < max.
- * @param max : maximum value. Assumed to be > min.
- * @return
- */
+/// \brief Generates random numbers in [min, max]
+/// \note This function uses C rand().
+/// \param min : minimum value. Assumed to be < max.
+/// \param max : maximum value. Assumed to be > min.
+/// \return pseudo-random number between min and max (included).
 inline int rand(s32 min, s32 max)
 {
 	return min + std::rand() % (max - min + 1);
 }
 
-/**
- * @brief Generates random numbers in [0.f, 1.f]
- * @note this is a quick-to-use function, but not a good random generator.
- * @return
- */
-inline float randf()
+/// \brief Generates random numbers in [0.f, 1.f]
+/// \note this is a quick-to-use function, but not a good random generator.
+/// \return pseudo-random floating number between 0 and 1
+inline f32 randf()
 {
-	return static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX);
+	return static_cast<f32>(std::rand()) / static_cast<f32>(RAND_MAX);
 }
 
 /**
@@ -205,6 +199,7 @@ inline T lerp(T src, T dst, f32 t)
 
 /// Counts the number of bits set in an integer (human-readable version, not fastest)
 /// See http://stackoverflow.com/questions/109023/how-to-count-the-number-of-set-bits-in-a-32-bit-integer
+/// Note: whenever possible, use std::bitset. It often has more optimized functions.
 inline u32 bitcount(u32 value)
 {
     u32 count = 0;
