@@ -13,7 +13,7 @@ class ZN_API Collider : public Component
 {
 public:
 
-	ZN_ABSTRACT_OBJECT(zn::Collider, zn::Component)
+	ZN_OBJECT(zn::Collider, zn::Component)
 
 	void onAdd(Entity * e) override;
 	void onDestroy() override;

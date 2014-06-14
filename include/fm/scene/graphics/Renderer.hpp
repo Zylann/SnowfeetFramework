@@ -15,7 +15,7 @@ class ZN_API Renderer : public Component, public sf::Drawable
 {
 public:
 
-	ZN_ABSTRACT_OBJECT(zn::Renderer, zn::Component)
+	ZN_OBJECT(zn::Renderer, zn::Component)
 
 	void onAdd(Entity * e) override;
 	void onDestroy() override;

@@ -24,18 +24,19 @@
 #define ZN_OBJECT(_name, _baseName)                                            \
 	_ZN_OBJECT(_name, _baseName)                                               \
 	static zn::Object * instantiate() {                                        \
-		return new _name();                                                    \
+		return zn::instantiateOrNull<_name>();                                 \
 	}
 
-// Variant for abstract types (the first one will not compile for them)
-// TODO use std::is_abstract<T>
+// Same as ZN_OBJECT, but forces to abstract class. (The factory will return null).
+// You may use it when your class is not abstract,
+// but musn't be instantiated using reflection (or has a private constructor).
 #define ZN_ABSTRACT_OBJECT(_name, _baseName)                                   \
 	_ZN_OBJECT(_name, _baseName)                                               \
 	static zn::Object * instantiate() {                                        \
 		return nullptr;                                                        \
 	}
 
-// Put this in your .cpp in order to implement the type
+// Put this in your .cpp in order to implement reflection data
 #define ZN_OBJECT_IMPL(_className)                                             \
 	zn::ObjectType & _className::sObjectType() {                               \
 		static zn::ObjectType t(                                               \
@@ -47,6 +48,26 @@
 namespace zn
 {
 
+template<class T>
+T * instantiateOrNull_impl(std::true_type)
+{
+	return nullptr;
+}
+template<class T>
+T * instantiateOrNull_impl(std::false_type)
+{
+	return new T();
+}
+
+/// \brief Tries to instantiate the given class dynamically.
+/// \return pointer to the new instance, or null if the class was abstract.
+template<class T>
+T * instantiateOrNull()
+{
+	return instantiateOrNull_impl<T>(std::is_abstract<T>());
+}
+
+/// \brief Base class for all objects that want to have the reflection layer.
 class Object
 {
 public:

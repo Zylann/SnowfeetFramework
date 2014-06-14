@@ -35,7 +35,7 @@ class ZN_API Component : public Object, public IInputListener
 {
 public:
 
-	ZN_OBJECT(zn::Component, zn::Object)
+	ZN_ABSTRACT_OBJECT(zn::Component, zn::Object)
 
 	virtual ~Component();
 
