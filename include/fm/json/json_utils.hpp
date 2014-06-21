@@ -43,18 +43,18 @@ inline void unserialize(const JsonBox::Value & o, std::string & s) { s = o.getSt
 template <typename T>
 inline void serialize(JsonBox::Value & o, const Range<T> & range)
 {
-	o["min"] = range.min();
-	o["max"] = range.max();
+	o[(size_t)0] = range.min();
+	o[1] = range.max();
 }
 
 inline void unserialize(JsonBox::Value & o, Range<f32> & range)
 {
-	range.set(o["min"].getDouble(), o["max"].getDouble());
+	range.set(o[(size_t)0].getDouble(), o[1].getDouble());
 }
 
 inline void unserialize(JsonBox::Value & o, Range<s32> & range)
 {
-	range.set(o["min"].getInt(), o["max"].getInt());
+	range.set(o[(size_t)0].getInt(), o[1].getInt());
 }
 
 template <typename List_T>
@@ -101,42 +101,42 @@ void unserialize(const JsonBox::Value & o, std::unordered_set<T> & v)
 template <typename T>
 inline void serialize(JsonBox::Value & o, const sf::Vector2<T> & vec)
 {
-	o["x"] = vec.x;
-	o["y"] = vec.y;
+	o[(size_t)0] = vec.x;
+	o[1] = vec.y;
 }
 
 template <typename T>
 inline void serialize(JsonBox::Value & o, const sf::Vector3<T> & vec)
 {
-	o["x"] = vec.x;
-	o["y"] = vec.y;
-	o["z"] = vec.z;
+	o[(size_t)0] = vec.x;
+	o[1] = vec.y;
+	o[2] = vec.z;
 }
 
 inline void unserialize(JsonBox::Value & o, sf::Vector2f & vec)
 {
-	vec.x = o["x"].getDouble();
-	vec.y = o["y"].getDouble();
+	vec.x = o[(size_t)0].getDouble();
+	vec.y = o[1].getDouble();
 }
 
 inline void unserialize(JsonBox::Value & o, sf::Vector3f & vec)
 {
-	vec.x = o["x"].getDouble();
-	vec.y = o["y"].getDouble();
-	vec.z = o["z"].getDouble();
+	vec.x = o[(size_t)0].getDouble();
+	vec.y = o[1].getDouble();
+	vec.z = o[2].getDouble();
 }
 
 inline void unserialize(JsonBox::Value & o, sf::Vector3i & vec)
 {
-	vec.x = o["x"].getInt();
-	vec.y = o["y"].getInt();
-	vec.z = o["z"].getInt();
+	vec.x = o[(size_t)0].getInt();
+	vec.y = o[1].getInt();
+	vec.z = o[2].getInt();
 }
 
 inline void unserialize(JsonBox::Value & o, sf::Vector2i & vec)
 {
-	vec.x = o["x"].getInt();
-	vec.y = o["y"].getInt();
+	vec.x = o[(size_t)0].getInt();
+	vec.y = o[1].getInt();
 }
 
 template <typename T>
@@ -166,18 +166,18 @@ inline void unserialize(JsonBox::Value & o, sf::IntRect & rect)
 
 inline void serialize(JsonBox::Value & o, const sf::Color & color)
 {
-	o["r"] = color.r;
-	o["g"] = color.g;
-	o["b"] = color.b;
-	o["a"] = color.a;
+	o[(size_t)0] = color.r;
+	o[1] = color.g;
+	o[2] = color.b;
+	o[3] = color.a;
 }
 
 inline void unserialize(JsonBox::Value & o, sf::Color & color)
 {
-	color.r = o["r"].getInt();
-	color.g = o["g"].getInt();
-	color.b = o["b"].getInt();
-	color.a = o["a"].getInt();
+	color.r = o[(size_t)0].getInt();
+	color.g = o[1].getInt();
+	color.b = o[2].getInt();
+	color.a = o[3].getInt();
 }
 
 inline void serialize(JsonBox::Value & o, const sf::Transform & t)
