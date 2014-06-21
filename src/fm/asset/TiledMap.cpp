@@ -162,32 +162,32 @@ void TiledMap::print(std::ostream & os) const
 {
 	using namespace std;
 
-	cout << "----- TiledMap -----" << endl;
+	os << "----- TiledMap -----" << endl;
 
-	cout << "Global size: " << size.x << "x" << size.y << endl;
-	cout << "Global tile size: " << tileSize.x << "x" << tileSize.y << endl;
-	cout << layers.size() << " layers:" << endl;
+	os << "Global size: " << size.x << "x" << size.y << endl;
+	os << "Global tile size: " << tileSize.x << "x" << tileSize.y << endl;
+	os << layers.size() << " layers:" << endl;
 	for(u32 i = 0; i < layers.size(); ++i)
 	{
 		const Layer & l = layers[i];
-		cout << "  Layer " << i << ":" << endl;
-		cout << "    name: " << l.name << ", " << endl
-			 << "    size: " << l.size.x << "x" << l.size.y << ", " << endl
-		 	 << "    position: (" << l.position.x << ", " << l.position.y << ")" << endl
-		 	 << "    objects: " << l.objects.size() << endl;
+		os << "  Layer " << i << ":" << endl;
+		os << "    name: " << l.name << ", " << endl
+		   << "    size: " << l.size.x << "x" << l.size.y << ", " << endl
+		   << "    position: (" << l.position.x << ", " << l.position.y << ")" << endl
+		   << "    objects: " << l.objects.size() << endl;
 	}
-	cout << tileSets.size() << " tilesets: " << endl;
+	os << tileSets.size() << " tilesets: " << endl;
 	for(u32 i = 0; i < tileSets.size(); ++i)
 	{
 		const TileSet & ts = tileSets[i];
-		cout << "  Tileset " << i << ":" << endl;
-		cout << "    name: " << ts.name << ", " << endl
-			 << "    texturePath: " << ts.texturePath << ", " << endl
-			 << "    firstgid: " << ts.firstgid << ", " << endl
-			 << "    tileSize: " << ts.tileSize.x << "x" << ts.tileSize.y << endl;
+		os << "  Tileset " << i << ":" << endl;
+		os << "    name: " << ts.name << ", " << endl
+		   << "    texturePath: " << ts.texturePath << ", " << endl
+		   << "    firstgid: " << ts.firstgid << ", " << endl
+		   << "    tileSize: " << ts.tileSize.x << "x" << ts.tileSize.y << endl;
 	}
 
-	cout << "--------------------" << endl;
+	os << "--------------------" << endl;
 }
 
 //------------------------------------------------------------------------------
