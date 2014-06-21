@@ -52,6 +52,7 @@
 		<Unit filename="include/fm/app/Application.hpp" />
 		<Unit filename="include/fm/app/GameSettings.hpp" />
 		<Unit filename="include/fm/app/PerformanceGraph.hpp" />
+		<Unit filename="include/fm/app/TimeStepper.hpp" />
 		<Unit filename="include/fm/asset/AssetBank.hpp" />
 		<Unit filename="include/fm/asset/AssetBankManifest.hpp" />
 		<Unit filename="include/fm/asset/AssetFileMatcher.hpp" />
@@ -147,6 +148,7 @@
 		<Unit filename="include/fm/util/typecheck.hpp" />
 		<Unit filename="src/fm/app/Application.cpp" />
 		<Unit filename="src/fm/app/PerformanceGraph.cpp" />
+		<Unit filename="src/fm/app/TimeStepper.cpp" />
 		<Unit filename="src/fm/asset/AssetBank.cpp" />
 		<Unit filename="src/fm/asset/AssetBankManifest.cpp" />
 		<Unit filename="src/fm/asset/AssetFileMatcher.cpp" />

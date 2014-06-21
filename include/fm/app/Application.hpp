@@ -14,6 +14,7 @@ This file is part of the zCraft-Framework project.
 #include <fm/app/GameSettings.hpp>
 #include <fm/scene/core/Scene.hpp>
 #include <fm/reflect/ObjectTypeDatabase.hpp>
+#include <fm/app/TimeStepper.hpp>
 
 namespace zn
 {
@@ -64,12 +65,6 @@ public:
 
 	// Tells the game to stop
 	void stop();
-
-	// Gets the time span between two frames
-	inline sf::Time frameTime() const { return m_frameTime; }
-
-	// Gets the total elapsed time since startup
-	inline sf::Time time() const { return m_timeClock.getElapsedTime(); }
 
 	// Sets wether the game should be in fulscreen or not.
 	// Does nothing if the game is already in the given state.
@@ -141,11 +136,9 @@ private:
 
 	bool                m_fullScreen;
 	bool                m_runFlag;
-	sf::Clock           m_frameClock;
-	sf::Clock           m_timeClock;
-	sf::Time            m_frameTime;
 	std::string         m_title;
 	sf::View            m_screenView;
+	TimeStepper         m_timeStepper;
 
 #ifdef ZN_DEBUG
 	sf::Clock           m_profileClock;

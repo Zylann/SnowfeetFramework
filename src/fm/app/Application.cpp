@@ -107,6 +107,9 @@ bool Application::init()
 		log.info() << "Reading " << settingsFileName << log.endl();
 	}
 
+	// Configure time stepper
+	m_timeStepper.setDeltaRange(sf::seconds(1.f / 70.f), sf::seconds(1.f / 30.f));
+
 	// If the hardcoded title is empty, use the one from the settings
 	if(m_title.empty())
 	{
@@ -136,9 +139,6 @@ void Application::start()
 		return;
 	}
 
-	m_frameClock.restart();
-	m_frameTime = sf::seconds(1.f / 60.f);
-
 #ifdef ZN_DEBUG
 
 	// Initialize update time graph
@@ -162,6 +162,8 @@ void Application::start()
 	m_runFlag = true;
 	while(m_runFlag && m_window.isOpen())
 	{
+		m_timeStepper.onBeginFrame();
+
 		sf::Event e;
 		while(m_window.pollEvent(e))
 		{
@@ -182,24 +184,25 @@ void Application::start()
 
 #ifdef ZN_DEBUG
 		m_profileClock.restart();
+#endif
 
 		update();
 
+#ifdef ZN_DEBUG
 		m_updateTimeGraph.pushValue(m_profileClock.getElapsedTime().asSeconds());
 		m_profileClock.restart();
+#endif
 
 		// TODO option to disable render-on-each-loop and trigger renders manually
 		// This would allow still games or future editor GUI to be more efficient
 
 		render();
 
+#ifdef ZN_DEBUG
 		m_renderTimeGraph.pushValue(m_profileClock.getElapsedTime().asSeconds());
-#else
-		update();
-		render();
 #endif
 
-		m_frameTime = m_frameClock.restart();
+		m_timeStepper.onEndFrame();
 	}
 
 #ifdef ZN_DEBUG
@@ -228,16 +231,11 @@ void Application::onScreenResize(sf::Vector2u size)
 //------------------------------------------------------------------------------
 void Application::update()
 {
-	// Clamp frametime above minimal value
-	const f32 maximalFrametime = 1.f / 10.f;
-	f32 seconds = m_frameTime.asSeconds();
-	if(seconds > maximalFrametime)
-	{
-		seconds = maximalFrametime;
-	}
-
 	// Update scene for the current timespan
-	m_scene.update(sf::seconds(seconds));
+	m_timeStepper.callSteps([this](sf::Time delta){
+		m_scene.update(delta);
+	});
+//	m_scene.update(sf::seconds(seconds));
 }
 
 //------------------------------------------------------------------------------
