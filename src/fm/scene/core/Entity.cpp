@@ -165,41 +165,46 @@ Component * Entity::addComponent(Component * newCmp)
 	m_components[ct.ID] = newCmp;
 
 	// Assign quick lookup pointer
-
-	// TODO remove these lookups in the future, because users should have to reference them anyway
-	if(!newCmp->isInstanceOf<zn::Behaviour>())
-	{
-		if(newCmp->isInstanceOf<zn::Renderer>())
-		{
-			r_renderer = checked_cast<zn::Renderer*>(newCmp);
-		}
-		else if(newCmp->isInstanceOf<zn::Collider>())
-		{
-			r_collider = checked_cast<zn::Collider*>(newCmp);
-		}
-		else if(newCmp->isInstanceOf<zn::Camera>())
-		{
-			r_camera = checked_cast<zn::Camera*>(newCmp);
-		}
-		else if(newCmp->isInstanceOf<zn::Body>())
-		{
-			r_body = checked_cast<zn::Body*>(newCmp);
-		}
-		else if(newCmp->isInstanceOf<zn::Animator>())
-		{
-			r_animator = checked_cast<zn::Animator*>(newCmp);
-		}
-		else if(newCmp->isInstanceOf<zn::AudioEmitter>())
-		{
-			r_audioEmitter = checked_cast<zn::AudioEmitter*>(newCmp);
-		}
-	}
+	updateComponentShortcut(newCmp, false);
 
 	newCmp->onAdd(this);
 
 	newCmp->onCreate();
 
 	return newCmp;
+}
+
+//------------------------------------------------------------------------------
+void Entity::updateComponentShortcut(Component * cmp, bool removed)
+{
+	// TODO remove these lookups in the future, because users should have to reference them anyway
+	if(!cmp->isInstanceOf<zn::Behaviour>())
+	{
+		if(cmp->isInstanceOf<zn::Renderer>())
+		{
+			r_renderer = removed ? nullptr : checked_cast<zn::Renderer*>(cmp);
+		}
+		else if(cmp->isInstanceOf<zn::Collider>())
+		{
+			r_collider = removed ? nullptr : checked_cast<zn::Collider*>(cmp);
+		}
+		else if(cmp->isInstanceOf<zn::Camera>())
+		{
+			r_camera = removed ? nullptr : checked_cast<zn::Camera*>(cmp);
+		}
+		else if(cmp->isInstanceOf<zn::Body>())
+		{
+			r_body = removed ? nullptr : checked_cast<zn::Body*>(cmp);
+		}
+		else if(cmp->isInstanceOf<zn::Animator>())
+		{
+			r_animator = removed ? nullptr : checked_cast<zn::Animator*>(cmp);
+		}
+		else if(cmp->isInstanceOf<zn::AudioEmitter>())
+		{
+			r_audioEmitter = removed ? nullptr : checked_cast<zn::AudioEmitter*>(cmp);
+		}
+	}
 }
 
 //------------------------------------------------------------------------------
@@ -210,7 +215,10 @@ void Entity::removeComponent(Component * cmp)
 	auto it = m_components.find(cmp->objectType().ID);
 	if(it != m_components.end())
 	{
+		cmp->onDestroy();
+		updateComponentShortcut(cmp, true);
 		m_components.erase(it);
+		delete cmp;
 	}
 #ifdef ZN_DEBUG
 	else
@@ -400,19 +408,31 @@ bool Entity::hasTag(u8 tagIndex) const
 //------------------------------------------------------------------------------
 void Entity::addTag(const std::string & tagName)
 {
-	addTag(r_scene->tagManager.indexFromName(tagName));
+	s8 i = r_scene->tagManager.indexFromName(tagName);
+	assert(i >= 0);
+	addTag(i);
 }
 
 //------------------------------------------------------------------------------
 void Entity::removeTag(const std::string & tagName)
 {
-	removeTag(r_scene->tagManager.indexFromName(tagName));
+	s8 i = r_scene->tagManager.indexFromName(tagName);
+	assert(i >= 0);
+	removeTag(i);
 }
 
 //------------------------------------------------------------------------------
 bool Entity::hasTag(const std::string & tagName) const
 {
-	return hasTag(r_scene->tagManager.indexFromName(tagName));
+	s8 i = r_scene->tagManager.indexFromName(tagName);
+	if(i >= 0)
+	{
+		return hasTag(i);
+	}
+	else
+	{
+		return false;
+	}
 }
 
 } // namespace zn

@@ -276,6 +276,11 @@ private:
 	/// \return the component passed in parameter.
 	Component * addComponent(Component * newCmp);
 
+	/// \brief Updates shortcut to the given component, when it is added or removed.
+	/// \param cmp: component added/removed
+	/// \param removed: is the component removed? (the shortcut will be set to null)
+	void updateComponentShortcut(Component * cmp, bool removed);
+
 	/// \brief Checks a component type before adding a component instance.
 	/// Prints debug messages if the check fails.
 	/// \param ct: meta-class of the component to add
