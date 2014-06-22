@@ -11,7 +11,7 @@
 
 #include <fm/system/filesystem.hpp>
 
-// Note: this file compiles better with GCC (MinGW under windows).
+// Note: on Windows, this file compiles better with MinGW.
 // There is a port of dirent for MSVC to ease its use under Visual Studio.
 
 namespace zn

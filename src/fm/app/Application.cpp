@@ -235,7 +235,6 @@ void Application::update()
 	m_timeStepper.callSteps([this](sf::Time delta){
 		m_scene.update(delta);
 	});
-//	m_scene.update(sf::seconds(seconds));
 }
 
 //------------------------------------------------------------------------------

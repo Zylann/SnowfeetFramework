@@ -33,6 +33,7 @@ void TimeStepper::onEndFrame()
 //------------------------------------------------------------------------------
 u32 TimeStepper::callSteps(std::function<void(sf::Time)> stepFunc)
 {
+	// Get current delta
 	sf::Time delta = m_rawDelta;
 	if(m_recordedFPS != 0)
 	{
@@ -41,9 +42,13 @@ u32 TimeStepper::callSteps(std::function<void(sf::Time)> stepFunc)
 
 	u32 updatesCount = 0;
 
+	// Accumulate delta time
 	m_storedDelta += delta;
+
+	// If the accumulated delta time is enough to trigger an update step
 	if(m_storedDelta >= m_minDelta)
 	{
+		// Call update steps one or more times to match the elapsed time
 		s32 cycles = m_storedDelta.asMilliseconds() / m_maxDelta.asMilliseconds();
 		for (s32 i = 0; i < cycles; ++i)
 		{
@@ -51,6 +56,7 @@ u32 TimeStepper::callSteps(std::function<void(sf::Time)> stepFunc)
 			++updatesCount;
 		}
 
+		// Update remainder time
 		sf::Time remainder = sf::milliseconds(m_storedDelta.asMilliseconds() % m_maxDelta.asMilliseconds());
 		if(remainder > m_minDelta)
 		{

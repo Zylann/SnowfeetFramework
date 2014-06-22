@@ -8,7 +8,8 @@ namespace zn
 {
 
 /// \brief This class encapsulates time management for mainLoop-based games,
-/// and provides an algorithm for smoothing time delta variations.
+/// and provides an algorithm for smoothing time delta variations, resulting in
+/// a better player experience (no more little jitterings).
 class ZN_API TimeStepper
 {
 public:
