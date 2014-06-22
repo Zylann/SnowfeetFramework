@@ -273,8 +273,8 @@ std::ostream & operator<<(std::ostream & os, const Rect<T> & r)
 	return os;
 }
 
-typedef Rect<int> IntRect;
-typedef Rect<float> FloatRect;
+typedef Rect<s32> IntRect;
+typedef Rect<f32> FloatRect;
 
 } // namespace zn
 
