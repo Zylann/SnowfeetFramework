@@ -41,6 +41,12 @@ public:
 				const std::string layerName="",
 				const std::string tilesetName="");
 
+	void build(const std::string & mapName,
+				const std::string & textureName = "",
+				const std::string & atlasName = "",
+				const std::string layerName="",
+				const std::string tilesetName="");
+
 	// Serialization
 	void serializeData(JsonBox::Value & o) override;
 	void unserializeData(JsonBox::Value & o) override;

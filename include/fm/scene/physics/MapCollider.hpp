@@ -47,6 +47,12 @@ public:
 		const std::string collisionTileSetName="collision"
 	);
 
+	void build(
+		const std::string & mapName,
+		const std::string collisionLayerName="collision",
+		const std::string collisionTileSetName="collision"
+	);
+
 	void setCellSize(f32 cellSize);
 	inline f32 cellSize() const { return m_cellSize; }
 

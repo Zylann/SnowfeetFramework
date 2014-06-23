@@ -38,15 +38,29 @@ public:
 	// If the material is null, the default rendering will occur.
 	void setMaterial(Material * newMaterial);
 
+	// Sets the material for this renderer from its name in the current AssetBank.
+	void setMaterial(std::string name);
+
 	// Gets the current material of this renderer, if any
 	Material * material() const;
 
+	// Sets the texture this renderer should use. Can have no effect depending on the type of renderer.
 	virtual void setTexture(const sf::Texture * texture) {}
+
+	// Shortcut method to set the texture of the renderer from its name
+	// (uses the active AssetBank)
+    void setTexture(const std::string & name);
+
+	// Gets the current texture of this renderer. Can be null depending on the type of renderer.
 	virtual const sf::Texture * texture() const { return nullptr; }
 
 	// Sets the atlas this renderer should use. Note that the atlas may or may
 	// not be used depending of the type of renderer.
 	virtual void setAtlas(const TextureAtlas * atlas) {}
+
+	// Shortcut method to set the texture's atlas to use from its name
+	// (uses the active AssetBank)
+	void setAtlas(const std::string & name);
 
 	// Gets the current atlas used by this renderer, if any
 	virtual const TextureAtlas * atlas() const { return nullptr; }

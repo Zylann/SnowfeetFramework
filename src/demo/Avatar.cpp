@@ -3,7 +3,6 @@
 #include <fm/sfml/sfml2_utils.hpp>
 #include <fm/util/Direction.hpp>
 #include <fm/asset/AssetBank.hpp>
-
 #include <fm/scene/animation.hpp>
 #include <fm/scene/physics.hpp>
 
@@ -23,8 +22,8 @@ void Avatar::onCreate()
 
 	Entity & e = entity();
 
-	r_sprite->setTexture(AssetBank::current()->textures.get("avatar"));
-	r_sprite->setAtlas(AssetBank::current()->atlases.get("avatar"));
+	r_sprite->setTexture(std::string("avatar"));
+	r_sprite->setAtlas("avatar");
 	r_sprite->setFrame("idle.down");
 	//r_sprite->setScale(sf::Vector2f(100.f, 100.f));
 

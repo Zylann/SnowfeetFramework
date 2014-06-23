@@ -27,6 +27,24 @@ void Renderer::setMaterial(Material * newMaterial)
 }
 
 //------------------------------------------------------------------------------
+void Renderer::setMaterial(std::string name)
+{
+	setMaterial(AssetBank::current()->materials.get(name));
+}
+
+//------------------------------------------------------------------------------
+void Renderer::setTexture(const std::string & name)
+{
+	setTexture(AssetBank::current()->textures.get(name));
+}
+
+//------------------------------------------------------------------------------
+void Renderer::setAtlas(const std::string & name)
+{
+	setAtlas(AssetBank::current()->atlases.get(name));
+}
+
+//------------------------------------------------------------------------------
 Material * Renderer::material() const
 {
 	return r_material;
