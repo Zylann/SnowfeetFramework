@@ -5,7 +5,6 @@
 #include <fm/asset/AssetBank.hpp>
 #include <fm/scene/animation.hpp>
 #include <fm/scene/physics.hpp>
-
 #include "Avatar.hpp"
 #include "Cat.hpp"
 
@@ -22,8 +21,8 @@ void Avatar::onCreate()
 
 	Entity & e = entity();
 
-	r_sprite->setTexture(std::string("avatar"));
-	r_sprite->setAtlas("avatar");
+	r_sprite->setTextureByName("avatar");
+	r_sprite->setAtlasByName("avatar");
 	r_sprite->setFrame("idle.down");
 	//r_sprite->setScale(sf::Vector2f(100.f, 100.f));
 

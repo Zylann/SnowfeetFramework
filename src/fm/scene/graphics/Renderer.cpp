@@ -33,13 +33,13 @@ void Renderer::setMaterial(std::string name)
 }
 
 //------------------------------------------------------------------------------
-void Renderer::setTexture(const std::string & name)
+void Renderer::setTextureByName(std::string name)
 {
 	setTexture(AssetBank::current()->textures.get(name));
 }
 
 //------------------------------------------------------------------------------
-void Renderer::setAtlas(const std::string & name)
+void Renderer::setAtlasByName(const std::string & name)
 {
 	setAtlas(AssetBank::current()->atlases.get(name));
 }

@@ -16,8 +16,8 @@ void Cat::onCreate()
 {
 	Character::onCreate();
 
-	r_sprite->setTexture("cat");
-	r_sprite->setAtlas("cat");
+	r_sprite->Renderer::setTextureByName("cat");
+	r_sprite->Renderer::setAtlasByName("cat");
 	r_sprite->setFrame("idle.down");
 
 	r_mover->setMaxSpeed(1.0f);

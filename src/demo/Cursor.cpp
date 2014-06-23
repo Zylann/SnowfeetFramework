@@ -13,7 +13,7 @@ ZN_OBJECT_IMPL(demo::Cursor)
 void Cursor::onCreate()
 {
 	zn::SpriteRenderer * sprite = entity().addComponent<zn::SpriteRenderer>();
-	sprite->setTexture("cursor");
+	sprite->Renderer::setTextureByName("cursor");
 }
 
 //void Cursor::onStart()

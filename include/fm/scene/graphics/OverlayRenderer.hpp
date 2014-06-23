@@ -15,7 +15,7 @@ public:
 
 	OverlayRenderer();
 
-	void setTexture(const sf::Texture * texture);
+	void setTexture(const sf::Texture * texture) override;
 	void setColor(sf::Color color);
 
 	sf::FloatRect localBounds() const override;

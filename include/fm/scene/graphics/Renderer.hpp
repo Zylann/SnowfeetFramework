@@ -49,7 +49,7 @@ public:
 
 	// Shortcut method to set the texture of the renderer from its name
 	// (uses the active AssetBank)
-    void setTexture(const std::string & name);
+	void setTextureByName(std::string name);
 
 	// Gets the current texture of this renderer. Can be null depending on the type of renderer.
 	virtual const sf::Texture * texture() const { return nullptr; }
@@ -60,7 +60,7 @@ public:
 
 	// Shortcut method to set the texture's atlas to use from its name
 	// (uses the active AssetBank)
-	void setAtlas(const std::string & name);
+	void setAtlasByName(const std::string & name);
 
 	// Gets the current atlas used by this renderer, if any
 	virtual const TextureAtlas * atlas() const { return nullptr; }

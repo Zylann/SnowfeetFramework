@@ -37,7 +37,7 @@ bool Game::onInit()
 	Entity * map = m_scene.createEntity("map", sf::Vector2f(0,0));
 	const TiledMap * mapAsset = m_assets.maps.get("test_map");
 	r_tilemap = map->addComponent<MapRenderer>();
-	r_tilemap->build(mapAsset, "room", "room", "background");
+	r_tilemap->build(mapAsset, m_assets.textures.get("room"), m_assets.atlases.get("room"), "background");
 	r_tilemap->drawOrder = -10; // The map is drawn first
 	MapCollider * mc = map->addComponent<MapCollider>();
 	mc->setColliderType(1, sf::FloatRect(0, 0, ts, ts));
@@ -123,7 +123,7 @@ bool Game::onInit()
 	Entity * textEntity = m_scene.createEntity("text", sf::Vector2f(-200, -200));
 	textEntity->setLayerByName("gui");
 	TextRenderer * text = textEntity->addComponent<TextRenderer>();
-	text->setText(L"Hello World ! éèë");
+	text->setText(L"Hello World ! Ã©Ã¨Ã«");
 	text->setFont("default");
 	text->setCharacterSize(16);
 	text->setColor(sf::Color(255,192,32));
