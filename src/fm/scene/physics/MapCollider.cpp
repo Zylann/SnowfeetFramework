@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cassert>
 
 #include <fm/util/math.hpp>
 #include <fm/sfml/sfml2_utils.hpp>
@@ -48,9 +49,21 @@ void MapCollider::build(const sf::Vector2i & size, u8 fillColliderType)
 }
 
 //------------------------------------------------------------------------------
-void MapCollider::build(const TiledMap & map,
-						const std::string collisionLayerName,
-						const std::string collisionTileSetName)
+void MapCollider::build(
+		const std::string & mapName,
+		const std::string collisionLayerName,
+		const std::string collisionTileSetName)
+{
+	const TiledMap * map = AssetBank::current()->maps.get(mapName);
+	assert(map != nullptr);
+	build(*map, collisionLayerName, collisionTileSetName);
+}
+
+//------------------------------------------------------------------------------
+void MapCollider::build(
+		const TiledMap & map,
+		const std::string collisionLayerName,
+		const std::string collisionTileSetName)
 {
 #ifdef ZN_DEBUG
 	std::cout << "D: Building MapCollider from TiledMap..." << std::endl;

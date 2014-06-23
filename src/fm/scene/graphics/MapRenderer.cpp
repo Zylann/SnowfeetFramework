@@ -65,6 +65,20 @@ void MapRenderer::build(u32 sizeX, u32 sizeY, u32 fillTile)
 }
 
 //------------------------------------------------------------------------------
+void MapRenderer::build(const std::string & mapName,
+						const std::string & textureName,
+						const std::string & atlasName,
+						const std::string layerName,
+						const std::string tilesetName)
+{
+	AssetBank & assets = *AssetBank::current();
+	const TiledMap * map = assets.maps.get(mapName);
+	const sf::Texture * texture = assets.textures.get(textureName);
+	const TextureAtlas * atlas = assets.atlases.get(atlasName);
+	build(map, texture, atlas, layerName, tilesetName);
+}
+
+//------------------------------------------------------------------------------
 void MapRenderer::build(const TiledMap * map,
 						const sf::Texture * texture,
 						const TextureAtlas * atlas,
