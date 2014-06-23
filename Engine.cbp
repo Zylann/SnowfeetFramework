@@ -20,6 +20,7 @@
 					<Add directory="include" />
 					<Add directory="include/fm/json" />
 					<Add directory="extlibs/include" />
+					<Add directory="include/fm/squirrel" />
 				</Compiler>
 				<Linker>
 					<Add library="sfml-audio" />
@@ -125,6 +126,31 @@
 		</Unit>
 		<Unit filename="include/fm/sfml/SpriteBatch.hpp" />
 		<Unit filename="include/fm/sfml/sfml2_utils.hpp" />
+		<Unit filename="include/fm/squirrel/sqrat.h" />
+		<Unit filename="include/fm/squirrel/sqrat/sqratAllocator.h" />
+		<Unit filename="include/fm/squirrel/sqrat/sqratArray.h" />
+		<Unit filename="include/fm/squirrel/sqrat/sqratClass.h" />
+		<Unit filename="include/fm/squirrel/sqrat/sqratClassType.h" />
+		<Unit filename="include/fm/squirrel/sqrat/sqratConst.h" />
+		<Unit filename="include/fm/squirrel/sqrat/sqratFunction.h" />
+		<Unit filename="include/fm/squirrel/sqrat/sqratGlobalMethods.h" />
+		<Unit filename="include/fm/squirrel/sqrat/sqratMemberMethods.h" />
+		<Unit filename="include/fm/squirrel/sqrat/sqratObject.h" />
+		<Unit filename="include/fm/squirrel/sqrat/sqratOverloadMethods.h" />
+		<Unit filename="include/fm/squirrel/sqrat/sqratScript.h" />
+		<Unit filename="include/fm/squirrel/sqrat/sqratTable.h" />
+		<Unit filename="include/fm/squirrel/sqrat/sqratTypes.h" />
+		<Unit filename="include/fm/squirrel/sqrat/sqratUtil.h" />
+		<Unit filename="include/fm/squirrel/sqrat/sqratVM.h" />
+		<Unit filename="include/fm/squirrel/sqrat/sqratext_Ref.h" />
+		<Unit filename="include/fm/squirrel/sqstdaux.h" />
+		<Unit filename="include/fm/squirrel/sqstdblob.h" />
+		<Unit filename="include/fm/squirrel/sqstdio.h" />
+		<Unit filename="include/fm/squirrel/sqstdmath.h" />
+		<Unit filename="include/fm/squirrel/sqstdstring.h" />
+		<Unit filename="include/fm/squirrel/sqstdsystem.h" />
+		<Unit filename="include/fm/squirrel/squirrel.h" />
+		<Unit filename="include/fm/squirrel/squirrel_utils.hpp" />
 		<Unit filename="include/fm/system/filesystem.hpp" />
 		<Unit filename="include/fm/types.hpp" />
 		<Unit filename="include/fm/util/Array2D.hpp" />
@@ -140,6 +166,7 @@
 		<Unit filename="include/fm/util/Rect.hpp" />
 		<Unit filename="include/fm/util/SampledCurve.hpp" />
 		<Unit filename="include/fm/util/Vector2.hpp" />
+		<Unit filename="include/fm/util/Vector2_Squirrel.hpp" />
 		<Unit filename="include/fm/util/interpolation.hpp" />
 		<Unit filename="include/fm/util/macros.hpp" />
 		<Unit filename="include/fm/util/math.hpp" />
@@ -200,6 +227,29 @@
 		<Unit filename="src/fm/scene/register_components.cpp" />
 		<Unit filename="src/fm/sfml/AudioSource.cpp" />
 		<Unit filename="src/fm/sfml/SpriteBatch.cpp" />
+		<Unit filename="src/fm/squirrel/sqstdlib/sqstdaux.cpp" />
+		<Unit filename="src/fm/squirrel/sqstdlib/sqstdblob.cpp" />
+		<Unit filename="src/fm/squirrel/sqstdlib/sqstdblobimpl.h" />
+		<Unit filename="src/fm/squirrel/sqstdlib/sqstdio.cpp" />
+		<Unit filename="src/fm/squirrel/sqstdlib/sqstdmath.cpp" />
+		<Unit filename="src/fm/squirrel/sqstdlib/sqstdrex.cpp" />
+		<Unit filename="src/fm/squirrel/sqstdlib/sqstdstream.cpp" />
+		<Unit filename="src/fm/squirrel/sqstdlib/sqstdstream.h" />
+		<Unit filename="src/fm/squirrel/sqstdlib/sqstdstring.cpp" />
+		<Unit filename="src/fm/squirrel/sqstdlib/sqstdsystem.cpp" />
+		<Unit filename="src/fm/squirrel/squirrel/sqapi.cpp" />
+		<Unit filename="src/fm/squirrel/squirrel/sqbaselib.cpp" />
+		<Unit filename="src/fm/squirrel/squirrel/sqclass.cpp" />
+		<Unit filename="src/fm/squirrel/squirrel/sqcompiler.cpp" />
+		<Unit filename="src/fm/squirrel/squirrel/sqdebug.cpp" />
+		<Unit filename="src/fm/squirrel/squirrel/sqfuncstate.cpp" />
+		<Unit filename="src/fm/squirrel/squirrel/sqlexer.cpp" />
+		<Unit filename="src/fm/squirrel/squirrel/sqmem.cpp" />
+		<Unit filename="src/fm/squirrel/squirrel/sqobject.cpp" />
+		<Unit filename="src/fm/squirrel/squirrel/sqstate.cpp" />
+		<Unit filename="src/fm/squirrel/squirrel/sqtable.cpp" />
+		<Unit filename="src/fm/squirrel/squirrel/sqvm.cpp" />
+		<Unit filename="src/fm/squirrel/squirrel_utils.cpp" />
 		<Unit filename="src/fm/system/filesystem.cpp" />
 		<Unit filename="src/fm/util/Color.cpp" />
 		<Unit filename="src/fm/util/Log.cpp" />

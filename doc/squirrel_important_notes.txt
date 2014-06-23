@@ -1,0 +1,54 @@
+IMPORTANT NOTES ABOUT USING SQUIRREL
+
+This document is intented for those who write scripts.
+Its purpose is to adress common issues and singularities of the language,
+in order to reduce the amount of errors.
+
+1) STATIC INITIALIZATION OF MEMBERS
+
+	Squirrel doesn't clone member's default values nor executes the member declaration for each
+	instance (as C# or java). So consider this example:
+
+	class Foo {
+		myarray = [1,2,3]
+		mytable = {}
+	}
+
+	local a = Foo()
+	local b = Foo()
+
+	In the snippet above both instances will refer to the same array and same table.
+	To achieve what a C# or Java programmer would exepect, the following approach should be taken.
+
+	class Foo {
+		myarray = null
+		mytable = null	
+
+		constructor() {
+			myarray = [1,2,3]
+			mytable = {}
+		}
+	}
+
+	local a = Foo()
+	local b = Foo()
+
+2) CLASS ATTRIBUTES
+
+	In C#, Java or Python, you can annotate your classes with special attributes.
+	In Squirrel you can do it too, but they should be INSIDE the class.
+	Here is a particular case that might lead to a mistake:
+
+	</ Test="lol" />
+	class Foo {
+		// Althougth it's similar to the C# annotation system, it doesn't works
+	}
+
+	class Foo </ Test="lol" /> {
+		// This works
+	}
+
+	class Foo {
+		// This works too
+		</ Test="lol" />
+	}

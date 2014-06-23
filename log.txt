@@ -28,7 +28,8 @@ I: Loading file associations...
 I: Indexing folder "assets"
 W: Some asset files were not associated by the scanning process. If you want them to be loaded, add them manually to the manifest, or modify file associations.
 | --- Concerned files: ---
-| demo.mod.json
+| demo.mod
+| scripts/main.nut
 | shaders/basic.vert
 | shaders/noise.frag
 | shaders/noise.json
@@ -69,6 +70,7 @@ D: Reading tileset 1...
 D: Reading tileset 2...
 D: Reading tileset 3...
 I: Done
+I: Registering framework to Squirrel virtual machine
 I: Size of Entity: 252
 I: Size of Transform: 172
 D: Scene::addEntity: [0] map at (0, 0)
@@ -86,6 +88,5 @@ D: Scene::addEntity: [10] ball2 at (2, 0)
 D: Scene::addEntity: [11] ball3 at (1, 0)
 D: Scene::addEntity: [12] shader_test at (65, 31)
 D: Enter main loop
-D: Saving scene as "scene_dump.json"
-D: Took 0.050648s to serialize the scene as a file.
+I: screen resized (1680, 998)
 D: Exit main loop

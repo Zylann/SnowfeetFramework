@@ -19,6 +19,7 @@
 					<Add directory="include/fm/json" />
 					<Add directory="src" />
 					<Add directory="extlibs/include" />
+					<Add directory="include/fm/squirrel" />
 				</Compiler>
 				<Linker>
 					<Add library="proto" />

@@ -17,7 +17,7 @@ public:
 	/// \brief Creates a TimeStepper with default parameters.
 	TimeStepper():
 		m_fps(0),
-		m_recordedFPS(0),
+		m_recordedFPS(60),
 		m_minDelta(sf::seconds(1.f / 120.f)),
 		m_maxDelta(sf::seconds(1.f / 60.f))
 	{

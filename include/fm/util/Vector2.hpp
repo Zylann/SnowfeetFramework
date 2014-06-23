@@ -344,7 +344,6 @@ typedef Vector2<s32> Vector2i;
 typedef Vector2<u32> Vector2u;
 typedef Vector2<f32> Vector2f;
 
-
 } // namespace zn
 
 /// Hash
@@ -362,7 +361,7 @@ namespace std
 
 } // namespace std
 
-
 #endif // HEADER_ZN_VECTOR2_HPP_INCLUDED
+
 
 

@@ -11,6 +11,7 @@ This file is part of the zCraft-Framework project.
 #include <fm/util/macros.hpp>
 #include <fm/util/Log.hpp>
 #include <fm/scene/register_components.hpp>
+#include <fm/squirrel/squirrel_utils.hpp>
 
 namespace zn
 {
@@ -37,6 +38,14 @@ Application::Application(std::string title) :
 //------------------------------------------------------------------------------
 Application::~Application()
 {
+	if(m_squirrelVM)
+	{
+		// The VM should have been closed before
+		log.warn() << "Late closing of SquirrelVM." << log.endl();
+		sq_close(m_squirrelVM);
+		m_squirrelVM = nullptr;
+	}
+
 	g_instance = nullptr;
 }
 
@@ -107,9 +116,6 @@ bool Application::init()
 		log.info() << "Reading " << settingsFileName << log.endl();
 	}
 
-	// Configure time stepper
-	m_timeStepper.setDeltaRange(sf::seconds(1.f / 70.f), sf::seconds(1.f / 30.f));
-
 	// If the hardcoded title is empty, use the one from the settings
 	if(m_title.empty())
 	{
@@ -120,11 +126,42 @@ bool Application::init()
 	m_fullScreen = !m_gameSettings.fullscreen; // To make the next line work...
 	setFullScreen(m_gameSettings.fullscreen); // Creates the SFML window
 
+	// Load static assets
 	bool indexAssets = true;
 	if(!m_assets.load(m_gameSettings.assetsRoot, indexAssets))
 	{
 		return false;
 	}
+
+	try
+	{
+		// Initialize Squirrel virtual machine
+		m_squirrelVM = sq_open(1024);
+
+		// Register the API to Squirrel
+		#ifdef ZN_DEBUG
+		log.info() << "Registering framework to Squirrel virtual machine" << log.endl();
+		#endif
+		zn::squirrel::registerFramework(m_squirrelVM);
+
+		// Compile scripts
+		// TODO
+		// test
+//		Sqrat::Script script(m_squirrelVM);
+//		std::string gameScript = m_gameSettings.assetsRoot + "/main.nut";
+//		script.CompileFile(gameScript);
+//		script.Run();
+	}
+	catch(Sqrat::Exception ex)
+	{
+		log.err() << "A Squirrel exception occurred: " << ex.Message() << log.endl();
+		sq_close(m_squirrelVM);
+		m_squirrelVM = nullptr;
+		return false;
+	}
+
+	// Configure time stepper (at last, to minimize the "startup lag")
+	m_timeStepper.setDeltaRange(sf::seconds(1.f / 70.f), sf::seconds(1.f / 30.f));
 
 	// Perform game-specific initialization
 	return onInit();
@@ -209,8 +246,14 @@ void Application::start()
 	log.debug() << "Exit main loop" << log.endl();
 #endif
 
+	// Close main window
 	m_window.close();
 
+	// Close Squirrel virtual machine
+	sq_close(m_squirrelVM);
+	m_squirrelVM = nullptr;
+
+	// Game-specific close code
 	onClose();
 }
 

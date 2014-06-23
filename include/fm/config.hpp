@@ -34,6 +34,9 @@
 // Disable this if you included the code in your project instead.
 //#define ZN_DLL
 
+// Enables squirrel binding code
+#define ZN_SQUIRREL
+
 // DLL options
 #ifdef ZN_DLL
 	// This is placed before each element we want to expose to the user of the DLL.

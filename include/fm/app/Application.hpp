@@ -15,6 +15,7 @@ This file is part of the zCraft-Framework project.
 #include <fm/scene/core/Scene.hpp>
 #include <fm/reflect/ObjectTypeDatabase.hpp>
 #include <fm/app/TimeStepper.hpp>
+#include <squirrel.h>
 
 namespace zn
 {
@@ -123,6 +124,7 @@ protected:
 	sf::RenderWindow    m_window;
 	AssetBank           m_assets;
 	Scene               m_scene;
+	HSQUIRRELVM         m_squirrelVM;
 
 private:
 
