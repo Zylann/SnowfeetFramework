@@ -29,7 +29,7 @@ class Scene;
 class AudioEmitter;
 
 /// \brief Flags that can be set on the entity, as bitmasks.
-enum Flags
+enum EntityFlags
 {
 	EF_ACTIVE       = 0,
 	EF_DESTROY_LATE = 1, // Destroy at the end of the frame
@@ -146,19 +146,19 @@ public:
 	Component * getComponent(const ObjectType & cmpType, bool includeInheritance=true);
 
 	/// \brief Returns the entity's renderer, if any.
-	inline Renderer * renderer() const  { return r_renderer; }
+	inline Renderer * renderer() const { return r_renderer; }
 
 	/// \brief Returns the entity's animator, if any.
-	inline Animator * animator() const  { return r_animator; }
+	inline Animator * animator() const { return r_animator; }
 
 	/// \brief Returns the entity's collider, if any.
-	inline Collider * collider() const  { return r_collider; }
+	inline Collider * collider() const { return r_collider; }
 
 	/// \brief Returns the entity's rigidbody, if any.
-	inline Body * body() const           { return r_body; }
+	inline Body * body() const { return r_body; }
 
 	/// \brief Returns the entity's audio emitter, if any.
-	inline AudioEmitter * audio() const  { return r_audioEmitter; }
+	inline AudioEmitter * audio() const { return r_audioEmitter; }
 
 	/// \brief Returns the scene the entity belongs to.
 	Scene & scene() const;
