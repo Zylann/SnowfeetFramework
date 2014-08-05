@@ -1,5 +1,4 @@
-#include <fm/squirrel/squirrel_utils.hpp>
-#include <fm/util/Vector2_Squirrel.hpp>
+#include "squirrel_utils.hpp"
 
 #ifdef SQUNICODE
 	#define scvprintf vfwprintf
@@ -7,14 +6,13 @@
 	#define scvprintf vfprintf
 #endif
 
-namespace zn
-{
-namespace squirrel
-{
+#include <fm/util/Vector2_Squirrel.hpp>
+
+namespace zn {
+namespace squirrel {
 
 void printfunc(HSQUIRRELVM v, const SQChar *s,...)
 {
-	// TODO use the Log
 	va_list vl;
 	va_start(vl, s);
 	scvprintf(stdout, s, vl);
@@ -23,7 +21,6 @@ void printfunc(HSQUIRRELVM v, const SQChar *s,...)
 
 void errorfunc(HSQUIRRELVM v, const SQChar *s,...)
 {
-	// TODO use the Log
 	va_list vl;
 	va_start(vl, s);
 	scvprintf(stderr, s, vl);
@@ -32,15 +29,9 @@ void errorfunc(HSQUIRRELVM v, const SQChar *s,...)
 
 void registerFramework(HSQUIRRELVM vm)
 {
-	// registers the default error handlers
-	sqstd_seterrorhandlers(vm);
-
-	// sets the print function
-	sq_setprintfunc(vm, printfunc, errorfunc);
-
-	registerVector2<f32>(vm, "Vector2f");
-	registerVector2<f32>(vm, "Vector2i");
+	registerVector2<f32>(vm, "Vector2");
 }
+
 
 } // namespace squirrel
 } // namespace zn
