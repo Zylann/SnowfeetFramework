@@ -151,9 +151,6 @@ public:
 	/// \brief Returns the entity's animator, if any.
 	inline Animator * animator() const  { return r_animator; }
 
-	/// \brief Returns the entity's camera, if any.
-	inline Camera * camera() const       { return r_camera; }
-
 	/// \brief Returns the entity's collider, if any.
 	inline Collider * collider() const  { return r_collider; }
 
@@ -308,9 +305,6 @@ private:
 
 	/// \brief direct reference to the rigidbody for quick lookup
 	Body * r_body;
-
-	/// \brief direct reference to the camera for quick lookup
-	Camera * r_camera;
 
 	/// \brief direct reference to the animator for quick lookup
 	Animator * r_animator;

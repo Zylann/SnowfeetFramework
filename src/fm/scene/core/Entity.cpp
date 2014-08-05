@@ -20,7 +20,6 @@ Entity::Entity() :
 	r_renderer(nullptr),
 	r_collider(nullptr),
 	r_body(nullptr),
-	r_camera(nullptr),
 	r_animator(nullptr),
 	m_layerIndex(0), // default layer
 	r_scene(nullptr),
@@ -187,10 +186,6 @@ void Entity::updateComponentShortcut(Component * cmp, bool removed)
 		else if(cmp->isInstanceOf<zn::Collider>())
 		{
 			r_collider = removed ? nullptr : checked_cast<zn::Collider*>(cmp);
-		}
-		else if(cmp->isInstanceOf<zn::Camera>())
-		{
-			r_camera = removed ? nullptr : checked_cast<zn::Camera*>(cmp);
 		}
 		else if(cmp->isInstanceOf<zn::Body>())
 		{
