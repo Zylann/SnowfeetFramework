@@ -9,6 +9,7 @@ This file is part of the zCraftFramework.
 
 #include <string>
 #include <exception>
+#include <fm/config.hpp>
 
 namespace zn
 {
@@ -19,14 +20,14 @@ public:
 
 	Exception(const std::string msg)
 	{
-		_msg = msg;
+		m_msg = msg;
 	}
 
-	const char * what() const noexcept override { return _msg.c_str(); }
+	const char * what() const ZN_NOEXCEPT override { return m_msg.c_str(); }
 
 private:
 
-	std::string _msg;
+	std::string m_msg;
 };
 
 } // namespace zn
