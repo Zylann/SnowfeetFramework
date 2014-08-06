@@ -27,8 +27,12 @@
 					<Add library="sfml-graphics" />
 					<Add library="sfml-window" />
 					<Add library="sfml-system" />
+					<Add library="ws2_32" />
 					<Add directory="extlibs/bin/gcc-mingw32" />
 				</Linker>
+				<ExtraCommands>
+					<Add before="python prebuild.py" />
+				</ExtraCommands>
 			</Target>
 			<Target title="win32_release">
 				<Option output="bin/Release/SSM_Cpp_v2" prefix_auto="1" extension_auto="1" />
@@ -77,6 +81,7 @@
 		<Unit filename="include/fm/json/JsonBox/SolidusEscaper.h" />
 		<Unit filename="include/fm/json/JsonBox/Value.h" />
 		<Unit filename="include/fm/json/json_utils.hpp" />
+		<Unit filename="include/fm/network/Blob.hpp" />
 		<Unit filename="include/fm/pcg/AutoTiler.hpp" />
 		<Unit filename="include/fm/pcg/MazeGenerator.hpp" />
 		<Unit filename="include/fm/reflect/Object.hpp" />
@@ -193,6 +198,7 @@
 		<Unit filename="src/fm/json/JsonBox/SolidusEscaper.cpp" />
 		<Unit filename="src/fm/json/JsonBox/Value.cpp" />
 		<Unit filename="src/fm/json/json_utils.cpp" />
+		<Unit filename="src/fm/network/Blob.cpp" />
 		<Unit filename="src/fm/pcg/AutoTiler.cpp" />
 		<Unit filename="src/fm/pcg/MazeGenerator.cpp" />
 		<Unit filename="src/fm/reflect/Object.cpp" />
