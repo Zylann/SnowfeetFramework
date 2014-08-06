@@ -4,10 +4,8 @@
 #include <sqrat.h>
 #include <fm/util/Vector2.hpp>
 
-namespace zn
-{
-namespace squirrel
-{
+namespace zn {
+namespace squirrel {
 
 template <typename T>
 void registerVector2(HSQUIRRELVM vm, const char * className)

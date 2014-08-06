@@ -14,10 +14,8 @@
 	#pragma comment (lib, "sqstdlib.lib")
 #endif
 
-namespace zn
-{
-namespace squirrel
-{
+namespace zn {
+namespace squirrel {
 
 void printFunc(HSQUIRRELVM vm, const SQChar *s,...);
 void errorFunc(HSQUIRRELVM vm, const SQChar *s,...);
