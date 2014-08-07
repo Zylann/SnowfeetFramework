@@ -1,7 +1,7 @@
 /*
 NonCopyable.hpp
 Copyright (C) 2010-2014 Marc GILLERON
-This file is part of the Plane framework project.
+This file is part of the SnowfeetFramework project.
 */
 
 #ifndef HEADER_ZN_NONCOPYABLE_HPP

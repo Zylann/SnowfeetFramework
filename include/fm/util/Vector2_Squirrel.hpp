@@ -1,3 +1,9 @@
+/*
+Vector2_Squirrel.hpp
+Copyright (C) 2013-2014 Marc GILLERON
+This file is part of the SnowfeetFramework project.
+*/
+
 #ifndef HEADER_ZN_VECTOR2_SQUIRREL_HPP_INCLUDED
 #define HEADER_ZN_VECTOR2_SQUIRREL_HPP_INCLUDED
 

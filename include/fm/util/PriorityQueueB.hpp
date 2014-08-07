@@ -1,3 +1,10 @@
+/*
+PriorityQueueB.hpp
+Contribution by Marc GILLERON (2013)
+Base on the work of Gustavo FRANCO (2006)
+This file is part of the SnowfeetFramework project.
+*/
+
 #ifndef HEADER_ZN_PRIORITYQUEUEB_HPP_INCLUDED
 #define HEADER_ZN_PRIORITYQUEUEB_HPP_INCLUDED
 
@@ -7,6 +14,9 @@
 
 namespace zn
 {
+
+// Original implementation:
+// http://www.codeguru.com/csharp/csharp/cs_misc/designtechniques/article.php/c12527/AStar-A-Implementation-in-C-Path-Finding-PathFinder.htm
 
 // PriorityQueue with a non-template compare function.
 // Warning: this was translated from C#. The comparer has been made public,

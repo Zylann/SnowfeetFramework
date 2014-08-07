@@ -1,7 +1,7 @@
 /*
 Rect.hpp
-Copyright (C) 2010-2012 Marc GILLERON
-This file is part of the zCraft project.
+Copyright (C) 2010-2014 Marc GILLERON
+This file is part of the SnowfeetFramework.
 */
 
 #ifndef HEADER_ZN_RECT_HPP_INCLUDED

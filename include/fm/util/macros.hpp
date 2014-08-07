@@ -1,3 +1,9 @@
+/*
+macros.hpp
+Copyright (C) 2011-2014 Marc GILLERON
+This file is part of the SnowfeetFramework project.
+*/
+
 #ifndef HEADER_ZN_MACROS_HPP_INCLUDED
 #define HEADER_ZN_MACROS_HPP_INCLUDED
 

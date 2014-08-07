@@ -1,7 +1,7 @@
 /*
 noise.hpp
-Copyright (C) 2010-2012 Marc GILLERON
-This file is part of the zCraft framework project.
+Copyright (C) 2010-2014 Marc GILLERON
+This file is part of the SnowfeetFramework project.
 */
 
 #ifndef HEADER_ZN_NOISE_HPP_INCLUDED

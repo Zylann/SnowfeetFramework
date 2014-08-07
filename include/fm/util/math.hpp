@@ -1,7 +1,7 @@
 /*
 math.hpp
-Copyright (C) 2010-2013 Marc GILLERON
-This file is part of the zCraft framework.
+Copyright (C) 2010-2014 Marc GILLERON
+This file is part of the SnowfeetFramework.
 */
 
 #ifndef HEADER_ZN_MATH_HPP_INCLUDED

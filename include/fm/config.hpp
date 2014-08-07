@@ -1,3 +1,9 @@
+/*
+config.hpp
+Copyright (C) 2010-2014 Marc GILLERON
+This file is part of the SnowfeetFramework project.
+*/
+
 #ifndef HEADER_ZN_CONFIG_HPP_INCLUDED
 #define HEADER_ZN_CONFIG_HPP_INCLUDED
 

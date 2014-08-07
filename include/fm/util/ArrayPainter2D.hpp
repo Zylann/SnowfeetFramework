@@ -1,3 +1,9 @@
+/*
+ArrayPainter2D.hpp
+Copyright (c) 2013-2014 Marc GILLERON
+This file is part of the SnowfeetFramework project.
+*/
+
 #ifndef HEADER_ZN_ARRAYPAINTER2D_HPP_INCLUDED
 #define HEADER_ZN_ARRAYPAINTER2D_HPP_INCLUDED
 

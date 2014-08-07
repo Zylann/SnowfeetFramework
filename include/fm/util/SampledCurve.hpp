@@ -1,3 +1,9 @@
+/*
+SampledCurve.hpp
+Copyright (c) Marc GILLERON (2013-2014)
+This file is part of the SnowfeetFramework project.
+*/
+
 #ifndef HEADER_ZN_SAMPLEDCURVE_HPP_INCLUDED
 #define HEADER_ZN_SAMPLEDCURVE_HPP_INCLUDED
 

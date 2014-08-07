@@ -1,3 +1,10 @@
+/*
+PathFinder.hpp
+Contribution by Marc GILLERON (2013)
+Base on the work of Gustavo FRANCO (2006)
+This file is part of the SnowfeetFramework project.
+*/
+
 #ifndef HEADER_ZN_PATHFINDER_HPP_INCLUDED
 #define HEADER_ZN_PATHFINDER_HPP_INCLUDED
 

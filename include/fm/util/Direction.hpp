@@ -1,3 +1,9 @@
+/*
+Direction.hpp
+Copyright (C) 2012-2014 Marc GILLERON
+This file is part of the SnowfeetFramework project.
+*/
+
 #ifndef HEADER_ZN_DIRECTION_HPP_INCLUDED
 #define HEADER_ZN_DIRECTION_HPP_INCLUDED
 
