@@ -30,12 +30,14 @@ inline f32 linearInterpolation(f32 x0, f32 x1, f32 t)
 f32 ZN_API biLinearInterpolationSmooth(
 	const f32 x0y0, const f32 x1y0,
 	const f32 x0y1, const f32 x1y1,
-	const f32 x, const f32 y);
+	const f32 x, const f32 y
+);
 
 f32 ZN_API triLinearInterpolation(
 	const f32 v000, const f32 v100, const f32 v010, const f32 v110,
 	const f32 v001, const f32 v101, const f32 v011, const f32 v111,
-	const f32 x, const f32 y, const f32 z);
+	const f32 x, const f32 y, const f32 z
+);
 
 //
 // Cubic interpolations

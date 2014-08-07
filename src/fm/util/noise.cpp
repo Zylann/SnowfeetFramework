@@ -28,6 +28,7 @@ namespace zn
 	Using the same seed and coordinates will generate the same noise.
 */
 
+//------------------------------------------------------------------------------
 // [0,1]
 f32 noise2d(s32 x, s32 y, s32 seed)
 {
@@ -41,6 +42,7 @@ f32 noise2d(s32 x, s32 y, s32 seed)
 	return (f32)n / MAX_INT7;
 }
 
+//------------------------------------------------------------------------------
 f32 noise2dGradient(f32 x, f32 y, s32 seed)
 {
 	// Calculate the integer coordinates
@@ -58,6 +60,7 @@ f32 noise2dGradient(f32 x, f32 y, s32 seed)
 	return biLinearInterpolationSmooth(v00,v10,v01,v11,xl,yl);
 }
 
+//------------------------------------------------------------------------------
 f32 noise2dPerlin(
 		f32 x, f32 y, s32 seed,
 		s32 octaves, f32 persistence, f32 period)
@@ -84,6 +87,7 @@ f32 noise2dPerlin(
 	return noise / ampMax;
 }
 
+//------------------------------------------------------------------------------
 // [0,1]
 f32 noise3d(s32 x, s32 y, s32 z, s32 seed)
 {
@@ -97,6 +101,7 @@ f32 noise3d(s32 x, s32 y, s32 z, s32 seed)
 	return (f32)n / MAX_INT7;
 }
 
+//------------------------------------------------------------------------------
 f32 noise3dGradient(f32 x, f32 y, f32 z, s32 seed)
 {
 	// Calculate the integer coordinates
@@ -120,6 +125,7 @@ f32 noise3dGradient(f32 x, f32 y, f32 z, s32 seed)
 	return triLinearInterpolation(v000,v100,v010,v110,v001,v101,v011,v111,xl,yl,zl);
 }
 
+//------------------------------------------------------------------------------
 f32 noise3dPerlin(
 		f32 x, f32 y, f32 z, s32 seed,
 		s32 octaves, f32 persistence, f32 period)
