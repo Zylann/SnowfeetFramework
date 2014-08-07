@@ -147,13 +147,11 @@ inline f32 randf()
 	return static_cast<f32>(std::rand()) / static_cast<f32>(RAND_MAX);
 }
 
-/**
- * @brief Generates random numbers in [min, max].
- * @note this is a quick-to-use function, but not a good random generator.
- * @param min : minimum value. Assumed to be < max.
- * @param max : maximum value. Assumed to be > min.
- * @return
- */
+/// \brief Generates random numbers in [min, max].
+/// \note this is a quick-to-use function, but not a good random generator.
+/// \param min : minimum value. Assumed to be < max.
+/// \param max : maximum value. Assumed to be > min.
+/// \return pseudorandom number between min and max
 inline f32 randf(f32 min, f32 max)
 {
 	return min + randf() * (max - min);

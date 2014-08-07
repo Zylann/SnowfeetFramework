@@ -78,5 +78,5 @@ f32 biCubicInterpolation(f32 x0y[4], f32 x1y[4], f32 x2y[4], f32 x3y[4], f32 x)
 	return cubicInterpolation(a,b,c,d, x);
 }
 
-} // namespace engine
+} // namespace zn
 
