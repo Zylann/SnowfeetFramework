@@ -2,9 +2,7 @@ Proto2D (temp title)
 --------------------
 
 This is an experimental, cross-platform game engine specialized for 2D desktop
-game making. Currently, it is built on top of SFML
-(a nice but basic 2D multimedia library), but as the development progresses,
-it may shift to SDL 2 and some external libs.
+game making. Currently, it is built on top of SFML, a nice multimedia library.
 
 The project was originally a game prototype, but I decided to put its
 engine-related files open-source and leave a sample as demo.
@@ -13,34 +11,34 @@ I update the framework when I need something special or just as a hobby.
 Features
 --------
 
-- Cross-platform (Windows, Linux, Mac)
-- Component-oriented design, using subsystems instead of container-entities
+- Cross-platform (uses only cross-platform open-source libs and standard C++11)
+- Entity-component system included in Scenes (inspired by Unity3D)
 - Sorted rendering with dynamic draw order
 - Texture atlases with frames and animation sequences
 - Simple audio system based on spatialized emitters and a listener
-- Aim to be easily versionnable by using text (JSON) data files
-- Asset loader based on templates
-- Native interface designed for both gameplay and engine modification
+- Uses JSON as main data format
+- Asset loader based on C++ templates
+- C++ API designed for easy game coding
 - TilEd JSON import http://www.mapeditor.org/
 - JSON scene dump (editor serialization preview, currently for debug)
-- Entity hierarchy (parenting)
 - Shaders with merged files support (vertex+fragment in same file)
 - Layers with sorting semantic
 - Simple 2D culling
 - Log system
+- Particle systems
+- Grid-based A* pathfinding
+- And more...
 
 Planned/suggested :
 
-- Lighting and 2D shadows
+- Lighting and 2D shadows (might be optional)
 - Box2D integration
 - Better culling for BIG scenes
-- Scene editor
-- Tween library
+- Tween/animation library
 - JSON/PropertyTree-based serialization of components
 - Enable depth buffer as an option
-- Scripting language (Lua? Python? AngelScript? Squirrel?)
-- Scene editor made using the engine
-- Scriptable export pipeline
+- Scripting language, might be Squirrel (lightweight as Lua but object-oriented and less error-prone)
+- Scene editor made using the engine?
 - Easily customizable rendering pipeline
 - GUI components (for both game and editor?)
 - Scene transitions (and multi-scene?)
@@ -50,11 +48,10 @@ Planned/suggested :
 - Prefabs
 - ...
 
-Dependencies
+External dependencies
 ------------
 
 - SFML 2.1 http://www.sfml-dev.org/
-- JsonBox (included in source (not for ever)) https://github.com/anhero/JsonBox
 - C++11 (works with GCC MinGW 4.7+)
 
 Folder structure
@@ -84,11 +81,15 @@ necessary.
 | |-json/    : the JSON API used by the engine.
 | |              more at https://github.com/anhero/JsonBox
 | |
-| |-sfml/    : sfml utility that doesn't depends on the engine. It may also
-| |            contain drawable classes that are not component-based.
+| |-sfml/      : sfml utility that doesn't depends on the engine. It may also
+| |              contain drawable classes that are not component-based.
 | |
-| |-util/    : Only-STL-dependent files for various things such as 2D arrays,
-|            pathfinding, math, Vector2i, Rect...
+| |-squirrel/ : all about the Squirrel scripting engine
+| |
+| |-network/  : things related to network communication
+| |
+| |-util/      : Only-STL-dependent files for various things such as 2D arrays,
+|              pathfinding, math, Vector2i, Rect...
 
 Notes
 -----
@@ -96,11 +97,14 @@ Notes
 - Undocumented/uncommented elements are either likely to change in the future,
 may be explicit enough, or simply not done yet.
 
+- As the framework gets bigger, I can't keep everything up to date at the same time.
+so it is possible to find outdated code or documentation, until I fix it.
+
 - Some "3D" stuff may be implemented in the future to ease things like
 the use of normal maps, lighting or scrolling effects, but this stays a 2D engine,
 and is not aimed at rendering complex 3D models (better use a 3D engine, then !).
 Discussion is open for the far future, but this is what I think at the moment.
 
-- I'm also involved into the NinjaSDK, an open-source 2D game framework.
+- I also took part of game-engine-related discussions with friends,
 Take a look ! http://ninjasdk.freeforall.fr/
 
