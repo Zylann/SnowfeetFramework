@@ -30,9 +30,6 @@
 					<Add library="ws2_32" />
 					<Add directory="extlibs/bin/gcc-mingw32" />
 				</Linker>
-				<ExtraCommands>
-					<Add before="python prebuild.py" />
-				</ExtraCommands>
 			</Target>
 			<Target title="win32_release">
 				<Option output="bin/Release/SSM_Cpp_v2" prefix_auto="1" extension_auto="1" />
