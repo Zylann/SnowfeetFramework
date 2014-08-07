@@ -1,4 +1,4 @@
-Proto2D (temp title)
+Snowfeet Framework
 --------------------
 
 This is an experimental, cross-platform game engine specialized for 2D desktop
@@ -7,6 +7,12 @@ game making. Currently, it is built on top of SFML, a nice multimedia library.
 The project was originally a game prototype, but I decided to put its
 engine-related files open-source and leave a sample as demo.
 I update the framework when I need something special or just as a hobby.
+
+The name "Snowfeet" came from the game I initially planned to realize.
+In an post-apocalyptic future, It's the name of an uber-rare pet supposed to 
+be the closest descendant of cats.
+
+The main namespace used is "zn" for historic reason (ZCraft/Zylann engine) and is not subject to change yet.
 
 Features
 --------
