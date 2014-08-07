@@ -57,14 +57,12 @@ f32 triLinearInterpolation(
 */
 
 //------------------------------------------------------------------------------
-static f32 a = 0, b = 0, c = 0, d = 0;
-
 f32 cubicInterpolation(f32 x0, f32 x1, f32 x2, f32 x3, f32 t)
 {
-	a = x3 - x2 - x0 + x1;
-	b = x0 - x1 - a;
-	c = x2 - x0;
-	d = x1;
+	const f32 a = x3 - x2 - x0 + x1;
+	const f32 b = x0 - x1 - a;
+	const f32 c = x2 - x0;
+	const f32 d = x1;
 
 	return a * t*t*t + b * t*t + c * t + d;
 }
@@ -72,10 +70,10 @@ f32 cubicInterpolation(f32 x0, f32 x1, f32 x2, f32 x3, f32 t)
 //------------------------------------------------------------------------------
 f32 biCubicInterpolation(f32 x0y[4], f32 x1y[4], f32 x2y[4], f32 x3y[4], f32 x)
 {
-	a = cubicInterpolation(x0y[0], x0y[1], x0y[2], x0y[3], x);
-	b = cubicInterpolation(x1y[0], x1y[1], x1y[2], x1y[3], x);
-	c = cubicInterpolation(x2y[0], x2y[1], x2y[2], x2y[3], x);
-	d = cubicInterpolation(x3y[0], x3y[1], x3y[2], x3y[3], x);
+	const f32 a = cubicInterpolation(x0y[0], x0y[1], x0y[2], x0y[3], x);
+	const f32 b = cubicInterpolation(x1y[0], x1y[1], x1y[2], x1y[3], x);
+	const f32 c = cubicInterpolation(x2y[0], x2y[1], x2y[2], x2y[3], x);
+	const f32 d = cubicInterpolation(x3y[0], x3y[1], x3y[2], x3y[3], x);
 
 	return cubicInterpolation(a,b,c,d, x);
 }
