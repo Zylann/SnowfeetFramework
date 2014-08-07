@@ -1,0 +1,28 @@
+{
+	"root":".",
+	"projectFormat":"cbp",
+
+	"projects":{
+		
+		"Engine":{
+			"objectRegistration":{
+				"namespace":"_zn",
+				"files":[
+					"include/fm/scene/_objects.hpp",
+					"src/fm/scene/_objects.cpp"
+				]
+			}
+		},
+
+		"EngineDemo":{
+			"objectRegistration":{
+				"namespace":"_demo",
+				"files":[
+					"src/demo/_objects.hpp",
+					"src/demo/_objects.cpp"
+				]
+			}
+		}
+	}
+}
+
