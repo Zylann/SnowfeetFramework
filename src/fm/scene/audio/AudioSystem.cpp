@@ -57,7 +57,10 @@ void AudioSystem::update(sf::Time delta)
 {
 	if(r_listenerEntity != nullptr)
 	{
-		setListenerPosition(r_listenerEntity->transform.position());
+		if(r_listenerEntity->transform())
+		{
+			setListenerPosition(r_listenerEntity->transform()->position());
+		}
 	}
 
 	// Iterate over a copy to avoid concurrent modification

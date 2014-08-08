@@ -7,6 +7,7 @@
 #include <fm/scene/graphics.hpp>
 #include <fm/scene/physics.hpp>
 #include <fm/scene/behaviour.hpp>
+#include <fm/scene/core/Transform.hpp>
 
 namespace zn
 {
@@ -18,7 +19,9 @@ void registerEngineComponentTypes()
 	ObjectTypeDatabase & odb = ObjectTypeDatabase::get();
 
 	// Base
+
 	odb.registerType<zn::Component>();
+	odb.registerType<zn::Transform>();
 
 	// Animation
 

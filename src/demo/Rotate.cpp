@@ -8,8 +8,11 @@ ZN_OBJECT_IMPL(demo::Rotate)
 
 void Rotate::onUpdate()
 {
-	zn::f32 delta = entity().scene().deltaTime().asSeconds();
-	entity().transform.rotate(90.f * delta);
+	if(entity().transform())
+	{
+		zn::f32 delta = entity().scene().deltaTime().asSeconds();
+		entity().transform()->rotate(90.f * delta);
+	}
 }
 
 } // namespace demo

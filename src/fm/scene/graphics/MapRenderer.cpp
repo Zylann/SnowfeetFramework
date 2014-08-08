@@ -192,7 +192,10 @@ void MapRenderer::draw(sf::RenderTarget& target, sf::RenderStates states) const
 		log.err() << "MapRenderer::draw: no atlas defined !" << log.endl();
 #endif
 
-	states.transform.combine(entity().transform.matrix());
+	if(entity().transform())
+	{
+		states.transform.combine(entity().transform()->matrix());
+	}
 
 	// apply the texture
 	states.texture = r_texture;

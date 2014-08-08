@@ -16,7 +16,7 @@ namespace zn
 
 //------------------------------------------------------------------------------
 Entity::Entity() :
-	transform(*this),
+	r_transform(nullptr),
 	r_renderer(nullptr),
 	r_collider(nullptr),
 	r_body(nullptr),
@@ -78,9 +78,9 @@ bool Entity::activeInHierarchy() const
 {
 	if(active())
 	{
-		if(transform.parent() != nullptr)
+		if(r_transform && r_transform->parent() != nullptr)
 		{
-			return active() && transform.parent()->entity().activeInHierarchy();
+			return active() && r_transform->parent()->entity().activeInHierarchy();
 		}
 		else
 		{
@@ -179,7 +179,11 @@ void Entity::updateComponentShortcut(Component * cmp, bool removed)
 	// TODO remove these lookups in the future, because users should have to reference them anyway
 	if(!cmp->isInstanceOf<zn::Behaviour>())
 	{
-		if(cmp->isInstanceOf<zn::Renderer>())
+		if(cmp->isInstanceOf<zn::Transform>())
+		{
+			r_transform = removed ? nullptr : checked_cast<zn::Transform*>(cmp);
+		}
+		else if(cmp->isInstanceOf<zn::Renderer>())
 		{
 			r_renderer = removed ? nullptr : checked_cast<zn::Renderer*>(cmp);
 		}
@@ -253,11 +257,6 @@ void Entity::onCollisionExit(const CollisionInfo & info)
 //------------------------------------------------------------------------------
 void Entity::serialize(JsonBox::Value & o)
 {
-	// Transform
-
-	JsonBox::Value & transformData = o["transform"];
-	transform.serialize(transformData);
-
 	// Meta
 
 	o["id"]       = (s32)m_id;
@@ -283,11 +282,6 @@ void Entity::serialize(JsonBox::Value & o)
 //------------------------------------------------------------------------------
 void Entity::unserialize(JsonBox::Value & o)
 {
-	// Transform
-
-	JsonBox::Value transformData = o["transform"];
-	transform.unserialize(transformData);
-
 	// Meta
 
 	m_id = o["id"].getInt();

@@ -1,4 +1,5 @@
 {
+	"automaticTransforms" : true,
 	"entities" : [
 		{
 			"components" : [
@@ -3188,7 +3189,7 @@
 							225,
 							225,
 							69,
-							136,
+							4,
 							64,
 							65,
 							33,
@@ -5123,25 +5124,28 @@
 						]
 					},
 					"type" : "zn::MapRenderer"
+				},
+				{
+					"data" : {
+						"parent" : null,
+						"position" : [
+							0,
+							0
+						],
+						"rotation" : 0,
+						"scale" : [
+							1,
+							1
+						]
+					},
+					"type" : "zn::Transform"
 				}
 			],
 			"flags" : 1,
 			"id" : 0,
 			"layer" : 0,
 			"name" : "map",
-			"tags" : 0,
-			"transform" : {
-				"parent" : null,
-				"position" : [
-					0,
-					0
-				],
-				"rotation" : 0,
-				"scale" : [
-					1,
-					1
-				]
-			}
+			"tags" : 0
 		},
 		{
 			"components" : [
@@ -5159,7 +5163,7 @@
 						"scaleMode" : "adapted",
 						"size" : [
 							20,
-							12
+							15
 						],
 						"viewport" : {
 							"h" : 1,
@@ -5169,25 +5173,28 @@
 						}
 					},
 					"type" : "zn::Camera"
+				},
+				{
+					"data" : {
+						"parent" : null,
+						"position" : [
+							54.3966,
+							30.9493
+						],
+						"rotation" : 0.994059,
+						"scale" : [
+							1,
+							1
+						]
+					},
+					"type" : "zn::Transform"
 				}
 			],
 			"flags" : 1,
 			"id" : 1,
 			"layer" : 0,
 			"name" : "main_camera",
-			"tags" : 0,
-			"transform" : {
-				"parent" : null,
-				"position" : [
-					61.6198,
-					30.42
-				],
-				"rotation" : 0.145461,
-				"scale" : [
-					1,
-					1
-				]
-			}
+			"tags" : 0
 		},
 		{
 			"components" : [
@@ -5215,25 +5222,28 @@
 						}
 					},
 					"type" : "zn::Camera"
+				},
+				{
+					"data" : {
+						"parent" : null,
+						"position" : [
+							0,
+							0
+						],
+						"rotation" : 0,
+						"scale" : [
+							1,
+							1
+						]
+					},
+					"type" : "zn::Transform"
 				}
 			],
 			"flags" : 1,
 			"id" : 2,
 			"layer" : 0,
 			"name" : "gui_camera",
-			"tags" : 0,
-			"transform" : {
-				"parent" : null,
-				"position" : [
-					0,
-					0
-				],
-				"rotation" : 0,
-				"scale" : [
-					1,
-					1
-				]
-			}
+			"tags" : 0
 		},
 		{
 			"components" : [
@@ -5261,25 +5271,28 @@
 						}
 					},
 					"type" : "zn::Camera"
+				},
+				{
+					"data" : {
+						"parent" : null,
+						"position" : [
+							64,
+							20
+						],
+						"rotation" : 0,
+						"scale" : [
+							1,
+							1
+						]
+					},
+					"type" : "zn::Transform"
 				}
 			],
 			"flags" : 1,
 			"id" : 3,
 			"layer" : 0,
 			"name" : "secondary_camera",
-			"tags" : 0,
-			"transform" : {
-				"parent" : null,
-				"position" : [
-					64,
-					20
-				],
-				"rotation" : 0,
-				"scale" : [
-					1,
-					1
-				]
-			}
+			"tags" : 0
 		},
 		{
 			"components" : [
@@ -5308,25 +5321,28 @@
 						}
 					},
 					"type" : "zn::SpriteRenderer"
+				},
+				{
+					"data" : {
+						"parent" : null,
+						"position" : [
+							55,
+							17
+						],
+						"rotation" : 0,
+						"scale" : [
+							1,
+							1
+						]
+					},
+					"type" : "zn::Transform"
 				}
 			],
 			"flags" : 1,
 			"id" : 4,
 			"layer" : 0,
 			"name" : "monitor",
-			"tags" : 0,
-			"transform" : {
-				"parent" : null,
-				"position" : [
-					55,
-					17
-				],
-				"rotation" : 0,
-				"scale" : [
-					1,
-					1
-				]
-			}
+			"tags" : 0
 		},
 		{
 			"components" : [
@@ -5361,34 +5377,42 @@
 						"flags" : 1
 					},
 					"type" : "demo::Cursor"
+				},
+				{
+					"data" : {
+						"parent" : null,
+						"position" : [
+							-8,
+							-30
+						],
+						"rotation" : 0,
+						"scale" : [
+							1,
+							1
+						]
+					},
+					"type" : "zn::Transform"
 				}
 			],
 			"flags" : 1,
 			"id" : 5,
 			"layer" : 1,
 			"name" : "cursor",
-			"tags" : 0,
-			"transform" : {
-				"parent" : null,
-				"position" : [
-					99,
-					-172
-				],
-				"rotation" : 0,
-				"scale" : [
-					1,
-					1
-				]
-			}
+			"tags" : 0
 		},
 		{
 			"components" : [
 				{
 					"data" : {
-						"attenuation" : 1,
+						"attenuation" : -0,
 						"flags" : 1,
 						"maxRadius" : 2000,
 						"minRadius" : 1000,
+						"position" : [
+							53.8966,
+							30.4493,
+							0
+						],
 						"spatialize" : true
 					},
 					"type" : "zn::AudioEmitter"
@@ -5452,25 +5476,28 @@
 						"flags" : 1
 					},
 					"type" : "demo::Avatar"
+				},
+				{
+					"data" : {
+						"parent" : null,
+						"position" : [
+							53.8966,
+							30.4493
+						],
+						"rotation" : 0,
+						"scale" : [
+							1,
+							1
+						]
+					},
+					"type" : "zn::Transform"
 				}
 			],
 			"flags" : 1,
 			"id" : 6,
 			"layer" : 0,
 			"name" : "avatar",
-			"tags" : 0,
-			"transform" : {
-				"parent" : null,
-				"position" : [
-					61.1198,
-					29.92
-				],
-				"rotation" : 0,
-				"scale" : [
-					1,
-					1
-				]
-			}
+			"tags" : 0
 		},
 		{
 			"components" : [
@@ -5478,9 +5505,9 @@
 					"data" : {
 						"flags" : 1,
 						"frame" : "",
-						"remainingLoops" : -1,
-						"sequence" : "walk.up",
-						"sequenceFrame" : 1
+						"remainingLoops" : 0,
+						"sequence" : "",
+						"sequenceFrame" : 0
 					},
 					"type" : "zn::SpriteAnimator"
 				},
@@ -5522,7 +5549,7 @@
 						"textureRect" : {
 							"h" : 16,
 							"w" : 16,
-							"x" : 32,
+							"x" : 0,
 							"y" : 48
 						}
 					},
@@ -5533,25 +5560,28 @@
 						"flags" : 1
 					},
 					"type" : "demo::Cat"
+				},
+				{
+					"data" : {
+						"parent" : null,
+						"position" : [
+							65.5998,
+							29
+						],
+						"rotation" : 0,
+						"scale" : [
+							1,
+							1
+						]
+					},
+					"type" : "zn::Transform"
 				}
 			],
 			"flags" : 1,
 			"id" : 7,
 			"layer" : 0,
 			"name" : "cat",
-			"tags" : 0,
-			"transform" : {
-				"parent" : null,
-				"position" : [
-					61.9951,
-					30.3515
-				],
-				"rotation" : 0,
-				"scale" : [
-					1,
-					1
-				]
-			}
+			"tags" : 0
 		},
 		{
 			"components" : [
@@ -5561,25 +5591,28 @@
 						"style" : 0
 					},
 					"type" : "zn::TextRenderer"
+				},
+				{
+					"data" : {
+						"parent" : null,
+						"position" : [
+							-200,
+							-200
+						],
+						"rotation" : 0,
+						"scale" : [
+							1,
+							1
+						]
+					},
+					"type" : "zn::Transform"
 				}
 			],
 			"flags" : 1,
 			"id" : 8,
 			"layer" : 1,
 			"name" : "text",
-			"tags" : 0,
-			"transform" : {
-				"parent" : null,
-				"position" : [
-					-200,
-					-200
-				],
-				"rotation" : 0,
-				"scale" : [
-					1,
-					1
-				]
-			}
+			"tags" : 0
 		},
 		{
 			"components" : [
@@ -5614,25 +5647,28 @@
 						"flags" : 1
 					},
 					"type" : "demo::Rotate"
+				},
+				{
+					"data" : {
+						"parent" : null,
+						"position" : [
+							50,
+							31
+						],
+						"rotation" : 5902.91,
+						"scale" : [
+							1,
+							1
+						]
+					},
+					"type" : "zn::Transform"
 				}
 			],
 			"flags" : 1,
 			"id" : 9,
 			"layer" : 0,
 			"name" : "ball1",
-			"tags" : 0,
-			"transform" : {
-				"parent" : null,
-				"position" : [
-					50,
-					31
-				],
-				"rotation" : 557.939,
-				"scale" : [
-					1,
-					1
-				]
-			}
+			"tags" : 0
 		},
 		{
 			"components" : [
@@ -5667,72 +5703,28 @@
 						"flags" : 1
 					},
 					"type" : "demo::Rotate"
+				},
+				{
+					"data" : {
+						"parent" : 9,
+						"position" : [
+							2,
+							0
+						],
+						"rotation" : 5902.91,
+						"scale" : [
+							1,
+							1
+						]
+					},
+					"type" : "zn::Transform"
 				}
 			],
 			"flags" : 1,
 			"id" : 10,
 			"layer" : 0,
 			"name" : "ball2",
-			"tags" : 0,
-			"transform" : {
-				"parent" : 9,
-				"position" : [
-					2,
-					0
-				],
-				"rotation" : 557.939,
-				"scale" : [
-					1,
-					1
-				]
-			}
-		},
-		{
-			"components" : [
-				{
-					"data" : {
-						"atlas" : "",
-						"color" : [
-							255,
-							255,
-							255,
-							255
-						],
-						"drawOrder" : 0,
-						"flags" : 1,
-						"material" : "",
-						"scale" : [
-							0.03125,
-							0.03125
-						],
-						"texture" : "wool_ball",
-						"textureRect" : {
-							"h" : 16,
-							"w" : 16,
-							"x" : 0,
-							"y" : 0
-						}
-					},
-					"type" : "zn::SpriteRenderer"
-				}
-			],
-			"flags" : 1,
-			"id" : 11,
-			"layer" : 0,
-			"name" : "ball3",
-			"tags" : 0,
-			"transform" : {
-				"parent" : 10,
-				"position" : [
-					1,
-					0
-				],
-				"rotation" : 0,
-				"scale" : [
-					1,
-					1
-				]
-			}
+			"tags" : 0
 		},
 		{
 			"components" : [
@@ -5761,25 +5753,28 @@
 						}
 					},
 					"type" : "zn::SpriteRenderer"
+				},
+				{
+					"data" : {
+						"parent" : null,
+						"position" : [
+							65,
+							31
+						],
+						"rotation" : 0,
+						"scale" : [
+							3,
+							3
+						]
+					},
+					"type" : "zn::Transform"
 				}
 			],
 			"flags" : 1,
 			"id" : 12,
 			"layer" : 0,
 			"name" : "shader_test",
-			"tags" : 0,
-			"transform" : {
-				"parent" : null,
-				"position" : [
-					65,
-					31
-				],
-				"rotation" : 0,
-				"scale" : [
-					3,
-					3
-				]
-			}
+			"tags" : 0
 		}
 	],
 	"nextID" : 13

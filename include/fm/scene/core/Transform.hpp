@@ -4,26 +4,27 @@
 #include <SFML/Graphics.hpp>
 #include <fm/json/json_utils.hpp>
 
+#include <fm/scene/core/Component.hpp>
+
 namespace zn
 {
 
 class Entity;
 
-// Represents the spatial transformation applied to an entity,
+// Represents a spatial transformation applied to an entity,
 // as well as its place in the hierarchy (children, parent).
-// Note that only entities are allowed to create such objects.
-// An entity always has only one transform.
-class ZN_API Transform
+// An entity must always have one transform at most.
+class ZN_API Transform : public Component
 {
 public:
+
+	ZN_OBJECT(zn::Transform, zn::Component)
 
 	typedef std::vector<Transform*> container;
 	typedef container::iterator iterator;
 	typedef container::const_iterator const_iterator;
 
-	Transform(Entity & e);
-
-	Entity & entity() const { return r_entity; }
+	Transform();
 
 	//-------------------------
 	// Transformation
@@ -97,9 +98,9 @@ public:
 	// Serialization
 	//-------------------------
 
-	void serialize(JsonBox::Value & o);
-	void unserialize(JsonBox::Value & o);
-	void postUnserialize(JsonBox::Value & o);
+	void serializeData(JsonBox::Value & o) override;
+	void unserializeData(JsonBox::Value & o) override;
+	//void postUnserialize(JsonBox::Value & o) override;
 
 private:
 
@@ -112,7 +113,6 @@ private:
 	// Called by setParent(nullptr) from another Transform
 	void onRemoveChild(Transform * child);
 
-	Entity & r_entity; // Entity owning the transform
 	Transform * r_parent;
 	container m_children;
 

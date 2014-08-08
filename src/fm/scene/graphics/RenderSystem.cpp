@@ -171,7 +171,11 @@ void RenderSystem::render(const Camera & camera, sf::RenderTarget & finalTarget,
 	sf::FloatRect viewBounds(view.getCenter()-view.getSize()*0.5f, view.getSize());
 
 	sf::Transform trans;
-	trans.rotate(camera.entity().transform.rotation(), view.getCenter());
+	if(camera.entity().transform())
+	{
+		trans.rotate(camera.entity().transform()->rotation(), view.getCenter());
+	}
+
 	viewBounds = trans.transformRect(viewBounds);
 
 	// Filter and sort renderers by draw order

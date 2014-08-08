@@ -102,8 +102,8 @@ void Avatar::onUpdate()
 	// Make the camera follow
 
 	Entity & cam = entity().scene().mainCamera()->entity();
-	cam.transform.setPosition(entity().transform.position() + sf::Vector2f(0.5f,0.5f));
-	cam.transform.setRotation(sin(0.5f*entity().scene().time().asSeconds()));
+	cam.transform()->setPosition(entity().transform()->position() + sf::Vector2f(0.5f,0.5f));
+	cam.transform()->setRotation(sin(0.5f*entity().scene().time().asSeconds()));
 
 	// Character-specific stuff (sprite orientation...)
 

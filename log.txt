@@ -1,25 +1,26 @@
 D: Registered {[1]zn::Component : zn::Object}
-D: Registered {[2]zn::Animator : zn::Component}
-D: Registered {[3]zn::SpriteAnimator : zn::Animator}
-D: Registered {[4]zn::AudioEmitter : zn::Component}
-D: Registered {[5]zn::Camera : zn::Component}
-D: Registered {[6]zn::Renderer : zn::Component}
-D: Registered {[7]zn::MapRenderer : zn::Renderer}
-D: Registered {[8]zn::ParticleSystem : zn::Renderer}
-D: Registered {[9]zn::SpriteRenderer : zn::Renderer}
-D: Registered {[10]zn::TextRenderer : zn::Renderer}
-D: Registered {[11]zn::OverlayRenderer : zn::Renderer}
-D: Registered {[12]zn::Collider : zn::Component}
-D: Registered {[13]zn::BoxCollider : zn::Collider}
-D: Registered {[14]zn::MapCollider : zn::Collider}
-D: Registered {[15]zn::Body : zn::Component}
-D: Registered {[16]zn::Behaviour : zn::Component}
-D: Registered {[17]demo::Character : zn::Behaviour}
-D: Registered {[18]demo::Avatar : demo::Character}
-D: Registered {[19]demo::Cat : demo::Character}
-D: Registered {[20]demo::Cursor : zn::Behaviour}
-D: Registered {[21]demo::Mover : zn::Behaviour}
-D: Registered {[22]demo::Rotate : zn::Behaviour}
+D: Registered {[2]zn::Transform : zn::Component}
+D: Registered {[3]zn::Animator : zn::Component}
+D: Registered {[4]zn::SpriteAnimator : zn::Animator}
+D: Registered {[5]zn::AudioEmitter : zn::Component}
+D: Registered {[6]zn::Camera : zn::Component}
+D: Registered {[7]zn::Renderer : zn::Component}
+D: Registered {[8]zn::MapRenderer : zn::Renderer}
+D: Registered {[9]zn::ParticleSystem : zn::Renderer}
+D: Registered {[10]zn::SpriteRenderer : zn::Renderer}
+D: Registered {[11]zn::TextRenderer : zn::Renderer}
+D: Registered {[12]zn::OverlayRenderer : zn::Renderer}
+D: Registered {[13]zn::Collider : zn::Component}
+D: Registered {[14]zn::BoxCollider : zn::Collider}
+D: Registered {[15]zn::MapCollider : zn::Collider}
+D: Registered {[16]zn::Body : zn::Component}
+D: Registered {[17]zn::Behaviour : zn::Component}
+D: Registered {[18]demo::Character : zn::Behaviour}
+D: Registered {[19]demo::Avatar : demo::Character}
+D: Registered {[20]demo::Cat : demo::Character}
+D: Registered {[21]demo::Cursor : zn::Behaviour}
+D: Registered {[22]demo::Mover : zn::Behaviour}
+D: Registered {[23]demo::Rotate : zn::Behaviour}
 I: Reading game_settings.json
 I: switched to windowed mode.
 I: screen resized (800, 600)
@@ -28,7 +29,6 @@ I: Loading file associations...
 I: Indexing folder "assets"
 W: Some asset files were not associated by the scanning process. If you want them to be loaded, add them manually to the manifest, or modify file associations.
 | --- Concerned files: ---
-| demo.mod
 | scripts/main.nut
 | shaders/basic.vert
 | shaders/noise.frag
@@ -71,8 +71,8 @@ D: Reading tileset 2...
 D: Reading tileset 3...
 I: Done
 I: Registering framework to Squirrel virtual machine
-I: Size of Entity: 252
-I: Size of Transform: 172
+I: Size of Entity: 80
+I: Size of Transform: 184
 D: Scene::addEntity: [0] map at (0, 0)
 D: MapRenderer: update monolithic mesh (100x50)
 D: Scene::addEntity: [1] main_camera at (0, 0)
@@ -88,5 +88,11 @@ D: Scene::addEntity: [10] ball2 at (2, 0)
 D: Scene::addEntity: [11] ball3 at (1, 0)
 D: Scene::addEntity: [12] shader_test at (65, 31)
 D: Enter main loop
-I: screen resized (1680, 998)
+D: just before destroy entity "ball3"
+I: switched to fullscreen mode.
+I: screen resized (1680, 1050)
+I: switched to windowed mode.
+I: screen resized (800, 600)
+D: Saving scene as "scene_dump.json"
+D: Took 0.039445s to serialize the scene as a file.
 D: Exit main loop

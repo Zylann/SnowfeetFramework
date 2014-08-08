@@ -64,7 +64,12 @@ void Renderer::onAtlasChanged(const TextureAtlas * atlas)
 sf::FloatRect Renderer::bounds() const
 {
 	sf::FloatRect box = localBounds();
-	box = entity().transform.matrix().transformRect(box);
+
+	if(entity().transform())
+	{
+		box = entity().transform()->matrix().transformRect(box);
+	}
+
 	return box;
 }
 

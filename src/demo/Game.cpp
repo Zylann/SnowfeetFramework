@@ -143,18 +143,18 @@ bool Game::onInit()
 	sprite = rotateObj2->addComponent<SpriteRenderer>();
 	sprite->setScale(1.f / DEMO_TS);
 	sprite->setTexture(ballTexture);
-	rotateObj2->transform.setParent(rotateObj1->transform);
+	rotateObj2->transform()->setParent(rotateObj1->transform());
 
 	Entity * rotateObj3 = m_scene.createEntity("ball3", sf::Vector2f(ts, 0));
 	sprite = rotateObj3->addComponent<SpriteRenderer>();
 	sprite->setScale(1.f / DEMO_TS);
 	sprite->setTexture(ballTexture);
-	rotateObj3->transform.setParent(rotateObj2->transform);
+	rotateObj3->transform()->setParent(rotateObj2->transform());
 
 	// Shader test
 
 	Entity * snowTV = m_scene.createEntity("shader_test", sf::Vector2f(65*ts, 31*ts));
-	snowTV->transform.setScale(sf::Vector2f(3,3));
+	snowTV->transform()->setScale(sf::Vector2f(3,3));
 	sprite = snowTV->addComponent<SpriteRenderer>();
 	sprite->setScale(1.f / DEMO_TS);
 	sprite->setTexture(ballTexture);

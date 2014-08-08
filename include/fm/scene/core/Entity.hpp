@@ -160,6 +160,9 @@ public:
 	/// \brief Returns the entity's audio emitter, if any.
 	inline AudioEmitter * audio() const { return r_audioEmitter; }
 
+	/// \brief Returns the entity's transform, if any
+	inline Transform * transform() const { return r_transform; }
+
 	/// \brief Returns the scene the entity belongs to.
 	Scene & scene() const;
 
@@ -254,9 +257,6 @@ public:
 	// Public attributes
 	//-----------------------------------------
 
-	/// \brief The position, rotation, scale and hierarchy of the entity is stored here.
-	Transform transform;
-
 private:
 
 	friend class Scene;
@@ -296,6 +296,9 @@ private:
 
 	/// \brief Components attached to this entity, stored by type.
 	std::unordered_map<ObjectTypeID, Component*>  m_components;
+
+	/// \brief direct reference to the transform for quick lookup
+	Transform * r_transform;
 
 	/// \brief direct reference to the renderer for quick lookup
 	Renderer * r_renderer;

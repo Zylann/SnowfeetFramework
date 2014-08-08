@@ -32,11 +32,23 @@ void AudioEmitter::onDestroy()
 //------------------------------------------------------------------------------
 void AudioEmitter::onUpdate()
 {
-	sf::Vector2f pos = entity().transform.position();
+	if(entity().transform())
+	{
+		sf::Vector2f pos = entity().transform()->position();
+		setPosition(pos);
+	}
+}
+
+//------------------------------------------------------------------------------
+void AudioEmitter::setPosition(const sf::Vector2f & newPosition)
+{
+	m_position.x = newPosition.x;
+	m_position.y = newPosition.y;
+
 	std::unordered_set<AudioSource*>::iterator it;
 	for(it = m_sourceRefs.begin(); it != m_sourceRefs.end(); it++)
 	{
-		(*it)->setPosition(pos.x, pos.y, 0);
+		(*it)->setPosition(m_position);
 	}
 }
 
@@ -75,14 +87,13 @@ bool AudioEmitter::canBeHeard()
 	if(m_spatialize)
 	{
 		AudioSystem & system = entity().scene().audioSystem;
-		sf::Vector2f position = entity().transform.position();
 
 		// If we are beyond the maximal radius, the sound is not played
-		return zn::distance(system.listenerPosition(), position) <= m_maxRadius;
+		return zn::distance(system.listenerPosition(), sf::Vector2f(m_position.x, m_position.y)) <= m_maxRadius;
 	}
 	else
 	{
-		// Not spatialized sounds can always be heard
+		// Not-spatialized sounds can always be heard
 		return true;
 	}
 }
@@ -114,13 +125,18 @@ void AudioEmitter::playBuffer(std::string name, f32 volume, f32 pitch, bool loop
 	// If the sound can be played
 	if(source)
 	{
-		sf::Vector2f position = entity().transform.position();
+		if(entity().transform())
+		{
+			sf::Vector2f pos2d = entity().transform()->position();
+			m_position.x = pos2d.x;
+			m_position.y = pos2d.y;
+		}
 
 		// Configure and play it
 		source->setBuffer(*soundBuffer);
 		source->setVolume(volume*100.f);
 		source->setPitch(pitch);
-		source->setPosition(position.x, position.y, 0);
+		source->setPosition(m_position);
 		source->setLoop(loop);
 		source->setMinDistance(m_minRadius);
 		source->setAttenuation(m_attenuation);
@@ -156,13 +172,18 @@ void AudioEmitter::playStream(std::string name, f32 volume, f32 pitch, bool loop
 	// If the sound can be played
 	if(source)
 	{
-		sf::Vector2f position = entity().transform.position();
+		if(entity().transform())
+		{
+			sf::Vector2f pos2d = entity().transform()->position();
+			m_position.x = pos2d.x;
+			m_position.y = pos2d.y;
+		}
 
 		// Configure and play it
 		source->setStreamFromFile(fileRef->filePath);
 		source->setVolume(volume*100.f);
 		source->setPitch(pitch);
-		source->setPosition(position.x, position.y, 0);
+		source->setPosition(m_position);
 		source->setLoop(loop);
 		source->setMinDistance(m_minRadius);
 		source->setAttenuation(m_attenuation);
@@ -216,8 +237,14 @@ AudioSource * AudioEmitter::getFreeSource()
 	AudioSource * s = entity().scene().audioSystem.requestSource(*this);
 	if(s != 0)
 	{
-		sf::Vector2f pos = entity().transform.position();
-		s->setPosition(pos.x, pos.y, 0);
+		if(entity().transform())
+		{
+			sf::Vector2f pos2d = entity().transform()->position();
+			m_position.x = pos2d.x;
+			m_position.y = pos2d.y;
+		}
+
+		s->setPosition(m_position);
 		m_sourceRefs.insert(s);
 	}
 
@@ -233,6 +260,7 @@ void AudioEmitter::serializeData(JsonBox::Value & o)
 	o["minRadius"] = m_minRadius;
 	o["maxRadius"] = m_maxRadius;
 	o["attenuation"] = m_attenuation;
+	zn::serialize(o["position"], m_position);
 }
 
 //------------------------------------------------------------------------------
@@ -244,6 +272,7 @@ void AudioEmitter::unserializeData(JsonBox::Value & o)
 	m_minRadius = o["minRadius"].getDouble();
 	m_maxRadius = o["maxRadius"].getDouble();
 	m_attenuation = o["attenuation"].getDouble();
+	zn::unserialize(o["position"], m_position);
 }
 
 //------------------------------------------------------------------------------

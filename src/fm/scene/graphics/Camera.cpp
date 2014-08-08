@@ -116,8 +116,11 @@ sf::Vector2f Camera::worldToScreen(const sf::Vector2f & worldPoint) const
 //------------------------------------------------------------------------------
 void Camera::onUpdate()
 {
-	m_view.setCenter(entity().transform.position());
-	m_view.setRotation(entity().transform.rotation());
+	if(entity().transform())
+	{
+		m_view.setCenter(entity().transform()->position());
+		m_view.setRotation(entity().transform()->rotation());
+	}
 }
 
 //------------------------------------------------------------------------------

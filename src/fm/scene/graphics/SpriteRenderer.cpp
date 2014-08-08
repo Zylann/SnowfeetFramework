@@ -89,7 +89,11 @@ void SpriteRenderer::updateVertices()
 //------------------------------------------------------------------------------
 void SpriteRenderer::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
-	states.transform.combine(entity().transform.matrix());
+	if(entity().transform())
+	{
+		states.transform.combine(entity().transform()->matrix());
+	}
+
 	states.texture = r_texture;
 	target.draw(m_vertices, states);
 }

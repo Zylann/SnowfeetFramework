@@ -21,6 +21,7 @@ namespace zn
 
 //------------------------------------------------------------------------------
 Scene::Scene() :
+	automaticTransforms(true),
 	m_nextID(0),
 	r_mainCamera(nullptr)
 {
@@ -38,9 +39,17 @@ Entity * Scene::createEntity(std::string name, sf::Vector2f pos)
 {
 	Entity * e = new Entity();
 
+	if(automaticTransforms)
+	{
+		e->addComponent<Transform>();
+	}
+
 	e->m_id = m_nextID++;
 
-	e->transform.setPosition(pos);
+	if(e->transform())
+	{
+		e->transform()->setPosition(pos);
+	}
 
 	if(name.empty())
 	{
@@ -115,8 +124,11 @@ bool isLateDestroyThenDelete(Entity * e)
 #endif
 
 		// Remove the entity from any hierarchy
-		e->transform.setParent(nullptr);
-		e->transform.unparentChildren();
+		if(e->transform())
+		{
+			e->transform()->setParent(nullptr);
+			e->transform()->unparentChildren();
+		}
 
 		// Then delete it
 		delete e;
@@ -131,7 +143,7 @@ bool isLateDestroyThenDelete(Entity * e)
 // Sets the DESTROY_LATE flag on the given entity and all of its children
 void propagateDestroyLate(Entity & e)
 {
-	for(auto child = e.transform.begin(); child != e.transform.end(); ++child)
+	for(auto child = e.transform()->begin(); child != e.transform()->end(); ++child)
 	{
 		Entity & childEntity = (*child)->entity();
 		childEntity.destroyLater();
@@ -247,6 +259,7 @@ void Scene::serialize(JsonBox::Value & o)
 
 	o["nextID"] = (s32)m_nextID;
 	o["entities"] = entityListData;
+	o["automaticTransforms"] = automaticTransforms;
 }
 
 //------------------------------------------------------------------------------
@@ -295,6 +308,7 @@ void Scene::unserialize(JsonBox::Value & o)
 	}
 
 	m_nextID = computedNextID;
+	automaticTransforms = o["automaticTransforms"].getBoolean();
 
 	// Post-unserialize
 

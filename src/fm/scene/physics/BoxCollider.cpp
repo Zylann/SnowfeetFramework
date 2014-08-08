@@ -32,15 +32,28 @@ void BoxCollider::setRect(const sf::FloatRect& r)
 //------------------------------------------------------------------------------
 bool BoxCollider::collides(const sf::Vector2f& p) const
 {
-	return m_rect.contains(p - entity().transform.position());
+	if(entity().transform())
+	{
+		return m_rect.contains(p - entity().transform()->position());
+	}
+	else
+	{
+		return m_rect.contains(p);
+	}
 }
 
 //------------------------------------------------------------------------------
 bool BoxCollider::collides(const sf::FloatRect & r0) const
 {
 	sf::FloatRect r(r0);
-	r.left -= entity().transform.position().x;
-	r.top -= entity().transform.position().y;
+
+	if(entity().transform())
+	{
+		sf::Vector2f pos = entity().transform()->position();
+		r.left -= pos.x;
+		r.top -= pos.y;
+	}
+
 	return intersects(m_rect, r);
 }
 
@@ -76,7 +89,12 @@ void BoxCollider::debug_draw(sf::RenderTarget & target) const
 {
 	static sf::RectangleShape rect;
 	rect.setSize(sf::Vector2f(m_rect.width, m_rect.height));
-	rect.setPosition(sf::Vector2f(m_rect.left, m_rect.top) + entity().transform.position());
+
+	if(entity().transform())
+	{
+		rect.setPosition(sf::Vector2f(m_rect.left, m_rect.top) + entity().transform()->position());
+	}
+
 	rect.setOutlineColor(sf::Color::Green);
 	rect.setOutlineThickness(math::min(m_rect.width,m_rect.height) * 0.02);
 	rect.setFillColor(sf::Color::Transparent);

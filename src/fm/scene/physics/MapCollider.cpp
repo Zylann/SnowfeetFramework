@@ -148,7 +148,7 @@ void MapCollider::build(
 //------------------------------------------------------------------------------
 bool MapCollider::collides(const sf::Vector2f & pos) const
 {
-	sf::Vector2f rpos = pos - entity().transform.position();
+	sf::Vector2f rpos = entity().transform() ? pos - entity().transform()->position() : pos;
 	u8 ct = cellAt(sf::Vector2i(rpos.x/m_cellSize, pos.y/m_cellSize));
 	if(ct == 0 || ct >= m_colliderTypes.size())
 		return false;
@@ -163,7 +163,7 @@ bool MapCollider::collides(const sf::FloatRect & r0) const
 {
 	// Calculate rectangle relative to the map
 	sf::FloatRect r;
-	sf::Vector2f myPos = entity().transform.position();
+	sf::Vector2f myPos = entity().transform() ? entity().transform()->position() : sf::Vector2f(0,0);
 	r.left = r0.left - myPos.x;
 	r.top = r0.top - myPos.y;
 	r.width = r0.width;
@@ -372,7 +372,8 @@ void MapCollider::debug_draw(sf::RenderTarget & target) const
 
 				rect.setSize(sf::Vector2f(r.width, r.height));
 				rect.setOrigin(-r.left, -r.top);
-				rect.setPosition(m_cellSize*sf::Vector2f(pos.x, pos.y) + entity().transform.position());
+				sf::Vector2f tpos = entity().transform() ? entity().transform()->position() : sf::Vector2f(0,0);
+				rect.setPosition(m_cellSize*sf::Vector2f(pos.x, pos.y) + tpos);
 				target.draw(rect);
 			}
 		}

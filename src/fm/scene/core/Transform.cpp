@@ -6,8 +6,10 @@
 namespace zn
 {
 
-Transform::Transform(Entity& e) :
-	r_entity(e),
+ZN_OBJECT_IMPL(zn::Transform)
+
+//------------------------------------------------------------------------------
+Transform::Transform() :
 	r_parent(nullptr),
 	m_position(0,0),
 	m_scale(1,1),
@@ -298,7 +300,7 @@ Transform * Transform::child(u32 index) const
 }
 
 //------------------------------------------------------------------------------
-void Transform::serialize(JsonBox::Value& o)
+void Transform::serializeData(JsonBox::Value& o)
 {
 	zn::serialize(o["position"], m_position);
 	zn::serialize(o["scale"], m_scale);
@@ -316,7 +318,7 @@ void Transform::serialize(JsonBox::Value& o)
 }
 
 //------------------------------------------------------------------------------
-void Transform::unserialize(JsonBox::Value& o)
+void Transform::unserializeData(JsonBox::Value& o)
 {
 	zn::unserialize(o["position"], m_position);
 	zn::unserialize(o["scale"], m_scale);
@@ -327,27 +329,27 @@ void Transform::unserialize(JsonBox::Value& o)
 }
 
 //------------------------------------------------------------------------------
-void Transform::postUnserialize(JsonBox::Value & o)
-{
-	JsonBox::Value & parentData = o["parent"];
-	if(!parentData.isNull())
-	{
-		u32 parentID = parentData.getInt();
-		Entity * parent = entity().scene().findEntityFromID(parentID);
-
-		if(parent == nullptr)
-		{
-			std::cout << "E: Transform::postUnserialize: "
-				"parentID [" << parentID << "] not found in scene "
-				"(entity: \"" << entity().name() << "\")" << std::endl;
-		}
-		else
-		{
-			r_parent = &(parent->transform);
-			r_parent->onAddChild(this);
-		}
-	}
-}
+//void Transform::postUnserialize(JsonBox::Value & o)
+//{
+//	JsonBox::Value & parentData = o["parent"];
+//	if(!parentData.isNull())
+//	{
+//		u32 parentID = parentData.getInt();
+//		Entity * parent = entity().scene().findEntityFromID(parentID);
+//
+//		if(parent == nullptr)
+//		{
+//			std::cout << "E: Transform::postUnserialize: "
+//				"parentID [" << parentID << "] not found in scene "
+//				"(entity: \"" << entity().name() << "\")" << std::endl;
+//		}
+//		else
+//		{
+//			r_parent = parent->transform();
+//			r_parent->onAddChild(this);
+//		}
+//	}
+//}
 
 //------------------------------------------------------------------------------
 void Transform::onAddChild(Transform* child)

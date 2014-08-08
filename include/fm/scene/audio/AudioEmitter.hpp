@@ -30,6 +30,8 @@ public:
 	// maxRadius defines the limit in wich the sound is played.
 	void setRadii(f32 minRadius, f32 maxRadius);
 
+	void setPosition(const sf::Vector2f & newPosition);
+
 	// Sets the attenuation factor when the sound is between the min and max
 	// radius. Default is 1.
 	void setAttenuation(f32 factor);
@@ -72,11 +74,13 @@ private:
 	void detachSource(AudioSource *s);
 	AudioSource * getFreeSource();
 
-	bool                              m_spatialize;
-	f32                               m_minRadius;
-	f32                               m_maxRadius;
-	f32                               m_attenuation;
-	std::unordered_set<AudioSource*>  m_sourceRefs;
+	bool m_spatialize;
+	f32 m_minRadius;
+	f32 m_maxRadius;
+	f32 m_attenuation;
+	sf::Vector3f m_position;
+
+	std::unordered_set<AudioSource*> m_sourceRefs;
 
 };
 

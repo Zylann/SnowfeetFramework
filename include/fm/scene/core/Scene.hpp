@@ -138,6 +138,14 @@ public:
 	/// \brief GUI system.
 	GUIManager guiManager;
 
+	//------------------------------
+	// Misc. settings
+	//------------------------------
+
+	/// \brief If set to true, a Transform component will be automatically added
+	/// to each entity created in this scene.
+	bool automaticTransforms;
+
 protected:
 
 	/// \brief draws the entire scene on the given target.
