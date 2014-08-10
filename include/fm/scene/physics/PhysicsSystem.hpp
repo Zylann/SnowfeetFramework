@@ -12,7 +12,7 @@ namespace zn
 /// \warning It's a _really_ simple, placeholder implemenation.
 /// A way more complex physics engine will be integrated in the future (might be Box2D),
 /// wrapped into this class.
-class PhysicsSystem
+class ZN_API PhysicsSystem
 {
 public:
 

@@ -9,7 +9,7 @@ namespace zn
 
 /// \brief Quick helper to display sprites on-the-fly in an efficient way.
 /// Drawing a huge bunch of sprites may be faster with this than using sf::Sprites.
-class SpriteBatch
+class ZN_API SpriteBatch
 {
 public:
 

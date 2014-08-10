@@ -13,7 +13,7 @@ This file is part of the SnowfeetFramework project.
 //
 
 // Enables debug code (additionnal checks and messages, may decrease performance)
-#define ZN_DEBUG
+//#define ZN_DEBUG
 
 // Hint to ease SFML integration
 // TODO use SFML_API instead?

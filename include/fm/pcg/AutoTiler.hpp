@@ -34,7 +34,7 @@ public:
 
 	// Defines the rules applied to a type of input cell depending on various neighborings,
 	// in order to choose the good output value going at the center, from a series of possible variants
-	struct RuleSet
+	struct ZN_API RuleSet
 	{
 		// Tiles used if none of the rules match
 		std::vector<Out_T> defaultOutput;

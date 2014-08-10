@@ -37,7 +37,7 @@ struct Layer
 
 /// \brief A set of 32 named layers.
 /// This number is fixed to allow camera masks to be encoded on unsigned integers.
-class LayerMap
+class ZN_API LayerMap
 {
 public:
 

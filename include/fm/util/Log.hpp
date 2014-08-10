@@ -171,7 +171,7 @@ private:
 
 /// \brief Global log variable, for convenience. Behaves like std::cout.
 /// \note It is not assumed to exist in Log objects, so you can create other instances without problems.
-extern Log log;
+extern ZN_API Log log;
 
 } // namespace zn
 

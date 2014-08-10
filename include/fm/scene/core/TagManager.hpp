@@ -13,7 +13,7 @@ namespace zn
 class Entity;
 
 /// \brief associates names and numbers as tags to quickly identify entities
-class TagManager
+class ZN_API TagManager
 {
 public:
 
