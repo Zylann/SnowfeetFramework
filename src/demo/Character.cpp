@@ -12,6 +12,8 @@ ZN_OBJECT_IMPL(demo::Character)
 
 void Character::onCreate()
 {
+	entity().setActor(this);
+
 	m_spriteDir = Direction::RIGHT;
 	m_spriteDirLastFrame = Direction::RIGHT;
 	r_sprite = entity().addComponent<SpriteRenderer>();

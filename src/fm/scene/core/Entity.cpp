@@ -16,6 +16,8 @@ namespace zn
 
 //------------------------------------------------------------------------------
 Entity::Entity() :
+	m_id(0),
+	r_actor(nullptr),
 	m_layerIndex(0), // default layer
 	r_scene(nullptr),
 	m_tags(0)
@@ -134,6 +136,22 @@ Collider * Entity::collider() const    { return getComponent<Collider>(); }
 Body * Entity::body() const            { return getComponent<Body>(); }
 AudioEmitter * Entity::audio() const   { return getComponent<AudioEmitter>(); }
 Transform * Entity::transform() const  { return getComponent<Transform>(); }
+
+//------------------------------------------------------------------------------
+void Entity::setActor(Component * actor)
+{
+#ifdef ZN_DEBUG
+	if(r_actor != nullptr)
+	{
+		// Usually, an actor component stays the same for the whole lifetime of the entity,
+		// as it masters the other componnets. This warning only notices
+		// a potential mistake.
+		log.warn() << "Entity::setActor(): Actor property was already set" << log.endl();
+		log.more() << "On entity[" << m_id << "] '" << m_name << "'" << log.endl();
+	}
+#endif
+	r_actor = actor;
+}
 
 //------------------------------------------------------------------------------
 Component * Entity::getComponent(const ObjectType & cmpType, bool includeInheritance) const

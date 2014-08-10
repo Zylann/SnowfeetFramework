@@ -163,6 +163,12 @@ public:
 	/// \brief Returns the entity's transform, if any
 	Transform * transform() const;
 
+	/// \brief Returns the "main" component of the entity, if any
+	inline Component * actor() const { return r_actor; }
+
+	/// \brief Sets the "main" component of the entity
+	void setActor(Component * actor);
+
 	/// \brief Returns the scene the entity belongs to.
 	Scene & scene() const;
 
@@ -291,6 +297,10 @@ private:
 
 	/// \brief Components attached to this entity
 	std::vector<Component*> m_components;
+
+	/// \brief "main" component of the entity.
+	/// It can be left null, depending on your needs.
+	Component * r_actor;
 
 	/// \brief Bitset containing boolean states of the entity
 	std::bitset<8> m_flags;
