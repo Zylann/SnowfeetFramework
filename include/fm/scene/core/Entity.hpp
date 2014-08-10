@@ -7,7 +7,7 @@ This file is part of the Plane-framework project.
 #ifndef HEADER_ZN_ENTITY_HPP_INCLUDED
 #define HEADER_ZN_ENTITY_HPP_INCLUDED
 
-#include <unordered_map>
+#include <vector>
 #include <bitset>
 #include <SFML/Graphics.hpp>
 
@@ -289,8 +289,8 @@ private:
 	/// \see Scene.cpp
 	u32 m_id;
 
-	/// \brief Components attached to this entity, stored by type.
-	std::unordered_map<ObjectTypeID, Component*>  m_components;
+	/// \brief Components attached to this entity
+	std::vector<Component*> m_components;
 
 	/// \brief Bitset containing boolean states of the entity
 	std::bitset<8> m_flags;

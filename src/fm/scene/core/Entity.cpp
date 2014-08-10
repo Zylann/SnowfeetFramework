@@ -33,7 +33,7 @@ Entity::~Entity()
 	// Clear components
 	for(auto it = m_components.begin(); it != m_components.end(); ++it)
 	{
-		Component * component = it->second;
+		Component * component = (*it);
 		component->onDestroy();
 		delete component;
 	}
@@ -138,22 +138,12 @@ Transform * Entity::transform() const  { return getComponent<Transform>(); }
 //------------------------------------------------------------------------------
 Component * Entity::getComponent(const ObjectType & cmpType, bool includeInheritance) const
 {
-	// Test final types first (quick)
-	auto it = m_components.find(cmpType.ID);
-	if(it != m_components.end())
+	for(auto it = m_components.begin(); it != m_components.end(); ++it)
 	{
-		return it->second;
-	}
-	else if(includeInheritance)
-	{
-		// Test inheritance tree (slow)
-		for(auto it = m_components.begin(); it != m_components.end(); ++it)
+		Component * cmp = (*it);
+		if(cmp->objectType().is(cmpType, includeInheritance))
 		{
-			Component * cmp = it->second;
-			if(cmp->objectType().is(cmpType))
-			{
-				return cmp;
-			}
+			return cmp;
 		}
 	}
 	return nullptr;
@@ -164,8 +154,7 @@ Component * Entity::addComponent(Component * newCmp)
 {
 	assert(newCmp != nullptr);
 
-	const ObjectType & ct = newCmp->objectType();
-	m_components[ct.ID] = newCmp;
+	m_components.push_back(newCmp);
 
 	newCmp->onAdd(this);
 
@@ -179,20 +168,20 @@ void Entity::removeComponent(Component * cmp)
 {
 	assert(cmp != nullptr);
 
-	auto it = m_components.find(cmp->objectType().ID);
-	if(it != m_components.end())
+	for(auto it = m_components.begin(); it != m_components.end(); ++it)
 	{
-		cmp->onDestroy();
-		//updateComponentShortcut(cmp, true);
-		m_components.erase(it);
-		delete cmp;
+		if((*it) == cmp)
+		{
+			cmp->onDestroy();
+			m_components.erase(it);
+			delete cmp;
+			return;
+		}
 	}
-#ifdef ZN_DEBUG
-	else
-	{
-		log.warn() << "Entity::removeComponent: not found " << cmp->objectType().toString() << log.endl();
-	}
-#endif
+
+	#ifdef ZN_DEBUG
+	log.warn() << "Entity::removeComponent: not found " << cmp->objectType().toString() << log.endl();
+	#endif
 }
 
 //------------------------------------------------------------------------------
@@ -200,7 +189,7 @@ void Entity::sendMessage(const std::string & msg)
 {
 	for(auto it = m_components.begin(); it != m_components.end(); ++it)
 	{
-		it->second->onMessage(msg);
+		(*it)->onMessage(msg);
 	}
 }
 
@@ -209,7 +198,7 @@ void Entity::onCollisionEnter(const CollisionInfo & info)
 {
 	for(auto it = m_components.begin(); it != m_components.end(); ++it)
 	{
-		it->second->onCollisionEnter(info);
+		(*it)->onCollisionEnter(info);
 	}
 }
 
@@ -218,7 +207,7 @@ void Entity::onCollisionExit(const CollisionInfo & info)
 {
 	for(auto it = m_components.begin(); it != m_components.end(); ++it)
 	{
-		it->second->onCollisionExit(info);
+		(*it)->onCollisionExit(info);
 	}
 }
 
@@ -241,7 +230,7 @@ void Entity::serialize(JsonBox::Value & o)
 	for(auto it = m_components.begin(); it != m_components.end(); ++it)
 	{
 		JsonBox::Value & componentData = componentListData[i];
-		Component::serialize(it->second, componentData);
+		Component::serialize(*it, componentData);
 		++i;
 	}
 	o["components"] = componentListData;
@@ -281,7 +270,7 @@ void Entity::postUnserialize(JsonBox::Value & o)
 {
 	for(auto it = m_components.begin(); it != m_components.end(); ++it)
 	{
-		it->second->postUnserialize();
+		(*it)->postUnserialize();
 	}
 }
 
@@ -307,11 +296,11 @@ bool Entity::checkComponentAddition(const ObjectType & ct, const std::string & c
 		return false;
 	}
 
+	/*
 	// Check duplicates
 	auto componentIt = m_components.find(ct.ID);
 	if(componentIt != m_components.end())
 	{
-		// Found duplicate
 		log.err() << context << ": "
 			"cannot add two components of the same type ! " << log.endl();
 		log.more() << ct.toString() << log.endl();
@@ -338,6 +327,7 @@ bool Entity::checkComponentAddition(const ObjectType & ct, const std::string & c
 			return false;
 		}
 	}
+	*/
 
 	return true;
 }

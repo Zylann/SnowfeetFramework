@@ -4,16 +4,24 @@
 namespace zn
 {
 
-bool ObjectType::is(const ObjectType & other) const
+bool ObjectType::is(const ObjectType & other, bool includeInheritance) const
 {
+	// If the object has a Null type
 	if(ID == 0)
+	{
+		// Always return false
 		return false;
+	}
+
 	if(ID == other.ID)
 	{
+		// Types exactly match
 		return true;
 	}
-	else
+	else if(includeInheritance)
 	{
+		// Search inheritance tree
+
 		ObjectTypeDatabase & odb = ObjectTypeDatabase::get();
 		const ObjectType * baseType = this;
 
@@ -27,6 +35,7 @@ bool ObjectType::is(const ObjectType & other) const
 		}
 	}
 
+	// Types differ
 	return false;
 }
 

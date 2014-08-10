@@ -70,7 +70,7 @@ struct ObjectType
 		return ss.str();
 	}
 
-	bool is(const ObjectType & other) const;
+	bool is(const ObjectType & other, bool includeInheritance=true) const;
 
 };
 
