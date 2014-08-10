@@ -7,15 +7,18 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="win32_debug">
-				<Option output="bin/Debug/proto" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/debug/win32_gcc/libsnowfeetfm" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="bin/Debug" />
-				<Option object_output="obj/Debug/" />
+				<Option object_output="obj/debug/win32_gcc" />
 				<Option type="3" />
 				<Option compiler="gcc" />
+				<Option createStaticLib="1" />
 				<Compiler>
 					<Add option="-std=c++11" />
 					<Add option="-g" />
 					<Add option="-DSFML_DYNAMIC" />
+					<Add option="-DZN_DEBUG" />
+					<Add option="-DZN_DLL" />
 					<Add directory="src" />
 					<Add directory="include" />
 					<Add directory="include/fm/json" />
@@ -32,18 +35,30 @@
 				</Linker>
 			</Target>
 			<Target title="win32_release">
-				<Option output="bin/Release/SSM_Cpp_v2" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="" />
-				<Option object_output="obj/Release/" />
-				<Option type="2" />
+				<Option output="bin/release/win32_gcc/snowfeetfm" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="bin/release/win32_gcc" />
+				<Option object_output="obj/release/win32_gcc" />
+				<Option type="3" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
 					<Add option="-std=c++11" />
 					<Add option="-DSFML_DYNAMIC" />
+					<Add option="-DZN_DLL" />
+					<Add directory="src" />
+					<Add directory="include" />
+					<Add directory="include/fm/json" />
+					<Add directory="extlibs/include" />
+					<Add directory="include/fm/squirrel" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
+					<Add library="sfml-audio" />
+					<Add library="sfml-graphics" />
+					<Add library="sfml-window" />
+					<Add library="sfml-system" />
+					<Add library="ws2_32" />
+					<Add directory="extlibs/bin/gcc-mingw32" />
 				</Linker>
 			</Target>
 		</Build>
