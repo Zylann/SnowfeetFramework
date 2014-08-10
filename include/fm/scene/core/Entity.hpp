@@ -127,7 +127,7 @@ public:
 	/// will be tested too in order to find by parent types. However, it makes the search slower.
 	/// \return the component, or nullptr if not found.
 	template <class Component_T>
-	Component_T * getComponent(bool includeInheritance=true)
+	Component_T * getComponent(bool includeInheritance=true) const
 	{
 		const ObjectType & ct = Component_T::sObjectType();
 		Component * cmp = getComponent(ct, includeInheritance);
@@ -143,25 +143,25 @@ public:
 	/// \param includeInheritance: if set to true, the inheritance tree of components
 	/// will be tested too in order to find by parent types. However, it makes the search slower.
 	/// \return the component, or nullptr if not found.
-	Component * getComponent(const ObjectType & cmpType, bool includeInheritance=true);
+	Component * getComponent(const ObjectType & cmpType, bool includeInheritance=true) const;
 
 	/// \brief Returns the entity's renderer, if any.
-	inline Renderer * renderer() const { return r_renderer; }
+	Renderer * renderer() const;
 
 	/// \brief Returns the entity's animator, if any.
-	inline Animator * animator() const { return r_animator; }
+	Animator * animator() const;
 
 	/// \brief Returns the entity's collider, if any.
-	inline Collider * collider() const { return r_collider; }
+	Collider * collider() const;
 
 	/// \brief Returns the entity's rigidbody, if any.
-	inline Body * body() const { return r_body; }
+	Body * body() const;
 
 	/// \brief Returns the entity's audio emitter, if any.
-	inline AudioEmitter * audio() const { return r_audioEmitter; }
+	AudioEmitter * audio() const;
 
 	/// \brief Returns the entity's transform, if any
-	inline Transform * transform() const { return r_transform; }
+	Transform * transform() const;
 
 	/// \brief Returns the scene the entity belongs to.
 	Scene & scene() const;
@@ -273,11 +273,6 @@ private:
 	/// \return the component passed in parameter.
 	Component * addComponent(Component * newCmp);
 
-	/// \brief Updates shortcut to the given component, when it is added or removed.
-	/// \param cmp: component added/removed
-	/// \param removed: is the component removed? (the shortcut will be set to null)
-	void updateComponentShortcut(Component * cmp, bool removed);
-
 	/// \brief Checks a component type before adding a component instance.
 	/// Prints debug messages if the check fails.
 	/// \param ct: meta-class of the component to add
@@ -296,24 +291,6 @@ private:
 
 	/// \brief Components attached to this entity, stored by type.
 	std::unordered_map<ObjectTypeID, Component*>  m_components;
-
-	/// \brief direct reference to the transform for quick lookup
-	Transform * r_transform;
-
-	/// \brief direct reference to the renderer for quick lookup
-	Renderer * r_renderer;
-
-	/// \brief direct reference to the collider for quick lookup
-	Collider * r_collider;
-
-	/// \brief direct reference to the rigidbody for quick lookup
-	Body * r_body;
-
-	/// \brief direct reference to the animator for quick lookup
-	Animator * r_animator;
-
-	/// \brief direct reference to the audio emitter for quick lookup
-	AudioEmitter * r_audioEmitter;
 
 	/// \brief Bitset containing boolean states of the entity
 	std::bitset<8> m_flags;

@@ -16,11 +16,6 @@ namespace zn
 
 //------------------------------------------------------------------------------
 Entity::Entity() :
-	r_transform(nullptr),
-	r_renderer(nullptr),
-	r_collider(nullptr),
-	r_body(nullptr),
-	r_animator(nullptr),
 	m_layerIndex(0), // default layer
 	r_scene(nullptr),
 	m_tags(0)
@@ -78,9 +73,10 @@ bool Entity::activeInHierarchy() const
 {
 	if(active())
 	{
-		if(r_transform && r_transform->parent() != nullptr)
+		Transform * t = transform();
+		if(t && t->parent() != nullptr)
 		{
-			return active() && r_transform->parent()->entity().activeInHierarchy();
+			return active() && t->parent()->entity().activeInHierarchy();
 		}
 		else
 		{
@@ -132,7 +128,15 @@ const Layer & Entity::layer() const
 }
 
 //------------------------------------------------------------------------------
-Component * Entity::getComponent(const ObjectType & cmpType, bool includeInheritance)
+Renderer * Entity::renderer() const    { return getComponent<Renderer>(); }
+Animator * Entity::animator() const    { return getComponent<Animator>(); }
+Collider * Entity::collider() const    { return getComponent<Collider>(); }
+Body * Entity::body() const            { return getComponent<Body>(); }
+AudioEmitter * Entity::audio() const   { return getComponent<AudioEmitter>(); }
+Transform * Entity::transform() const  { return getComponent<Transform>(); }
+
+//------------------------------------------------------------------------------
+Component * Entity::getComponent(const ObjectType & cmpType, bool includeInheritance) const
 {
 	// Test final types first (quick)
 	auto it = m_components.find(cmpType.ID);
@@ -163,47 +167,11 @@ Component * Entity::addComponent(Component * newCmp)
 	const ObjectType & ct = newCmp->objectType();
 	m_components[ct.ID] = newCmp;
 
-	// Assign quick lookup pointer
-	updateComponentShortcut(newCmp, false);
-
 	newCmp->onAdd(this);
 
 	newCmp->onCreate();
 
 	return newCmp;
-}
-
-//------------------------------------------------------------------------------
-void Entity::updateComponentShortcut(Component * cmp, bool removed)
-{
-	// TODO remove these lookups in the future, because users should have to reference them anyway
-	if(!cmp->isInstanceOf<zn::Behaviour>())
-	{
-		if(cmp->isInstanceOf<zn::Transform>())
-		{
-			r_transform = removed ? nullptr : checked_cast<zn::Transform*>(cmp);
-		}
-		else if(cmp->isInstanceOf<zn::Renderer>())
-		{
-			r_renderer = removed ? nullptr : checked_cast<zn::Renderer*>(cmp);
-		}
-		else if(cmp->isInstanceOf<zn::Collider>())
-		{
-			r_collider = removed ? nullptr : checked_cast<zn::Collider*>(cmp);
-		}
-		else if(cmp->isInstanceOf<zn::Body>())
-		{
-			r_body = removed ? nullptr : checked_cast<zn::Body*>(cmp);
-		}
-		else if(cmp->isInstanceOf<zn::Animator>())
-		{
-			r_animator = removed ? nullptr : checked_cast<zn::Animator*>(cmp);
-		}
-		else if(cmp->isInstanceOf<zn::AudioEmitter>())
-		{
-			r_audioEmitter = removed ? nullptr : checked_cast<zn::AudioEmitter*>(cmp);
-		}
-	}
 }
 
 //------------------------------------------------------------------------------
@@ -215,7 +183,7 @@ void Entity::removeComponent(Component * cmp)
 	if(it != m_components.end())
 	{
 		cmp->onDestroy();
-		updateComponentShortcut(cmp, true);
+		//updateComponentShortcut(cmp, true);
 		m_components.erase(it);
 		delete cmp;
 	}
