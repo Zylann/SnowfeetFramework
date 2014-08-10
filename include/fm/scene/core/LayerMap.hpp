@@ -127,7 +127,7 @@ public:
 private:
 
 	/// \brief All the 32 layers.
-	Layer m_layers[32];
+	Layer m_layers[COUNT];
 
 };
 
