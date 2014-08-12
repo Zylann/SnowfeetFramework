@@ -161,7 +161,7 @@ public:
 	AudioEmitter * audio() const;
 
 	/// \brief Returns the entity's transform, if any
-	Transform * transform() const;
+	AbstractTransform * transform() const;
 
 	/// \brief Returns the "main" component of the entity, if any
 	inline Component * actor() const { return r_actor; }
@@ -184,6 +184,20 @@ public:
 	/// \warning this function is not currently called by the engine, because
 	/// it has no integrated physics engine yet.
 	void onCollisionExit(const CollisionInfo & info);
+
+	//--------------------------------------
+	// Hierarchy
+	//--------------------------------------
+
+	inline Entity * parent() const { return r_parent; }
+
+	void setParent(Entity * newParent);
+
+	inline u32 childCount() const { return m_children.size(); }
+
+	Entity & child(u32 index);
+
+	void uparentChildren();
 
 	//--------------------------------------
 	// Layers
@@ -297,6 +311,9 @@ private:
 
 	/// \brief Components attached to this entity
 	std::vector<Component*> m_components;
+
+	Entity * r_parent;
+	std::vector<Entity*> m_children;
 
 	/// \brief "main" component of the entity.
 	/// It can be left null, depending on your needs.

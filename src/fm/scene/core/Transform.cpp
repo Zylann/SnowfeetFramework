@@ -10,7 +10,7 @@ ZN_OBJECT_IMPL(zn::Transform)
 
 //------------------------------------------------------------------------------
 Transform::Transform() :
-	r_parent(nullptr),
+//	r_parent(nullptr),
 	m_position(0,0),
 	m_scale(1,1),
 	m_rotation(0),
@@ -20,11 +20,22 @@ Transform::Transform() :
 }
 
 //------------------------------------------------------------------------------
+void Transform::onParentChanged()
+{
+	m_globalMatrixNeedUpdate = true;
+	notifyChildrenForParentChange();
+}
+
+//------------------------------------------------------------------------------
 void Transform::notifyChildrenForParentChange()
 {
-	for(auto it = m_children.begin(); it != m_children.end(); ++it)
+	for(u32 i = 0; i < entity().childCount(); ++i)
 	{
-		(*it)->m_globalMatrixNeedUpdate = true;
+		AbstractTransform * t = entity().child(i).transform();
+		if(t)
+		{
+			t->onParentChanged();
+		}
 	}
 }
 
@@ -37,14 +48,22 @@ sf::Vector2f Transform::localPosition() const
 //------------------------------------------------------------------------------
 sf::Vector2f Transform::position() const
 {
-	if(r_parent != nullptr)
+	if(entity().parent())
 	{
-		return r_parent->matrix().transformPoint(m_position);
+		AbstractTransform * t = entity().parent()->transform();
+		if(t)
+		{
+			if(t->matrix())
+			{
+				return t->matrix()->transformPoint(m_position);
+			}
+			else
+			{
+				return t->position() + m_position;
+			}
+		}
 	}
-	else
-	{
-		return m_position;
-	}
+	return m_position;
 }
 
 //------------------------------------------------------------------------------
@@ -56,18 +75,19 @@ sf::Vector2f Transform::localScale() const
 //------------------------------------------------------------------------------
 sf::Vector2f Transform::scale() const
 {
-	if(r_parent != nullptr)
+	if(entity().parent())
 	{
-		sf::Vector2f parentScale = r_parent->scale();
-		return sf::Vector2f(
-			parentScale.x * m_scale.x,
-			parentScale.y * m_scale.y
-		);
+		AbstractTransform * t = entity().parent()->transform();
+		if(t)
+		{
+			sf::Vector2f parentScale = t->scale();
+			return sf::Vector2f(
+				parentScale.x * m_scale.x,
+				parentScale.y * m_scale.y
+			);
+		}
 	}
-	else
-	{
-		return m_scale;
-	}
+	return m_scale;
 }
 
 //------------------------------------------------------------------------------
@@ -79,14 +99,15 @@ f32 Transform::localRotation() const
 //------------------------------------------------------------------------------
 f32 Transform::rotation() const
 {
-	if(r_parent != nullptr)
+	if(entity().parent())
 	{
-		return m_rotation + r_parent->rotation();
+		AbstractTransform * t = entity().parent()->transform();
+		if(t)
+		{
+			return m_rotation + t->rotation();
+		}
 	}
-	else
-	{
-		return m_rotation;
-	}
+	return m_rotation;
 }
 
 //------------------------------------------------------------------------------
@@ -103,9 +124,18 @@ void Transform::setLocalPosition(const sf::Vector2f & newPosition)
 void Transform::setPosition(sf::Vector2f newPosition)
 {
 	// TODO cache inverted matrices?
-	if(r_parent != nullptr)
+	AbstractTransform * t = parent();
+
+	if(t)
 	{
-		newPosition = r_parent->matrix().getInverse().transformPoint(newPosition);
+		if(t->matrix())
+		{
+			newPosition = t->matrix()->getInverse().transformPoint(newPosition);
+		}
+		else
+		{
+			newPosition -= t->position();
+		}
 	}
 
 	setLocalPosition(newPosition);
@@ -124,9 +154,11 @@ void Transform::setLocalScale(const sf::Vector2f& newScale)
 //------------------------------------------------------------------------------
 void Transform::setScale(sf::Vector2f newScale)
 {
-	if(r_parent != nullptr)
+	AbstractTransform * t = parent();
+
+	if(t)
 	{
-		sf::Vector2f parentScale = r_parent->scale();
+		sf::Vector2f parentScale = t->scale();
 		newScale.x *= parentScale.x;
 		newScale.y *= parentScale.y;
 	}
@@ -147,9 +179,11 @@ void Transform::setLocalRotation(f32 newRotation)
 //------------------------------------------------------------------------------
 void Transform::setRotation(f32 newRotation)
 {
-	if(r_parent != nullptr)
+	AbstractTransform * t = parent();
+
+	if(t)
 	{
-		f32 parentRotation = r_parent->rotation();
+		f32 parentRotation = t->rotation();
 		newRotation -= parentRotation;
 	}
 
@@ -206,14 +240,17 @@ const sf::Transform & Transform::localMatrix() const
 }
 
 //------------------------------------------------------------------------------
-const sf::Transform & Transform::matrix() const
+const sf::Transform * Transform::matrix() const
 {
 	if(m_globalMatrixNeedUpdate)
 	{
 		// Update global matrix
-		if(r_parent != nullptr)
+
+		AbstractTransform * t = parent();
+
+		if(t && t->matrix())
 		{
-			m_globalMatrix = r_parent->matrix();
+			m_globalMatrix = *(t->matrix());
 			m_globalMatrix.combine(localMatrix());
 		}
 		else
@@ -224,16 +261,21 @@ const sf::Transform & Transform::matrix() const
 		m_globalMatrixNeedUpdate = false;
 	}
 
-	return m_globalMatrix;
+	return &m_globalMatrix;
 }
 
 //------------------------------------------------------------------------------
-Transform * Transform::parent() const
+AbstractTransform * Transform::parent() const
 {
-	return r_parent;
+	if(entity().parent())
+	{
+		return entity().parent()->transform();
+	}
+	return nullptr;
 }
 
 //------------------------------------------------------------------------------
+/*
 void Transform::setParent(Transform * parent)
 {
 	// Don't do anything if the parent is the same
@@ -269,8 +311,10 @@ void Transform::setParent(Transform * parent)
 	m_globalMatrixNeedUpdate = true;
 	notifyChildrenForParentChange();
 }
+*/
 
 //------------------------------------------------------------------------------
+/*
 void Transform::unparentChildren()
 {
 	// Make a copy of the child references to avoid concurrent modification
@@ -281,8 +325,10 @@ void Transform::unparentChildren()
 		(*it)->setParent(nullptr);
 	}
 }
+*/
 
 //------------------------------------------------------------------------------
+/*
 Transform * Transform::child(u32 index) const
 {
 #ifdef ZN_DEBUG
@@ -298,6 +344,7 @@ Transform * Transform::child(u32 index) const
 #endif
 	return m_children[index];
 }
+*/
 
 //------------------------------------------------------------------------------
 void Transform::serializeData(JsonBox::Value& o)
@@ -306,15 +353,15 @@ void Transform::serializeData(JsonBox::Value& o)
 	zn::serialize(o["scale"], m_scale);
 	o["rotation"] = m_rotation;
 
-	JsonBox::Value & parentData = o["parent"];
-	if(r_parent != nullptr)
-	{
-		parentData = (s32)(r_parent->entity().id());
-	}
-	else
-	{
-		parentData.setNull();
-	}
+//	JsonBox::Value & parentData = o["parent"];
+//	if(r_parent != nullptr)
+//	{
+//		parentData = (s32)(r_parent->entity().id());
+//	}
+//	else
+//	{
+//		parentData.setNull();
+//	}
 }
 
 //------------------------------------------------------------------------------
@@ -352,23 +399,23 @@ void Transform::unserializeData(JsonBox::Value& o)
 //}
 
 //------------------------------------------------------------------------------
-void Transform::onAddChild(Transform* child)
-{
-	m_children.push_back(child);
-}
+//void Transform::onAddChild(Transform* child)
+//{
+//	m_children.push_back(child);
+//}
 
 //------------------------------------------------------------------------------
-void Transform::onRemoveChild(Transform * child)
-{
-	for(auto it = m_children.begin(); it != m_children.end(); ++it)
-	{
-		if(*it == child)
-		{
-			m_children.erase(it);
-			return;
-		}
-	}
-}
+//void Transform::onRemoveChild(Transform * child)
+//{
+//	for(auto it = m_children.begin(); it != m_children.end(); ++it)
+//	{
+//		if(*it == child)
+//		{
+//			m_children.erase(it);
+//			return;
+//		}
+//	}
+//}
 
 } // namespace zn
 

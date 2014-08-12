@@ -65,9 +65,10 @@ sf::FloatRect Renderer::bounds() const
 {
 	sf::FloatRect box = localBounds();
 
-	if(entity().transform())
+	AbstractTransform * t = entity().transform();
+	if(t && t->matrix())
 	{
-		box = entity().transform()->matrix().transformRect(box);
+		box = t->matrix()->transformRect(box);
 	}
 
 	return box;

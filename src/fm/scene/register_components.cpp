@@ -21,6 +21,7 @@ void registerEngineComponentTypes()
 	// Base
 
 	odb.registerType<zn::Component>();
+	odb.registerType<zn::AbstractTransform>();
 	odb.registerType<zn::Transform>();
 
 	// Animation

@@ -108,6 +108,7 @@
 		<Unit filename="include/fm/scene/behaviour.hpp" />
 		<Unit filename="include/fm/scene/behaviour/Behaviour.hpp" />
 		<Unit filename="include/fm/scene/core.hpp" />
+		<Unit filename="include/fm/scene/core/AbstractTransform.hpp" />
 		<Unit filename="include/fm/scene/core/Component.hpp" />
 		<Unit filename="include/fm/scene/core/ComponentList.hpp" />
 		<Unit filename="include/fm/scene/core/Entity.hpp" />
@@ -221,6 +222,7 @@
 		<Unit filename="src/fm/scene/audio/AudioEmitter.cpp" />
 		<Unit filename="src/fm/scene/audio/AudioSystem.cpp" />
 		<Unit filename="src/fm/scene/behaviour/Behaviour.cpp" />
+		<Unit filename="src/fm/scene/core/AbstractTransform.cpp" />
 		<Unit filename="src/fm/scene/core/Component.cpp" />
 		<Unit filename="src/fm/scene/core/Entity.cpp" />
 		<Unit filename="src/fm/scene/core/Scene.cpp" />

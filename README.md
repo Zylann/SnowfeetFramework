@@ -4,13 +4,10 @@ Snowfeet Framework
 This is an experimental, cross-platform game engine specialized for 2D desktop
 game making. Currently, it is built on top of SFML, a nice multimedia library.
 It basically consists in all the files I frequently re-use in my C++ game projects.
-
-The project was originally a game prototype, but I decided to put its
-engine-related files open-source and leave a sample as demo.
 I update the framework when I need something special or just as a hobby.
 
-The name "Snowfeet" came from the game I initially planned to realize.
-In an post-apocalyptic future, It's the name of an uber-rare pet supposed to 
+The name "Snowfeet" comes from a personal space delirium story.
+In a post-apocalyptic future, It's the name of an uber-rare pet supposed to 
 be the closest descendant of cats.
 
 The main namespace used is "zn" for historic reason (ZCraft/Zylann engine) and is not subject to change yet.

@@ -22,8 +22,10 @@ void Game::registerNativeUserComponents(zn::ObjectTypeDatabase & odb)
 
 bool Game::onInit()
 {
-	zn::log.info() << "Size of Entity: " << sizeof(zn::Entity) << zn::log.endl();
-	zn::log.info() << "Size of Transform: " << sizeof(zn::Transform) << zn::log.endl();
+	zn::log.info() << "Just to compare class sizes:" << zn::log.endl();
+	zn::log.more() << "Size of Entity: " << sizeof(zn::Entity) << zn::log.endl();
+	zn::log.more() << "Size of Transform: " << sizeof(zn::Transform) << zn::log.endl();
+	zn::log.more() << "Size of sf::Sprite: " << sizeof(sf::Sprite) << zn::log.endl();
 
 	// Scene config
 
@@ -143,13 +145,15 @@ bool Game::onInit()
 	sprite = rotateObj2->addComponent<SpriteRenderer>();
 	sprite->setScale(1.f / DEMO_TS);
 	sprite->setTexture(ballTexture);
-	rotateObj2->transform()->setParent(rotateObj1->transform());
+	rotateObj2->setParent(rotateObj1);
+//	rotateObj2->transform()->setParent(rotateObj1->transform());
 
 	Entity * rotateObj3 = m_scene.createEntity("ball3", sf::Vector2f(ts, 0));
 	sprite = rotateObj3->addComponent<SpriteRenderer>();
 	sprite->setScale(1.f / DEMO_TS);
 	sprite->setTexture(ballTexture);
-	rotateObj3->transform()->setParent(rotateObj2->transform());
+	rotateObj3->setParent(rotateObj2);
+//	rotateObj3->transform()->setParent(rotateObj2->transform());
 
 	// Shader test
 

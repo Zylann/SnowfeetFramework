@@ -123,12 +123,10 @@ bool isLateDestroyThenDelete(Entity * e)
 		log.debug() << "just before destroy entity \"" << e->name() << '"' << log.endl();
 #endif
 
-		// Remove the entity from any hierarchy
-		if(e->transform())
-		{
-			e->transform()->setParent(nullptr);
-			e->transform()->unparentChildren();
-		}
+		// Detach from its parent
+		e->setParent(nullptr);
+		// Detach its children
+		e->uparentChildren();
 
 		// Then delete it
 		delete e;
@@ -143,9 +141,9 @@ bool isLateDestroyThenDelete(Entity * e)
 // Sets the DESTROY_LATE flag on the given entity and all of its children
 void propagateDestroyLate(Entity & e)
 {
-	for(auto child = e.transform()->begin(); child != e.transform()->end(); ++child)
+	for(u32 i = 0; i < e.childCount(); ++i)
 	{
-		Entity & childEntity = (*child)->entity();
+		Entity & childEntity = e.child(i);
 		childEntity.destroyLater();
 		propagateDestroyLate(childEntity);
 	}

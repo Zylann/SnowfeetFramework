@@ -171,9 +171,10 @@ void ParticleSystem::draw(sf::RenderTarget& target, sf::RenderStates states) con
 	// apply texture
 	states.texture = r_texture;
 
-	if(entity().transform())
+	AbstractTransform * t = entity().transform();
+	if(t && t->matrix())
 	{
-		states.transform = entity().transform()->matrix();
+		states.transform = *(t->matrix());
 	}
 
 	// draw the vertex array

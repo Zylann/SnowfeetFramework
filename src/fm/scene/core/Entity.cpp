@@ -17,6 +17,7 @@ namespace zn
 //------------------------------------------------------------------------------
 Entity::Entity() :
 	m_id(0),
+	r_parent(nullptr),
 	r_actor(nullptr),
 	m_layerIndex(0), // default layer
 	r_scene(nullptr),
@@ -71,14 +72,91 @@ bool Entity::active() const
 }
 
 //------------------------------------------------------------------------------
+void Entity::setParent(Entity * newParent)
+{
+	// Don't do anything if the parent is the same
+	if(newParent == r_parent)
+	{
+		return;
+	}
+
+	// If the entity has already a parent
+	if(r_parent != nullptr)
+	{
+#ifdef ZN_DEBUG
+		std::cout << "D: Unparenting [" << m_id << "]\"" << name()
+			<< "\" from [" << r_parent->id() << "]\"" << r_parent->name() << '"' << std::endl;
+#endif
+		// Remove the entity from its last parent
+		for(auto it = r_parent->m_children.begin(); it != r_parent->m_children.end(); ++it)
+		{
+			if(*it == this)
+			{
+				r_parent->m_children.erase(it);
+				break;
+			}
+		}
+	}
+
+	// Set new parent
+
+	r_parent = newParent;
+
+	// If the new parent is not null
+	if(r_parent != nullptr)
+	{
+#ifdef ZN_DEBUG
+		std::cout << "D: Parenting [" << m_id << "]\"" << name()
+			<< "\" to [" << r_parent->id() << "]\"" << r_parent->name() << '"' << std::endl;
+#endif
+		// Add the child to its parent
+		r_parent->m_children.push_back(this);
+	}
+
+	if(transform())
+	{
+		// Notify transform for parent change
+		transform()->onParentChanged();
+	}
+}
+
+//------------------------------------------------------------------------------
+void Entity::uparentChildren()
+{
+	// Make a copy of the child references to avoid concurrent modification
+	// involved by setParent(). After this, m_children should be empty.
+	auto childrenCopy = m_children;
+	for(auto it = childrenCopy.begin(); it != childrenCopy.end(); ++it)
+	{
+		(*it)->setParent(nullptr);
+	}
+}
+
+//------------------------------------------------------------------------------
+Entity & Entity::child(u32 index)
+{
+#ifdef ZN_DEBUG
+	if(index >= m_children.size())
+	{
+		std::cout << "E: Entity::child(): child index is out of bounds "
+			"(index=" << index << ", "
+			"size=" << m_children.size() << ", "
+			"entity=[" << m_id << "]\"" << name() << "\""
+			")" << std::endl;
+	}
+#endif
+	assert(index < m_children.size());
+	return *(m_children[index]);
+}
+
+//------------------------------------------------------------------------------
 bool Entity::activeInHierarchy() const
 {
 	if(active())
 	{
-		Transform * t = transform();
-		if(t && t->parent() != nullptr)
+		if(r_parent)
 		{
-			return active() && t->parent()->entity().activeInHierarchy();
+			return r_parent->activeInHierarchy();
 		}
 		else
 		{
@@ -135,7 +213,7 @@ Animator * Entity::animator() const    { return getComponent<Animator>(); }
 Collider * Entity::collider() const    { return getComponent<Collider>(); }
 Body * Entity::body() const            { return getComponent<Body>(); }
 AudioEmitter * Entity::audio() const   { return getComponent<AudioEmitter>(); }
-Transform * Entity::transform() const  { return getComponent<Transform>(); }
+AbstractTransform * Entity::transform() const  { return getComponent<AbstractTransform>(); }
 
 //------------------------------------------------------------------------------
 void Entity::setActor(Component * actor)

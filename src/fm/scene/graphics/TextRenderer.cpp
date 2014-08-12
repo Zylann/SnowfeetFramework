@@ -28,9 +28,10 @@ void TextRenderer::setFont(const std::string & fontName)
 //------------------------------------------------------------------------------
 void TextRenderer::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
-	if(entity().transform())
+	AbstractTransform * t = entity().transform();
+	if(t && t->matrix())
 	{
-		states.transform.combine(entity().transform()->matrix());
+		states.transform.combine(*(t->matrix()));
 	}
 	target.draw(m_text, states);
 }
