@@ -189,14 +189,24 @@ public:
 	// Hierarchy
 	//--------------------------------------
 
+	/// \brief Gets the parent entity, if any.
+	/// \return Parent entity, or nullptr
 	inline Entity * parent() const { return r_parent; }
 
+	/// \brief Parents the entity to another one.
+	/// \param newParent: parent to add the entity to.
 	void setParent(Entity * newParent);
 
+	/// \brief Gets the number of immediate children the entity has.
 	inline u32 childCount() const { return m_children.size(); }
 
+	/// \brief Gets the child entity at the given index.
+	/// \param index: index between 0 and childCount(). Must be valid.
+	/// \return Child entity
 	Entity & child(u32 index);
 
+	/// \brief Removes immediate children of the entity from its descendant hierarchy
+	/// (This is the same as doing setParent(null) on every child).
 	void uparentChildren();
 
 	//--------------------------------------
@@ -312,7 +322,10 @@ private:
 	/// \brief Components attached to this entity
 	std::vector<Component*> m_components;
 
+	/// \brief Reference to the parent entity
 	Entity * r_parent;
+
+	/// \brief References to children entities
 	std::vector<Entity*> m_children;
 
 	/// \brief "main" component of the entity.
