@@ -77,6 +77,8 @@ public:
 	/// \brief base metaclass.
 	static zn::ObjectType & sObjectType();
 
+	virtual ~Object() {}
+
 	/// \brief get the metaclass of the object.
 	virtual const zn::ObjectType & objectType() const
 	{
@@ -91,6 +93,7 @@ public:
 		ObjectType & expectedType = Object_T::sObjectType();
 		return objectType().is(expectedType);
 	}
+
 };
 
 } // namespace zn
