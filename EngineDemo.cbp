@@ -6,7 +6,7 @@
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
-			<Target title="Debug">
+			<Target title="win32_debug">
 				<Option output="bin/debug/win32_gcc/EngineDemo" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/debug/win32_gcc" />
 				<Option type="1" />
@@ -16,7 +16,7 @@
 					<Add option="-g" />
 					<Add option="-DSFML_DYNAMIC" />
 					<Add option="-DZN_DEBUG" />
-					<Add option="-DZN_DLL" />
+					<Add option="-DZN_OS_WINDOWS" />
 					<Add directory="include" />
 					<Add directory="include/fm/json" />
 					<Add directory="src" />
@@ -34,7 +34,7 @@
 					<Add directory="bin/Debug/win32_gcc" />
 				</Linker>
 			</Target>
-			<Target title="Release">
+			<Target title="win32_release">
 				<Option output="bin/release/win32_gcc/EngineDemo" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/release/win32_gcc" />
 				<Option type="1" />
@@ -42,10 +42,36 @@
 				<Compiler>
 					<Add option="-O2" />
 					<Add option="-DSFML_DYNAMIC" />
-					<Add option="-DZN_DLL" />
+					<Add option="-DZN_OS_WINDOWS" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
+				</Linker>
+			</Target>
+			<Target title="linux64_gcc">
+				<Option output="bin/debug/linux64_gcc/EngineDemo" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/debug/linux64_gcc" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-std=c++11" />
+					<Add option="-g" />
+					<Add option="-DSFML_DYNAMIC" />
+					<Add option="-DZN_DEBUG" />
+					<Add directory="include" />
+					<Add directory="include/fm/json" />
+					<Add directory="src" />
+					<Add directory="extlibs/include" />
+					<Add directory="include/fm/squirrel" />
+				</Compiler>
+				<Linker>
+					<Add library="snowfeetfm" />
+					<Add library="sfml-audio" />
+					<Add library="sfml-graphics" />
+					<Add library="sfml-window" />
+					<Add library="sfml-system" />
+					<Add directory="extlibs/bin/gcc-linux64" />
+					<Add directory="bin/debug/linux64_gcc" />
 				</Linker>
 			</Target>
 		</Build>
