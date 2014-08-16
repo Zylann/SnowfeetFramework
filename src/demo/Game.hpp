@@ -2,7 +2,7 @@
 #define HEADER_DEMO_GAME_HPP_INCLUDED
 
 #include <fm/scene/core.hpp>
-#include <fm/app/Application.hpp>
+#include <fm/app/WindowApplication.hpp>
 #include <fm/scene/graphics.hpp>
 
 #include "common.hpp"
@@ -10,17 +10,17 @@
 namespace demo
 {
 
-class Game : public zn::Application
+class Game : public zn::WindowApplication
 {
 public:
 
-	Game() : Application(),
+	Game() : WindowApplication(),
 		r_tilemap(nullptr)
 	{}
 
 protected:
 
-	void registerNativeUserComponents(zn::ObjectTypeDatabase & odb) override;
+	void registerNativeUserClasses(zn::ObjectTypeDatabase & odb) override;
 
 	bool onInit() override;
 	void onEvent(sf::Event & e) override;

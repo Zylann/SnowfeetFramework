@@ -10,7 +10,7 @@
 namespace demo
 {
 
-void Game::registerNativeUserComponents(zn::ObjectTypeDatabase & odb)
+void Game::registerNativeUserClasses(zn::ObjectTypeDatabase & odb)
 {
 	odb.registerType<Character>();
 	odb.registerType<Avatar>();

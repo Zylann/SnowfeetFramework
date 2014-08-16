@@ -8,6 +8,7 @@ This file is part of the SnowfeetFramework project.
 #define HEADER_ZN_MACROS_HPP_INCLUDED
 
 #include <sstream>
+#include <cassert>
 #include <fm/config.hpp>
 
 // Place this at the beginning of a code section that must be called once.
