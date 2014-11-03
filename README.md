@@ -1,7 +1,11 @@
 Snowfeet Framework
 --------------------
 
-This is an experimental, cross-platform game engine specialized for 2D desktop
+IMPORTANT NOTE:
+I discontinued this distribution of my code, now it moved to the SnowfeetEngine:
+https://github.com/Zylann/SnowfeetEngine
+
+This is an experimental, cross-platform game framework specialized for 2D desktop
 game making. Currently, it is built on top of SFML, a nice multimedia library.
 It basically consists in all the files I frequently re-use in my C++ game projects.
 I update the framework when I need something special or just as a hobby.
